@@ -1,0 +1,425 @@
+/* Executive Portal Global Styles */
+
+:root {
+  /* Executive Color Palette */
+  --executive-primary: #1e3a8a;
+  --executive-secondary: #3b82f6;
+  --executive-accent: #60a5fa;
+  --executive-light: #dbeafe;
+  --executive-dark: #1e40af;
+  
+  /* Gradient Colors for Timeline */
+  --timeline-start: #1e3a8a;
+  --timeline-end: #93c5fd;
+  
+  /* Executive Typography */
+  --font-executive: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+/* Global Resets and Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-executive);
+  background-color: #f8fafc;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+/* Executive Card Styles */
+.executive-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.executive-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Executive KPI Cards */
+.kpi-card {
+  background: linear-gradient(135deg, var(--executive-primary) 0%, var(--executive-secondary) 100%);
+  color: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.kpi-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+}
+
+.kpi-label {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Timeline Gradient Styles */
+.timeline-container {
+  position: relative;
+  padding: var(--spacing-xl) 0;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to bottom, var(--timeline-start) 0%, var(--timeline-end) 100%);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--spacing-2xl);
+  padding: 0 var(--spacing-xl);
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-right: 50%;
+  padding-right: var(--spacing-xl);
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  margin-left: 50%;
+  padding-left: var(--spacing-xl);
+  text-align: left;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 50%;
+  top: var(--spacing-lg);
+  width: 16px;
+  height: 16px;
+  background: var(--executive-primary);
+  border: 4px solid white;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+
+.timeline-content {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Kanban Board Styles */
+.kanban-board {
+  display: flex;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  overflow-x: auto;
+  min-height: 600px;
+}
+
+.kanban-column {
+  flex: 0 0 300px;
+  background: #f8fafc;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  border: 1px solid #e5e7eb;
+}
+
+.kanban-column-header {
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  background: var(--executive-primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-align: center;
+}
+
+.kanban-task {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.kanban-task:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.kanban-task.dragging {
+  opacity: 0.5;
+  transform: rotate(5deg);
+}
+
+/* Executive Header Styles */
+.executive-header {
+  background: linear-gradient(135deg, var(--executive-primary) 0%, var(--executive-secondary) 100%);
+  color: white;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.executive-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+}
+
+.executive-subtitle {
+  opacity: 0.9;
+  font-size: 0.875rem;
+}
+
+/* Chart Styles */
+.chart-container {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid #e5e7eb;
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-lg);
+  color: var(--executive-primary);
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .timeline-item:nth-child(odd) .timeline-content,
+  .timeline-item:nth-child(even) .timeline-content {
+    margin: 0;
+    padding: var(--spacing-md);
+    text-align: left;
+  }
+  
+  .timeline-line {
+    left: var(--spacing-lg);
+  }
+  
+  .timeline-marker {
+    left: var(--spacing-lg);
+  }
+  
+  .kanban-board {
+    flex-direction: column;
+  }
+  
+  .kanban-column {
+    flex: 1 1 auto;
+  }
+  
+  .kpi-value {
+    font-size: 2rem;
+  }
+}
+
+/* Executive Theme Overrides */
+.ant-layout-sider {
+  background: linear-gradient(180deg, var(--executive-primary) 0%, var(--executive-dark) 100%) !important;
+}
+
+.ant-menu-dark {
+  background: transparent !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ant-layout-header {
+  background: white !important;
+  box-shadow: var(--shadow-sm) !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+/* Loading and Transition States */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.loading-spinner::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid var(--executive-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Executive Status Badges */
+.status-badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-badge.success {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-badge.info {
+  background: var(--executive-light);
+  color: var(--executive-primary);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--executive-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--executive-primary);
+}
+
+/* Executive Focus States */
+.executive-focus:focus {
+  outline: 2px solid var(--executive-secondary);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .kanban-board,
+  .timeline-container {
+    break-inside: avoid;
+  }
+  
+  .executive-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
