@@ -290,9 +290,9 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
     if (type.includes('pdf')) return <FilePdfOutlined style={{ color: '#ff4d4f' }} />;
     if (type.includes('image')) return <FileImageOutlined style={{ color: '#52c41a' }} />;
     if (type.includes('spreadsheet') || type.includes('excel'))
-      return <FileExcelOutlined style={{ color: '#1890ff' }} />;
+      return <FileExcelOutlined style={{ color: '#0095CE' }} />;
     if (type.includes('document') || type.includes('word'))
-      return <FileWordOutlined style={{ color: '#1890ff' }} />;
+      return <FileWordOutlined style={{ color: '#0095CE' }} />;
     return <FileOutlined />;
   };
 
@@ -309,7 +309,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
   // الحصول على لون الحالة / Get status color
   const getStatusColor = (status: AdminComment['status']) => {
     const colorMap = {
-      active: '#1890ff',
+      active: '#0C085C',
       resolved: '#52c41a',
       archived: '#d9d9d9',
     };
@@ -341,7 +341,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
       <Modal
         title={
           <Space>
-            <MessageOutlined style={{ color: '#1890ff' }} />
+            <MessageOutlined style={{ color: '#0095CE' }} />
             <span>{t('Admin Comments')}</span>
             <Badge count={stats.total} style={{ backgroundColor: '#52c41a' }} />
           </Space>
@@ -357,7 +357,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
           <Row gutter={16}>
             <Col span={6}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#1890ff' }}>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#0095CE' }}>
                   {stats.total}
                 </div>
                 <Text type="secondary">
@@ -367,7 +367,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
             </Col>
             <Col span={6}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#1890ff' }}>
+                <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#0095CE' }}>
                   {stats.active}
                 </div>
                 <Text type="secondary">
@@ -406,7 +406,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
               icon={<PlusOutlined />}
               onClick={() => setShowAddModal(true)}
               style={{
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                background: 'linear-gradient(135deg, #0C085C, #0095CE)',
                 border: 'none',
                 borderRadius: '8px',
                 height: '40px',
@@ -486,7 +486,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
                 >
                   <List.Item.Meta
                     avatar={
-                      <Avatar size="large" style={{ backgroundColor: '#1890ff' }}>
+                      <Avatar size="large" style={{ backgroundColor: '#0095CE' }}>
                         {item.authorAvatar || <UserOutlined />}
                       </Avatar>
                     }
@@ -496,7 +496,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
                           <Text strong style={{ fontSize: '16px' }}>
                             {item.authorName}
                           </Text>
-                          <Tag color="#1890ff">{item.authorRole}</Tag>
+                          <Tag color="#0095CE">{item.authorRole}</Tag>
                           <Tag color={getPriorityColor(item.priority)}>
                             {item.priority === 'high' ? '🔥' : item.priority === 'medium' ? '⚡' : '📝'}
                             {' '}
@@ -569,7 +569,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
                                   <Text type="secondary" style={{ fontSize: '10px' }}>
                                     ({(attachment.size / 1024 / 1024).toFixed(1)} MB)
                                   </Text>
-                                  <DownloadOutlined style={{ color: '#1890ff' }} />
+                                  <DownloadOutlined style={{ color: '#0095CE' }} />
                                 </div>
                               ))}
                             </div>
@@ -704,7 +704,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
           >
             <Dragger {...uploadProps} style={{ background: '#fafafa' }}>
               <p className="ant-upload-drag-icon">
-                <InboxOutlined style={{ color: '#1890ff' }} />
+                <InboxOutlined style={{ color: '#0095CE' }} />
               </p>
               <p className="ant-upload-text">
                 {i18n.language === 'ar'
@@ -744,7 +744,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
                 htmlType="submit"
                 loading={loading}
                 style={{
-                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                  background: 'linear-gradient(135deg, #0C085C, #0095CE)',
                   border: 'none',
                 }}
               >

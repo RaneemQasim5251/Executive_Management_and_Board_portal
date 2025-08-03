@@ -209,7 +209,7 @@ export const ReportsPage: FC = () => {
 
   const projectStatusData = [
     { name: 'مكتمل', value: 8, color: '#52c41a' },
-    { name: 'في التنفيذ', value: 12, color: '#1890ff' },
+    { name: 'في التنفيذ', value: 12, color: '#0C085C' },
     { name: 'معلق', value: 3, color: '#faad14' },
     { name: 'ملغى', value: 2, color: '#ff4d4f' },
   ];
@@ -313,7 +313,7 @@ export const ReportsPage: FC = () => {
       key: 'type',
       render: (type: string) => {
         const typeColors = {
-          meeting: '#1890ff',
+          meeting: '#0095CE',
           financial: '#52c41a',
           project: '#faad14',
           performance: '#722ed1',
@@ -391,7 +391,7 @@ export const ReportsPage: FC = () => {
       render: (status: string) => {
         const statusColors = {
           'مكتمل': '#52c41a',
-          'في التنفيذ': '#1890ff',
+          'في التنفيذ': '#0C085C',
           'معلق': '#faad14',
           'في البداية': '#722ed1',
         };
@@ -461,7 +461,7 @@ export const ReportsPage: FC = () => {
           style={{
             marginBottom: '24px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)',
             color: 'white',
             border: 'none',
           }}
@@ -473,7 +473,7 @@ export const ReportsPage: FC = () => {
                 level={1} 
                 style={{ 
                   margin: 0, 
-                  background: "linear-gradient(135deg, #667eea, #764ba2)",
+                  background: "linear-gradient(135deg, #0C085C, #0095CE)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   fontSize: "42px",
@@ -521,8 +521,8 @@ export const ReportsPage: FC = () => {
               <Statistic
                 title={i18n.language === 'ar' ? 'إجمالي التقارير' : 'Total Reports'}
                 value={stats.totalReports}
-                prefix={<FileTextOutlined style={{ color: '#1890ff' }} />}
-                valueStyle={{ color: '#1890ff' }}
+                prefix={<FileTextOutlined style={{ color: '#0095CE' }} />}
+                valueStyle={{ color: '#0095CE' }}
               />
             </Card>
           </Col>
@@ -626,7 +626,7 @@ export const ReportsPage: FC = () => {
                         <YAxis />
                         <RechartsTooltip />
                         <Legend />
-                        <Bar dataKey="revenue" fill="#1890ff" name={i18n.language === 'ar' ? 'الإيرادات' : 'Revenue'} />
+                        <Bar dataKey="revenue" fill="#0C085C" name={i18n.language === 'ar' ? 'الإيرادات' : 'Revenue'} />
                         <Bar dataKey="profit" fill="#52c41a" name={i18n.language === 'ar' ? 'الأرباح' : 'Profit'} />
                       </BarChart>
                     </ResponsiveContainer>
@@ -766,7 +766,7 @@ export const ReportsPage: FC = () => {
           >
             <Dragger {...uploadProps}>
               <p className="ant-upload-drag-icon">
-                <InboxOutlined style={{ color: '#1890ff' }} />
+                <InboxOutlined style={{ color: '#0095CE' }} />
               </p>
               <p className="ant-upload-text">
                 {i18n.language === 'ar'
@@ -791,7 +791,7 @@ export const ReportsPage: FC = () => {
                 htmlType="submit"
                 loading={loading}
                 style={{
-                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                  background: 'linear-gradient(135deg, #0C085C, #0095CE)',
                   border: 'none',
                 }}
               >
@@ -836,7 +836,7 @@ export const ReportsPage: FC = () => {
                 <Col span={8}>
                   <Text strong>{i18n.language === 'ar' ? 'النوع:' : 'Type:'}</Text>
                   <br />
-                  <Tag color="#1890ff">{selectedReport.type}</Tag>
+                  <Tag color="#0095CE">{selectedReport.type}</Tag>
                 </Col>
                 <Col span={8}>
                   <Text strong>{i18n.language === 'ar' ? 'الحجم:' : 'Size:'}</Text>

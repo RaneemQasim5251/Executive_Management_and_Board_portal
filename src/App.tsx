@@ -154,32 +154,24 @@ function App() {
                   label: t("Reports & Analytics"),
                   icon: <BarChartOutlined />,
                 },
-                children: [
-                  {
-                    name: "executive-reports",
-                    list: "/executive-reports", 
-                    meta: {
-                      label: t("Executive Reports"),
-                      icon: <FileTextOutlined />,
-                    },
-                  },
-                  {
-                    name: "archive-2024",
-                    list: "/archive/2024",
-                    meta: {
-                      label: t("2024 Archive"),
-                      icon: <FolderOutlined />,
-                    },
-                  },
-                  {
-                    name: "archive-2025",
-                    list: "/archive/2025",
-                    meta: {
-                      label: t("2025 Current"),
-                      icon: <CalendarOutlined />,
-                    },
-                  },
-                ]
+              },
+              {
+                name: "archive-2024",
+                list: "/archive/2024",
+                meta: {
+                  label: t("📁 2024 Archive"),
+                  icon: <FolderOutlined />,
+                  parent: "reports",
+                },
+              },
+              {
+                name: "archive-2025",
+                list: "/archive/2025",
+                meta: {
+                  label: t("📈 2025 Current"),
+                  icon: <CalendarOutlined />,
+                  parent: "reports",
+                },
               },
             ]}
             options={{
@@ -211,7 +203,7 @@ function App() {
                 <Route path="/archive/2024" element={<Archive2024 />} />
                 <Route path="/archive/2025" element={<Archive2025 />} />
                 <Route path="/reports" element={<ReportsPage />} />
-                <Route path="/executive-reports" element={<ReportsPage />} />
+
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
                               <Route

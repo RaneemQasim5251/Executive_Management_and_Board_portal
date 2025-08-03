@@ -14,7 +14,7 @@ export const TimelineAccess: React.FC = () => {
     <Card 
       title={
         <Space>
-          <CalendarOutlined style={{ color: '#1890ff' }} />
+          <CalendarOutlined style={{ color: '#0095CE' }} />
           {t("Strategic Timeline")}
         </Space>
       }

@@ -271,19 +271,19 @@ export const ExecutiveDashboard: FC = () => {
                   <Legend />
                   <Bar
                     dataKey="efficiency"
-                    fill="#1e3a8a"
+                    fill="#0C085C"
                     name="Operational Efficiency (%)"
                     radius={[4, 4, 0, 0]}
                   />
                   <Bar
                     dataKey="satisfaction"
-                    fill="#3b82f6"
+                    fill="#0095CE"
                     name="Customer Satisfaction (%)"
                     radius={[4, 4, 0, 0]}
                   />
                   <Bar
                     dataKey="growth"
-                    fill="#60a5fa"
+                    fill="#363692"
                     name="Market Growth (%)"
                     radius={[4, 4, 0, 0]}
                   />

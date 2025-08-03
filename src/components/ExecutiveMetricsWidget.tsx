@@ -20,7 +20,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
   value,
   suffix,
   prefix,
-  color = '#1890ff',
+  color = '#0095CE',
   trend,
   trendValue,
   tooltip
@@ -83,7 +83,7 @@ export const ExecutiveMetricsWidget: React.FC = () => {
           <MetricCard
             title={t("Active Projects")}
             value={metrics.activeProjects}
-            color="#1890ff"
+            color="#0095CE"
             trend="up"
             trendValue={8.3}
             tooltip="Strategic projects currently in execution"
@@ -141,7 +141,7 @@ export const ExecutiveMetricsWidget: React.FC = () => {
             <Progress
               percent={(metrics.totalRevenue / metrics.revenueTarget) * 100}
               status={metrics.totalRevenue >= metrics.revenueTarget ? 'success' : 'active'}
-              strokeColor={metrics.totalRevenue >= metrics.revenueTarget ? '#52c41a' : '#1890ff'}
+              strokeColor={metrics.totalRevenue >= metrics.revenueTarget ? '#52c41a' : '#0095CE'}
             />
             <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between' }}>
               <span style={{ fontSize: 12, color: '#8c8c8c' }}>

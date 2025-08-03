@@ -23,7 +23,7 @@ const { Option } = Select;
 const getBoardData = (t: any) => ({
     "strategic-planning": {
       title: t("Strategic Planning"),
-      color: "#1e3a8a",
+      color: "#0C085C",
     tasks: [
       {
         id: "sp-1",
@@ -51,7 +51,7 @@ const getBoardData = (t: any) => ({
   },
   "in-execution": {
     title: t("In Execution"),
-    color: "#f59e0b",
+    color: "#FF2424",
     tasks: [
       {
         id: "ie-1",
@@ -90,7 +90,7 @@ const getBoardData = (t: any) => ({
   },
   "review-approval": {
     title: t("Board Review"),
-    color: "#8b5cf6",
+    color: "#363692",
     tasks: [
       {
         id: "ra-1",
@@ -118,7 +118,7 @@ const getBoardData = (t: any) => ({
   },
   "completed": {
     title: t("Completed Tasks"),
-    color: "#10b981",
+    color: "#0095CE",
     tasks: [
       {
         id: "c-1",
@@ -218,7 +218,7 @@ export const KanbanPage: FC = () => {
       animate="visible"
       style={{ 
         padding: "24px",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                    background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
         minHeight: "100vh"
       }}
     >
@@ -240,7 +240,7 @@ export const KanbanPage: FC = () => {
               level={1} 
               style={{ 
                 margin: 0, 
-                background: "linear-gradient(135deg, #667eea, #764ba2)",
+                                   background: "linear-gradient(135deg, #0C085C, #0095CE)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 fontSize: "42px",
@@ -345,7 +345,7 @@ export const KanbanPage: FC = () => {
                         </Text>
                       </div>
                       
-                      <Title level={5} style={{ margin: 0, color: "#1f2937", fontSize: "14px", lineHeight: "1.4" }}>
+                      <Title level={5} style={{ margin: 0, color: "#000000", fontSize: "14px", lineHeight: "1.4" }}>
                         {task.title}
                       </Title>
                     </div>
@@ -353,7 +353,7 @@ export const KanbanPage: FC = () => {
                     {/* Task Description */}
                     <Paragraph 
                       style={{ 
-                        color: "#6b7280", 
+                        color: "#666666", 
                         fontSize: "12px", 
                         marginBottom: "12px",
                         lineHeight: "1.4"
@@ -467,7 +467,7 @@ export const KanbanPage: FC = () => {
       <Modal
         title={
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <CommentOutlined style={{ color: "#1e3a8a" }} />
+            <CommentOutlined style={{ color: "#0C085C" }} />
             <span>{t("Executive Commentary")}</span>
           </div>
         }
@@ -486,7 +486,7 @@ export const KanbanPage: FC = () => {
       >
         {selectedTask && (
           <div style={{ marginBottom: "20px", padding: "16px", background: "#f8fafc", borderRadius: "8px" }}>
-            <Title level={5} style={{ margin: 0, color: "#1e3a8a" }}>
+            <Title level={5} style={{ margin: 0, color: "#0C085C" }}>
               {selectedTask.title}
             </Title>
             <Text type="secondary" style={{ fontSize: "12px" }}>

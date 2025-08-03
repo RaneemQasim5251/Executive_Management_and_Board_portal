@@ -26,7 +26,7 @@ export const NotificationCenter: FC<NotificationCenterProps> = ({ visible, onClo
 
   const getIcon = (type: INotification['type']) => {
     switch (type) {
-      case 'info': return <InfoCircleOutlined style={{ color: '#1890ff' }} />;
+      case 'info': return <InfoCircleOutlined style={{ color: '#0095CE' }} />;
       case 'warning': return <WarningOutlined style={{ color: '#faad14' }} />;
       case 'error': return <CloseCircleOutlined style={{ color: '#ff4d4f' }} />;
       case 'success': return <CheckCircleOutlined style={{ color: '#52c41a' }} />;
@@ -36,7 +36,7 @@ export const NotificationCenter: FC<NotificationCenterProps> = ({ visible, onClo
 
   const getTypeColor = (type: INotification['type']) => {
     switch (type) {
-      case 'info': return '#1890ff';
+      case 'info': return '#0095CE';
       case 'warning': return '#faad14';
       case 'error': return '#ff4d4f';
       case 'success': return '#52c41a';

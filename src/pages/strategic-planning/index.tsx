@@ -53,7 +53,7 @@ export const StrategicPlanningPage: React.FC = () => {
   return (
     <div style={{ 
       padding: "24px",
-      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
       minHeight: "100vh"
     }}>
       {/* Executive Header */}
@@ -73,7 +73,7 @@ export const StrategicPlanningPage: React.FC = () => {
             level={1} 
             style={{ 
               margin: 0, 
-              background: "linear-gradient(135deg, #667eea, #764ba2)",
+              background: "linear-gradient(135deg, #0C085C, #0095CE)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               fontSize: "42px",
@@ -98,7 +98,7 @@ export const StrategicPlanningPage: React.FC = () => {
                 value={metric.value}
                 prefix={metric.prefix}
                 suffix={metric.suffix}
-                valueStyle={{ color: '#1890ff' }}
+                valueStyle={{ color: '#0095CE' }}
               />
             </Card>
           </Col>
@@ -111,7 +111,7 @@ export const StrategicPlanningPage: React.FC = () => {
           <Card 
             title={
               <Space>
-                <CalendarOutlined style={{ color: '#1890ff' }} />
+                <CalendarOutlined style={{ color: '#0095CE' }} />
                 {t("Strategic Timeline")}
               </Space>
             }
@@ -202,7 +202,7 @@ export const StrategicPlanningPage: React.FC = () => {
                 title="In Progress"
                 value={3}
                 suffix="initiatives"
-                valueStyle={{ color: '#1890ff' }}
+                valueStyle={{ color: '#0095CE' }}
               />
             </Card>
           </Col>

@@ -76,10 +76,10 @@ export const ModernExecutiveDashboard: FC = () => {
 
   // Define data arrays inside component to access t function
   const projectsData = [
-    { name: t("AI & Automation"), value: 35, color: "#8B5CF6", trend: "+12%" },
-    { name: t("Digital Transformation"), value: 28, color: "#06B6D4", trend: "+8%" },
-    { name: t("Market Expansion"), value: 22, color: "#10B981", trend: "+15%" },
-    { name: t("Innovation Lab"), value: 15, color: "#F59E0B", trend: "+5%" },
+    { name: t("AI & Automation"), value: 35, color: "#0C085C", trend: "+12%" },
+    { name: t("Digital Transformation"), value: 28, color: "#0095CE", trend: "+8%" },
+    { name: t("Market Expansion"), value: 22, color: "#363692", trend: "+15%" },
+    { name: t("Innovation Lab"), value: 15, color: "#FF2424", trend: "+5%" },
   ];
 
   const upcomingEvents = [
@@ -89,10 +89,10 @@ export const ModernExecutiveDashboard: FC = () => {
   ];
 
   const quickActions = [
-    { icon: <ProjectOutlined />, label: t("New Initiative"), color: "#8B5CF6" },
-    { icon: <TeamOutlined />, label: t("Team Review"), color: "#06B6D4" },
-    { icon: <CalendarOutlined />, label: t("Schedule Meeting"), color: "#10B981" },
-    { icon: <BellOutlined />, label: t("Send Update"), color: "#F59E0B" },
+    { icon: <ProjectOutlined />, label: t("New Initiative"), color: "#0C085C" },
+    { icon: <TeamOutlined />, label: t("Team Review"), color: "#0095CE" },
+    { icon: <CalendarOutlined />, label: t("Schedule Meeting"), color: "#363692" },
+    { icon: <BellOutlined />, label: t("Send Update"), color: "#FF2424" },
   ];
   const [selectedMetric, setSelectedMetric] = useState("revenue");
   const [achievementVisible, setAchievementVisible] = useState(false);
@@ -164,11 +164,11 @@ export const ModernExecutiveDashboard: FC = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      style={{ 
-        padding: "24px",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        minHeight: "100vh"
-      }}
+                style={{ 
+            padding: "24px",
+            background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+            minHeight: "100vh"
+          }}
     >
       {/* Header Section */}
       <motion.div variants={itemVariants}>
@@ -188,7 +188,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   level={1} 
                   style={{ 
                     margin: 0, 
-                    background: "linear-gradient(135deg, #667eea, #764ba2)",
+                    background: "linear-gradient(135deg, #0C085C, #0095CE)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     fontSize: "42px",
@@ -221,7 +221,7 @@ export const ModernExecutiveDashboard: FC = () => {
                     icon={<MoreOutlined />}
                     style={{ 
                       borderRadius: "12px",
-                      background: "linear-gradient(135deg, #667eea, #764ba2)",
+                      background: "linear-gradient(135deg, #0C085C, #0095CE)",
                       border: "none"
                     }}
                   />
@@ -239,7 +239,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               style={{
                 ...cardStyle,
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
                 color: "white",
                 height: "200px"
               }}
@@ -590,7 +590,7 @@ export const ModernExecutiveDashboard: FC = () => {
             style={{
               width: "64px",
               height: "64px",
-              background: "linear-gradient(135deg, #667eea, #764ba2)",
+              background: "linear-gradient(135deg, #0C085C, #0095CE)",
               border: "none",
               boxShadow: "0 8px 20px rgba(102, 126, 234, 0.4)",
               fontSize: "20px",

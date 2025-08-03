@@ -103,7 +103,7 @@ export const Login: FC = () => {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -313,7 +313,7 @@ export const Login: FC = () => {
                     fontSize: "16px",
                     fontWeight: "600",
                     borderRadius: "12px",
-                    background: "linear-gradient(135deg, #667eea, #764ba2)",
+                    background: "linear-gradient(135deg, #0C085C, #0095CE)",
                     border: "none",
                     boxShadow: "0 4px 12px rgba(102, 126, 234, 0.4)",
                     transition: "all 0.3s ease",

@@ -182,8 +182,7 @@ const resources = {
       "Market Analysis - Emerging Technologies": "تحليل السوق - التقنيات الناشئة",
       "Digital Transformation Phase 2": "المرحلة الثانية من التحول الرقمي",
 
-      // Executive Reports
-      "Executive Reports": "التقارير التنفيذية",
+      
 
       // Archive Pages - Arabic
       "Total Projects": "إجمالي المشاريع",
@@ -444,8 +443,7 @@ const resources = {
       "2024 Archive": "2024 Archive",
       "2025 Current": "2025 Current",
 
-              // Executive Reports
-        "Executive Reports": "Executive Reports",
+      
 
         // Archive Pages - English
         "Total Projects": "Total Projects",

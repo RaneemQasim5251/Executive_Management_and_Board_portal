@@ -99,7 +99,7 @@ export const ModernLogin: FC = () => {
     <div
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -216,7 +216,7 @@ export const ModernLogin: FC = () => {
                 left: 0,
                 right: 0,
                 height: '4px',
-                background: 'linear-gradient(90deg, #667eea, #764ba2)',
+                background: 'linear-gradient(90deg, #0C085C, #0095CE)',
               }}
             />
 
@@ -399,7 +399,7 @@ export const ModernLogin: FC = () => {
                     fontSize: '16px',
                     fontWeight: '600',
                     borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                    background: 'linear-gradient(135deg, #0C085C, #0095CE)',
                     border: 'none',
                     boxShadow: '0 8px 20px rgba(102, 126, 234, 0.4)',
                     transition: 'all 0.3s ease',

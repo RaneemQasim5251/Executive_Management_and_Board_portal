@@ -1,22 +1,45 @@
+/* Brand Color Palette */
+:root {
+  --federal-blue: #0C085C;
+  --black: #000000;
+  --egyptian-blue: #363692;
+  --red: #FF2424;
+  --celestial-blue: #0095CE;
+  
+  /* Brand Gradients */
+  --primary-gradient: linear-gradient(135deg, var(--federal-blue) 0%, var(--celestial-blue) 100%);
+  --accent-gradient: linear-gradient(135deg, var(--egyptian-blue) 0%, var(--celestial-blue) 100%);
+  --error-gradient: linear-gradient(135deg, var(--red) 0%, #FF4444 100%);
+  
+  /* Semantic Colors */
+  --primary-color: var(--federal-blue);
+  --secondary-color: var(--egyptian-blue);
+  --accent-color: var(--celestial-blue);
+  --error-color: var(--red);
+  --text-primary: var(--black);
+  --text-secondary: #666666;
+  --text-light: #999999;
+}
+
 /* Arabic RTL Styling */
 
-/* Fix sidebar visibility - Dark theme */
+/* Fix sidebar visibility - Brand Dark theme */
 .ant-layout-sider {
-  background: #001529 !important;
-  border-right: 1px solid #434343;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  background: var(--federal-blue) !important;
+  border-right: 1px solid var(--egyptian-blue);
+  box-shadow: 2px 0 8px rgba(12, 8, 92, 0.25);
 }
 
 html[dir="rtl"] .ant-layout-sider {
   border-right: none;
-  border-left: 1px solid #434343;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  border-left: 1px solid var(--egyptian-blue);
+  box-shadow: -2px 0 8px rgba(12, 8, 92, 0.25);
 }
 
-/* Dark menu styling */
+/* Brand Dark menu styling */
 .ant-menu-dark, .ant-menu-dark .ant-menu-sub {
-  background: #001529 !important;
-  color: rgba(255, 255, 255, 0.85) !important;
+  background: var(--federal-blue) !important;
+  color: rgba(255, 255, 255, 0.90) !important;
 }
 
 .ant-menu-dark .ant-menu-item, 
@@ -29,13 +52,13 @@ html[dir="rtl"] .ant-layout-sider {
 
 .ant-menu-dark .ant-menu-item:hover,
 .ant-menu-dark .ant-menu-submenu-title:hover {
-  background-color: #1890ff !important;
+  background: var(--accent-gradient) !important;
   color: #fff !important;
 }
 
 .ant-menu-dark .ant-menu-item-selected,
 .ant-menu-dark .ant-menu-item-active {
-  background-color: #1890ff !important;
+  background: var(--primary-gradient) !important;
   color: #fff !important;
 }
 
@@ -45,7 +68,7 @@ html[dir="rtl"] .ant-layout-sider {
 
 .ant-menu-dark .ant-menu-submenu-title:hover {
   color: #fff !important;
-  background-color: rgba(24, 144, 255, 0.1) !important;
+  background: rgba(0, 149, 206, 0.2) !important;
 }
 
 .ant-menu-dark .ant-menu-submenu-arrow {
@@ -238,9 +261,77 @@ html[lang="ar"] .ant-typography {
 /* Archive items indentation styling for subitems under Reports */
 .ant-menu-item[data-menu-id*="archive"] {
   padding-left: 48px !important;
+  margin-left: 8px !important;
+  border-left: 2px solid var(--celestial-blue);
 }
 
 html[dir="rtl"] .ant-menu-item[data-menu-id*="archive"] {
   padding-right: 48px !important;
   padding-left: 24px !important;
+  margin-right: 8px !important;
+  margin-left: 0 !important;
+  border-right: 2px solid var(--celestial-blue);
+  border-left: none;
+}
+
+/* Child menu items styling */
+.ant-menu-submenu .ant-menu-item {
+  padding-left: 48px !important;
+}
+
+html[dir="rtl"] .ant-menu-submenu .ant-menu-item {
+  padding-right: 48px !important;
+  padding-left: 24px !important;
+}
+
+/* Brand Button Styles */
+.ant-btn-primary {
+  background: var(--primary-gradient) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background: var(--accent-gradient) !important;
+  border-color: var(--accent-color) !important;
+}
+
+/* Brand Link Styles */
+a {
+  color: var(--accent-color) !important;
+}
+
+a:hover {
+  color: var(--primary-color) !important;
+}
+
+/* Brand Divider Styles */
+.ant-divider {
+  border-color: var(--egyptian-blue) !important;
+}
+
+/* Brand Active States */
+.ant-tabs-tab-active {
+  color: var(--primary-color) !important;
+}
+
+.ant-tabs-ink-bar {
+  background: var(--primary-gradient) !important;
+}
+
+/* Brand Tag Styles */
+.ant-tag {
+  border: 1px solid var(--celestial-blue);
+  background: rgba(0, 149, 206, 0.1);
+  color: var(--primary-color);
+}
+
+/* Brand Progress Styles */
+.ant-progress-bg {
+  background: var(--primary-gradient) !important;
+}
+
+/* Chart Container Styling */
+.recharts-wrapper {
+  filter: drop-shadow(0 4px 12px rgba(12, 8, 92, 0.15));
 }

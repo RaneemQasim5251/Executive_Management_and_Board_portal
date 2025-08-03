@@ -167,7 +167,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                 description: `${t("You've earned")} "${achievement.title}"! +${achievement.reward.points} ${t('points')}`,
                 duration: 4, // Reduced from 6 seconds
                 style: {
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)',
                   color: 'white',
                   border: 'none'
                 }
@@ -234,7 +234,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
       >
         {/* Progress Summary */}
         <div style={{ 
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)',
           borderRadius: '16px',
           padding: '24px',
           marginBottom: '24px',
@@ -366,7 +366,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
             type="primary" 
             onClick={() => setShowCelebration(false)}
             style={{
-              background: 'linear-gradient(135deg, #667eea, #764ba2)',
+              background: 'linear-gradient(135deg, #0C085C, #0095CE)',
               border: 'none',
               borderRadius: '8px'
             }}
@@ -404,7 +404,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
             </Text>
             
             <div style={{
-              background: 'linear-gradient(135deg, #667eea15, #764ba215)',
+              background: 'linear-gradient(135deg, #0C085C15, #0095CE15)',
               padding: '16px',
               borderRadius: '12px',
               border: `2px solid ${getRarityColor(newAchievement.rarity)}30`

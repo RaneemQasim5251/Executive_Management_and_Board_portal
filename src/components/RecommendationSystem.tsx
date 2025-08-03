@@ -248,7 +248,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
       pending: '#faad14',
       approved: '#52c41a',
       rejected: '#ff4d4f',
-      implemented: '#1890ff',
+      implemented: '#0C085C',
     };
     return colorMap[status];
   };
@@ -294,7 +294,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
               <Statistic
                 title={i18n.language === 'ar' ? 'المجموع' : 'Total'}
                 value={stats.total}
-                valueStyle={{ color: '#1890ff' }}
+                valueStyle={{ color: '#0095CE' }}
               />
             </Col>
             <Col span={6}>
@@ -315,7 +315,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
               <Statistic
                 title={i18n.language === 'ar' ? 'منفذة' : 'Implemented'}
                 value={stats.implemented}
-                valueStyle={{ color: '#1890ff' }}
+                valueStyle={{ color: '#0095CE' }}
               />
             </Col>
           </Row>
@@ -328,7 +328,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
             icon={<PlusOutlined />}
             onClick={() => setShowAddModal(true)}
             style={{
-              background: 'linear-gradient(135deg, #667eea, #764ba2)',
+              background: 'linear-gradient(135deg, #0C085C, #0095CE)',
               border: 'none',
               borderRadius: '8px',
               height: '40px',
@@ -412,7 +412,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
                       ? [
                           <Button
                             type="text"
-                            style={{ color: '#1890ff' }}
+                            style={{ color: '#0095CE' }}
                             icon={<CheckCircleOutlined />}
                             onClick={() => updateRecommendationStatus(item.id, 'implemented')}
                           >
@@ -664,7 +664,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
                 htmlType="submit"
                 loading={loading}
                 style={{
-                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                  background: 'linear-gradient(135deg, #0C085C, #0095CE)',
                   border: 'none',
                 }}
               >
