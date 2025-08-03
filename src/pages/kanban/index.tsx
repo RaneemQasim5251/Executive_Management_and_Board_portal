@@ -216,16 +216,44 @@ export const KanbanPage: FC = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      style={{ padding: "24px", background: "#f8fafc", minHeight: "100vh" }}
+      style={{ 
+        padding: "24px",
+        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        minHeight: "100vh"
+      }}
     >
       {/* Executive Header */}
-      <motion.div variants={columnVariants} className="executive-header">
-        <Title level={2} style={{ color: "white", margin: 0 }}>
-          👥 Board Management
-        </Title>
-        <Text style={{ color: "rgba(255, 255, 255, 0.9)" }}>
-          Executive initiatives and board-level strategic tracking
-        </Text>
+      <motion.div variants={columnVariants}>
+        <Card 
+          style={{ 
+            background: "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(20px)",
+            borderRadius: "12px",
+            border: "none",
+            boxShadow: "0 8px 32px rgba(102, 126, 234, 0.1)",
+            marginBottom: "24px"
+          }}
+          styles={{ body: { padding: "32px" } }}
+        >
+          <Space direction="vertical" size="small">
+            <Title 
+              level={1} 
+              style={{ 
+                margin: 0, 
+                background: "linear-gradient(135deg, #667eea, #764ba2)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                fontSize: "42px",
+                fontWeight: "800"
+              }}
+            >
+              Board Management
+            </Title>
+            <Text style={{ fontSize: "16px", color: "#666" }}>
+              Executive initiatives and board-level strategic tracking
+            </Text>
+          </Space>
+        </Card>
       </motion.div>
 
       {/* Kanban Board */}

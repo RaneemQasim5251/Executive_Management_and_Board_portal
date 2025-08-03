@@ -469,10 +469,20 @@ export const ReportsPage: FC = () => {
         >
           <Row justify="space-between" align="middle">
             <Col>
-              <Title level={1} style={{ color: 'white', margin: 0, fontSize: '36px' }}>
-                📊 {i18n.language === 'ar' ? 'التقارير والتحليلات' : 'Reports & Analytics'}
+              <Title 
+                level={1} 
+                style={{ 
+                  margin: 0, 
+                  background: "linear-gradient(135deg, #667eea, #764ba2)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  fontSize: "42px",
+                  fontWeight: "800"
+                }}
+              >
+                {i18n.language === 'ar' ? 'التقارير والتحليلات' : 'Reports & Analytics'}
               </Title>
-              <Text style={{ color: 'rgba(255,255,255,0.9)', fontSize: '16px' }}>
+              <Text style={{ fontSize: "16px", color: "#666" }}>
                 {i18n.language === 'ar'
                   ? 'إدارة التقارير التنفيذية وتحليل البيانات'
                   : 'Executive reports management and data analytics'}

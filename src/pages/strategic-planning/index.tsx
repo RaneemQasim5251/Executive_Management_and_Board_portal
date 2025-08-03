@@ -51,15 +51,42 @@ export const StrategicPlanningPage: React.FC = () => {
   ];
 
   return (
-    <div style={{ padding: '24px' }}>
-      <div style={{ marginBottom: '24px' }}>
-        <Title level={2} style={{ color: '#1e3a8a', marginBottom: '8px' }}>
-          🎯 {t("Strategic Planning")}
-        </Title>
-        <Text type="secondary" style={{ fontSize: '16px' }}>
-          {t("Comprehensive strategic planning and roadmap development")}
-        </Text>
-      </div>
+    <div style={{ 
+      padding: "24px",
+      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      minHeight: "100vh"
+    }}>
+      {/* Executive Header */}
+      <Card 
+        style={{ 
+          background: "rgba(255, 255, 255, 0.95)",
+          backdropFilter: "blur(20px)",
+          borderRadius: "12px",
+          border: "none",
+          boxShadow: "0 8px 32px rgba(102, 126, 234, 0.1)",
+          marginBottom: "24px"
+        }}
+        styles={{ body: { padding: "32px" } }}
+      >
+        <Space direction="vertical" size="small">
+          <Title 
+            level={1} 
+            style={{ 
+              margin: 0, 
+              background: "linear-gradient(135deg, #667eea, #764ba2)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              fontSize: "42px",
+              fontWeight: "800"
+            }}
+          >
+            {t("Strategic Planning")}
+          </Title>
+          <Text style={{ fontSize: "16px", color: "#666" }}>
+            {t("Comprehensive strategic planning and roadmap development")}
+          </Text>
+        </Space>
+      </Card>
 
       {/* Strategic Metrics */}
       <Row gutter={[16, 16]} style={{ marginBottom: '32px' }}>

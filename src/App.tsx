@@ -17,6 +17,16 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import arEG from 'antd/locale/ar_EG';
 import enUS from 'antd/locale/en_US';
+import { 
+  DashboardOutlined, 
+  TeamOutlined, 
+  AimOutlined, 
+  ClockCircleOutlined,
+  BarChartOutlined,
+  FileTextOutlined,
+  FolderOutlined,
+  CalendarOutlined
+} from '@ant-design/icons';
 
 
 import { supabaseAuthProvider } from "./providers/supabaseAuthProvider";
@@ -104,7 +114,7 @@ function App() {
                 list: "/",
                 meta: {
                   label: t("Executive Overview"),
-                  icon: "📊",
+                  icon: <DashboardOutlined />,
                 },
               },
               {
@@ -115,7 +125,7 @@ function App() {
                 show: "/board/show/:id",
                 meta: {
                   label: t("Board Management"),
-                  icon: "👥",
+                  icon: <TeamOutlined />,
                 },
               },
               {
@@ -123,7 +133,7 @@ function App() {
                 list: "/board/strategic-planning",
                 meta: {
                   label: t("Strategic Planning"),
-                  icon: "🎯",
+                  icon: <AimOutlined />,
                 },
               },
               {
@@ -134,7 +144,7 @@ function App() {
                 show: "/timeline/show/:id",
                 meta: {
                   label: t("Strategic Timeline"),
-                  icon: "📅",
+                  icon: <ClockCircleOutlined />,
                 },
               },
               {
@@ -142,26 +152,34 @@ function App() {
                 list: "/reports",
                 meta: {
                   label: t("Reports & Analytics"),
-                  icon: "📊",
+                  icon: <BarChartOutlined />,
                 },
-              },
-              {
-                name: "archive-2024",
-                list: "/archive/2024",
-                meta: {
-                  label: t("   📁 2024 Archive"),
-                  icon: "📁",
-                  parent: "reports",
-                },
-              },
-              {
-                name: "archive-2025",
-                list: "/archive/2025",
-                meta: {
-                  label: t("   📈 2025 Current"),
-                  icon: "📈",
-                  parent: "reports",
-                },
+                children: [
+                  {
+                    name: "executive-reports",
+                    list: "/executive-reports", 
+                    meta: {
+                      label: t("Executive Reports"),
+                      icon: <FileTextOutlined />,
+                    },
+                  },
+                  {
+                    name: "archive-2024",
+                    list: "/archive/2024",
+                    meta: {
+                      label: t("2024 Archive"),
+                      icon: <FolderOutlined />,
+                    },
+                  },
+                  {
+                    name: "archive-2025",
+                    list: "/archive/2025",
+                    meta: {
+                      label: t("2025 Current"),
+                      icon: <CalendarOutlined />,
+                    },
+                  },
+                ]
               },
             ]}
             options={{
@@ -193,6 +211,7 @@ function App() {
                 <Route path="/archive/2024" element={<Archive2024 />} />
                 <Route path="/archive/2025" element={<Archive2025 />} />
                 <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/executive-reports" element={<ReportsPage />} />
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
                               <Route

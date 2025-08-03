@@ -11,8 +11,20 @@ export const Archive2024: React.FC = () => {
   return (
     <div style={{ padding: '24px', background: '#f8fafc', minHeight: '100vh', overflow: 'auto' }}>
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-        <Title level={2} style={{ color: '#1e3a8a', marginBottom: '32px', textAlign: 'center' }}>
-          📁 {t("2024 Archive")}
+        <Title 
+          level={1} 
+          style={{ 
+            margin: 0, 
+            background: "linear-gradient(135deg, #667eea, #764ba2)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontSize: "42px",
+            fontWeight: "800",
+            textAlign: "center",
+            marginBottom: "32px"
+          }}
+        >
+          {t("2024 Archive")}
         </Title>
         
         <Row gutter={[16, 16]} style={{ marginBottom: '32px' }}>

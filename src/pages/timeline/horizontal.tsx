@@ -234,7 +234,7 @@ export const HorizontalTimeline: FC = () => {
                     fontWeight: "800"
                   }}
                 >
-                  🚀 {t("Strategic Timeline")}
+                  {t("Strategic Timeline")}
                 </Title>
                 <Text style={{ fontSize: "16px", color: "#666" }}>
                   {t("Board-level milestones")} {t("Strategic initiatives roadmap")}
