@@ -27,9 +27,9 @@ export const supabaseAuthProvider: AuthBindings = {
       }
 
       // Check if we're in demo mode first
-      const isDemoMode = !import.meta.env.VITE_SUPABASE_URL || 
-                        import.meta.env.VITE_SUPABASE_URL === "https://demo.supabase.co" ||
-                        import.meta.env.VITE_SUPABASE_ANON_KEY === "demo-anon-key";
+        const isDemoMode = !(import.meta as any).env?.VITE_SUPABASE_URL ||
+                    (import.meta as any).env?.VITE_SUPABASE_URL === "https://demo.supabase.co" ||
+                    (import.meta as any).env?.VITE_SUPABASE_ANON_KEY === "demo-anon-key";
 
       if (isDemoMode) {
         // In demo mode, only allow demo credentials

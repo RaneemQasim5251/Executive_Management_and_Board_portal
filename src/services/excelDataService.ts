@@ -67,7 +67,7 @@ class ExcelDataService {
   }
 
   // تحميل البيانات من مسار ملف / Load data from file path
-  async loadDataFromPath(filePath: string): Promise<ExcelProjectData[]> {
+  async loadDataFromPath(_filePath: string): Promise<ExcelProjectData[]> {
     try {
       // محاكاة تحميل الملف من المسار / Simulate loading file from path
       // في التطبيق الحقيقي، ستحتاج إلى استخدام API لتحميل الملف
@@ -119,7 +119,7 @@ class ExcelDataService {
           return null;
         }
       })
-      .filter((item): item is ExcelProjectData => item !== null);
+      .filter((item): item is ExcelProjectData => item !== null) as ExcelProjectData[];
   }
 
   // إنشاء خريطة الأعمدة / Create column mapping

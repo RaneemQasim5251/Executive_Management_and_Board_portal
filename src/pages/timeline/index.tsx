@@ -3,8 +3,6 @@ import { Card, Typography, Tag, Button, Space, Avatar, Tooltip, Modal, Input, Up
 import { 
   CalendarOutlined, 
   TeamOutlined, 
-  FileTextOutlined,
-  PlusOutlined,
   CommentOutlined,
   PaperClipOutlined,
   CheckCircleOutlined,
