@@ -184,20 +184,31 @@ export const ModernExecutiveDashboard: FC = () => {
           <Row justify="space-between" align="middle">
             <Col>
               <Space direction="vertical" size="small">
-                <Title 
-                  level={1} 
-                  style={{ 
-                    margin: 0, 
-                    background: "linear-gradient(135deg, #0C085C, #0095CE)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    fontSize: "42px",
-                    fontWeight: "800"
-                  }}
-                >
-                  {t("Executive Command Center")}
-                </Title>
-                <Text style={{ fontSize: "16px", color: "#666" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                  <img 
+                    src="/Qarar Logo.png" 
+                    alt="Qarar Logo" 
+                    style={{ 
+                      height: "60px", 
+                      width: "auto",
+                      filter: "drop-shadow(0 4px 8px rgba(12, 8, 92, 0.2))"
+                    }} 
+                  />
+                  <Title 
+                    level={1} 
+                    style={{ 
+                      margin: 0, 
+                      background: "linear-gradient(135deg, #0C085C, #0095CE)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      fontSize: "42px",
+                      fontWeight: "800"
+                    }}
+                  >
+                    {t("Executive Command Center")}
+                  </Title>
+                </div>
+                <Text style={{ fontSize: "16px", color: "#666", paddingLeft: "80px" }}>
                   {t("Strategic overview and real-time performance insights")}
                 </Text>
               </Space>

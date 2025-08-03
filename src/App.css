@@ -335,3 +335,67 @@ a:hover {
 .recharts-wrapper {
   filter: drop-shadow(0 4px 12px rgba(12, 8, 92, 0.15));
 }
+
+/* Timeline Enhancements */
+.timeline-container .timeline-events {
+  scrollbar-width: thin;
+  scrollbar-color: #0095CE #f1f5f9;
+}
+
+.timeline-container .timeline-events::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timeline-container .timeline-events::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.timeline-container .timeline-events::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #0C085C, #0095CE);
+  border-radius: 4px;
+}
+
+.timeline-container .timeline-events::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #363692, #0095CE);
+}
+
+.timeline-event {
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(12, 8, 92, 0.1);
+  box-shadow: 0 4px 12px rgba(12, 8, 92, 0.05);
+}
+
+.timeline-event:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(12, 8, 92, 0.2);
+  box-shadow: 0 8px 25px rgba(12, 8, 92, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Fix RTL Timeline Issues */
+html[dir="rtl"] .timeline-events {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+html[dir="rtl"] .timeline-event {
+  direction: rtl !important;
+  text-align: center !important;
+}
+
+html[dir="rtl"] .timeline-title,
+html[dir="rtl"] .timeline-date {
+  direction: rtl !important;
+  text-align: center !important;
+}
+
+/* Prevent icon flipping in RTL */
+html[dir="rtl"] .anticon,
+html[dir="rtl"] .ant-progress-circle-trail,
+html[dir="rtl"] .ant-progress-circle-path {
+  transform: none !important;
+}

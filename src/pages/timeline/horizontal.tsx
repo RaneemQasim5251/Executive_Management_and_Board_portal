@@ -278,7 +278,7 @@ export const HorizontalTimeline: FC = () => {
             border: "1px solid rgba(255, 255, 255, 0.2)",
             marginBottom: "24px"
           }}
-          styles={{ body: { padding: "40px 32px" } }}
+          styles={{ body: { padding: "40px 20px" } }}
         >
           {/* Timeline Track */}
           <div style={{ position: "relative", marginBottom: "60px" }}>
@@ -315,14 +315,15 @@ export const HorizontalTimeline: FC = () => {
               className="timeline-events"
               style={{ 
                 display: "flex", 
-                justifyContent: "space-between", 
+                justifyContent: "flex-start", 
                 alignItems: "flex-start",
                 position: "relative", 
                 zIndex: 3,
-                gap: "16px",
+                gap: "24px",
                 overflowX: "auto",
                 paddingBottom: "20px",
-                width: "100%"
+                width: "100%",
+                padding: "0 20px"
               }}>
               {timelineEvents.map((event, index) => (
                 <motion.div
@@ -344,18 +345,22 @@ export const HorizontalTimeline: FC = () => {
                   style={{ 
                     cursor: "pointer",
                     textAlign: "center",
-                    minWidth: "200px",
-                    maxWidth: "220px",
-                    flex: "1 1 200px",
-                    padding: "0 8px"
+                    width: "260px",
+                    height: "280px",
+                    flex: "0 0 260px",
+                    padding: "20px 12px",
+                    margin: "0 8px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between"
                   }}
                 >
                   {/* Progress Circle */}
                   <div style={{ position: "relative", marginBottom: "16px" }}>
                     {event.status === 'completed' ? (
                       <div style={{
-                        width: "80px",
-                        height: "80px",
+                        width: "90px",
+                        height: "90px",
                         borderRadius: "50%",
                         background: "linear-gradient(135deg, #10B981, #059669)",
                         display: "flex",
@@ -374,10 +379,10 @@ export const HorizontalTimeline: FC = () => {
                         <Progress
                           type="circle"
                           percent={event.progress}
-                          size={80}
+                          size={90}
                           strokeColor={{
-                            '0%': '#667eea',
-                            '100%': '#764ba2',
+                            '0%': '#0C085C',
+                            '100%': '#0095CE',
                           }}
                           trailColor="#f3f4f6"
                           showInfo={false}
@@ -389,15 +394,15 @@ export const HorizontalTimeline: FC = () => {
                           transform: "translate(-50%, -50%)",
                           fontSize: "14px",
                           fontWeight: "bold",
-                          color: "#667eea"
+                          color: "#0C085C"
                         }}>
                           {event.progress}%
                         </div>
                       </div>
                     ) : (
                       <div style={{
-                        width: "80px",
-                        height: "80px",
+                        width: "90px",
+                        height: "90px",
                         borderRadius: "50%",
                         background: "#f9fafb",
                         border: "3px solid #e5e7eb",
@@ -413,32 +418,32 @@ export const HorizontalTimeline: FC = () => {
                     )}
                   </div>
 
-                  {/* Event Title */}
+                  {/* Event Title - Fixed height container */}
                   <div style={{ 
-                    marginBottom: "8px",
-                    minHeight: "40px",
+                    height: "60px",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    padding: "0 8px"
                   }}>
                     <Text strong className="timeline-title" style={{ 
-                      fontSize: "15px", 
+                      fontSize: "14px", 
                       color: "#1f2937",
-                      display: "block",
-                      lineHeight: "1.3",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      lineHeight: "1.4",
                       textAlign: "center",
-                      wordWrap: "break-word",
-                      hyphens: "auto",
-                      maxWidth: "100%"
+                      fontWeight: "600"
                     }}>
                       {event.title}
                     </Text>
                   </div>
 
-                  {/* Event Date */}
+                  {/* Event Date - Fixed height container */}
                   <div style={{ 
-                    marginBottom: "12px",
-                    minHeight: "20px",
+                    height: "30px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center"
@@ -447,7 +452,8 @@ export const HorizontalTimeline: FC = () => {
                       fontSize: "12px", 
                       color: "#6b7280",
                       display: "block",
-                      textAlign: "center"
+                      textAlign: "center",
+                      fontWeight: "500"
                     }}>
                       {event.date}
                     </Text>

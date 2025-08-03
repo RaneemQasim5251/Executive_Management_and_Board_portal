@@ -141,7 +141,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
           src="/Qarar Logo.png" 
           alt="Qarar Logo" 
           style={{ 
-            height: "32px", 
+            height: "70px", 
             width: "auto",
             filter: "drop-shadow(0 2px 4px rgba(12, 8, 92, 0.15))"
           }} 

@@ -149,29 +149,37 @@ function App() {
               },
               {
                 name: "reports",
-                list: "/reports",
+                list: "/reports", 
                 meta: {
                   label: t("Reports & Analytics"),
                   icon: <BarChartOutlined />,
                 },
-              },
-              {
-                name: "archive-2024",
-                list: "/archive/2024",
-                meta: {
-                  label: t("📁 2024 Archive"),
-                  icon: <FolderOutlined />,
-                  parent: "reports",
-                },
-              },
-              {
-                name: "archive-2025",
-                list: "/archive/2025",
-                meta: {
-                  label: t("📈 2025 Current"),
-                  icon: <CalendarOutlined />,
-                  parent: "reports",
-                },
+                children: [
+                  {
+                    name: "reports-main",
+                    list: "/reports",
+                    meta: {
+                      label: t("Executive Reports"),
+                      icon: <BarChartOutlined />,
+                    },
+                  },
+                  {
+                    name: "archive-2024",
+                    list: "/archive/2024",
+                    meta: {
+                      label: t("2024 Archive"),
+                      icon: <FolderOutlined />,
+                    },
+                  },
+                  {
+                    name: "archive-2025",
+                    list: "/archive/2025",
+                    meta: {
+                      label: t("2025 Current"),
+                      icon: <CalendarOutlined />,
+                    },
+                  },
+                ]
               },
             ]}
             options={{
