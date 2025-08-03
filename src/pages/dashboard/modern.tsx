@@ -182,25 +182,65 @@ export const ModernExecutiveDashboard: FC = () => {
       >
         <Card 
           style={{ 
-            background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%)",
-            backdropFilter: "blur(30px)",
-            borderRadius: "24px",
-            border: "1px solid rgba(12, 8, 92, 0.1)",
-            boxShadow: "0 20px 60px rgba(12, 8, 92, 0.15)",
-            marginBottom: "32px",
+            background: "linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,250,255,0.95) 50%, rgba(240,245,255,0.9) 100%)",
+            backdropFilter: "blur(40px)",
+            borderRadius: "32px",
+            border: "2px solid rgba(12, 8, 92, 0.08)",
+            boxShadow: "0 30px 80px rgba(12, 8, 92, 0.25), 0 0 0 1px rgba(255,255,255,0.5) inset",
+            marginBottom: "40px",
             overflow: "hidden",
-            position: "relative"
+            position: "relative",
+            transform: "perspective(1000px) rotateX(2deg)",
+            transition: "all 0.6s cubic-bezier(0.23, 1, 0.32, 1)"
           }}
-          styles={{ body: { padding: "60px 40px" } }}
+          styles={{ body: { padding: "80px 60px" } }}
+          className="hero-card"
         >
-          {/* Background Pattern */}
+          {/* STUNNING Background Effects */}
           <div style={{
             position: "absolute",
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            background: "radial-gradient(circle at 30% 20%, rgba(12, 8, 92, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(0, 149, 206, 0.05) 0%, transparent 50%)",
+            background: `
+              radial-gradient(circle at 20% 30%, rgba(12, 8, 92, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 80% 20%, rgba(0, 149, 206, 0.06) 0%, transparent 40%),
+              radial-gradient(circle at 60% 80%, rgba(54, 54, 146, 0.04) 0%, transparent 40%),
+              linear-gradient(45deg, rgba(12, 8, 92, 0.02) 0%, transparent 50%),
+              conic-gradient(from 45deg at 50% 50%, rgba(0, 149, 206, 0.03) 0deg, transparent 120deg, rgba(12, 8, 92, 0.03) 240deg, transparent 360deg)
+            `,
+            zIndex: 0
+          }} />
+          
+          {/* Floating Particles */}
+          <div style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `
+              radial-gradient(2px 2px at 20% 30%, rgba(12, 8, 92, 0.3), transparent),
+              radial-gradient(2px 2px at 40% 70%, rgba(0, 149, 206, 0.4), transparent),
+              radial-gradient(1px 1px at 60% 15%, rgba(54, 54, 146, 0.3), transparent),
+              radial-gradient(1px 1px at 80% 50%, rgba(12, 8, 92, 0.2), transparent),
+              radial-gradient(2px 2px at 90% 80%, rgba(0, 149, 206, 0.3), transparent)
+            `,
+            backgroundSize: "100px 100px, 120px 120px, 80px 80px, 110px 110px, 90px 90px",
+            animation: "float-particles 20s ease-in-out infinite",
+            zIndex: 1
+          }} />
+          
+          {/* Animated Light Rays */}
+          <div style={{
+            position: "absolute",
+            top: "-50%",
+            left: "-50%",
+            right: "-50%",
+            bottom: "-50%",
+            background: "conic-gradient(from 0deg, transparent 70deg, rgba(0, 149, 206, 0.1) 110deg, transparent 180deg, rgba(12, 8, 92, 0.08) 250deg, transparent 320deg)",
+            animation: "rotate-rays 30s linear infinite",
             zIndex: 0
           }} />
           
@@ -249,32 +289,91 @@ export const ModernExecutiveDashboard: FC = () => {
                 </Dropdown>
               </Space>
             </div>
-            {/* Animated Logo */}
+            {/* SPECTACULAR Animated Logo */}
             <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
+              initial={{ scale: 0, rotate: -360, opacity: 0 }}
+              animate={{ scale: 1, rotate: 0, opacity: 1 }}
               transition={{ 
-                duration: 1.5, 
-                ease: "easeOut",
+                duration: 2.5, 
+                ease: [0.175, 0.885, 0.32, 1.275],
                 type: "spring",
-                stiffness: 100
+                stiffness: 80,
+                damping: 15
               }}
               whileHover={{ 
-                scale: 1.08,
-                rotate: 5
+                scale: 1.12,
+                rotate: [0, -3, 3, 0],
+                transition: { rotate: { duration: 0.6, repeat: Infinity } }
               }}
               className="logo-floating"
-              style={{ marginBottom: "24px" }}
+              style={{ 
+                marginBottom: "32px",
+                position: "relative"
+              }}
             >
+              {/* Logo Glow Ring */}
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 1.5, duration: 1 }}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: "200px",
+                  height: "200px",
+                  borderRadius: "50%",
+                  background: "conic-gradient(from 0deg, rgba(12, 8, 92, 0.3), rgba(0, 149, 206, 0.4), rgba(54, 54, 146, 0.3), rgba(12, 8, 92, 0.3))",
+                  filter: "blur(20px)",
+                  animation: "rotate-glow 8s linear infinite",
+                  zIndex: -1
+                }}
+              />
+              
               <img 
                 src="/Qarar Logo.png" 
                 alt="Qarar Logo" 
                 style={{ 
-                  height: "140px", 
+                  height: "160px", 
                   width: "auto",
-                  filter: "drop-shadow(0 8px 25px rgba(12, 8, 92, 0.25))",
-                  transition: "all 0.4s ease"
+                  filter: "drop-shadow(0 15px 40px rgba(12, 8, 92, 0.4)) drop-shadow(0 0 20px rgba(0, 149, 206, 0.3))",
+                  transition: "all 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+                  position: "relative",
+                  zIndex: 2
                 }} 
+              />
+              
+              {/* Sparkle Effects */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 2 }}
+                style={{
+                  position: "absolute",
+                  top: "10%",
+                  right: "10%",
+                  width: "8px",
+                  height: "8px",
+                  background: "radial-gradient(circle, rgba(0, 149, 206, 1) 0%, transparent 70%)",
+                  borderRadius: "50%",
+                  boxShadow: "0 0 10px rgba(0, 149, 206, 0.8)"
+                }}
+              />
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 2.5 }}
+                style={{
+                  position: "absolute",
+                  bottom: "15%",
+                  left: "15%",
+                  width: "6px",
+                  height: "6px",
+                  background: "radial-gradient(circle, rgba(12, 8, 92, 1) 0%, transparent 70%)",
+                  borderRadius: "50%",
+                  boxShadow: "0 0 8px rgba(12, 8, 92, 0.8)"
+                }}
               />
             </motion.div>
 
@@ -302,18 +401,35 @@ export const ModernExecutiveDashboard: FC = () => {
               </Title>
               
               <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "180px" }}
-                transition={{ delay: 1.2, duration: 0.8 }}
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: "220px", opacity: 1 }}
+                transition={{ delay: 2.2, duration: 1.2, ease: "easeOut" }}
                 className="brand-divider"
                 style={{
-                  height: "4px",
-                  background: "linear-gradient(90deg, #0C085C, #0095CE)",
-                  margin: "20px auto",
-                  borderRadius: "2px",
-                  boxShadow: "0 2px 8px rgba(12, 8, 92, 0.3)"
+                  height: "6px",
+                  background: "linear-gradient(90deg, #0C085C 0%, #0095CE 50%, #0C085C 100%)",
+                  margin: "24px auto",
+                  borderRadius: "3px",
+                  boxShadow: "0 4px 15px rgba(12, 8, 92, 0.4), 0 0 20px rgba(0, 149, 206, 0.3)",
+                  position: "relative",
+                  overflow: "hidden"
                 }}
-              />
+              >
+                <motion.div
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "300%" }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "30%",
+                    height: "100%",
+                    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)",
+                    borderRadius: "3px"
+                  }}
+                />
+              </motion.div>
               
               <Title 
                 level={2} 

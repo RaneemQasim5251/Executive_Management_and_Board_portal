@@ -444,6 +444,35 @@ html[dir="rtl"] .ant-progress-circle-path {
   animation: pulse 2s ease-in-out infinite;
 }
 
+/* BREATHTAKING ANIMATIONS */
+@keyframes float-particles {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(-5px) translateX(-3px); }
+  75% { transform: translateY(-15px) translateX(8px); }
+}
+
+@keyframes rotate-rays {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-glow {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Hero card hover effect */
+.hero-card:hover {
+  transform: perspective(1000px) rotateX(0deg) scale(1.02) !important;
+  box-shadow: 0 40px 120px rgba(12, 8, 92, 0.35), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+
 /* Arabic Text Centering */
 html[dir="rtl"] .logo-hero-arabic {
   text-align: center !important;

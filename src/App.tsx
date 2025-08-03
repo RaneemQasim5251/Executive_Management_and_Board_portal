@@ -154,32 +154,24 @@ function App() {
                   label: t("Reports & Analytics"),
                   icon: <BarChartOutlined />,
                 },
-                children: [
-                  {
-                    name: "reports-main",
-                    list: "/reports",
-                    meta: {
-                      label: t("Executive Reports"),
-                      icon: <BarChartOutlined />,
-                    },
-                  },
-                  {
-                    name: "archive-2024",
-                    list: "/archive/2024",
-                    meta: {
-                      label: t("2024 Archive"),
-                      icon: <FolderOutlined />,
-                    },
-                  },
-                  {
-                    name: "archive-2025",
-                    list: "/archive/2025",
-                    meta: {
-                      label: t("2025 Current"),
-                      icon: <CalendarOutlined />,
-                    },
-                  },
-                ]
+              },
+              {
+                name: "archive-2024",
+                list: "/archive/2024",
+                parent: "reports",
+                meta: {
+                  label: t("2024 Archive"),
+                  icon: <FolderOutlined />,
+                },
+              },
+              {
+                name: "archive-2025",
+                list: "/archive/2025",
+                parent: "reports",
+                meta: {
+                  label: t("2025 Current"),
+                  icon: <CalendarOutlined />,
+                },
               },
             ]}
             options={{
