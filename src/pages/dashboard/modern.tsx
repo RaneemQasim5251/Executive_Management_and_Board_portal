@@ -155,7 +155,7 @@ export const ModernExecutiveDashboard: FC = () => {
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
         >
-          <ThunderboltOutlined style={{ fontSize: '48px', color: '#8B5CF6' }} />
+                          <ThunderboltOutlined style={{ fontSize: '48px', color: '#0C085C' }} />
         </motion.div>
         <Text style={{ fontSize: '16px', color: '#666' }}>{t("Loading")}...</Text>
       </div>
@@ -569,7 +569,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               style={{
                 ...cardStyle,
-                background: "linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)",
+                background: "linear-gradient(135deg, #0C085C 0%, #363692 100%)",
                 color: "white",
                 height: "200px"
               }}
@@ -578,7 +578,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <Space direction="vertical" size="large" style={{ width: "100%" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <TrophyOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag color="purple" style={{ border: "none", background: "rgba(255,255,255,0.2)" }}>
+                  <Tag style={{ border: "none", background: "rgba(12, 8, 92, 0.1)", color: "#0C085C", fontWeight: "600" }}>
                     <StarOutlined /> {t("Excellent")}
                   </Tag>
                 </div>
@@ -605,7 +605,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               title={
                 <Space>
-                  <ArrowUpOutlined style={{ color: "#8B5CF6" }} />
+                  <ArrowUpOutlined style={{ color: "#0095CE" }} />
                   <span>{t("Revenue Performance vs Target")}</span>
                 </Space>
               }
@@ -623,15 +623,15 @@ export const ModernExecutiveDashboard: FC = () => {
                 <AreaChart data={revenueData}>
                   <defs>
                     <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0}/>
+                                      <stop offset="5%" stopColor="#0095CE" stopOpacity={0.3}/>
+                <stop offset="95%" stopColor="#0095CE" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                   <XAxis dataKey="month" />
                   <YAxis />
                   <RechartsTooltip />
-                  <Area type="monotone" dataKey="revenue" stroke="#8B5CF6" 
+                  <Area type="monotone" dataKey="revenue" stroke="#0095CE" 
                     fillOpacity={1} fill="url(#colorRevenue)" strokeWidth={3} />
                   <Line type="monotone" dataKey="target" stroke="#e5e7eb" strokeDasharray="5 5" />
                 </AreaChart>
@@ -732,7 +732,7 @@ export const ModernExecutiveDashboard: FC = () => {
                       <Space>
                         <Avatar.Group max={{ count: 3 }} size="small">
                           {Array.from({ length: event.attendees }, (_, i) => (
-                            <Avatar key={i} style={{ backgroundColor: "#8B5CF6" }}>
+                            <Avatar key={i} style={{ backgroundColor: "#363692" }}>
                               {String.fromCharCode(65 + i)}
                             </Avatar>
                           ))}
@@ -754,7 +754,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               title={
                 <Space>
-                  <ThunderboltOutlined style={{ color: "#8B5CF6" }} />
+                  <ThunderboltOutlined style={{ color: "#0C085C" }} />
                   <span>Quick Actions</span>
                 </Space>
               }
@@ -791,7 +791,7 @@ export const ModernExecutiveDashboard: FC = () => {
 
               <div style={{ textAlign: "center" }}>
                 <Text type="secondary" style={{ fontSize: "12px" }}>
-                  Need help? Check our <a href="#" style={{ color: "#8B5CF6" }}>Executive Guide</a>
+                  Need help? Check our <a href="#" style={{ color: "#0095CE" }}>Executive Guide</a>
                 </Text>
               </div>
             </Card>

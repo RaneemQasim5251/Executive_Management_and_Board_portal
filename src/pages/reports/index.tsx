@@ -482,7 +482,12 @@ export const ReportsPage: FC = () => {
               >
                 {i18n.language === 'ar' ? 'التقارير والتحليلات' : 'Reports & Analytics'}
               </Title>
-              <Text style={{ fontSize: "16px", color: "#666" }}>
+              <Text style={{ 
+                fontSize: "16px", 
+                color: "#0C085C",
+                fontWeight: "600",
+                opacity: 0.8
+              }}>
                 {i18n.language === 'ar'
                   ? 'إدارة التقارير التنفيذية وتحليل البيانات'
                   : 'Executive reports management and data analytics'}

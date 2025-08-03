@@ -166,7 +166,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
       {/* Right side - Actions and User */}
       <Space size="large">
         {/* Notifications */}
-        <Badge count={3} size="small" style={{ backgroundColor: '#8B5CF6' }}>
+        <Badge count={3} size="small" style={{ backgroundColor: '#0C085C' }}>
           <Button
             type="text"
             shape="circle"

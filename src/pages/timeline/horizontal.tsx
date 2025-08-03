@@ -166,7 +166,7 @@ export const HorizontalTimeline: FC = () => {
 
   const getCategoryColor = (category: TimelineEvent['category']) => {
     switch (category) {
-      case 'strategic': return '#8B5CF6';
+              case 'strategic': return '#0C085C';
       case 'operational': return '#06B6D4';
       case 'innovation': return '#10B981';
       case 'partnership': return '#F59E0B';
@@ -480,7 +480,7 @@ export const HorizontalTimeline: FC = () => {
                   }}>
                     <Tag 
                       color={
-                        event.category === 'strategic' ? 'purple' :
+                        event.category === 'strategic' ? '#0C085C' :
                         event.category === 'operational' ? 'cyan' :
                         event.category === 'innovation' ? 'green' :
                         event.category === 'partnership' ? 'orange' : 'default'

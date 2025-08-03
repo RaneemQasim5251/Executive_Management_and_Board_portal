@@ -65,7 +65,7 @@ export const Archive2024: React.FC = () => {
               title={t("Quarter")}
               value="Q4"
               prefix={<CalendarOutlined />}
-              valueStyle={{ color: '#8b5cf6' }}
+              valueStyle={{ color: '#0C085C' }}
             />
           </Card>
         </Col>
@@ -126,7 +126,7 @@ export const Archive2024: React.FC = () => {
                 <Tag color="gold" style={{ margin: '4px' }}>Best Revenue Year</Tag>
                 <Tag color="blue" style={{ margin: '4px' }}>Innovation Leader</Tag>
                 <Tag color="green" style={{ margin: '4px' }}>Market Expansion</Tag>
-                <Tag color="purple" style={{ margin: '4px' }}>Team Growth</Tag>
+                <Tag style={{ margin: '4px', backgroundColor: '#0C085C', color: 'white' }}>Team Growth</Tag>
               </div>
             </div>
           </Card>

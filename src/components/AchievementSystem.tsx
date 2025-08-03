@@ -190,7 +190,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
     switch (rarity) {
       case 'common': return '#10B981';
       case 'rare': return '#06B6D4';
-      case 'epic': return '#8B5CF6';
+      case 'epic': return '#0C085C';
       case 'legendary': return '#F59E0B';
       default: return '#6B7280';
     }
@@ -221,7 +221,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
           <Space>
             <TrophyOutlined style={{ color: '#F59E0B' }} />
             <span>{t('Your Achievements')}</span>
-            <Badge count={completedCount} style={{ backgroundColor: '#8B5CF6' }} />
+            <Badge count={completedCount} style={{ backgroundColor: '#0C085C' }} />
           </Space>
         }
         open={visible}

@@ -83,7 +83,7 @@ export const NotificationCenter: FC<NotificationCenterProps> = ({ visible, onClo
             <BellOutlined />
             <span>{t("Notifications")}</span>
             {unreadCount > 0 && (
-              <Badge count={unreadCount} style={{ backgroundColor: '#8B5CF6' }} />
+              <Badge count={unreadCount} style={{ backgroundColor: '#0C085C' }} />
             )}
           </Space>
         </div>
