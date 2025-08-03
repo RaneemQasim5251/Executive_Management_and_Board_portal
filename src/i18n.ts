@@ -91,7 +91,21 @@ const resources = {
 
       // KPI Cards - بطاقات مؤشرات الأداء الرئيسية
       "Excellent": "ممتاز",
+      "Outstanding": "رائع",
+      "Great": "رائع",
       "Hot": "رائع",
+      
+      // Al Jeri Companies
+      "JTC Transport & Logistics": "شركة الجري للنقل واللوجستيات",
+      "J:Oil Petroleum": "جويل للبترول",
+      "Shaheen Rent a Car": "شاهين لتأجير السيارات",
+      "45degrees Cafe": "مقهى 45 درجة",
+      "Al Jeri Energy": "الجري للطاقة",
+      
+      // Enterprise Systems
+      "ECC": "نظام التحكم المؤسسي",
+      "ECP": "منصة المؤسسة السحابية",
+      "KPIs → ERP": "مؤشرات الأداء ← نظام التخطيط",
       "Growth": "النمو",
       "Revenue": "الإيرادات",
       "Performance": "الأداء",

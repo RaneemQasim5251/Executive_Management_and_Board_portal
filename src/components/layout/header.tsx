@@ -149,7 +149,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         <div style={{ lineHeight: "1.3" }}>
           <Text strong style={{ 
             fontSize: "16px", 
-            background: "linear-gradient(135deg, #0C085C, #0095CE)",
+            background: "#0C085C",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             display: "block",
@@ -173,17 +173,17 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
             icon={<BellOutlined />}
             onClick={() => setNotificationVisible(true)}
             style={{
-              color: "#667eea",
+              color: "#0C085C",
               fontSize: "16px",
               transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#667eea15";
-              e.currentTarget.style.color = "#667eea";
+              e.currentTarget.style.backgroundColor = "rgba(12, 8, 92, 0.1)";
+              e.currentTarget.style.color = "#0C085C";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "#667eea";
+              e.currentTarget.style.color = "#0C085C";
             }}
           />
         </Badge>
@@ -226,7 +226,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
             <Avatar
               size="default"
               style={{
-                background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+                background: "#0C085C",
                 color: "white",
                 fontSize: "16px",
               }}

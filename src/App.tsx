@@ -26,7 +26,15 @@ import {
   FileTextOutlined,
   FolderOutlined,
   CalendarOutlined,
-  RiseOutlined
+  RiseOutlined,
+  TruckOutlined,
+  CarOutlined,
+  CoffeeOutlined,
+  ThunderboltOutlined,
+  FireOutlined,
+  SettingOutlined,
+  LineChartOutlined,
+  DatabaseOutlined
 } from '@ant-design/icons';
 
 
@@ -78,6 +86,7 @@ import { ReportsPage } from "./pages/reports/index.tsx";
 import { StrategicPlanningPage } from "./pages/strategic-planning/index.tsx";
 import { Archive2024 } from "./pages/archive/Archive2024.tsx";
 import { Archive2025 } from "./pages/archive/Archive2025.tsx";
+import { JTCPage, JOilPage, ShaheenPage, FortyFiveDegreesPage, EnergyPage } from "./pages/companies";
 
 import "./App.css";
 
@@ -186,6 +195,72 @@ function App() {
                   parent: "reports",
                 },
               },
+              // Al Jeri Investment Portfolio
+              {
+                name: "jtc",
+                list: "/companies/jtc",
+                meta: {
+                  label: t("JTC Transport & Logistics"),
+                  icon: <TruckOutlined />,
+                },
+              },
+              {
+                name: "joil",
+                list: "/companies/joil",
+                meta: {
+                  label: t("J:Oil Petroleum"),
+                  icon: <FireOutlined />,
+                },
+              },
+              {
+                name: "shaheen",
+                list: "/companies/shaheen",
+                meta: {
+                  label: t("Shaheen Rent a Car"),
+                  icon: <CarOutlined />,
+                },
+              },
+              {
+                name: "45degrees",
+                list: "/companies/45degrees",
+                meta: {
+                  label: t("45degrees Cafe"),
+                  icon: <CoffeeOutlined />,
+                },
+              },
+              {
+                name: "energy",
+                list: "/companies/energy",
+                meta: {
+                  label: t("Al Jeri Energy"),
+                  icon: <ThunderboltOutlined />,
+                },
+              },
+              // Enterprise Systems
+              {
+                name: "ecc",
+                list: "/systems/ecc",
+                meta: {
+                  label: t("ECC"),
+                  icon: <SettingOutlined />,
+                },
+              },
+              {
+                name: "ecp",
+                list: "/systems/ecp",
+                meta: {
+                  label: t("ECP"),
+                  icon: <LineChartOutlined />,
+                },
+              },
+              {
+                name: "kpi-erp",
+                list: "/systems/kpi-erp",
+                meta: {
+                  label: t("KPIs → ERP"),
+                  icon: <DatabaseOutlined />,
+                },
+              },
             ]}
             options={{
               syncWithLocation: true,
@@ -216,6 +291,18 @@ function App() {
                 <Route path="/archive/2024" element={<Archive2024 />} />
                 <Route path="/archive/2025" element={<Archive2025 />} />
                 <Route path="/reports" element={<ReportsPage />} />
+                
+                {/* Al Jeri Companies */}
+                <Route path="/companies/jtc" element={<JTCPage />} />
+                <Route path="/companies/joil" element={<JOilPage />} />
+                <Route path="/companies/shaheen" element={<ShaheenPage />} />
+                <Route path="/companies/45degrees" element={<FortyFiveDegreesPage />} />
+                <Route path="/companies/energy" element={<EnergyPage />} />
+                
+                {/* Enterprise Systems - Placeholder for now */}
+                <Route path="/systems/ecc" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>ECC - Coming Soon</h2></div>} />
+                <Route path="/systems/ecp" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>ECP - Coming Soon</h2></div>} />
+                <Route path="/systems/kpi-erp" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>KPIs → ERP - Coming Soon</h2></div>} />
 
                 <Route path="*" element={<ErrorComponent />} />
               </Route>

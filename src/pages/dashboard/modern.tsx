@@ -479,7 +479,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <Space direction="vertical" size="large" style={{ width: "100%" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <DollarOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag color="green" style={{ border: "none", background: "rgba(255,255,255,0.2)" }}>
+                  <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#10B981", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
                     <ArrowUpOutlined /> +12.5%
                   </Tag>
                 </div>
@@ -503,7 +503,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               style={{
                 ...cardStyle,
-                background: "linear-gradient(135deg, #06B6D4 0%, #0891B2 100%)",
+                background: "linear-gradient(135deg, #0095CE 0%, #0C085C 100%)",
                 color: "white",
                 height: "200px"
               }}
@@ -512,7 +512,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <Space direction="vertical" size="large" style={{ width: "100%" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <ProjectOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag color="cyan" style={{ border: "none", background: "rgba(255,255,255,0.2)" }}>
+                  <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#0095CE", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
                     <FireOutlined /> {t("Hot")}
                   </Tag>
                 </div>
@@ -536,7 +536,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               style={{
                 ...cardStyle,
-                background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
+                background: "linear-gradient(135deg, #0095CE 0%, #363692 100%)",
                 color: "white",
                 height: "200px"
               }}
@@ -545,7 +545,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <Space direction="vertical" size="large" style={{ width: "100%" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <TeamOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag color="green" style={{ border: "none", background: "rgba(255,255,255,0.2)" }}>
+                  <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#10B981", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
                     <RiseOutlined /> +8.2%
                   </Tag>
                 </div>
@@ -578,7 +578,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <Space direction="vertical" size="large" style={{ width: "100%" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <TrophyOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag style={{ border: "none", background: "rgba(12, 8, 92, 0.1)", color: "#0C085C", fontWeight: "600" }}>
+                  <Tag style={{ border: "none", background: "rgba(255, 255, 255, 0.9)", color: "#0C085C", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
                     <StarOutlined /> {t("Excellent")}
                   </Tag>
                 </div>
@@ -645,7 +645,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               title={
                 <Space>
-                  <ProjectOutlined style={{ color: "#06B6D4" }} />
+                  <ProjectOutlined style={{ color: "#0095CE" }} />
                   <span>{t("Strategic Projects")}</span>
                 </Space>
               }
@@ -703,7 +703,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               title={
                 <Space>
-                  <CalendarOutlined style={{ color: "#F59E0B" }} />
+                  <CalendarOutlined style={{ color: "#363692" }} />
                   <span>Upcoming Events</span>
                 </Space>
               }
@@ -811,7 +811,7 @@ export const ModernExecutiveDashboard: FC = () => {
           zIndex: 1000,
         }}
       >
-        <Badge count="3" style={{ backgroundColor: '#F59E0B' }}>
+                        <Badge count="3" style={{ backgroundColor: '#363692' }}>
           <Button
             type="primary"
             shape="circle"

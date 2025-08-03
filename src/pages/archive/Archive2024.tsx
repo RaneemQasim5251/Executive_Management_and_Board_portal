@@ -15,7 +15,7 @@ export const Archive2024: React.FC = () => {
           level={1} 
           style={{ 
             margin: 0, 
-            background: "linear-gradient(135deg, #0C085C, #0095CE)",
+            background: "#0C085C",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             fontSize: "42px",

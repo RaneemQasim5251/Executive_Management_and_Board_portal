@@ -313,7 +313,7 @@ export const Login: FC = () => {
                     fontSize: "16px",
                     fontWeight: "600",
                     borderRadius: "12px",
-                    background: "linear-gradient(135deg, #0C085C, #0095CE)",
+                    background: "#0C085C",
                     border: "none",
                     boxShadow: "0 4px 12px rgba(102, 126, 234, 0.4)",
                     transition: "all 0.3s ease",
@@ -341,19 +341,19 @@ export const Login: FC = () => {
                 icon={<GlobalOutlined />}
                 onClick={toggleLanguage}
                 style={{
-                  borderColor: "#667eea",
-                  color: "#667eea",
+                                      borderColor: "#0C085C",
+                    color: "#0C085C",
                   borderRadius: "8px",
                   fontWeight: "500",
                   transition: "all 0.3s ease",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#667eea";
+                                      e.currentTarget.style.background = "#0C085C";
                   e.currentTarget.style.color = "white";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.color = "#667eea";
+                                      e.currentTarget.style.color = "#0C085C";
                 }}
               >
                 {i18n.language === 'ar' ? 'English' : 'العربية'}

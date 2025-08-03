@@ -301,7 +301,7 @@ export const HorizontalTimeline: FC = () => {
                 top: "50%",
                 left: "0",
                 height: "4px",
-                background: "linear-gradient(90deg, #10B981 0%, #F59E0B 50%, #667eea 100%)",
+                background: "linear-gradient(90deg, #0095CE 0%, #363692 50%, #0C085C 100%)",
                 borderRadius: "2px",
                 zIndex: 2
               }}

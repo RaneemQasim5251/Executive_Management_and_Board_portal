@@ -664,7 +664,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
                 htmlType="submit"
                 loading={loading}
                 style={{
-                  background: 'linear-gradient(135deg, #0C085C, #0095CE)',
+                  background: '#0C085C',
                   border: 'none',
                 }}
               >

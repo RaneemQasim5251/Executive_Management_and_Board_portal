@@ -79,11 +79,11 @@ export const ColorModeContextProvider: FC<PropsWithChildren> = ({
         theme={{
           algorithm: mode === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
           token: {
-            colorPrimary: mode === "dark" ? "#667eea" : "#1e3a8a",
-            colorSuccess: "#10b981",
-            colorWarning: "#f59e0b", 
-            colorError: "#ef4444",
-            colorInfo: mode === "dark" ? "#06b6d4" : "#3b82f6",
+            colorPrimary: "#0C085C",
+                    colorSuccess: "#0095CE",
+        colorWarning: "#363692",
+        colorError: "#FF2424",
+        colorInfo: "#0095CE",
             borderRadius: 8,
             fontFamily: i18n.language === 'ar' 
               ? '"Noto Sans Arabic", "Cairo", "Amiri", system-ui, -apple-system, sans-serif'
@@ -105,7 +105,7 @@ export const ColorModeContextProvider: FC<PropsWithChildren> = ({
             Layout: {
               headerBg: mode === "dark" ? "#161616" : "#ffffff",
               bodyBg: mode === "dark" ? "#0a0a0a" : "#f8fafc",
-              siderBg: mode === "dark" ? "#161616" : "#667eea",
+              siderBg: mode === "dark" ? "#161616" : "#0C085C",
             },
             Menu: {
               itemBg: "transparent",

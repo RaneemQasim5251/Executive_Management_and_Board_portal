@@ -167,7 +167,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                 description: `${t("You've earned")} "${achievement.title}"! +${achievement.reward.points} ${t('points')}`,
                 duration: 4, // Reduced from 6 seconds
                 style: {
-                  background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)',
+                  background: '#0C085C',
                   color: 'white',
                   border: 'none'
                 }
@@ -366,7 +366,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
             type="primary" 
             onClick={() => setShowCelebration(false)}
             style={{
-              background: 'linear-gradient(135deg, #0C085C, #0095CE)',
+                              background: '#0C085C',
               border: 'none',
               borderRadius: '8px'
             }}
@@ -391,7 +391,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
               🏆
             </motion.div>
             
-            <Title level={3} style={{ color: '#667eea', marginBottom: '8px' }}>
+            <Title level={3} style={{ color: '#0C085C', marginBottom: '8px' }}>
               Achievement Unlocked!
             </Title>
             

@@ -257,7 +257,7 @@ export const ModernLogin: FC = () => {
                 <Alert
                   message={
                     <div>
-                      <Text strong style={{ color: '#667eea' }}>
+                      <Text strong style={{ color: '#0C085C' }}>
                         {t('Demo Credentials')}:
                       </Text>
                       <br />
@@ -270,8 +270,8 @@ export const ModernLogin: FC = () => {
                   onClose={() => setShowDemoCredentials(false)}
                   style={{
                     marginBottom: '24px',
-                    border: '1px solid #667eea30',
-                    backgroundColor: '#667eea10',
+                                  border: '1px solid rgba(12, 8, 92, 0.2)',
+              backgroundColor: 'rgba(12, 8, 92, 0.05)',
                     borderRadius: '12px',
                   }}
                 />
@@ -299,7 +299,7 @@ export const ModernLogin: FC = () => {
                 ]}
               >
                 <Input
-                  prefix={<MailOutlined style={{ color: '#667eea' }} />}
+                  prefix={<MailOutlined style={{ color: '#0C085C' }} />}
                   placeholder={
                     i18n.language === 'ar' 
                       ? 'البريد الإلكتروني' 
@@ -333,7 +333,7 @@ export const ModernLogin: FC = () => {
                 rules={[{ required: true, message: t('Please input your password!') }]}
               >
                 <Input.Password
-                  prefix={<LockOutlined style={{ color: '#667eea' }} />}
+                  prefix={<LockOutlined style={{ color: '#0C085C' }} />}
                   placeholder={
                     i18n.language === 'ar' 
                       ? 'كلمة المرور' 
@@ -399,7 +399,7 @@ export const ModernLogin: FC = () => {
                     fontSize: '16px',
                     fontWeight: '600',
                     borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #0C085C, #0095CE)',
+                    background: '#0C085C',
                     border: 'none',
                     boxShadow: '0 8px 20px rgba(102, 126, 234, 0.4)',
                     transition: 'all 0.3s ease',
