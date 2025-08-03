@@ -135,12 +135,27 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         borderBottom: "1px solid #e5e7eb",
       }}
     >
-      {/* Left side - Portal Title */}
+      {/* Left side - Qarar Logo & Portal Title */}
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <div style={{ fontSize: "28px", lineHeight: "1" }}>🏢</div>
+        <img 
+          src="/Qarar Logo.png" 
+          alt="Qarar Logo" 
+          style={{ 
+            height: "32px", 
+            width: "auto",
+            filter: "drop-shadow(0 2px 4px rgba(12, 8, 92, 0.15))"
+          }} 
+        />
         <div style={{ lineHeight: "1.3" }}>
-          <Text strong style={{ fontSize: "16px", color: "#1e3a8a", display: "block" }}>
-            {t("Executive Management Portal")}
+          <Text strong style={{ 
+            fontSize: "16px", 
+            background: "linear-gradient(135deg, #0C085C, #0095CE)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            display: "block",
+            fontWeight: "700"
+          }}>
+            {t("Qarar Executive Portal")}
           </Text>
           <Text type="secondary" style={{ fontSize: "11px", marginTop: "2px", display: "block" }}>
             {t("Board & C-Suite Command Center")}
@@ -211,7 +226,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
             <Avatar
               size="default"
               style={{
-                background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+                background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
                 color: "white",
                 fontSize: "16px",
               }}

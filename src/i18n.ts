@@ -13,6 +13,7 @@ const resources = {
       "Board Management": "إدارة مجلس الإدارة",
       "Reports & Analytics": "التقارير والتحليلات",
       "Executive Management Portal": "بوابة الإدارة التنفيذية",
+      "Qarar Executive Portal": "بوابة قرار التنفيذية",
       "Board & C-Suite Command Center": "مركز قيادة مجلس الإدارة والإدارة العليا",
       
       // Login Page
@@ -308,6 +309,7 @@ const resources = {
       "Board Management": "Board Management",
       "Reports & Analytics": "Reports & Analytics",
       "Executive Management Portal": "Executive Management Portal",
+      "Qarar Executive Portal": "Qarar Executive Portal",
       "Board & C-Suite Command Center": "Board & C-Suite Command Center",
       
       // Login Page
