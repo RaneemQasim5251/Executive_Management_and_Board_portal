@@ -150,36 +150,41 @@ function App() {
               },
               {
                 name: "reports",
+                list: "/reports",
                 meta: {
                   label: t("Reports & Analytics"),
                   icon: <BarChartOutlined />,
                 },
-                children: [
-                  {
-                    name: "executive-reports",
-                    list: "/reports",
-                    meta: {
-                      label: t("Executive Reports"),
-                      icon: <FileTextOutlined />,
-                    },
-                  },
-                  {
-                    name: "archive-2024",
-                    list: "/archive/2024",
-                    meta: {
-                      label: t("2024 Archive"),
-                      icon: <FolderOutlined />,
-                    },
-                  },
-                  {
-                    name: "archive-2025",
-                    list: "/archive/2025",
-                    meta: {
-                      label: t("2025 Current"),
-                      icon: <RiseOutlined />,
-                    },
-                  },
-                ]
+              },
+              {
+                name: "executive-reports",
+                list: "/reports",
+                parentName: "reports",
+                meta: {
+                  label: t("Executive Reports"),
+                  icon: <FileTextOutlined />,
+                  parent: "reports",
+                },
+              },
+              {
+                name: "archive-2024",
+                list: "/archive/2024",
+                parentName: "reports",
+                meta: {
+                  label: t("2024 Archive"),
+                  icon: <FolderOutlined />,
+                  parent: "reports",
+                },
+              },
+              {
+                name: "archive-2025",
+                list: "/archive/2025",
+                parentName: "reports",
+                meta: {
+                  label: t("2025 Current"),
+                  icon: <RiseOutlined />,
+                  parent: "reports",
+                },
               },
             ]}
             options={{
