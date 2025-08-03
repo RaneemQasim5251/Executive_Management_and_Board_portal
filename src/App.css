@@ -399,3 +399,47 @@ html[dir="rtl"] .ant-progress-circle-trail,
 html[dir="rtl"] .ant-progress-circle-path {
   transform: none !important;
 }
+
+/* Stunning Logo Animations */
+@keyframes logoGlow {
+  0%, 100% { 
+    filter: drop-shadow(0 8px 25px rgba(12, 8, 92, 0.25));
+  }
+  50% { 
+    filter: drop-shadow(0 12px 35px rgba(12, 8, 92, 0.4));
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { 
+    background-position: 0% 50%;
+  }
+  50% { 
+    background-position: 100% 50%;
+  }
+}
+
+.logo-hero .ant-typography h1 {
+  background-size: 200% 200% !important;
+  animation: gradientShift 3s ease infinite;
+}
+
+/* Floating animation for logo */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.logo-floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse effect for divider */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.brand-divider {
+  animation: pulse 2s ease-in-out infinite;
+}

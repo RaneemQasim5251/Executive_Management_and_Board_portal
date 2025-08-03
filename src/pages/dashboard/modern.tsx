@@ -170,7 +170,129 @@ export const ModernExecutiveDashboard: FC = () => {
             minHeight: "100vh"
           }}
     >
-      {/* Header Section */}
+      {/* STUNNING LOGO HERO SECTION */}
+      <motion.div 
+        variants={itemVariants}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      >
+        <Card 
+          style={{ 
+            background: "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%)",
+            backdropFilter: "blur(30px)",
+            borderRadius: "24px",
+            border: "1px solid rgba(12, 8, 92, 0.1)",
+            boxShadow: "0 20px 60px rgba(12, 8, 92, 0.15)",
+            marginBottom: "32px",
+            overflow: "hidden",
+            position: "relative"
+          }}
+          styles={{ body: { padding: "60px 40px" } }}
+        >
+          {/* Background Pattern */}
+          <div style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "radial-gradient(circle at 30% 20%, rgba(12, 8, 92, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(0, 149, 206, 0.05) 0%, transparent 50%)",
+            zIndex: 0
+          }} />
+          
+          {/* Content Container */}
+          <div style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+            {/* Animated Logo */}
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ 
+                duration: 1.5, 
+                ease: "easeOut",
+                type: "spring",
+                stiffness: 100
+              }}
+              whileHover={{ 
+                scale: 1.08,
+                rotate: 5
+              }}
+              className="logo-floating"
+              style={{ marginBottom: "24px" }}
+            >
+              <img 
+                src="/Qarar Logo.png" 
+                alt="Qarar Logo" 
+                style={{ 
+                  height: "140px", 
+                  width: "auto",
+                  filter: "drop-shadow(0 8px 25px rgba(12, 8, 92, 0.25))",
+                  transition: "all 0.4s ease"
+                }} 
+              />
+            </motion.div>
+
+            {/* Brand Identity */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+            >
+              <Title 
+                level={1} 
+                style={{ 
+                  margin: "0 0 8px 0", 
+                  background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  fontSize: "48px",
+                  fontWeight: "900",
+                  letterSpacing: "1px"
+                }}
+              >
+                QARAR
+              </Title>
+              
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: "180px" }}
+                transition={{ delay: 1.2, duration: 0.8 }}
+                className="brand-divider"
+                style={{
+                  height: "4px",
+                  background: "linear-gradient(90deg, #0C085C, #0095CE)",
+                  margin: "20px auto",
+                  borderRadius: "2px",
+                  boxShadow: "0 2px 8px rgba(12, 8, 92, 0.3)"
+                }}
+              />
+              
+              <Title 
+                level={2} 
+                style={{ 
+                  margin: "16px 0 8px 0", 
+                  color: "#0C085C",
+                  fontSize: "28px",
+                  fontWeight: "700"
+                }}
+              >
+                {t("Executive Command Center")}
+              </Title>
+              
+              <Text style={{ 
+                fontSize: "18px", 
+                color: "#666", 
+                fontWeight: "500",
+                lineHeight: "1.6"
+              }}>
+                {t("Strategic Decision Making • Executive Intelligence • Board Governance")}
+              </Text>
+            </motion.div>
+          </div>
+        </Card>
+      </motion.div>
+
+      {/* Quick Actions Row */}
       <motion.div variants={itemVariants}>
         <Card 
           style={{ 
@@ -183,36 +305,6 @@ export const ModernExecutiveDashboard: FC = () => {
         >
           <Row justify="space-between" align="middle">
             <Col>
-              <Space direction="vertical" size="small">
-                <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                  <img 
-                    src="/Qarar Logo.png" 
-                    alt="Qarar Logo" 
-                    style={{ 
-                      height: "60px", 
-                      width: "auto",
-                      filter: "drop-shadow(0 4px 8px rgba(12, 8, 92, 0.2))"
-                    }} 
-                  />
-                  <Title 
-                    level={1} 
-                    style={{ 
-                      margin: 0, 
-                      background: "linear-gradient(135deg, #0C085C, #0095CE)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      fontSize: "42px",
-                      fontWeight: "800"
-                    }}
-                  >
-                    {t("Executive Command Center")}
-                  </Title>
-                </div>
-                <Text style={{ fontSize: "16px", color: "#666", paddingLeft: "80px" }}>
-                  {t("Strategic overview and real-time performance insights")}
-                </Text>
-              </Space>
-            </Col>
             <Col>
               <Space size="middle">
                 <Button 
