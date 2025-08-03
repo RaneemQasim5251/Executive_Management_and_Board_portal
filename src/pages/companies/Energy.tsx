@@ -9,7 +9,7 @@ import {
   SettingOutlined,
   EnvironmentOutlined,
   RiseOutlined,
-  BatteryOutlined,
+  PoweroffOutlined,
   FireOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
@@ -24,7 +24,7 @@ export const EnergyPage = () => {
   const solutionsData = [
     { name: 'Solar Energy Systems', icon: <SolarOutlined />, projects: 12, capacity: '2.5MW', color: '#faad14' },
     { name: 'EV Charging Stations', icon: <CarOutlined />, projects: 8, capacity: '150 Units', color: '#52c41a' },
-    { name: 'Power Supply UPS Batteries', icon: <BatteryOutlined />, projects: 25, capacity: '500kW', color: '#1890ff' },
+    { name: 'Power Supply UPS Batteries', icon: <PoweroffOutlined />, projects: 25, capacity: '500kW', color: '#1890ff' },
     { name: 'Diesel Power Generators', icon: <FireOutlined />, projects: 15, capacity: '1.2MW', color: '#ff4d4f' },
     { name: 'Bio Diesel Power Generators', icon: <EnvironmentOutlined />, projects: 6, capacity: '300kW', color: '#52c41a' },
     { name: 'GEH2 Hydrogen Fuel Cell Generators', icon: <ThunderboltOutlined />, projects: 3, capacity: '100kW', color: '#722ed1' }
