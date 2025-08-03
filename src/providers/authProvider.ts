@@ -2,12 +2,12 @@ import type { AuthBindings } from "@refinedev/core";
 
 export const authProvider: AuthBindings = {
   login: async ({ email, password }) => {
-    // Executive-only authentication
+    // Board & C-Suite authentication
     const executiveCredentials = [
-      { email: "executive@company.com", password: "executive123", role: "CEO" },
-      { email: "cfo@company.com", password: "cfo123", role: "CFO" },
-      { email: "cto@company.com", password: "cto123", role: "CTO" },
-      { email: "board@company.com", password: "board123", role: "Board Member" },
+      { email: "board@company.com", password: "executive2024", role: "Board Chairman" },
+      { email: "ceo@company.com", password: "ceo2024", role: "Chief Executive Officer" },
+      { email: "cfo@company.com", password: "cfo2024", role: "Chief Financial Officer" },
+      { email: "cto@company.com", password: "cto2024", role: "Chief Technology Officer" },
     ];
 
     const user = executiveCredentials.find(
@@ -26,7 +26,7 @@ export const authProvider: AuthBindings = {
       success: false,
       error: {
         name: "LoginError",
-        message: "Invalid credentials. C-level access only.",
+        message: "Invalid credentials. Board of Directors & C-Suite access only.",
       },
     };
   },

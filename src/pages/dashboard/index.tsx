@@ -1,15 +1,13 @@
-import React from "react";
+import { FC } from "react";
 import { Row, Col, Card, Statistic, Typography, Space } from "antd";
 import {
   ArrowUpOutlined,
-  ArrowDownOutlined,
   TeamOutlined,
   DollarOutlined,
   ProjectOutlined,
   TrophyOutlined,
 } from "@ant-design/icons";
 import {
-  LineChart,
   Line,
   AreaChart,
   Area,
@@ -76,7 +74,7 @@ const itemVariants = {
   },
 };
 
-export const ExecutiveDashboard: React.FC = () => {
+export const ExecutiveDashboard: FC = () => {
   return (
     <motion.div
       variants={containerVariants}
@@ -210,7 +208,7 @@ export const ExecutiveDashboard: React.FC = () => {
                     type="monotone"
                     dataKey="target"
                     stroke="#ef4444"
-                    strokeWidth={2}
+                    size="small"
                     strokeDasharray="5 5"
                     name="Target"
                   />

@@ -10,65 +10,157 @@ import {
 import "@refinedev/antd/dist/reset.css";
 import routerBindings, {
   DocumentTitleHandler,
-  NavigateToResource,
+  NavigateToResource, 
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
 import dataProvider from "@refinedev/simple-rest";
-import { App as AntdApp } from "antd";
+import { App as AntdApp, ConfigProvider, theme } from "antd";
+import { Routes, Route, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Routes, Route, Outlet, Navigate } from "react-router-dom";
+import arEG from 'antd/locale/ar_EG';
+import enUS from 'antd/locale/en_US';
 
-import { authProvider } from "./providers/authProvider";
+import { supabase } from "./supabase";
+import { supabaseAuthProvider } from "./providers/supabaseAuthProvider";
+import { ErrorBoundary } from "./components/ErrorBoundary";
+
+// Demo data provider for development
+const createDemoDataProvider = () => {
+    const isDemoMode = !(import.meta as any).env?.VITE_SUPABASE_URL ||
+                    (import.meta as any).env?.VITE_SUPABASE_URL === "https://demo.supabase.co" ||
+                    (import.meta as any).env?.VITE_SUPABASE_ANON_KEY === "demo-anon-key";
+  
+  if (isDemoMode) {
+    // Simple in-memory data provider for demo
+    return {
+      getList: async () => ({ data: [], total: 0 }),
+      getOne: async () => ({ data: {} }),
+      create: async () => ({ data: {} }),
+      update: async () => ({ data: {} }),
+      deleteOne: async () => ({ data: {} }),
+      getApiUrl: () => "demo://localhost"
+    };
+  }
+  
+  try {
+    // Use real data provider with Supabase
+    return dataProvider("https://api.fake-rest.refine.dev");
+  } catch (error) {
+    console.warn("Failed to create real data provider, falling back to demo mode");
+    // Fallback to demo mode on error
+    return {
+      getList: async () => ({ data: [], total: 0 }),
+      getOne: async () => ({ data: {} }),
+      create: async () => ({ data: {} }),
+      update: async () => ({ data: {} }),
+      deleteOne: async () => ({ data: {} }),
+      getApiUrl: () => "demo://localhost"
+    };
+  }
+};
 import { ColorModeContextProvider } from "./contexts/color-mode";
+import { AppStateProvider } from "./contexts/AppStateProvider";
 import { Header } from "./components/layout";
-import { ExecutiveDashboard } from "./pages/dashboard";
-import { TimelinePage } from "./pages/timeline";
-import { KanbanPage } from "./pages/kanban";
+import { ModernExecutiveDashboard } from "./pages/dashboard/modern.tsx";
+import { HorizontalTimeline } from "./pages/timeline/horizontal.tsx";
+import { KanbanPage } from "./pages/kanban/index.tsx";
+import { Login } from "./pages/login";
+import { ReportsPage } from "./pages/reports/index.tsx";
+import { StrategicPlanningPage } from "./pages/strategic-planning/index.tsx";
+import { Archive2024 } from "./pages/archive/Archive2024.tsx";
+import { Archive2025 } from "./pages/archive/Archive2025.tsx";
 
 import "./App.css";
 
 function App() {
   const { t, i18n } = useTranslation();
-
-  const i18nProvider = {
-    translate: (key: string, params: object) => t(key, params),
-    changeLocale: (lang: string) => i18n.changeLanguage(lang),
-    getLocale: () => i18n.language,
-  };
-
+  const isRTL = i18n.language === 'ar';
+  
   return (
-    <AntdApp>
-      <RefineKbarProvider>
-        <ColorModeContextProvider>
-          <Refine
-            dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+    <ErrorBoundary>
+      <ConfigProvider
+      locale={isRTL ? arEG : enUS}
+      direction={isRTL ? 'rtl' : 'ltr'}
+      theme={{
+        algorithm: theme.defaultAlgorithm,
+        token: {
+          colorPrimary: '#1e3a8a',
+          fontFamily: isRTL 
+            ? "'Noto Sans Arabic', 'Cairo', 'Amiri', system-ui, -apple-system, sans-serif"
+            : "'Inter', system-ui, -apple-system, sans-serif",
+        },
+      }}
+    >
+      <AntdApp>
+        <RefineKbarProvider>
+          <ColorModeContextProvider>
+            <AppStateProvider>
+              <Refine
+            dataProvider={createDemoDataProvider() as any}
             notificationProvider={useNotificationProvider}
-            authProvider={authProvider}
-            i18nProvider={i18nProvider}
+            authProvider={supabaseAuthProvider}
             routerProvider={routerBindings}
             resources={[
               {
                 name: "dashboard",
                 list: "/",
                 meta: {
-                  label: "Executive Dashboard",
+                  label: t("Executive Overview"),
                   icon: "📊",
+                },
+              },
+              {
+                name: "board",
+                list: "/board",
+                create: "/board/create",
+                edit: "/board/edit/:id",
+                show: "/board/show/:id",
+                meta: {
+                  label: t("Board Management"),
+                  icon: "👥",
+                },
+              },
+              {
+                name: "strategic-planning",
+                list: "/board/strategic-planning",
+                meta: {
+                  label: t("Strategic Planning"),
+                  icon: "🎯",
                 },
               },
               {
                 name: "timeline",
                 list: "/timeline",
+                create: "/timeline/create",
+                edit: "/timeline/edit/:id",
+                show: "/timeline/show/:id",
                 meta: {
-                  label: "Strategic Timeline",
-                  icon: "🌊",
+                  label: t("Strategic Timeline"),
+                  icon: "📅",
                 },
               },
               {
-                name: "kanban",
-                list: "/kanban",
+                name: "reports",
+                list: "/reports",
                 meta: {
-                  label: "Board Tasks",
-                  icon: "📋",
+                  label: t("Reports & Analytics"),
+                  icon: "📊",
+                },
+              },
+              {
+                name: "archive-2024",
+                list: "/archive/2024",
+                meta: {
+                  label: t("2024 Archive"),
+                  icon: "📁",
+                },
+              },
+              {
+                name: "archive-2025",
+                list: "/archive/2025",
+                meta: {
+                  label: t("2025 Current"),
+                  icon: "📈",
                 },
               },
             ]}
@@ -78,7 +170,7 @@ function App() {
               useNewQueryKeys: true,
               projectId: "executive-portal",
               title: {
-                text: "Executive Portal",
+                text: t("Executive Management Portal"),
                 icon: "🏢",
               },
             }}
@@ -94,51 +186,31 @@ function App() {
                   </ThemedLayoutV2>
                 }
               >
-                <Route
-                  index
-                  element={<NavigateToResource resource="dashboard" />}
-                />
-                <Route path="/dashboard" element={<ExecutiveDashboard />} />
-                <Route path="/timeline" element={<TimelinePage />} />
-                <Route path="/kanban" element={<KanbanPage />} />
+                <Route index element={<ModernExecutiveDashboard />} />
+                <Route path="/board" element={<KanbanPage />} />
+                <Route path="/board/strategic-planning" element={<StrategicPlanningPage />} />
+                <Route path="/timeline" element={<HorizontalTimeline />} />
+                <Route path="/archive/2024" element={<Archive2024 />} />
+                <Route path="/archive/2025" element={<Archive2025 />} />
+                <Route path="/reports" element={<ReportsPage />} />
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
-              <Route
-                element={
-                  <AuthPage
-                    type="login"
-                    title={
-                      <div style={{ textAlign: "center" }}>
-                        <div style={{ fontSize: "48px", marginBottom: "16px" }}>
-                          🏢
-                        </div>
-                        <h1 style={{ color: "#1e3a8a", marginBottom: "8px" }}>
-                          Executive Portal
-                        </h1>
-                        <p style={{ color: "#6b7280", fontSize: "14px" }}>
-                          C-Level Access Only
-                        </p>
-                      </div>
-                    }
-                    formProps={{
-                      initialValues: {
-                        email: "executive@company.com",
-                        password: "executive123",
-                      },
-                    }}
-                  />
-                }
-                path="/login"
-              />
+                              <Route
+                  element={<Login />}
+                  path="/login"
+                />
             </Routes>
 
             <RefineKbar />
             <UnsavedChangesNotifier />
             <DocumentTitleHandler />
           </Refine>
-        </ColorModeContextProvider>
-      </RefineKbarProvider>
-    </AntdApp>
+        </AppStateProvider>
+      </ColorModeContextProvider>
+    </RefineKbarProvider>
+  </AntdApp>
+</ConfigProvider>
+    </ErrorBoundary>
   );
 }
 

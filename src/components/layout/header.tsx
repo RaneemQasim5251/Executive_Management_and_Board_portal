@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { FC, useContext, useState } from "react";
 import { Layout, Space, Avatar, Dropdown, Button, Typography, Badge } from "antd";
 import type { MenuProps } from "antd";
 import {
@@ -11,7 +11,10 @@ import {
   SunOutlined,
 } from "@ant-design/icons";
 import { useLogout, useGetIdentity } from "@refinedev/core";
+import { useTranslation } from "react-i18next";
 import { ColorModeContext } from "../../contexts/color-mode";
+import { NotificationCenter } from "../NotificationCenter";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 
 const { Header: AntdHeader } = Layout;
 const { Text } = Typography;
@@ -20,8 +23,10 @@ interface HeaderProps {
   sticky?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ sticky = true }) => {
+export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   const { mutate: logout } = useLogout();
+  const { t, i18n } = useTranslation();
+  const [notificationVisible, setNotificationVisible] = useState(false);
   const { data: user } = useGetIdentity<{
     id: string;
     name: string;
@@ -31,24 +36,80 @@ export const Header: React.FC<HeaderProps> = ({ sticky = true }) => {
 
   const { mode, setMode } = useContext(ColorModeContext);
 
+  const toggleLanguage = () => {
+    const currentLng = i18n.language;
+    const newLng = currentLng === 'ar' ? 'en' : 'ar';
+    const isRTL = newLng === 'ar';
+    
+    // Update language and persist choice
+    i18n.changeLanguage(newLng);
+    localStorage.setItem('i18nextLng', newLng);
+    localStorage.setItem('selectedLanguage', newLng);
+    
+    // Update document direction and attributes immediately
+    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', newLng);
+    document.body.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    document.body.style.direction = isRTL ? 'rtl' : 'ltr';
+    
+    // Update font family
+    document.body.style.fontFamily = isRTL 
+      ? "'Noto Sans Arabic', 'Cairo', 'Amiri', system-ui, -apple-system, sans-serif"
+      : "'Inter', system-ui, -apple-system, sans-serif";
+    
+    // Apply changes immediately without reload
+    // Update all CSS variables and styles
+    const root = document.documentElement;
+    root.style.setProperty('--direction', isRTL ? 'rtl' : 'ltr');
+    root.style.setProperty('--text-align', isRTL ? 'right' : 'left');
+    
+    // Update all layout elements
+    const layoutElements = document.querySelectorAll('.ant-layout, .ant-layout-content, .ant-layout-sider, .ant-layout-header');
+    layoutElements.forEach(el => {
+      (el as HTMLElement).style.direction = isRTL ? 'rtl' : 'ltr';
+    });
+    
+    // Apply language immediately to all elements
+    document.querySelectorAll('*').forEach(el => {
+      if (el instanceof HTMLElement) {
+        if (isRTL) {
+          el.classList.add('rtl-mode');
+          el.style.direction = 'rtl';
+        } else {
+          el.classList.remove('rtl-mode');
+          el.style.direction = 'ltr';
+        }
+      }
+    });
+    
+    // Wait a bit and then reload for complete refresh
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+  };
+
   const menuItems: MenuProps["items"] = [
     {
       key: "profile",
       icon: <UserOutlined />,
-      label: "Executive Profile",
+      label: t("Board Profile"),
     },
     {
       key: "settings",
       icon: <SettingOutlined />,
-      label: "Portal Settings",
+      label: t("Executive Settings"),
     },
+    {
+      type: "divider",
+    },
+
     {
       type: "divider",
     },
     {
       key: "logout",
       icon: <LogoutOutlined />,
-      label: "Sign Out",
+      label: t("Logout"),
       onClick: () => logout(),
     },
   ];
@@ -58,8 +119,9 @@ export const Header: React.FC<HeaderProps> = ({ sticky = true }) => {
   };
 
   return (
-    <AntdHeader
-      style={{
+    <>
+      <AntdHeader
+        style={{
         position: sticky ? "sticky" : "relative",
         top: 0,
         zIndex: 999,
@@ -74,37 +136,46 @@ export const Header: React.FC<HeaderProps> = ({ sticky = true }) => {
       }}
     >
       {/* Left side - Portal Title */}
-      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-        <div style={{ fontSize: "24px" }}>🏢</div>
-        <div>
-          <Text strong style={{ fontSize: "18px", color: "#1e3a8a" }}>
-            Executive Portal
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <div style={{ fontSize: "28px", lineHeight: "1" }}>🏢</div>
+        <div style={{ lineHeight: "1.3" }}>
+          <Text strong style={{ fontSize: "16px", color: "#1e3a8a", display: "block" }}>
+            {t("Executive Management Portal")}
           </Text>
-          <br />
-          <Text type="secondary" style={{ fontSize: "12px" }}>
-            Strategic Command Center
+          <Text type="secondary" style={{ fontSize: "11px", marginTop: "2px", display: "block" }}>
+            {t("Board & C-Suite Command Center")}
           </Text>
         </div>
       </div>
 
       {/* Right side - Actions and User */}
-      <Space size="middle">
+      <Space size="large">
         {/* Notifications */}
-        <Badge count={3} size="small">
+        <Badge count={3} size="small" style={{ backgroundColor: '#8B5CF6' }}>
           <Button
             type="text"
+            shape="circle"
             icon={<BellOutlined />}
-            style={{ color: "#6b7280" }}
+            onClick={() => setNotificationVisible(true)}
+            style={{
+              color: "#667eea",
+              fontSize: "16px",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#667eea15";
+              e.currentTarget.style.color = "#667eea";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.color = "#667eea";
+            }}
           />
         </Badge>
 
-        {/* Global Actions */}
-        <Button
-          type="text"
-          icon={<GlobalOutlined />}
-          style={{ color: "#6b7280" }}
-        />
-
+        {/* Language Switcher */}
+        <LanguageSwitcher />
+        
         {/* Color Mode Toggle */}
         <Button
           type="text"
@@ -118,29 +189,52 @@ export const Header: React.FC<HeaderProps> = ({ sticky = true }) => {
           menu={{ items: menuItems }}
           trigger={["click"]}
           placement="bottomRight"
+          arrow
         >
-          <Space style={{ cursor: "pointer", padding: "8px 12px", borderRadius: "8px" }}>
+          <Space 
+            style={{ 
+              cursor: "pointer", 
+              padding: "6px 12px", 
+              borderRadius: "10px",
+              transition: "all 0.2s ease",
+              border: "1px solid transparent",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#f8fafc";
+              e.currentTarget.style.borderColor = "#e2e8f0";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.borderColor = "transparent";
+            }}
+          >
             <Avatar
-              size="small"
+              size="default"
               style={{
                 background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
                 color: "white",
+                fontSize: "16px",
               }}
             >
               {user?.avatar || "👤"}
             </Avatar>
-            <div style={{ textAlign: "right" }}>
-              <Text strong style={{ fontSize: "14px", color: "#1f2937" }}>
-                {user?.name || "Executive"}
+            <div style={{ textAlign: i18n.language === 'ar' ? 'left' : 'right', lineHeight: "1.3" }}>
+              <Text strong style={{ fontSize: "13px", color: "#1f2937", display: "block" }}>
+                {user?.name || (i18n.language === 'ar' ? 'المدير التنفيذي' : 'Executive')}
               </Text>
-              <br />
-              <Text type="secondary" style={{ fontSize: "12px" }}>
+              <Text type="secondary" style={{ fontSize: "11px", marginTop: "1px", display: "block" }}>
                 {user?.email || "executive@company.com"}
               </Text>
             </div>
           </Space>
         </Dropdown>
       </Space>
-    </AntdHeader>
+      </AntdHeader>
+      
+      <NotificationCenter 
+        visible={notificationVisible}
+        onClose={() => setNotificationVisible(false)}
+      />
+    </>
   );
 };

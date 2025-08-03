@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { Card, Typography, Tag, Button, Space, Avatar, Tooltip, Modal, Input, Upload } from "antd";
 import { 
   CalendarOutlined, 
@@ -12,36 +12,41 @@ import {
   ExclamationCircleOutlined
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
 
-// Timeline Data - Strategic Projects and Milestones
+// Executive Timeline Data - Strategic Initiatives & Board Milestones
 const timelineData = [
   {
     id: 1,
     title: "Digital Transformation Initiative Launch",
-    description: "Kickoff of company-wide digital transformation program with focus on AI integration and process automation.",
+    description: "Board-approved company-wide digital transformation program with focus on AI integration and process automation. Strategic investment of $2.5M approved.",
     date: "2024-01-15",
     status: "completed",
-    type: "milestone",
-    stakeholders: ["CEO", "CTO", "Board"],
+    type: "strategic-initiative",
+    stakeholders: ["CEO", "CTO", "Board of Directors"],
     comments: 12,
     attachments: 5,
-    priority: "high"
+    priority: "critical",
+    boardApproval: true,
+    budget: "$2.5M"
   },
   {
     id: 2,
     title: "Q1 Board Meeting - Strategic Review",
-    description: "Quarterly board meeting to review financial performance, strategic initiatives, and market positioning.",
+    description: "Quarterly board meeting: 23% revenue growth approved, strategic initiatives reviewed, and market expansion strategy finalized for APAC region.",
     date: "2024-03-20",
     status: "completed",
-    type: "meeting",
-    stakeholders: ["Board", "C-Suite"],
+    type: "board-meeting",
+    stakeholders: ["Board of Directors", "C-Suite Leadership"],
     comments: 8,
     attachments: 15,
-    priority: "critical"
+    priority: "critical",
+    boardApproval: true,
+    outcomes: ["Revenue targets exceeded", "APAC expansion approved", "Digital roadmap confirmed"]
   },
   {
     id: 3,
@@ -144,7 +149,8 @@ const itemVariants = {
   },
 };
 
-export const TimelinePage: React.FC = () => {
+export const TimelinePage: FC = () => {
+  const { t } = useTranslation();
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [commentModalVisible, setCommentModalVisible] = useState(false);
   const [newComment, setNewComment] = useState("");
@@ -166,10 +172,10 @@ export const TimelinePage: React.FC = () => {
       {/* Beautiful Header with Gradient */}
       <motion.div variants={itemVariants} className="executive-header">
         <Title level={2} style={{ color: "white", margin: 0 }}>
-          🌊 Strategic Timeline
+          🚀 {t("Strategic Timeline")}
         </Title>
         <Text style={{ color: "rgba(255, 255, 255, 0.9)" }}>
-          Executive milestones and strategic project roadmap
+          {t("Board-level milestones and strategic initiatives roadmap")}
         </Text>
       </motion.div>
 
@@ -253,7 +259,7 @@ export const TimelinePage: React.FC = () => {
                 <div style={{ marginBottom: "16px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
                     <Tag color={getPriorityColor(item.priority)} style={{ textTransform: "uppercase", fontWeight: 600 }}>
-                      {item.priority}
+                      {t(item.priority)}
                     </Tag>
                     <Text type="secondary" style={{ fontSize: "12px" }}>
                       <CalendarOutlined style={{ marginRight: "4px" }} />
@@ -262,13 +268,13 @@ export const TimelinePage: React.FC = () => {
                   </div>
                   
                   <Title level={4} style={{ margin: 0, color: "#1e3a8a" }}>
-                    {item.title}
+                    {t(item.title)}
                   </Title>
                 </div>
 
                 {/* Card Body */}
                 <Paragraph style={{ color: "#6b7280", marginBottom: "16px" }}>
-                  {item.description}
+                  {t(item.description)}
                 </Paragraph>
 
                 {/* Status and Type */}
@@ -287,7 +293,7 @@ export const TimelinePage: React.FC = () => {
                     <TeamOutlined style={{ marginRight: "4px" }} />
                     STAKEHOLDERS
                   </Text>
-                  <Avatar.Group maxCount={3} size="small">
+                  <Avatar.Group max={{ count: 3 }} size="small">
                     {item.stakeholders.map((stakeholder, idx) => (
                       <Tooltip key={idx} title={stakeholder}>
                         <Avatar 
@@ -350,13 +356,13 @@ export const TimelinePage: React.FC = () => {
         title={
           <div>
             <CommentOutlined style={{ marginRight: "8px", color: "#1e3a8a" }} />
-            Add Executive Comment
+            {t("Add Executive Comment")}
           </div>
         }
         open={commentModalVisible}
         onOk={handleAddComment}
         onCancel={() => setCommentModalVisible(false)}
-        okText="Add Comment"
+        okText={t("Add Comment")}
         okButtonProps={{
           style: {
             background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
@@ -376,7 +382,7 @@ export const TimelinePage: React.FC = () => {
         
         <TextArea
           rows={4}
-          placeholder="Add your executive comment or strategic insight..."
+          placeholder={t("Add your executive comment or strategic insight...")}
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           style={{ marginBottom: "16px" }}
@@ -384,11 +390,28 @@ export const TimelinePage: React.FC = () => {
         
         <Upload
           multiple
-          showUploadList={false}
-          beforeUpload={() => false}
+          showUploadList={true}
+          beforeUpload={(file) => {
+            const isValidType = file.type === 'application/pdf' || 
+                              file.type.startsWith('image/') ||
+                              file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+                              file.type === 'application/msword';
+            if (!isValidType) {
+              console.error('Only PDF, images, and Word documents are allowed');
+              return false;
+            }
+            const isLt10M = file.size / 1024 / 1024 < 10;
+            if (!isLt10M) {
+              console.error('File must be smaller than 10MB');
+              return false;
+            }
+            console.log(`${file.name} attached successfully`);
+            return false; // Prevent actual upload in demo mode
+          }}
+          accept=".pdf,.png,.jpg,.jpeg,.gif,.doc,.docx"
         >
           <Button icon={<PaperClipOutlined />} type="dashed" block>
-            Attach Documents
+            {t("Attach Documents")} (PDF, Images, Word - Max 10MB)
           </Button>
         </Upload>
       </Modal>

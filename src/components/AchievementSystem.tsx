@@ -1,0 +1,426 @@
+import React, { FC, useState, useEffect } from 'react';
+import { 
+  Badge, 
+  Card, 
+  Progress, 
+  Typography, 
+  Space, 
+  Tooltip,
+  Modal,
+  Row,
+  Col,
+  Tag,
+  Button,
+  notification
+} from 'antd';
+import {
+  TrophyOutlined,
+  FireOutlined,
+  StarOutlined,
+  RocketOutlined,
+  CrownOutlined,
+  ThunderboltOutlined,
+  DiamondOutlined,
+  HeartOutlined,
+} from '@ant-design/icons';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+
+const { Title, Text } = Typography;
+
+interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  category: 'productivity' | 'leadership' | 'innovation' | 'collaboration';
+  progress: number;
+  maxProgress: number;
+  completed: boolean;
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  reward: {
+    points: number;
+    badge?: string;
+  };
+}
+
+interface AchievementSystemProps {
+  visible: boolean;
+  onClose: () => void;
+}
+
+// Achievement data with translation keys
+const getAchievements = (t: any): Achievement[] => [
+  {
+    id: '1',
+    title: t('Revenue Master'),
+    description: t('Achieve 100% of quarterly revenue target'),
+    icon: <TrophyOutlined />,
+    category: 'productivity',
+    progress: 8,
+    maxProgress: 10,
+    completed: false,
+    rarity: 'epic',
+    reward: { points: 1000, badge: t('Revenue King') }
+  },
+  {
+    id: '2',
+    title: t('Team Builder'),
+    description: t('Successfully onboard 5 new team members'),
+    icon: <HeartOutlined />,
+    category: 'leadership',
+    progress: 5,
+    maxProgress: 5,
+    completed: true,
+    rarity: 'rare',
+    reward: { points: 500, badge: t('People Leader') }
+  },
+  {
+    id: '3',
+    title: t('Innovation Champion'),
+    description: t('Launch 3 successful innovation projects'),
+    icon: <RocketOutlined />,
+    category: 'innovation',
+    progress: 2,
+    maxProgress: 3,
+    completed: false,
+    rarity: 'legendary',
+    reward: { points: 2000, badge: t('Innovation Legend') }
+  },
+  {
+    id: '4',
+    title: t('Meeting Master'),
+    description: t('Conduct 50 productive meetings'),
+    icon: <StarOutlined />,
+    category: 'collaboration',
+    progress: 47,
+    maxProgress: 50,
+    completed: false,
+    rarity: 'common',
+    reward: { points: 250 }
+  },
+  {
+    id: '5',
+    title: t('Efficiency Expert'),
+    description: t('Maintain 95%+ team efficiency for 3 months'),
+    icon: <ThunderboltOutlined />,
+    category: 'productivity',
+    progress: 2,
+    maxProgress: 3,
+    completed: false,
+    rarity: 'epic',
+    reward: { points: 1500, badge: t('Efficiency Master') }
+  },
+  {
+    id: '6',
+    title: t('Strategic Visionary'),
+    description: t('Complete strategic planning for next 5 years'),
+    icon: <CrownOutlined />,
+    category: 'leadership',
+    progress: 1,
+    maxProgress: 1,
+    completed: true,
+    rarity: 'legendary',
+    reward: { points: 3000, badge: t('Strategic Legend') }
+  }
+];
+
+export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose }) => {
+  const { t } = useTranslation();
+  const achievements = getAchievements(t);
+  const [userAchievements, setUserAchievements] = useState<Achievement[]>(achievements);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [newAchievement, setNewAchievement] = useState<Achievement | null>(null);
+  const [api, contextHolder] = notification.useNotification();
+
+  useEffect(() => {
+    // Simulate achievement progress
+    const interval = setInterval(() => {
+      if (Math.random() > 0.7) { // 30% chance every 5 seconds
+        simulateProgress();
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const simulateProgress = () => {
+    setUserAchievements(prev => {
+      const incompleteAchievements = prev.filter(a => !a.completed);
+      if (incompleteAchievements.length === 0) return prev;
+      
+      const randomAchievement = incompleteAchievements[Math.floor(Math.random() * incompleteAchievements.length)];
+      
+      return prev.map(achievement => {
+        if (achievement.id === randomAchievement.id && !achievement.completed) {
+          const newProgress = Math.min(achievement.progress + 1, achievement.maxProgress);
+          const isCompleted = newProgress >= achievement.maxProgress;
+          
+          if (isCompleted && !achievement.completed) {
+            // Achievement completed!
+            setNewAchievement({ ...achievement, progress: newProgress, completed: true });
+            setShowCelebration(true);
+            
+            api.success({
+              message: t('Achievement Unlocked!'),
+              description: `${t("You've earned")} "${achievement.title}"! +${achievement.reward.points} ${t('points')}`,
+              duration: 6,
+              style: {
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                border: 'none'
+              }
+            });
+          }
+          
+          return {
+            ...achievement,
+            progress: newProgress,
+            completed: isCompleted
+          };
+        }
+        return achievement;
+      });
+    });
+  };
+
+  const getRarityColor = (rarity: Achievement['rarity']) => {
+    switch (rarity) {
+      case 'common': return '#10B981';
+      case 'rare': return '#06B6D4';
+      case 'epic': return '#8B5CF6';
+      case 'legendary': return '#F59E0B';
+      default: return '#6B7280';
+    }
+  };
+
+  const getCategoryIcon = (category: Achievement['category']) => {
+    switch (category) {
+      case 'productivity': return <ThunderboltOutlined />;
+      case 'leadership': return <CrownOutlined />;
+      case 'innovation': return <RocketOutlined />;
+      case 'collaboration': return <HeartOutlined />;
+      default: return <StarOutlined />;
+    }
+  };
+
+  const totalPoints = userAchievements
+    .filter(a => a.completed)
+    .reduce((sum, a) => sum + a.reward.points, 0);
+
+  const completedCount = userAchievements.filter(a => a.completed).length;
+  const completionRate = Math.round((completedCount / userAchievements.length) * 100);
+
+  return (
+    <>
+      {contextHolder}
+      <Modal
+        title={
+          <Space>
+            <TrophyOutlined style={{ color: '#F59E0B' }} />
+            <span>{t('Your Achievements')}</span>
+            <Badge count={completedCount} style={{ backgroundColor: '#8B5CF6' }} />
+          </Space>
+        }
+        open={visible}
+        onCancel={onClose}
+        footer={null}
+        width={800}
+        styles={{
+          body: { padding: '24px 0' }
+        }}
+      >
+        {/* Progress Summary */}
+        <div style={{ 
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          borderRadius: '16px',
+          padding: '24px',
+          marginBottom: '24px',
+          color: 'white'
+        }}>
+          <Row gutter={[24, 16]} align="middle">
+            <Col span={8}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '32px', fontWeight: 'bold' }}>{totalPoints}</div>
+                <Text style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Total Points')}</Text>
+              </div>
+            </Col>
+            <Col span={8}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '32px', fontWeight: 'bold' }}>{completedCount}</div>
+                <Text style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Completed')}</Text>
+              </div>
+            </Col>
+            <Col span={8}>
+              <div style={{ textAlign: 'center' }}>
+                <Progress
+                  type="circle"
+                  percent={completionRate}
+                  size={60}
+                  strokeColor="white"
+                  trailColor="rgba(255,255,255,0.3)"
+                />
+                <br />
+                <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: '12px' }}>
+                  {t('Progress')}
+                </Text>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        {/* Achievements Grid */}
+        <Row gutter={[16, 16]}>
+          {userAchievements.map((achievement, index) => (
+            <Col span={12} key={achievement.id}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card
+                  size="small"
+                  style={{
+                    borderRadius: '12px',
+                    border: `2px solid ${getRarityColor(achievement.rarity)}30`,
+                    backgroundColor: achievement.completed ? `${getRarityColor(achievement.rarity)}05` : 'white',
+                    opacity: achievement.completed ? 1 : 0.8,
+                    transition: 'all 0.3s ease',
+                  }}
+                  hoverable
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '12px',
+                      background: `linear-gradient(135deg, ${getRarityColor(achievement.rarity)}, ${getRarityColor(achievement.rarity)}80)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '20px'
+                    }}>
+                      {achievement.completed ? <TrophyOutlined /> : achievement.icon}
+                    </div>
+                    
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                        <Text strong style={{ fontSize: '14px' }}>
+                          {achievement.title}
+                        </Text>
+                        <Tag color={getRarityColor(achievement.rarity)} size="small">
+                          {achievement.rarity}
+                        </Tag>
+                        {achievement.completed && (
+                          <Badge dot style={{ backgroundColor: '#10B981' }} />
+                        )}
+                      </div>
+                      
+                      <Text style={{ fontSize: '12px', color: '#6B7280', display: 'block', marginBottom: '8px' }}>
+                        {achievement.description}
+                      </Text>
+                      
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Progress 
+                          percent={(achievement.progress / achievement.maxProgress) * 100}
+                          size="small"
+                          strokeColor={getRarityColor(achievement.rarity)}
+                          trailColor="#f0f0f0"
+                          showInfo={false}
+                          style={{ flex: 1 }}
+                        />
+                        <Text style={{ fontSize: '11px', color: '#9CA3AF' }}>
+                          {achievement.progress}/{achievement.maxProgress}
+                        </Text>
+                      </div>
+                      
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
+                        <Space size="small">
+                          {getCategoryIcon(achievement.category)}
+                          <Text style={{ fontSize: '11px', color: '#6B7280' }}>
+                            {achievement.category}
+                          </Text>
+                        </Space>
+                        <Text style={{ fontSize: '11px', fontWeight: 'bold', color: getRarityColor(achievement.rarity) }}>
+                          +{achievement.reward.points} pts
+                        </Text>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            </Col>
+          ))}
+        </Row>
+      </Modal>
+
+      {/* Achievement Celebration Modal */}
+      <Modal
+        open={showCelebration}
+        onCancel={() => setShowCelebration(false)}
+        footer={
+          <Button 
+            type="primary" 
+            onClick={() => setShowCelebration(false)}
+            style={{
+              background: 'linear-gradient(135deg, #667eea, #764ba2)',
+              border: 'none',
+              borderRadius: '8px'
+            }}
+          >
+            Awesome! 🎉
+          </Button>
+        }
+        centered
+        width={400}
+      >
+        {newAchievement && (
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            style={{ textAlign: 'center', padding: '20px' }}
+          >
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 0.5, repeat: 2 }}
+              style={{ fontSize: '64px', marginBottom: '16px' }}
+            >
+              🏆
+            </motion.div>
+            
+            <Title level={3} style={{ color: '#667eea', marginBottom: '8px' }}>
+              Achievement Unlocked!
+            </Title>
+            
+            <Title level={4} style={{ marginBottom: '8px' }}>
+              {newAchievement.title}
+            </Title>
+            
+            <Text style={{ color: '#6B7280', display: 'block', marginBottom: '16px' }}>
+              {newAchievement.description}
+            </Text>
+            
+            <div style={{
+              background: 'linear-gradient(135deg, #667eea15, #764ba215)',
+              padding: '16px',
+              borderRadius: '12px',
+              border: `2px solid ${getRarityColor(newAchievement.rarity)}30`
+            }}>
+              <Space direction="vertical" align="center" size="small">
+                <Text strong style={{ color: getRarityColor(newAchievement.rarity) }}>
+                  +{newAchievement.reward.points} Points Earned!
+                </Text>
+                {newAchievement.reward.badge && (
+                  <Tag color={getRarityColor(newAchievement.rarity)}>
+                    🏅 {newAchievement.reward.badge}
+                  </Tag>
+                )}
+              </Space>
+            </div>
+          </motion.div>
+        )}
+      </Modal>
+    </>
+  );
+};

@@ -1,425 +1,236 @@
-/* Executive Portal Global Styles */
+/* Arabic RTL Styling */
 
-:root {
-  /* Executive Color Palette */
-  --executive-primary: #1e3a8a;
-  --executive-secondary: #3b82f6;
-  --executive-accent: #60a5fa;
-  --executive-light: #dbeafe;
-  --executive-dark: #1e40af;
-  
-  /* Gradient Colors for Timeline */
-  --timeline-start: #1e3a8a;
-  --timeline-end: #93c5fd;
-  
-  /* Executive Typography */
-  --font-executive: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  
-  /* Spacing */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 48px;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+/* Fix sidebar visibility - Dark theme */
+.ant-layout-sider {
+  background: #001529 !important;
+  border-right: 1px solid #434343;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Global Resets and Base Styles */
-* {
-  box-sizing: border-box;
+html[dir="rtl"] .ant-layout-sider {
+  border-right: none;
+  border-left: 1px solid #434343;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-executive);
-  background-color: #f8fafc;
-  color: #1f2937;
-  line-height: 1.6;
+/* Dark menu styling */
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
+  background: #001529 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
-/* Executive Card Styles */
-.executive-card {
-  background: white;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  border: 1px solid #e5e7eb;
-  transition: all 0.3s ease;
+.ant-menu-dark .ant-menu-item, 
+.ant-menu-dark .ant-menu-submenu-title,
+.ant-menu-dark .ant-menu-item a {
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-radius: 6px;
+  margin: 4px 8px;
 }
 
-.executive-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+.ant-menu-dark .ant-menu-item:hover,
+.ant-menu-dark .ant-menu-submenu-title:hover {
+  background-color: #1890ff !important;
+  color: #fff !important;
 }
 
-/* Executive KPI Cards */
-.kpi-card {
-  background: linear-gradient(135deg, var(--executive-primary) 0%, var(--executive-secondary) 100%);
-  color: white;
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-lg);
-  transition: all 0.3s ease;
+.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-dark .ant-menu-item-active {
+  background-color: #1890ff !important;
+  color: #fff !important;
 }
 
-.kpi-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
+.ant-menu-dark .ant-menu-submenu-title {
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
-.kpi-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: var(--spacing-sm);
+.ant-menu-dark .ant-menu-submenu-title:hover {
+  color: #fff !important;
+  background-color: rgba(24, 144, 255, 0.1) !important;
 }
 
-.kpi-label {
-  font-size: 0.875rem;
-  opacity: 0.9;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.ant-menu-dark .ant-menu-submenu-arrow {
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
-/* Timeline Gradient Styles */
-.timeline-container {
-  position: relative;
-  padding: var(--spacing-xl) 0;
+/* Logo area in sidebar */
+.ant-layout-sider .ant-layout-sider-children {
+  background: #001529 !important;
 }
 
-.timeline-line {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(to bottom, var(--timeline-start) 0%, var(--timeline-end) 100%);
-  transform: translateX(-50%);
-  border-radius: 2px;
+/* Improve menu item visibility */
+.ant-menu-dark .ant-menu-item-icon {
+  font-size: 16px;
+  margin-right: 8px;
 }
 
-.timeline-item {
-  position: relative;
-  margin-bottom: var(--spacing-2xl);
-  padding: 0 var(--spacing-xl);
+html[dir="rtl"] .ant-menu-dark .ant-menu-item-icon {
+  margin-right: 0;
+  margin-left: 8px;
 }
-
-.timeline-item:nth-child(odd) .timeline-content {
-  margin-right: 50%;
-  padding-right: var(--spacing-xl);
+html[dir="rtl"], html[lang="ar"] {
+  direction: rtl;
   text-align: right;
 }
 
-.timeline-item:nth-child(even) .timeline-content {
-  margin-left: 50%;
-  padding-left: var(--spacing-xl);
+html[dir="ltr"], html[lang="en"] {
+  direction: ltr;
   text-align: left;
 }
 
-.timeline-marker {
-  position: absolute;
-  left: 50%;
-  top: var(--spacing-lg);
-  width: 16px;
-  height: 16px;
-  background: var(--executive-primary);
-  border: 4px solid white;
-  border-radius: 50%;
-  transform: translateX(-50%);
-  box-shadow: var(--shadow-md);
-  z-index: 2;
+/* Ensure all components respect RTL direction */
+html[dir="rtl"] .ant-layout,
+html[dir="rtl"] .ant-layout-content,
+html[dir="rtl"] .ant-layout-sider,
+html[dir="rtl"] .ant-layout-header {
+  direction: rtl;
 }
 
-.timeline-content {
-  background: white;
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-md);
-  border: 1px solid #e5e7eb;
-  transition: all 0.3s ease;
+html[dir="rtl"] .ant-menu,
+html[dir="rtl"] .ant-menu-item,
+html[dir="rtl"] .ant-dropdown-menu {
+  direction: rtl;
+  text-align: right;
 }
 
-.timeline-content:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+html[dir="rtl"] .ant-card,
+html[dir="rtl"] .ant-card-body,
+html[dir="rtl"] .ant-form,
+html[dir="rtl"] .ant-form-item {
+  direction: rtl;
+  text-align: right;
 }
 
-/* Kanban Board Styles */
-.kanban-board {
-  display: flex;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-lg);
-  overflow-x: auto;
-  min-height: 600px;
+html[dir="rtl"] .ant-table,
+html[dir="rtl"] .ant-table-tbody,
+html[dir="rtl"] .ant-table-thead {
+  direction: rtl;
 }
 
-.kanban-column {
-  flex: 0 0 300px;
-  background: #f8fafc;
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-md);
-  border: 1px solid #e5e7eb;
+/* Flip icons for RTL */
+html[dir="rtl"] .anticon {
+  transform: scaleX(-1);
 }
 
-.kanban-column-header {
-  padding: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
-  background: var(--executive-primary);
-  color: white;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  text-align: center;
+html[dir="rtl"] .ant-menu-submenu-arrow {
+  transform: scaleX(-1);
 }
 
-.kanban-task {
-  background: white;
-  border-radius: var(--radius-md);
-  padding: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid #e5e7eb;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* Fix margins and paddings for RTL */
+html[dir="rtl"] .ant-layout-sider {
+  order: 1;
 }
 
-.kanban-task:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
+html[dir="rtl"] .ant-layout-content {
+  order: 0;
 }
 
-.kanban-task.dragging {
-  opacity: 0.5;
-  transform: rotate(5deg);
+/* Arabic fonts */
+html[lang="ar"] * {
+  font-family: 'Noto Sans Arabic', 'Cairo', 'Amiri', system-ui, -apple-system, sans-serif !important;
 }
 
-/* Executive Header Styles */
-.executive-header {
-  background: linear-gradient(135deg, var(--executive-primary) 0%, var(--executive-secondary) 100%);
-  color: white;
-  padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  margin-bottom: var(--spacing-lg);
+html[lang="en"] * {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
 }
 
-.executive-title {
-  font-size: 1.875rem;
-  font-weight: 700;
-  margin-bottom: var(--spacing-sm);
+/* Additional RTL/LTR body classes */
+body.rtl-layout {
+  direction: rtl !important;
+  text-align: right !important;
 }
 
-.executive-subtitle {
-  opacity: 0.9;
-  font-size: 0.875rem;
+body.ltr-layout {
+  direction: ltr !important;
+  text-align: left !important;
 }
 
-/* Chart Styles */
-.chart-container {
-  background: white;
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  box-shadow: var(--shadow-md);
-  border: 1px solid #e5e7eb;
+/* Improved language switching */
+.rtl-mode {
+  direction: rtl !important;
+  text-align: right !important;
 }
 
-.chart-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: var(--spacing-lg);
-  color: var(--executive-primary);
+.ltr-mode {
+  direction: ltr !important;
+  text-align: left !important;
 }
 
-/* Animation Classes */
-.fade-in {
-  animation: fadeIn 0.6s ease-out;
+/* Force RTL for specific components */
+html[dir="rtl"] .ant-typography,
+html[dir="rtl"] .ant-typography h1,
+html[dir="rtl"] .ant-typography h2,
+html[dir="rtl"] .ant-typography h3,
+html[dir="rtl"] .ant-typography h4,
+html[dir="rtl"] .ant-typography h5,
+html[dir="rtl"] .ant-typography h6,
+html[dir="rtl"] .ant-typography p {
+  direction: rtl;
+  text-align: right;
 }
 
-.slide-up {
-  animation: slideUp 0.6s ease-out;
+/* Input fields and forms */
+html[dir="rtl"] .ant-input,
+html[dir="rtl"] .ant-input-password,
+html[dir="rtl"] .ant-select,
+html[dir="rtl"] .ant-picker {
+  direction: rtl;
+  text-align: right;
 }
 
-.scale-in {
-  animation: scaleIn 0.4s ease-out;
+html[dir="rtl"] .ant-form-item-label {
+  text-align: right;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* Buttons and links */
+html[dir="rtl"] .ant-btn {
+  direction: rtl;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Breadcrumbs */
+html[dir="rtl"] .ant-breadcrumb {
+  direction: rtl;
 }
 
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+html[dir="rtl"] .ant-breadcrumb-separator {
+  transform: scaleX(-1);
 }
 
-/* Responsive Design */
+/* Drawer and Modal */
+html[dir="rtl"] .ant-drawer,
+html[dir="rtl"] .ant-modal {
+  direction: rtl;
+}
+
+html[dir="rtl"] .ant-drawer-header,
+html[dir="rtl"] .ant-modal-header {
+  text-align: right;
+}
+
+/* Timeline for RTL */
+html[dir="rtl"] .ant-timeline {
+  direction: rtl;
+}
+
+html[dir="rtl"] .ant-timeline-item {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Ensure charts and data visualization respect RTL */
+html[dir="rtl"] .recharts-wrapper {
+  direction: ltr; /* Keep charts LTR for readability */
+}
+
+/* Custom spacing adjustments for Arabic */
+html[lang="ar"] .ant-typography {
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+/* Mobile responsiveness for RTL */
 @media (max-width: 768px) {
-  .timeline-item:nth-child(odd) .timeline-content,
-  .timeline-item:nth-child(even) .timeline-content {
-    margin: 0;
-    padding: var(--spacing-md);
-    text-align: left;
-  }
-  
-  .timeline-line {
-    left: var(--spacing-lg);
-  }
-  
-  .timeline-marker {
-    left: var(--spacing-lg);
-  }
-  
-  .kanban-board {
-    flex-direction: column;
-  }
-  
-  .kanban-column {
-    flex: 1 1 auto;
-  }
-  
-  .kpi-value {
-    font-size: 2rem;
-  }
-}
-
-/* Executive Theme Overrides */
-.ant-layout-sider {
-  background: linear-gradient(180deg, var(--executive-primary) 0%, var(--executive-dark) 100%) !important;
-}
-
-.ant-menu-dark {
-  background: transparent !important;
-}
-
-.ant-menu-dark .ant-menu-item-selected {
-  background: rgba(255, 255, 255, 0.1) !important;
-}
-
-.ant-layout-header {
-  background: white !important;
-  box-shadow: var(--shadow-sm) !important;
-  border-bottom: 1px solid #e5e7eb !important;
-}
-
-/* Loading and Transition States */
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-}
-
-.loading-spinner::after {
-  content: '';
-  width: 40px;
-  height: 40px;
-  border: 4px solid #e5e7eb;
-  border-top: 4px solid var(--executive-primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Executive Status Badges */
-.status-badge {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.status-badge.success {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.status-badge.warning {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.status-badge.danger {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.status-badge.info {
-  background: var(--executive-light);
-  color: var(--executive-primary);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--executive-secondary);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--executive-primary);
-}
-
-/* Executive Focus States */
-.executive-focus:focus {
-  outline: 2px solid var(--executive-secondary);
-  outline-offset: 2px;
-}
-
-/* Print Styles */
-@media print {
-  .kanban-board,
-  .timeline-container {
-    break-inside: avoid;
-  }
-  
-  .executive-card {
-    box-shadow: none;
-    border: 1px solid #ccc;
+  html[dir="rtl"] .ant-layout-sider {
+    right: 0;
+    left: auto;
   }
 }

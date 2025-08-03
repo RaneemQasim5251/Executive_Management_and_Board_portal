@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
+import { TimelineAccess } from "../../components/TimelineAccess";
 import { Card, Typography, Tag, Avatar, Button, Space, Modal, Input, Select, Upload, Tooltip } from "antd";
 import {
   PlusOutlined,
@@ -11,22 +12,23 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
 const { Option } = Select;
 
-// Strategic Kanban Data - C-Level Tasks
-const kanbanData = {
-  "strategic-planning": {
-    title: "Strategic Planning",
-    color: "#1e3a8a",
+// Board Management Data - will be moved inside component
+const getBoardData = (t: any) => ({
+    "strategic-planning": {
+      title: t("Strategic Planning"),
+      color: "#1e3a8a",
     tasks: [
       {
         id: "sp-1",
-        title: "2025 Vision & Strategy Document",
-        description: "Develop comprehensive strategic vision and roadmap for 2025-2027",
+        title: t("2025 Vision & Strategy Document"),
+        description: t("Develop comprehensive strategic vision and roadmap for 2025-2027"),
         priority: "critical",
         assignees: ["CEO", "Strategy Team"],
         dueDate: "2024-08-15",
@@ -36,7 +38,7 @@ const kanbanData = {
       },
       {
         id: "sp-2", 
-        title: "Market Analysis - Emerging Technologies",
+        title: t("Market Analysis - Emerging Technologies"),
         description: "Deep dive analysis of AI, IoT, and blockchain market opportunities",
         priority: "high",
         assignees: ["CTO", "Research Team"],
@@ -48,12 +50,12 @@ const kanbanData = {
     ]
   },
   "in-execution": {
-    title: "In Execution",
+    title: t("In Execution"),
     color: "#f59e0b",
     tasks: [
       {
         id: "ie-1",
-        title: "Digital Transformation Phase 2",
+        title: t("Digital Transformation Phase 2"),
         description: "Implementation of AI-driven automation across core business processes",
         priority: "critical",
         assignees: ["CTO", "COO", "IT Team"],
@@ -64,7 +66,7 @@ const kanbanData = {
       },
       {
         id: "ie-2",
-        title: "APAC Market Expansion",
+        title: t("APAC Market Expansion"),
         description: "Establish operations in Singapore, Tokyo, and Sydney markets",
         priority: "high",
         assignees: ["CEO", "Regional VP"],
@@ -75,7 +77,7 @@ const kanbanData = {
       },
       {
         id: "ie-3",
-        title: "Sustainability Initiative Rollout", 
+        title: t("Sustainability Initiative Rollout"), 
         description: "Company-wide carbon neutrality program implementation",
         priority: "medium",
         assignees: ["CSO", "Operations"],
@@ -87,7 +89,7 @@ const kanbanData = {
     ]
   },
   "review-approval": {
-    title: "Board Review",
+    title: t("Board Review"),
     color: "#8b5cf6",
     tasks: [
       {
@@ -115,7 +117,7 @@ const kanbanData = {
     ]
   },
   "completed": {
-    title: "Completed",
+    title: t("Completed Tasks"),
     color: "#10b981",
     tasks: [
       {
@@ -142,7 +144,7 @@ const kanbanData = {
       }
     ]
   }
-};
+});
 
 const getPriorityColor = (priority: string) => {
   switch (priority) {
@@ -189,10 +191,14 @@ const taskVariants = {
   },
 };
 
-export const KanbanPage: React.FC = () => {
+export const KanbanPage: FC = () => {
+  const { t } = useTranslation();
   const [selectedTask, setSelectedTask] = useState<any>(null);
   const [commentModalVisible, setCommentModalVisible] = useState(false);
   const [newComment, setNewComment] = useState("");
+
+  // Get kanban data with translations
+  const kanbanData = getBoardData(t);
 
   const handleTaskClick = (task: any) => {
     setSelectedTask(task);
@@ -215,10 +221,10 @@ export const KanbanPage: React.FC = () => {
       {/* Executive Header */}
       <motion.div variants={columnVariants} className="executive-header">
         <Title level={2} style={{ color: "white", margin: 0 }}>
-          📋 Strategic Kanban Board
+          👥 Board Management
         </Title>
         <Text style={{ color: "rgba(255, 255, 255, 0.9)" }}>
-          C-Level task management and strategic initiative tracking
+          Executive initiatives and board-level strategic tracking
         </Text>
       </motion.div>
 
@@ -265,6 +271,13 @@ export const KanbanPage: React.FC = () => {
                 {column.tasks.length} {column.tasks.length === 1 ? 'task' : 'tasks'}
               </Text>
             </div>
+
+            {/* Timeline Access - Only show in Strategic Planning column */}
+            {column.title === "Strategic Planning" && (
+              <div style={{ marginBottom: "16px" }}>
+                <TimelineAccess />
+              </div>
+            )}
 
             {/* Tasks */}
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -339,7 +352,7 @@ export const KanbanPage: React.FC = () => {
                         <TeamOutlined style={{ marginRight: "4px" }} />
                         ASSIGNED TO
                       </Text>
-                      <Avatar.Group maxCount={2} size="small">
+                      <Avatar.Group max={{ count: 2 }} size="small">
                         {task.assignees.map((assignee, idx) => (
                           <Tooltip key={idx} title={assignee}>
                             <Avatar 
@@ -414,7 +427,7 @@ export const KanbanPage: React.FC = () => {
                   }}
                   block
                 >
-                  Add Strategic Initiative
+                  {t("Add Strategic Initiative")}
                 </Button>
               </motion.div>
             </div>
@@ -427,13 +440,13 @@ export const KanbanPage: React.FC = () => {
         title={
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <CommentOutlined style={{ color: "#1e3a8a" }} />
-            <span>Executive Commentary</span>
+            <span>{t("Executive Commentary")}</span>
           </div>
         }
         open={commentModalVisible}
         onOk={handleAddComment}
         onCancel={() => setCommentModalVisible(false)}
-        okText="Add Executive Comment"
+        okText={t("Add Executive Comment")}
         width={600}
         okButtonProps={{
           style: {
