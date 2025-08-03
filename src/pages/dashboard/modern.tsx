@@ -11,11 +11,9 @@ import {
   Avatar, 
   Tag, 
   Badge,
-  Tooltip,
   Dropdown,
   MenuProps,
-  Divider,
-  Spin
+  Divider
 } from "antd";
 import {
   TeamOutlined,
@@ -33,30 +31,23 @@ import {
   ThunderboltOutlined,
   StarOutlined,
   ArrowUpOutlined,
-  ArrowDownOutlined,
   RiseOutlined,
 } from "@ant-design/icons";
 import {
-  LineChart,
   Line,
   AreaChart,
   Area,
-  BarChart,
-  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip as RechartsTooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { AchievementSystem } from "../../components/AchievementSystem";
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Text } = Typography;
 
 // Modern Data
 const revenueData = [
@@ -71,12 +62,7 @@ const revenueData = [
 // Move projectsData inside component to access t function
 // const projectsData will be defined inside component
 
-const teamMetrics = [
-  { quarter: "Q1", productivity: 85, satisfaction: 92, retention: 96 },
-  { quarter: "Q2", productivity: 88, satisfaction: 94, retention: 97 },
-  { quarter: "Q3", productivity: 91, satisfaction: 96, retention: 98 },
-  { quarter: "Q4", productivity: 94, satisfaction: 98, retention: 99 },
-];
+
 
 // Move upcomingEvents inside component to access t function
 // const upcomingEvents will be defined inside component
@@ -219,7 +205,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Col>
               <Space size="middle">
                 <Button 
-                  type="ghost" 
+                  type="default" 
                   icon={<BellOutlined />}
                   style={{ 
                     borderRadius: "12px",
@@ -394,9 +380,9 @@ export const ModernExecutiveDashboard: FC = () => {
               }
               extra={
                 <Space>
-                  <Button size="small" type={selectedMetric === "revenue" ? "primary" : "ghost"} 
+                  <Button size="small" type={selectedMetric === "revenue" ? "primary" : "default"} 
                     onClick={() => setSelectedMetric("revenue")}>{t("Revenue")}</Button>
-                  <Button size="small" type={selectedMetric === "growth" ? "primary" : "ghost"}
+                  <Button size="small" type={selectedMetric === "growth" ? "primary" : "default"}
                     onClick={() => setSelectedMetric("growth")}>{t("Growth")}</Button>
                 </Space>
               }
