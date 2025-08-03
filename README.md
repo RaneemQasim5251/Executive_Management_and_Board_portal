@@ -1,4 +1,4 @@
-# 🏢 Executive Management & Board Portal
+# Executive Management & Board Portal
 
 > **The Ultimate C-Level Dashboard** - A sophisticated, modern portal designed exclusively for executives and board members.
 
@@ -7,56 +7,56 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.2.2-blue.svg)](https://www.typescriptlang.org/)
 [![Refine](https://img.shields.io/badge/Refine-4.53.0-purple.svg)](https://refine.dev/)
 
-## 🎯 Executive Features
+## Executive Features
 
-### 📊 **Strategic Dashboard**
+### **Strategic Dashboard**
 - **Executive KPIs** - Revenue, Projects, Team Performance, Efficiency Metrics
 - **Real-time Charts** - Interactive data visualization with smooth animations
 - **Performance Analytics** - Strategic insights for C-level decision making
 - **Responsive Design** - Perfect on desktop, tablet, and mobile
 
-### 🌊 **Beautiful Timeline**
+### **Beautiful Timeline**
 - **Gradient Design** - Dark blue to light blue gradient as requested
 - **Project Milestones** - Visual project tracking with key events
 - **Interactive Events** - Click to view details and add comments
 - **Strategic Planning** - Long-term project visualization
 
-### 📋 **Strategic Kanban**
+### **Strategic Kanban**
 - **High-level Tasks** - C-level initiatives and strategic projects
 - **Comment System** - Executive collaboration with attachments
 - **Non-editable View** - Perfect for board oversight (view + comment only)
 - **Drag & Drop** - Modern task management interface
 
-### 🔐 **Executive Authentication**
+### **Executive Authentication**
 - **C-level Only Access** - Secure authentication for executives
 - **Role-based Permissions** - Board member specific access controls
 - **JWT Security** - Enterprise-grade security implementation
 - **Session Management** - Automatic timeout and security features
 
-## 🚀 Tech Stack
+## Tech Stack
 
 **Frontend Framework:**
-- ⚛️ **React 18** - Latest React with concurrent features
-- 🏗️ **Refine Framework** - Headless React framework for rapid development
-- 📘 **TypeScript** - Full type safety and better developer experience
+- **React 18** - Latest React with concurrent features
+- **Refine Framework** - Headless React framework for rapid development
+- **TypeScript** - Full type safety and better developer experience
 
 **UI & Design:**
-- 🎨 **Ant Design 5** - Enterprise-class UI components
-- 🎭 **Framer Motion** - Smooth animations and transitions
-- 📊 **Recharts** - Beautiful, responsive charts
-- 🎯 **Modern CSS** - Clean, professional executive styling
+- **Ant Design 5** - Enterprise-class UI components
+- **Framer Motion** - Smooth animations and transitions
+- **Recharts** - Beautiful, responsive charts
+- **Modern CSS** - Clean, professional executive styling
 
 **Development Tools:**
-- ⚡ **Vite** - Lightning fast build tool
-- 🔧 **ESLint** - Code quality and consistency
-- 🛠️ **TypeScript Config** - Optimized for modern development
+- **Vite** - Lightning fast build tool
+- **ESLint** - Code quality and consistency
+- **TypeScript Config** - Optimized for modern development
 
 **Backend Integration:**
-- 🔌 **REST API** - Ready for real backend integration
-- 🔐 **JWT Authentication** - Secure token-based auth
-- 💾 **Data Management** - Optimized for executive workflows
+- **REST API** - Ready for real backend integration
+- **JWT Authentication** - Secure token-based auth
+- **Data Management** - Optimized for executive workflows
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Executive-Management-Portal/
@@ -87,7 +87,7 @@ Executive-Management-Portal/
 └── README.md                # This file
 ```
 
-## 🛠️ Quick Start
+## 🛠Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
@@ -124,7 +124,7 @@ npm run build
 npm run preview
 ```
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 **Executive-First Design:**
 - Clean, uncluttered interface
@@ -138,7 +138,7 @@ npm run preview
 - Smooth animations
 - Accessibility compliant
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -171,7 +171,7 @@ The portal is designed to be easily customizable:
 - [ ] Mobile App Integration
 - [ ] AI-powered Insights
 
-## 🤝 Contributing
+## Contributing
 
 This is an executive portal designed for specific C-level requirements. For feature requests or customizations, please contact the development team.
 
@@ -179,14 +179,6 @@ This is an executive portal designed for specific C-level requirements. For feat
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 👨‍💼 Author
-
-**Raneem Althaqafi**
-- GitHub: [@RaneemQasim5251](https://github.com/RaneemQasim5251)
-- LinkedIn: [Your LinkedIn Profile]
-
 ---
 
 **Built with ❤️ for Executive Excellence**
-
-*This portal delivers strategic power without operational clutter - exactly what C-level executives need.*
