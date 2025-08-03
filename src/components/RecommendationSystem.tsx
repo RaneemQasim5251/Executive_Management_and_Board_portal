@@ -1,5 +1,5 @@
 // نظام التوصيات / Recommendations System  
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import {
   Card,
   Button,

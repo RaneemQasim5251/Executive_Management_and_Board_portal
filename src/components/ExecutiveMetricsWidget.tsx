@@ -62,7 +62,6 @@ const MetricCard: React.FC<MetricCardProps> = ({
 };
 
 export const ExecutiveMetricsWidget: React.FC = () => {
-  const { metrics, loading } = useAppState();
   const { t } = useTranslation();
 
   return (

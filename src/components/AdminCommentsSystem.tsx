@@ -20,14 +20,12 @@ import {
   Popconfirm,
   Row,
   Col,
-  Progress,
   Alert,
   Select,
   Checkbox,
 } from 'antd';
 import {
   PlusOutlined,
-  CommentOutlined,
   PaperClipOutlined,
   DownloadOutlined,
   DeleteOutlined,
@@ -35,17 +33,14 @@ import {
   UserOutlined,
   CalendarOutlined,
   FileOutlined,
-  UploadOutlined,
   MessageOutlined,
-  AdminPanelSettingsOutlined,
-  FileTextOutlined,
   FilePdfOutlined,
   FileImageOutlined,
   FileExcelOutlined,
   FileWordOutlined,
   InboxOutlined,
 } from '@ant-design/icons';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import type { UploadProps, UploadFile } from 'antd';
 
@@ -108,7 +103,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
   const [showAddModal, setShowAddModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [selectedComment, setSelectedComment] = useState<AdminComment | null>(null);
+  const [selectedComment] = useState<AdminComment | null>(null);
 
   // البيانات الوهمية / Mock data
   const mockComments: AdminComment[] = [

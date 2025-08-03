@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import { Drawer, List, Typography, Badge, Button, Space, Empty, Tag, Avatar } from "antd";
 import { 
   BellOutlined, 
@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useNotifications } from "../contexts/AppStateProvider";
 import { INotification } from "../contexts/AppStateProvider";
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 interface NotificationCenterProps {
   visible: boolean;

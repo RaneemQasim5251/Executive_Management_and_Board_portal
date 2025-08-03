@@ -184,8 +184,6 @@ const resources = {
 
       // Archive Pages - Arabic
       "Total Projects": "إجمالي المشاريع",
-      "Revenue": "الإيرادات", 
-      "Achievements": "الإنجازات",
       "Quarter": "الربع",
       "Current Projects": "المشاريع الحالية",
       "YTD Revenue": "إيرادات العام حتى التاريخ",
@@ -445,8 +443,6 @@ const resources = {
 
       // Archive Pages - English
       "Total Projects": "Total Projects",
-      "Revenue": "Revenue",
-      "Achievements": "Achievements",
       "Quarter": "Quarter",
       "Current Projects": "Current Projects",
       "YTD Revenue": "YTD Revenue",
