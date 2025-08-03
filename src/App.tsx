@@ -149,16 +149,18 @@ function App() {
                 name: "archive-2024",
                 list: "/archive/2024",
                 meta: {
-                  label: t("2024 Archive"),
+                  label: t("   📁 2024 Archive"),
                   icon: "📁",
+                  parent: "reports",
                 },
               },
               {
                 name: "archive-2025",
                 list: "/archive/2025",
                 meta: {
-                  label: t("2025 Current"),
+                  label: t("   📈 2025 Current"),
                   icon: "📈",
+                  parent: "reports",
                 },
               },
             ]}

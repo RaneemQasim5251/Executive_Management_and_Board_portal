@@ -433,7 +433,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 } 
               }}
             >
-              <Space direction="vertical" size="medium" style={{ width: "100%", paddingBottom: "20px" }}>
+              <Space direction="vertical" size={16} style={{ width: "100%", paddingBottom: "20px" }}>
                 {projectsData.map((project, index) => (
                   <motion.div 
                     key={project.name}
@@ -479,7 +479,7 @@ export const ModernExecutiveDashboard: FC = () => {
               style={cardStyle}
             >
               <Space direction="vertical" size="middle" style={{ width: "100%" }}>
-                {upcomingEvents.map((event, index) => (
+                {upcomingEvents.map((event) => (
                   <motion.div
                     key={event.id}
                     whileHover={{ scale: 1.02 }}
@@ -530,7 +530,7 @@ export const ModernExecutiveDashboard: FC = () => {
               style={cardStyle}
             >
               <Row gutter={[16, 16]}>
-                {quickActions.map((action, index) => (
+                {quickActions.map((action) => (
                   <Col span={12} key={action.label}>
                     <motion.div
                       whileHover={{ scale: 1.05 }}

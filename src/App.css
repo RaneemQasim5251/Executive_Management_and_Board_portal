@@ -234,3 +234,41 @@ html[lang="ar"] .ant-typography {
     left: auto;
   }
 }
+
+/* Dark Board Management text styling */
+.ant-menu-item .ant-menu-title-content {
+  color: #1a1a1a !important;
+  font-weight: 600 !important;
+}
+
+/* Board Management specific styling */
+.ant-menu-item[data-menu-id*="board"] .ant-menu-title-content,
+.ant-menu-item[aria-label*="Board Management"] .ant-menu-title-content {
+  color: #1a1a1a !important;
+  font-weight: 700 !important;
+}
+
+.ant-menu-item[data-menu-id*="board"]:hover .ant-menu-title-content,
+.ant-menu-item[aria-label*="Board Management"]:hover .ant-menu-title-content {
+  color: #000000 !important;
+}
+
+/* Archive items indentation styling */
+.ant-menu-item[data-menu-id*="archive"] {
+  padding-left: 48px !important;
+}
+
+html[dir="rtl"] .ant-menu-item[data-menu-id*="archive"] {
+  padding-right: 48px !important;
+  padding-left: 24px !important;
+}
+
+/* General dark text for all menu items on white background */
+.ant-layout-sider .ant-menu-item .ant-menu-title-content {
+  color: #262626 !important;
+  font-weight: 500 !important;
+}
+
+.ant-layout-sider .ant-menu-item:hover .ant-menu-title-content {
+  color: #000000 !important;
+}
