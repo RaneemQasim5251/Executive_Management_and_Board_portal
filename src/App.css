@@ -443,3 +443,21 @@ html[dir="rtl"] .ant-progress-circle-path {
 .brand-divider {
   animation: pulse 2s ease-in-out infinite;
 }
+
+/* Arabic Text Centering */
+html[dir="rtl"] .logo-hero-arabic {
+  text-align: center !important;
+  direction: rtl !important;
+}
+
+html[dir="rtl"] .logo-hero-arabic .ant-typography {
+  text-align: center !important;
+}
+
+/* Perfect centering for Arabic brand text */
+html[dir="rtl"] .brand-text-arabic {
+  text-align: center !important;
+  direction: rtl !important;
+  width: 100% !important;
+  display: block !important;
+}

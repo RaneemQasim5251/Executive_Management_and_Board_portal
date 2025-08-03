@@ -71,7 +71,7 @@ const revenueData = [
 // const quickActions will be defined inside component
 
 export const ModernExecutiveDashboard: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
 
   // Define data arrays inside component to access t function
@@ -202,7 +202,50 @@ export const ModernExecutiveDashboard: FC = () => {
           }} />
           
           {/* Content Container */}
-          <div style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+          <div style={{ 
+            position: "relative", 
+            zIndex: 1, 
+            textAlign: "center",
+            direction: i18n.language === 'ar' ? "rtl" : "ltr" 
+          }}>
+            
+            {/* Alerts Section - Positioned with Logo */}
+            <div style={{ 
+              position: "absolute", 
+              top: "20px", 
+              right: i18n.language === 'ar' ? "auto" : "20px",
+              left: i18n.language === 'ar' ? "20px" : "auto",
+              zIndex: 10 
+            }}>
+              <Space size="middle">
+                <Button 
+                  type="default" 
+                  icon={<BellOutlined />}
+                  style={{ 
+                    borderRadius: "12px",
+                    borderColor: "#0C085C",
+                    color: "#0C085C",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    backdropFilter: "blur(10px)",
+                    boxShadow: "0 4px 12px rgba(12, 8, 92, 0.15)"
+                  }}
+                >
+                  {t("3 Alerts")}
+                </Button>
+                <Dropdown menu={{ items: headerMenuItems }} placement="bottomRight">
+                  <Button 
+                    type="primary" 
+                    icon={<MoreOutlined />}
+                    style={{ 
+                      borderRadius: "12px",
+                      background: "linear-gradient(135deg, #0C085C, #0095CE)",
+                      border: "none",
+                      boxShadow: "0 4px 12px rgba(12, 8, 92, 0.25)"
+                    }}
+                  />
+                </Dropdown>
+              </Space>
+            </div>
             {/* Animated Logo */}
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
@@ -247,10 +290,12 @@ export const ModernExecutiveDashboard: FC = () => {
                   WebkitTextFillColor: "transparent",
                   fontSize: "48px",
                   fontWeight: "900",
-                  letterSpacing: "1px"
+                  letterSpacing: i18n.language === 'ar' ? "2px" : "1px",
+                  textAlign: "center",
+                  direction: i18n.language === 'ar' ? "rtl" : "ltr"
                 }}
               >
-                QARAR
+                {i18n.language === 'ar' ? 'قرار' : 'QARAR'}
               </Title>
               
               <motion.div
@@ -273,7 +318,9 @@ export const ModernExecutiveDashboard: FC = () => {
                   margin: "16px 0 8px 0", 
                   color: "#0C085C",
                   fontSize: "28px",
-                  fontWeight: "700"
+                  fontWeight: "700",
+                  textAlign: "center",
+                  direction: i18n.language === 'ar' ? "rtl" : "ltr"
                 }}
               >
                 {t("Executive Command Center")}
@@ -283,7 +330,10 @@ export const ModernExecutiveDashboard: FC = () => {
                 fontSize: "18px", 
                 color: "#666", 
                 fontWeight: "500",
-                lineHeight: "1.6"
+                lineHeight: "1.6",
+                textAlign: "center",
+                direction: i18n.language === 'ar' ? "rtl" : "ltr",
+                display: "block"
               }}>
                 {t("Strategic Decision Making • Executive Intelligence • Board Governance")}
               </Text>
@@ -292,47 +342,7 @@ export const ModernExecutiveDashboard: FC = () => {
         </Card>
       </motion.div>
 
-      {/* Quick Actions Row */}
-      <motion.div variants={itemVariants}>
-        <Card 
-          style={{ 
-            ...cardStyle,
-            background: "rgba(255, 255, 255, 0.95)",
-            backdropFilter: "blur(20px)",
-            marginBottom: "24px"
-          }}
-          styles={{ body: { padding: "32px" } }}
-        >
-          <Row justify="space-between" align="middle">
-            <Col>
-              <Space size="middle">
-                <Button 
-                  type="default" 
-                  icon={<BellOutlined />}
-                  style={{ 
-                    borderRadius: "12px",
-                    borderColor: "#667eea",
-                    color: "#667eea"
-                  }}
-                >
-                  {t("3 Alerts")}
-                </Button>
-                <Dropdown menu={{ items: headerMenuItems }} placement="bottomRight">
-                  <Button 
-                    type="primary" 
-                    icon={<MoreOutlined />}
-                    style={{ 
-                      borderRadius: "12px",
-                      background: "linear-gradient(135deg, #0C085C, #0095CE)",
-                      border: "none"
-                    }}
-                  />
-                </Dropdown>
-              </Space>
-            </Col>
-          </Row>
-        </Card>
-      </motion.div>
+
 
       {/* Main KPIs */}
       <Row gutter={[24, 24]} style={{ marginBottom: "24px" }}>
