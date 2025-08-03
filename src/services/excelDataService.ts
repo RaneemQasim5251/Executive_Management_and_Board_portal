@@ -16,10 +16,10 @@ export interface ExcelProjectData {
   phase: string;
   priority: 'high' | 'medium' | 'low';
   category: string;
-  description?: string;
-  risks?: string;
-  objectives?: string;
-  milestones?: string;
+  description: string;
+  risks: string;
+  objectives: string;
+  milestones: string;
 }
 
 class ExcelDataService {
@@ -119,7 +119,7 @@ class ExcelDataService {
           return null;
         }
       })
-      .filter((item): item is ExcelProjectData => item !== null) as ExcelProjectData[];
+      .filter((item): item is ExcelProjectData => item !== null);
   }
 
   // إنشاء خريطة الأعمدة / Create column mapping

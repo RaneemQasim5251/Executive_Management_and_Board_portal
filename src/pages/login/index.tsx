@@ -337,7 +337,7 @@ export const Login: FC = () => {
             {/* Language Toggle */}
             <div style={{ textAlign: "center" }}>
               <Button
-                type="ghost"
+                                  type="default"
                 icon={<GlobalOutlined />}
                 onClick={toggleLanguage}
                 style={{
