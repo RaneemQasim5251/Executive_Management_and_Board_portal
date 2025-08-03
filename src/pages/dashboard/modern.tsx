@@ -332,7 +332,7 @@ export const ModernExecutiveDashboard: FC = () => {
               />
               
               <img 
-                src="/Qarar Logo.png" 
+                src="/Qarar Logo no text.png" 
                 alt="Qarar Logo" 
                 style={{ 
                   height: "160px", 

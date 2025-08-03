@@ -25,7 +25,8 @@ import {
   BarChartOutlined,
   FileTextOutlined,
   FolderOutlined,
-  CalendarOutlined
+  CalendarOutlined,
+  RiseOutlined
 } from '@ant-design/icons';
 
 
@@ -149,29 +150,36 @@ function App() {
               },
               {
                 name: "reports",
-                list: "/reports", 
                 meta: {
                   label: t("Reports & Analytics"),
                   icon: <BarChartOutlined />,
                 },
-              },
-              {
-                name: "archive-2024",
-                list: "/archive/2024",
-                parent: "reports",
-                meta: {
-                  label: t("2024 Archive"),
-                  icon: <FolderOutlined />,
-                },
-              },
-              {
-                name: "archive-2025",
-                list: "/archive/2025",
-                parent: "reports",
-                meta: {
-                  label: t("2025 Current"),
-                  icon: <CalendarOutlined />,
-                },
+                children: [
+                  {
+                    name: "executive-reports",
+                    list: "/reports",
+                    meta: {
+                      label: t("Executive Reports"),
+                      icon: <FileTextOutlined />,
+                    },
+                  },
+                  {
+                    name: "archive-2024",
+                    list: "/archive/2024",
+                    meta: {
+                      label: t("2024 Archive"),
+                      icon: <FolderOutlined />,
+                    },
+                  },
+                  {
+                    name: "archive-2025",
+                    list: "/archive/2025",
+                    meta: {
+                      label: t("2025 Current"),
+                      icon: <RiseOutlined />,
+                    },
+                  },
+                ]
               },
             ]}
             options={{
