@@ -73,6 +73,9 @@ const revenueData = [
 export const ModernExecutiveDashboard: FC = () => {
   const { t, i18n } = useTranslation();
   const [loading, setLoading] = useState(true);
+  
+  // Force cache refresh with language check
+  console.log("🌍 Current language:", i18n.language);
 
   // Define data arrays inside component to access t function
   const projectsData = [
