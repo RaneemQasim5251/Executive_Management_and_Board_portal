@@ -1,11 +1,11 @@
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { 
   Badge, 
   Card, 
   Progress, 
   Typography, 
   Space, 
-  Tooltip,
+
   Modal,
   Row,
   Col,
@@ -15,15 +15,15 @@ import {
 } from 'antd';
 import {
   TrophyOutlined,
-  FireOutlined,
+
   StarOutlined,
   RocketOutlined,
   CrownOutlined,
   ThunderboltOutlined,
-  DiamondOutlined,
+
   HeartOutlined,
 } from '@ant-design/icons';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
@@ -133,16 +133,15 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
   const [newAchievement, setNewAchievement] = useState<Achievement | null>(null);
   const [api, contextHolder] = notification.useNotification();
 
-  useEffect(() => {
-    // Simulate achievement progress
-    const interval = setInterval(() => {
-      if (Math.random() > 0.7) { // 30% chance every 5 seconds
-        simulateProgress();
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
+  // Removed auto-simulation for cleaner executive experience
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (Math.random() > 0.95) {
+  //       simulateProgress();
+  //     }
+  //   }, 30000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const simulateProgress = () => {
     setUserAchievements(prev => {
@@ -161,16 +160,19 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
             setNewAchievement({ ...achievement, progress: newProgress, completed: true });
             setShowCelebration(true);
             
-            api.success({
-              message: t('Achievement Unlocked!'),
-              description: `${t("You've earned")} "${achievement.title}"! +${achievement.reward.points} ${t('points')}`,
-              duration: 6,
-              style: {
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                border: 'none'
-              }
-            });
+            // Only show notification for rare/epic/legendary achievements to avoid spam
+            if (achievement.rarity === 'epic' || achievement.rarity === 'legendary') {
+              api.success({
+                message: t('Achievement Unlocked!'),
+                description: `${t("You've earned")} "${achievement.title}"! +${achievement.reward.points} ${t('points')}`,
+                duration: 4, // Reduced from 6 seconds
+                style: {
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  border: 'none'
+                }
+              });
+            }
           }
           
           return {
@@ -309,7 +311,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                         <Text strong style={{ fontSize: '14px' }}>
                           {achievement.title}
                         </Text>
-                        <Tag color={getRarityColor(achievement.rarity)} size="small">
+                        <Tag color={getRarityColor(achievement.rarity)}>
                           {achievement.rarity}
                         </Tag>
                         {achievement.completed && (

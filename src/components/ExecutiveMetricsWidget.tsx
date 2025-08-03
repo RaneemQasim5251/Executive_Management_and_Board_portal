@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Statistic, Row, Col, Progress, Tooltip } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { useAppState } from '../contexts/AppStateProvider';
+
 import { useTranslation } from 'react-i18next';
 
 interface MetricCardProps {

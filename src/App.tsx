@@ -1,7 +1,6 @@
 import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import {
-  AuthPage,
   ErrorComponent,
   ThemedLayoutV2,
   ThemedSiderV2,
@@ -10,7 +9,6 @@ import {
 import "@refinedev/antd/dist/reset.css";
 import routerBindings, {
   DocumentTitleHandler,
-  NavigateToResource, 
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
 import dataProvider from "@refinedev/simple-rest";
@@ -20,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import arEG from 'antd/locale/ar_EG';
 import enUS from 'antd/locale/en_US';
 
-import { supabase } from "./supabase";
+
 import { supabaseAuthProvider } from "./providers/supabaseAuthProvider";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 

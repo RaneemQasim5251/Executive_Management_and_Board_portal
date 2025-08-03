@@ -3,7 +3,7 @@ import {
   Row, 
   Col, 
   Card, 
-  Statistic, 
+ 
   Typography, 
   Space, 
   Button, 
@@ -418,18 +418,36 @@ export const ModernExecutiveDashboard: FC = () => {
                   <span>{t("Strategic Projects")}</span>
                 </Space>
               }
-              style={{ ...cardStyle, height: "400px" }}
+              style={{ 
+                ...cardStyle, 
+                height: "400px", 
+                position: "relative",
+                overflow: "visible" 
+              }}
+              styles={{ 
+                body: { 
+                  height: "calc(100% - 60px)",
+                  overflowY: "auto",
+                  position: "relative",
+                  zIndex: 1
+                } 
+              }}
             >
-              <Space direction="vertical" size="large" style={{ width: "100%" }}>
+              <Space direction="vertical" size="medium" style={{ width: "100%", paddingBottom: "20px" }}>
                 {projectsData.map((project, index) => (
                   <motion.div 
                     key={project.name}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
+                    style={{
+                      position: "relative",
+                      zIndex: 2,
+                      marginBottom: "12px"
+                    }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                      <Text strong>{project.name}</Text>
+                      <Text strong style={{ fontSize: "14px" }}>{project.name}</Text>
                       <Tag color="green">{project.trend}</Tag>
                     </div>
                     <Progress 
@@ -437,7 +455,7 @@ export const ModernExecutiveDashboard: FC = () => {
                       strokeColor={project.color}
                       trailColor="#f0f0f0"
                       size="default"
-                      style={{ marginBottom: "16px" }}
+                      style={{ marginBottom: "8px" }}
                     />
                   </motion.div>
                 ))}
@@ -466,7 +484,7 @@ export const ModernExecutiveDashboard: FC = () => {
                     key={event.id}
                     whileHover={{ scale: 1.02 }}
                     style={{
-                      padding: "16px",
+                      padding: "26px",
                       background: "#fafafa",
                       borderRadius: "12px",
                       border: "1px solid #f0f0f0"

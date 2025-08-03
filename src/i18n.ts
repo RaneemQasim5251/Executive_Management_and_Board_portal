@@ -492,8 +492,7 @@ i18n
       order: ['querystring', 'localStorage', 'navigator'],
       lookupQuerystring: 'lng',
       lookupLocalStorage: 'selectedLanguage',
-      caches: ['localStorage'],
-      checkWhitelist: true
+      caches: ['localStorage']
     }
   });
 
