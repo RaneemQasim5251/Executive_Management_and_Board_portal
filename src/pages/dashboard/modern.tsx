@@ -305,7 +305,6 @@ export const ModernExecutiveDashboard: FC = () => {
         >
           <Row justify="space-between" align="middle">
             <Col>
-            <Col>
               <Space size="middle">
                 <Button 
                   type="default" 
