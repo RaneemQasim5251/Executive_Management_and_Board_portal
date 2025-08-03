@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Row, Col, Typography, Tag, Progress, Space, Statistic, Timeline, Divider, List } from 'antd';
 import { 
   ThunderboltOutlined, 
-  SolarOutlined, 
+  SunOutlined, 
   CarOutlined,
   GlobalOutlined,
   TeamOutlined,
@@ -22,7 +22,7 @@ export const EnergyPage = () => {
 
   // Solutions data
   const solutionsData = [
-    { name: 'Solar Energy Systems', icon: <SolarOutlined />, projects: 12, capacity: '2.5MW', color: '#faad14' },
+    { name: 'Solar Energy Systems', icon: <SunOutlined />, projects: 12, capacity: '2.5MW', color: '#faad14' },
     { name: 'EV Charging Stations', icon: <CarOutlined />, projects: 8, capacity: '150 Units', color: '#52c41a' },
     { name: 'Power Supply UPS Batteries', icon: <PoweroffOutlined />, projects: 25, capacity: '500kW', color: '#1890ff' },
     { name: 'Diesel Power Generators', icon: <FireOutlined />, projects: 15, capacity: '1.2MW', color: '#ff4d4f' },
@@ -40,7 +40,7 @@ export const EnergyPage = () => {
   // Sustainability metrics
   const sustainabilityMetrics = [
     { metric: 'CO2 Reduction', value: '1,250', unit: 'tons/year', icon: <EnvironmentOutlined /> },
-    { metric: 'Renewable Energy Generated', value: '3.2', unit: 'GWh/year', icon: <SolarOutlined /> },
+    { metric: 'Renewable Energy Generated', value: '3.2', unit: 'GWh/year', icon: <SunOutlined /> },
     { metric: 'Fossil Fuel Displacement', value: '850', unit: 'MWh/year', icon: <ThunderboltOutlined /> }
   ];
 
@@ -267,7 +267,7 @@ export const EnergyPage = () => {
             <Timeline
               items={[
                 {
-                  dot: <SolarOutlined style={{ fontSize: '16px', color: '#52c41a' }} />,
+                  dot: <SunOutlined style={{ fontSize: '16px', color: '#52c41a' }} />,
                   children: (
                     <div>
                       <Text strong>Solar Expansion</Text>
