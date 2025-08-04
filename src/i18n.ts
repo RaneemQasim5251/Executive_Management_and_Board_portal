@@ -117,6 +117,20 @@ const resources = {
       "Joint Ventures": "المشاريع المشتركة",
       "Market Access": "الوصول للسوق",
       
+      // KPIs & Reports
+      "All Reports": "جميع التقارير",
+      "Operations": "العمليات",
+      "Financial": "المالية", 
+      "HR & Workforce": "الموارد البشرية والقوى العاملة",
+      "Open in new tab": "فتح في تبويب جديد",
+      "Loading Power BI Report...": "جاري تحميل تقرير Power BI...",
+      "Refreshing report...": "جاري تحديث التقرير...",
+      "Export to PDF": "تصدير إلى PDF",
+      "Report refreshed successfully": "تم تحديث التقرير بنجاح",
+      "Failed to refresh report": "فشل في تحديث التقرير",
+      "Export started successfully": "بدأ التصدير بنجاح",
+      "Failed to export report": "فشل في تصدير التقرير",
+      
       // Common
       "Save": "حفظ",
       "Cancel": "إلغاء",
@@ -271,6 +285,20 @@ const resources = {
       "Partnership Agreements": "Partnership Agreements",
       "Joint Ventures": "Joint Ventures",
       "Market Access": "Market Access",
+      
+      // KPIs & Reports
+      "All Reports": "All Reports",
+      "Operations": "Operations",
+      "Financial": "Financial",
+      "HR & Workforce": "HR & Workforce", 
+      "Open in new tab": "Open in new tab",
+      "Loading Power BI Report...": "Loading Power BI Report...",
+      "Refreshing report...": "Refreshing report...",
+      "Export to PDF": "Export to PDF",
+      "Report refreshed successfully": "Report refreshed successfully",
+      "Failed to refresh report": "Failed to refresh report",
+      "Export started successfully": "Export started successfully",
+      "Failed to export report": "Failed to export report",
       
       // Common
       "Save": "Save",

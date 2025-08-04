@@ -87,6 +87,7 @@ import { StrategicPlanningPage } from "./pages/strategic-planning/index.tsx";
 import { Archive2024 } from "./pages/archive/Archive2024.tsx";
 import { Archive2025 } from "./pages/archive/Archive2025.tsx";
 import { JTCPage, JOilPage, ShaheenPage, FortyFiveDegreesPage, EnergyPage } from "./pages/companies";
+import KPIsERP from "./pages/enterprise-systems/KPIsERP";
 
 import "./App.css";
 
@@ -331,10 +332,10 @@ function App() {
                 <Route path="/companies/45degrees" element={<FortyFiveDegreesPage />} />
                 <Route path="/companies/energy" element={<EnergyPage />} />
                 
-                {/* Enterprise Systems - Placeholder for now */}
+                {/* Enterprise Systems */}
                 <Route path="/systems/ecc" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>ECC - Coming Soon</h2></div>} />
                 <Route path="/systems/ecp" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>ECP - Coming Soon</h2></div>} />
-                <Route path="/systems/kpi-erp" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>KPIs → ERP - Coming Soon</h2></div>} />
+                <Route path="/systems/kpi-erp" element={<KPIsERP />} />
 
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
