@@ -1,5 +1,5 @@
 // نظام التعليقات والمرفقات الإدارية / Admin Comments & File Attachments System
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import {
   Card,
   Button,
@@ -12,7 +12,7 @@ import {
   List,
   Avatar,
   Tag,
-  Divider,
+
   message,
   Empty,
   Badge,
@@ -45,7 +45,7 @@ import { useTranslation } from 'react-i18next';
 import type { UploadProps, UploadFile } from 'antd';
 
 const { TextArea } = Input;
-const { Text, Title, Paragraph } = Typography;
+const { Text, Paragraph } = Typography;
 const { Dragger } = Upload;
 const { Option } = Select;
 
@@ -103,7 +103,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
   const [showAddModal, setShowAddModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [selectedComment] = useState<AdminComment | null>(null);
+  const [, setSelectedComment] = useState<AdminComment | null>(null);
 
   // البيانات الوهمية / Mock data
   const mockComments: AdminComment[] = [
@@ -354,7 +354,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
       >
         {/* إحصائيات سريعة / Quick Stats */}
         <Card size="small" style={{ marginBottom: 16, background: '#f8fafc' }}>
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={6}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#0095CE' }}>
@@ -406,7 +406,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
               icon={<PlusOutlined />}
               onClick={() => setShowAddModal(true)}
               style={{
-                background: 'linear-gradient(135deg, #0C085C, #0095CE)',
+                background: '#0C085C',
                 border: 'none',
                 borderRadius: '8px',
                 height: '40px',
@@ -630,7 +630,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
             style={{ marginBottom: '20px' }}
           />
 
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={12}>
               <Form.Item
                 name="contentAr"
@@ -651,7 +651,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
             </Col>
           </Row>
 
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={8}>
               <Form.Item
                 name="priority"
@@ -744,7 +744,7 @@ export const AdminCommentsSystem: FC<AdminCommentsSystemProps> = ({
                 htmlType="submit"
                 loading={loading}
                 style={{
-                  background: 'linear-gradient(135deg, #0C085C, #0095CE)',
+                  background: '#0C085C',
                   border: 'none',
                 }}
               >

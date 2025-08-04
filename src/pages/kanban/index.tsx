@@ -8,7 +8,7 @@ import {
   TeamOutlined,
   CalendarOutlined,
   FlagOutlined,
-  EditOutlined,
+
   EyeOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
@@ -218,7 +218,7 @@ export const KanbanPage: FC = () => {
       animate="visible"
       style={{ 
         padding: "24px",
-                    background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+                    background: "#0C085C",
         minHeight: "100vh"
       }}
     >
@@ -284,7 +284,7 @@ export const KanbanPage: FC = () => {
               style={{
                 padding: "16px",
                 marginBottom: "20px",
-                background: `linear-gradient(135deg, ${column.color} 0%, ${column.color}cc 100%)`,
+                background: column.color,
                 color: "white",
                 borderRadius: "12px",
                 fontWeight: 600,
@@ -386,7 +386,7 @@ export const KanbanPage: FC = () => {
                             <Avatar 
                               size="small" 
                               style={{ 
-                                background: `linear-gradient(135deg, ${column.color} ${idx * 30}%, ${column.color}aa ${100 - idx * 30}%)`,
+                                background: column.color,
                                 fontSize: "10px",
                                 fontWeight: 600
                               }}
@@ -478,7 +478,7 @@ export const KanbanPage: FC = () => {
         width={600}
         okButtonProps={{
           style: {
-            background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+            background: "#0C085C",
             border: "none",
             fontWeight: 600
           }

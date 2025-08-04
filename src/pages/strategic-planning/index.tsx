@@ -10,6 +10,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
+
 const { Title, Text, Paragraph } = Typography;
 
 export const StrategicPlanningPage: React.FC = () => {
@@ -53,7 +54,7 @@ export const StrategicPlanningPage: React.FC = () => {
   return (
     <div style={{ 
       padding: "24px",
-      background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+              background: "#0C085C",
       minHeight: "100vh"
     }}>
       {/* Executive Header */}
@@ -89,7 +90,7 @@ export const StrategicPlanningPage: React.FC = () => {
       </Card>
 
       {/* Strategic Metrics */}
-      <Row gutter={[16, 16]} style={{ marginBottom: '32px' }}>
+      <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
         {strategicMetrics.map((metric, index) => (
           <Col xs={24} sm={12} lg={6} key={index}>
             <Card size="small">
@@ -121,7 +122,7 @@ export const StrategicPlanningPage: React.FC = () => {
                 icon={<ArrowRightOutlined />}
                 onClick={() => navigate('/timeline')}
               >
-                {t("View Timeline")}
+                {t("View")}
               </Button>
             }
           >
@@ -185,7 +186,7 @@ export const StrategicPlanningPage: React.FC = () => {
         title="Strategic Initiatives Overview" 
         style={{ marginTop: '24px' }}
       >
-        <Row gutter={[16, 16]}>
+        <Row gutter={[24, 24]}>
           <Col xs={24} md={8}>
             <Card size="small" style={{ backgroundColor: '#f6ffed', border: '1px solid #b7eb8f' }}>
               <Statistic

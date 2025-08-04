@@ -63,7 +63,7 @@ export const Archive2025: React.FC = () => {
           {t("2025 Current")}
         </Title>
         
-        <Row gutter={[16, 16]} style={{ marginBottom: '32px' }}>
+        <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
           <Col xs={24} sm={12} lg={6}>
             <Card>
               <Statistic

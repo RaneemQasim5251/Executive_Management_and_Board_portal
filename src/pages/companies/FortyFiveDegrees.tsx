@@ -1,13 +1,13 @@
-import React from 'react';
-import { Card, Row, Col, Typography, Tag, Progress, Space, Statistic, Timeline, Divider, List } from 'antd';
+
+import { Card, Row, Col, Typography, Tag, Progress, Space, Statistic, Timeline, Divider } from 'antd';
 import { 
   CoffeeOutlined, 
   RiseOutlined, 
-  SafetyOutlined,
-  GlobalOutlined,
+
+
   TeamOutlined,
   FireOutlined,
-  EnvironmentOutlined,
+
   StarOutlined,
   CarOutlined
 } from '@ant-design/icons';
@@ -16,8 +16,8 @@ import { useTranslation } from 'react-i18next';
 const { Title, Text, Paragraph } = Typography;
 
 export const FortyFiveDegreesPage = () => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const { t } = useTranslation();
+
 
   // Current operations data
   const operationsData = [
@@ -44,7 +44,7 @@ export const FortyFiveDegreesPage = () => {
       {/* Header Section */}
       <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
         <Col span={24}>
-          <Card style={{ background: 'linear-gradient(135deg, #8B4513 0%, #D2691E 100%)', border: 'none' }}>
+          <Card style={{ background: '#8B4513', border: 'none' }}>
             <Row align="middle" gutter={24}>
               <Col flex="none">
                 <img 
@@ -78,8 +78,8 @@ export const FortyFiveDegreesPage = () => {
               valueStyle={{ color: '#0C085C', fontWeight: 'bold' }}
             />
             <div style={{ marginTop: '8px', fontSize: '12px' }}>
-              <Tag size="small" color="green">1 Flagship</Tag>
-              <Tag size="small" color="blue">6 Drive-thru</Tag>
+              <Tag color="green">1 Flagship</Tag>
+              <Tag color="blue">6 Drive-thru</Tag>
             </div>
           </Card>
         </Col>
@@ -144,7 +144,7 @@ export const FortyFiveDegreesPage = () => {
               <Divider />
               
               <Title level={4} style={{ color: '#0C085C' }}>Core Advantages:</Title>
-              <Row gutter={[16, 16]}>
+              <Row gutter={[24, 24]}>
                 <Col span={12}>
                   <Tag color="brown">Premium Bean Sourcing</Tag>
                 </Col>
@@ -211,7 +211,7 @@ export const FortyFiveDegreesPage = () => {
         <Col xs={24} lg={16}>
           <Card title={t("Expansion Timeline")} 
                 headStyle={{ background: '#faf7f2', borderBottom: '2px solid #8B4513' }}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[24, 24]}>
               {expansionMilestones.map((milestone, index) => (
                 <Col xs={24} md={8} key={index}>
                   <Card size="small" style={{ 
@@ -290,7 +290,7 @@ export const FortyFiveDegreesPage = () => {
         <Col span={24}>
           <Card title={t("Market Resilience & Strategy")} 
                 headStyle={{ background: '#faf7f2', borderBottom: '2px solid #8B4513' }}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[24, 24]}>
               <Col xs={24} md={8}>
                 <Card size="small" style={{ background: '#f9f9f9' }}>
                   <Space direction="vertical" size="small">

@@ -28,7 +28,7 @@ export const ColorModeContextProvider: FC<PropsWithChildren> = ({
     "(prefers-color-scheme: dark)"
   ).matches;
 
-  const systemPreference = isSystemPreferenceDark ? "dark" : "light";
+
   const [mode, setMode] = useState(
     colorModeFromLocalStorage || "light"
   );

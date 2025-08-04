@@ -1,5 +1,5 @@
 // صفحة تسجيل الدخول الحديثة / Modern Login Page
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import {
   Card,
   Form,
@@ -99,7 +99,7 @@ export const ModernLogin: FC = () => {
     <div
       style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)',
+                  background: '#0C085C',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -158,7 +158,7 @@ export const ModernLogin: FC = () => {
               width: '100px',
               height: '100px',
               margin: '0 auto 20px',
-              background: 'linear-gradient(135deg, #fff 0%, #f8f9ff 100%)',
+              background: '#fff',
               borderRadius: '25px',
               display: 'flex',
               alignItems: 'center',
@@ -216,7 +216,7 @@ export const ModernLogin: FC = () => {
                 left: 0,
                 right: 0,
                 height: '4px',
-                background: 'linear-gradient(90deg, #0C085C, #0095CE)',
+                background: '#0C085C',
               }}
             />
 

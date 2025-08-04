@@ -1,12 +1,12 @@
-import React from 'react';
+
 import { Card, Row, Col, Typography, Table, Tag, Progress, Space, Statistic, Timeline, Divider } from 'antd';
 import { 
   CarOutlined, 
   MobileOutlined, 
   DashboardOutlined,
-  SafetyOutlined,
-  GlobalOutlined,
-  TeamOutlined,
+
+
+
   FireOutlined,
   SettingOutlined
 } from '@ant-design/icons';
@@ -15,8 +15,8 @@ import { useTranslation } from 'react-i18next';
 const { Title, Text, Paragraph } = Typography;
 
 export const JOilPage = () => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const { t } = useTranslation();
+
 
   // Technology initiatives data
   const technologyData = [
@@ -135,7 +135,7 @@ export const JOilPage = () => {
       {/* Header Section */}
       <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
         <Col span={24}>
-          <Card style={{ background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)', border: 'none' }}>
+          <Card style={{ background: '#FF6B35', border: 'none' }}>
             <Row align="middle" gutter={24}>
               <Col flex="none">
                 <img 
@@ -180,9 +180,9 @@ export const JOilPage = () => {
               valueStyle={{ color: '#0C085C', fontWeight: 'bold' }}
             />
             <div style={{ marginTop: '8px', fontSize: '12px' }}>
-              <Tag size="small" color="blue">Diesel</Tag>
-              <Tag size="small" color="green">91 Octane</Tag>
-              <Tag size="small" color="orange">95 Octane</Tag>
+              <Tag color="blue">Diesel</Tag>
+              <Tag color="green">91 Octane</Tag>
+              <Tag color="orange">95 Octane</Tag>
             </div>
           </Card>
         </Col>
@@ -232,7 +232,7 @@ export const JOilPage = () => {
               <Divider />
               
               <Title level={4} style={{ color: '#0C085C' }}>Innovation Focus:</Title>
-              <Row gutter={[16, 16]}>
+              <Row gutter={[24, 24]}>
                 <Col span={24}>
                   <Card size="small" style={{ background: '#fff7f0' }}>
                     <Space>

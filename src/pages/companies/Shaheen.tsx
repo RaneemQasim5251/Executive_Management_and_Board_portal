@@ -1,12 +1,12 @@
-import React from 'react';
+
 import { Card, Row, Col, Typography, Tag, Progress, Space, Statistic, Timeline, Divider, List } from 'antd';
 import { 
   CarOutlined, 
   RiseOutlined, 
-  SafetyOutlined,
+
   GlobalOutlined,
-  TeamOutlined,
-  DollarOutlined,
+
+
   EnvironmentOutlined,
   StarOutlined
 } from '@ant-design/icons';
@@ -15,8 +15,8 @@ import { useTranslation } from 'react-i18next';
 const { Title, Text, Paragraph } = Typography;
 
 export const ShaheenPage = () => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const { t } = useTranslation();
+
 
   // Vehicle fleet data
   const fleetData = [
@@ -40,7 +40,7 @@ export const ShaheenPage = () => {
       {/* Header Section */}
       <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
         <Col span={24}>
-          <Card style={{ background: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)', border: 'none' }}>
+          <Card style={{ background: '#1890ff', border: 'none' }}>
             <Row align="middle" gutter={24}>
               <Col flex="none">
                 <img 
@@ -132,7 +132,7 @@ export const ShaheenPage = () => {
               <Divider />
               
               <Title level={4} style={{ color: '#0C085C' }}>Service Categories:</Title>
-              <Row gutter={[16, 16]}>
+              <Row gutter={[24, 24]}>
                 <Col span={12}>
                   <Tag color="green">Economy Cars</Tag>
                 </Col>
@@ -268,7 +268,7 @@ export const ShaheenPage = () => {
         <Col span={24}>
           <Card title={t("Portfolio Integration")} 
                 headStyle={{ background: '#f0f8ff', borderBottom: '2px solid #1890ff' }}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[24, 24]}>
               <Col xs={24} md={8}>
                 <Card size="small" style={{ background: '#f9f9f9' }}>
                   <Space direction="vertical" size="small">

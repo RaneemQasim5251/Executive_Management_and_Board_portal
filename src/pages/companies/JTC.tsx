@@ -1,12 +1,12 @@
-import React from 'react';
-import { Card, Row, Col, Typography, Table, Tag, Progress, Space, Statistic, Timeline, Divider } from 'antd';
+
+import { Card, Row, Col, Typography, Table, Tag, Space, Statistic, Timeline, Divider } from 'antd';
 import { 
   TruckOutlined, 
   RiseOutlined, 
   SafetyOutlined,
   GlobalOutlined,
-  TeamOutlined,
-  DollarOutlined,
+
+
   ClockCircleOutlined,
   SettingOutlined
 } from '@ant-design/icons';
@@ -15,8 +15,8 @@ import { useTranslation } from 'react-i18next';
 const { Title, Text, Paragraph } = Typography;
 
 export const JTCPage = () => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const { t } = useTranslation();
+
 
   // Action tracking data
   const actionData = [
@@ -95,20 +95,20 @@ export const JTCPage = () => {
       dataIndex: 'actionNo',
       key: 'actionNo',
       width: 100,
-      render: (text: string) => <Tag color="blue" style={{ fontWeight: 'bold' }}>{text}</Tag>
+      render: (text: string) => <Tag color="blue" style={{ fontWeight: 'bold', fontSize: '13px', padding: '4px 8px' }}>{text}</Tag>
     },
     {
       title: t('Description'),
       dataIndex: 'description',
       key: 'description',
-      width: 300,
+      width: 350,
       render: (text: string, record: any) => (
         <div>
-          <Text strong>{text}</Text>
-          <div style={{ marginTop: 8 }}>
+          <Text strong style={{ fontSize: '14px', display: 'block', marginBottom: '8px' }}>{text}</Text>
+          <div style={{ marginTop: 12 }}>
             {record.details.map((detail: string, index: number) => (
-              <div key={index} style={{ marginBottom: 4 }}>
-                <Text type="secondary" style={{ fontSize: '12px' }}>• {detail}</Text>
+              <div key={index} style={{ marginBottom: 6, padding: '4px 0' }}>
+                <Text type="secondary" style={{ fontSize: '13px', lineHeight: '1.5' }}>• {detail}</Text>
               </div>
             ))}
           </div>
@@ -119,12 +119,12 @@ export const JTCPage = () => {
       title: t('CEO/JTC Management Remarks'),
       dataIndex: 'remarks',
       key: 'remarks',
-      width: 250,
+      width: 280,
       render: (remarks: string[]) => (
-        <div>
+        <div style={{ padding: '4px 0' }}>
           {remarks.map((remark, index) => (
-            <div key={index} style={{ marginBottom: 4 }}>
-              <Text style={{ fontSize: '12px' }}>{index + 1}. {remark}</Text>
+            <div key={index} style={{ marginBottom: 8, padding: '2px 0' }}>
+              <Text style={{ fontSize: '13px', lineHeight: '1.5' }}>{index + 1}. {remark}</Text>
             </div>
           ))}
         </div>
@@ -134,12 +134,12 @@ export const JTCPage = () => {
       title: t('Period / Date'),
       dataIndex: 'period',
       key: 'period',
-      width: 150,
+      width: 160,
       render: (periods: string[]) => (
-        <div>
+        <div style={{ padding: '4px 0' }}>
           {periods.map((period, index) => (
-            <div key={index} style={{ marginBottom: 2 }}>
-              <Text style={{ fontSize: '12px' }}>{period}</Text>
+            <div key={index} style={{ marginBottom: 6, padding: '2px 0' }}>
+              <Text style={{ fontSize: '13px', fontWeight: '500' }}>{period}</Text>
             </div>
           ))}
         </div>
@@ -181,7 +181,7 @@ export const JTCPage = () => {
       {/* Header Section */}
       <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
         <Col span={24}>
-          <Card style={{ background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)', border: 'none' }}>
+          <Card style={{ background: '#0C085C', border: 'none' }}>
             <Row align="middle" gutter={24}>
               <Col flex="none">
                 <img 
@@ -272,7 +272,7 @@ export const JTCPage = () => {
               <Divider />
               
               <Title level={4} style={{ color: '#0C085C' }}>Services Include:</Title>
-              <Row gutter={[16, 16]}>
+              <Row gutter={[24, 24]}>
                 <Col span={12}>
                   <Tag color="blue">Asphalt Transportation</Tag>
                 </Col>
@@ -332,9 +332,16 @@ export const JTCPage = () => {
               columns={columns}
               dataSource={actionData}
               pagination={false}
-              scroll={{ x: 1200 }}
+              scroll={{ x: 1400 }}
               size="middle"
-              style={{ marginTop: '16px' }}
+              style={{ 
+                marginTop: '16px',
+                backgroundColor: '#fff',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+              }}
+              rowClassName={() => 'custom-table-row'}
             />
           </Card>
         </Col>

@@ -25,7 +25,7 @@ import {
   BarChartOutlined,
   FileTextOutlined,
   FolderOutlined,
-  CalendarOutlined,
+
   RiseOutlined,
   TruckOutlined,
   CarOutlined,
@@ -195,70 +195,102 @@ function App() {
                   parent: "reports",
                 },
               },
-              // Al Jeri Investment Portfolio
+              // Investment Portfolio Management
+              {
+                name: "portfolio",
+                list: "/portfolio",
+                meta: {
+                  label: t("Investment Portfolio"),
+                  icon: <RiseOutlined />,
+                },
+              },
               {
                 name: "jtc",
                 list: "/companies/jtc",
+                parentName: "portfolio",
                 meta: {
                   label: t("JTC Transport & Logistics"),
                   icon: <TruckOutlined />,
+                  parent: "portfolio",
                 },
               },
               {
                 name: "joil",
                 list: "/companies/joil",
+                parentName: "portfolio",
                 meta: {
                   label: t("J:Oil Petroleum"),
                   icon: <FireOutlined />,
+                  parent: "portfolio",
                 },
               },
               {
                 name: "shaheen",
                 list: "/companies/shaheen",
+                parentName: "portfolio",
                 meta: {
                   label: t("Shaheen Rent a Car"),
                   icon: <CarOutlined />,
+                  parent: "portfolio",
                 },
               },
               {
                 name: "45degrees",
                 list: "/companies/45degrees",
+                parentName: "portfolio",
                 meta: {
                   label: t("45degrees Cafe"),
                   icon: <CoffeeOutlined />,
+                  parent: "portfolio",
                 },
               },
               {
                 name: "energy",
                 list: "/companies/energy",
+                parentName: "portfolio",
                 meta: {
                   label: t("Al Jeri Energy"),
                   icon: <ThunderboltOutlined />,
+                  parent: "portfolio",
                 },
               },
-              // Enterprise Systems
+              // Enterprise Technology Systems
+              {
+                name: "enterprise-systems",
+                list: "/systems",
+                meta: {
+                  label: t("Enterprise Systems"),
+                  icon: <SettingOutlined />,
+                },
+              },
               {
                 name: "ecc",
                 list: "/systems/ecc",
+                parentName: "enterprise-systems",
                 meta: {
                   label: t("ECC"),
-                  icon: <SettingOutlined />,
+                  icon: <DatabaseOutlined />,
+                  parent: "enterprise-systems",
                 },
               },
               {
                 name: "ecp",
                 list: "/systems/ecp",
+                parentName: "enterprise-systems",
                 meta: {
                   label: t("ECP"),
                   icon: <LineChartOutlined />,
+                  parent: "enterprise-systems",
                 },
               },
               {
                 name: "kpi-erp",
                 list: "/systems/kpi-erp",
+                parentName: "enterprise-systems",
                 meta: {
                   label: t("KPIs → ERP"),
                   icon: <DatabaseOutlined />,
+                  parent: "enterprise-systems",
                 },
               },
             ]}

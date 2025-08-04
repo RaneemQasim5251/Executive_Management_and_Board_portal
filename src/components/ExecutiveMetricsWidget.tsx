@@ -64,9 +64,19 @@ const MetricCard: React.FC<MetricCardProps> = ({
 export const ExecutiveMetricsWidget: React.FC = () => {
   const { t } = useTranslation();
 
+  // Mock metrics data
+  const metrics = {
+    totalRevenue: 68200000,
+    activeProjects: 24,
+    teamMembers: 1247,
+    successRate: 94.2,
+    efficiencyScore: 92,
+    revenueTarget: 70000000
+  };
+
   return (
     <div>
-      <Row gutter={[16, 16]}>
+      <Row gutter={[24, 24]}>
         <Col xs={24} sm={12} md={6}>
           <MetricCard
             title={t("Total Revenue")}
@@ -114,7 +124,7 @@ export const ExecutiveMetricsWidget: React.FC = () => {
         </Col>
       </Row>
 
-      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
+      <Row gutter={[24, 24]} style={{ marginTop: 16 }}>
         <Col xs={24} md={12}>
           <Card title={t("Efficiency Score")} size="small">
             <Progress

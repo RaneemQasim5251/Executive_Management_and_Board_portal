@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Custom hook for localStorage with TypeScript support
 export function useLocalStorage<T>(
@@ -72,9 +72,17 @@ export function useUserPreferences() {
   };
 }
 
+// Define proper auth data type
+interface AuthData {
+  token: string | null;
+  user: any;
+  refreshToken: string | null;
+  expiresAt: number | null;
+}
+
 // Hook for managing authentication state
 export function useAuthStorage() {
-  const [authData, setAuthData] = useLocalStorage('authData', {
+  const [authData, setAuthData] = useLocalStorage<AuthData>('authData', {
     token: null,
     user: null,
     refreshToken: null,

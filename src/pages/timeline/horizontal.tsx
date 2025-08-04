@@ -204,7 +204,7 @@ export const HorizontalTimeline: FC = () => {
       animate="visible"
       style={{ 
         padding: "24px",
-        background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+                  background: "#0C085C",
         minHeight: "100vh"
       }}
     >
@@ -227,7 +227,7 @@ export const HorizontalTimeline: FC = () => {
                   level={1} 
                   style={{ 
                     margin: 0, 
-                    background: "linear-gradient(135deg, #0C085C, #0095CE)",
+                    background: "#0C085C",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     fontSize: "42px",
@@ -362,7 +362,7 @@ export const HorizontalTimeline: FC = () => {
                         width: "90px",
                         height: "90px",
                         borderRadius: "50%",
-                        background: "linear-gradient(135deg, #10B981, #059669)",
+                        background: "#10B981",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",

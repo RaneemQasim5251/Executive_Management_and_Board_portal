@@ -169,7 +169,7 @@ export const ModernExecutiveDashboard: FC = () => {
       animate="visible"
                 style={{ 
             padding: "24px",
-            background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+            background: "#0C085C",
             minHeight: "100vh"
           }}
     >
@@ -281,7 +281,7 @@ export const ModernExecutiveDashboard: FC = () => {
                     icon={<MoreOutlined />}
                     style={{ 
                       borderRadius: "12px",
-                      background: "linear-gradient(135deg, #0C085C, #0095CE)",
+                      background: "#0C085C",
                       border: "none",
                       boxShadow: "0 4px 12px rgba(12, 8, 92, 0.25)"
                     }}
@@ -387,7 +387,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 level={1} 
                 style={{ 
                   margin: "0 0 8px 0", 
-                  background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+                  background: "#0C085C",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   fontSize: "48px",
@@ -470,7 +470,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               style={{
                 ...cardStyle,
-                background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+                background: "#0C085C",
                 color: "white",
                 height: "200px"
               }}
@@ -503,7 +503,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               style={{
                 ...cardStyle,
-                background: "linear-gradient(135deg, #0095CE 0%, #0C085C 100%)",
+                background: "#0095CE",
                 color: "white",
                 height: "200px"
               }}
@@ -536,7 +536,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               style={{
                 ...cardStyle,
-                background: "linear-gradient(135deg, #0095CE 0%, #363692 100%)",
+                background: "#0095CE",
                 color: "white",
                 height: "200px"
               }}
@@ -569,7 +569,7 @@ export const ModernExecutiveDashboard: FC = () => {
             <Card 
               style={{
                 ...cardStyle,
-                background: "linear-gradient(135deg, #0C085C 0%, #363692 100%)",
+                background: "#0C085C",
                 color: "white",
                 height: "200px"
               }}
@@ -718,7 +718,7 @@ export const ModernExecutiveDashboard: FC = () => {
                       padding: "26px",
                       background: "#fafafa",
                       borderRadius: "12px",
-                      border: "1px solid #f0f0f0"
+                      border: "2px solid #f0f0f0"
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -760,7 +760,7 @@ export const ModernExecutiveDashboard: FC = () => {
               }
               style={cardStyle}
             >
-              <Row gutter={[16, 16]}>
+              <Row gutter={[24, 24]}>
                 {quickActions.map((action) => (
                   <Col span={12} key={action.label}>
                     <motion.div
@@ -772,10 +772,10 @@ export const ModernExecutiveDashboard: FC = () => {
                         style={{
                           textAlign: "center",
                           borderRadius: "12px",
-                          border: `2px solid ${action.color}20`,
+                          border: `3px solid ${action.color}20`,
                           background: `${action.color}05`
                         }}
-                        styles={{ body: { padding: "24px 16px" } }}
+                        styles={{ body: { padding: "22px 16px" } }}
                       >
                         <div style={{ fontSize: "24px", color: action.color, marginBottom: "8px" }}>
                           {action.icon}
@@ -821,7 +821,7 @@ export const ModernExecutiveDashboard: FC = () => {
             style={{
               width: "64px",
               height: "64px",
-              background: "linear-gradient(135deg, #0C085C, #0095CE)",
+              background: "#0C085C",
               border: "none",
               boxShadow: "0 8px 20px rgba(102, 126, 234, 0.4)",
               fontSize: "20px",

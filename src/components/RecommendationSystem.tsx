@@ -29,19 +29,19 @@ import {
   StarOutlined,
   UserOutlined,
   CalendarOutlined,
-  EditOutlined,
+
   DeleteOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
-  ExclamationCircleOutlined,
+
   EyeOutlined,
 } from '@ant-design/icons';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const { TextArea } = Input;
 const { Option } = Select;
-const { Text, Title, Paragraph } = Typography;
+const { Text, Paragraph } = Typography;
 
 // واجهة التوصية / Recommendation Interface
 export interface Recommendation {
@@ -289,7 +289,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
       >
         {/* إحصائيات سريعة / Quick Stats */}
         <Card size="small" style={{ marginBottom: 16, background: '#f8fafc' }}>
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={6}>
               <Statistic
                 title={i18n.language === 'ar' ? 'المجموع' : 'Total'}
@@ -328,7 +328,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
             icon={<PlusOutlined />}
             onClick={() => setShowAddModal(true)}
             style={{
-              background: 'linear-gradient(135deg, #0C085C, #0095CE)',
+              background: '#0C085C',
               border: 'none',
               borderRadius: '8px',
               height: '40px',
@@ -513,7 +513,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
           onFinish={handleAddRecommendation}
           style={{ marginTop: '20px' }}
         >
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={12}>
               <Form.Item
                 name="titleAr"
@@ -534,7 +534,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
             </Col>
           </Row>
 
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={12}>
               <Form.Item
                 name="descriptionAr"
@@ -555,7 +555,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
             </Col>
           </Row>
 
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={8}>
               <Form.Item
                 name="priority"
@@ -623,7 +623,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
             </Col>
           </Row>
 
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={8}>
               <Form.Item
                 name="estimatedCost"
@@ -697,7 +697,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
             <Space direction="vertical" size="large" style={{ width: '100%' }}>
               {/* معلومات أساسية / Basic Information */}
               <Card size="small" title={i18n.language === 'ar' ? 'معلومات أساسية' : 'Basic Information'}>
-                <Row gutter={16}>
+                <Row gutter={[24, 24]}>
                   <Col span={12}>
                     <Text strong>{i18n.language === 'ar' ? 'الحالة:' : 'Status:'}</Text>
                     <br />
@@ -730,7 +730,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
 
               {/* تفاصيل المشروع / Project Details */}
               <Card size="small" title={i18n.language === 'ar' ? 'تفاصيل التنفيذ' : 'Implementation Details'}>
-                <Row gutter={16}>
+                <Row gutter={[24, 24]}>
                   <Col span={8}>
                     <Text strong>{i18n.language === 'ar' ? 'التكلفة المقدرة:' : 'Estimated Cost:'}</Text>
                     <br />
@@ -759,7 +759,7 @@ export const RecommendationSystem: FC<RecommendationSystemProps> = ({
 
               {/* تفاصيل التقديم / Submission Details */}
               <Card size="small" title={i18n.language === 'ar' ? 'تفاصيل التقديم' : 'Submission Details'}>
-                <Row gutter={16}>
+                <Row gutter={[24, 24]}>
                   <Col span={12}>
                     <Text strong>{i18n.language === 'ar' ? 'مقدم بواسطة:' : 'Submitted by:'}</Text>
                     <br />

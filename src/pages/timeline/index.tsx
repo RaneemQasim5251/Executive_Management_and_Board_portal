@@ -188,7 +188,7 @@ export const TimelinePage: FC = () => {
             top: "0",
             bottom: "0",
             width: "6px",
-            background: "linear-gradient(to bottom, #1e3a8a 0%, #93c5fd 100%)",
+            background: "#0C085C",
             transform: "translateX(-50%)",
             borderRadius: "3px",
             boxShadow: "0 0 20px rgba(30, 58, 138, 0.3)",
@@ -216,7 +216,7 @@ export const TimelinePage: FC = () => {
                 top: "24px",
                 width: "20px",
                 height: "20px",
-                background: `linear-gradient(135deg, ${getStatusColor(item.status)} 0%, ${getStatusColor(item.status)}cc 100%)`,
+                background: getStatusColor(item.status),
                 border: "4px solid white",
                 borderRadius: "50%",
                 transform: "translateX(-50%)",
@@ -297,7 +297,7 @@ export const TimelinePage: FC = () => {
                         <Avatar 
                           size="small" 
                           style={{ 
-                            background: `linear-gradient(135deg, #1e3a8a ${idx * 20}%, #3b82f6 ${100 - idx * 20}%)`,
+                            background: "#0C085C",
                             fontSize: "10px"
                           }}
                         >
@@ -336,7 +336,7 @@ export const TimelinePage: FC = () => {
                     type="primary" 
                     size="small"
                     style={{ 
-                      background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+                      background: "#0C085C",
                       border: "none"
                     }}
                   >
@@ -363,7 +363,7 @@ export const TimelinePage: FC = () => {
         okText={t("Add Comment")}
         okButtonProps={{
           style: {
-            background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+            background: "#0C085C",
             border: "none"
           }
         }}

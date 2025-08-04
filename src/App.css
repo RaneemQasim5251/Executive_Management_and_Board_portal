@@ -36,6 +36,23 @@ html[dir="rtl"] .ant-layout-sider {
   box-shadow: -2px 0 8px rgba(12, 8, 92, 0.25);
 }
 
+/* Expanded sidebar width - smaller size */
+.ant-layout-sider:not(.ant-layout-sider-collapsed) {
+  width: 290px !important;
+  min-width: 290px !important;
+  max-width: 290px !important;
+  flex: 0 0 290px !important;
+}
+
+/* Smooth transitions for sidebar */
+.ant-layout-sider {
+  transition: all 0.2s ease !important;
+}
+
+.ant-layout-content {
+  transition: all 0.2s ease !important;
+}
+
 /* Brand Dark menu styling */
 .ant-menu-dark, .ant-menu-dark .ant-menu-sub {
   background: var(--federal-blue) !important;
@@ -52,14 +69,48 @@ html[dir="rtl"] .ant-layout-sider {
 
 .ant-menu-dark .ant-menu-item:hover,
 .ant-menu-dark .ant-menu-submenu-title:hover {
-  background: var(--accent-gradient) !important;
+  background: rgba(0, 149, 206, 0.15) !important;
   color: #fff !important;
 }
 
 .ant-menu-dark .ant-menu-item-selected,
 .ant-menu-dark .ant-menu-item-active {
-  background: var(--primary-gradient) !important;
+  background: rgba(0, 149, 206, 0.25) !important;
   color: #fff !important;
+}
+
+/* Fix dropdown menu styling for better readability */
+.ant-menu-dark .ant-menu-sub.ant-menu-inline {
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  margin: 4px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.ant-menu-dark .ant-menu-sub .ant-menu-item {
+  color: #1a1a1a !important;
+  background: transparent !important;
+  margin: 2px 4px;
+  border-radius: 6px;
+  font-weight: 500 !important;
+}
+
+.ant-menu-dark .ant-menu-sub .ant-menu-item:hover {
+  background: rgba(0, 149, 206, 0.12) !important;
+  color: var(--primary-color) !important;
+}
+
+.ant-menu-dark .ant-menu-sub .ant-menu-item-selected {
+  background: rgba(0, 149, 206, 0.18) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+}
+
+/* Force light colors for all dropdown text */
+.ant-menu-dark .ant-menu-sub .ant-menu-item * {
+  color: inherit !important;
 }
 
 .ant-menu-dark .ant-menu-submenu-title {
@@ -286,13 +337,13 @@ html[dir="rtl"] .ant-menu-submenu .ant-menu-item {
 
 /* Brand Button Styles */
 .ant-btn-primary {
-  background: var(--primary-gradient) !important;
+  background: var(--primary-color) !important;
   border-color: var(--primary-color) !important;
 }
 
 .ant-btn-primary:hover,
 .ant-btn-primary:focus {
-  background: var(--accent-gradient) !important;
+  background: var(--accent-color) !important;
   border-color: var(--accent-color) !important;
 }
 
@@ -316,7 +367,7 @@ a:hover {
 }
 
 .ant-tabs-ink-bar {
-  background: var(--primary-gradient) !important;
+  background: var(--primary-color) !important;
 }
 
 /* Brand Tag Styles */
@@ -328,7 +379,7 @@ a:hover {
 
 /* Brand Progress Styles */
 .ant-progress-bg {
-  background: var(--primary-gradient) !important;
+  background: var(--primary-color) !important;
 }
 
 /* Chart Container Styling */
@@ -352,12 +403,12 @@ a:hover {
 }
 
 .timeline-container .timeline-events::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #0C085C, #0095CE);
+  background: var(--primary-color);
   border-radius: 4px;
 }
 
 .timeline-container .timeline-events::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(90deg, #363692, #0095CE);
+  background: var(--accent-color);
 }
 
 .timeline-event {
@@ -374,6 +425,30 @@ a:hover {
   border: 1px solid rgba(12, 8, 92, 0.2);
   box-shadow: 0 8px 25px rgba(12, 8, 92, 0.15);
   transform: translateY(-2px);
+}
+
+/* Company Table Styling */
+.custom-table-row {
+  font-size: 14px !important;
+}
+
+.custom-table-row td {
+  padding: 16px 12px !important;
+  vertical-align: top !important;
+  line-height: 1.6 !important;
+}
+
+.ant-table-thead > tr > th {
+  background: #f8fafc !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 16px 12px !important;
+  border-bottom: 2px solid var(--egyptian-blue) !important;
+  color: var(--primary-color) !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #f0f9ff !important;
 }
 
 /* Fix RTL Timeline Issues */

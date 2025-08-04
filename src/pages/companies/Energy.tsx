@@ -1,14 +1,14 @@
-import React from 'react';
-import { Card, Row, Col, Typography, Tag, Progress, Space, Statistic, Timeline, Divider, List } from 'antd';
+
+import { Card, Row, Col, Typography, Tag, Progress, Space, Statistic, Timeline, Divider } from 'antd';
 import { 
   ThunderboltOutlined, 
   SunOutlined, 
   CarOutlined,
-  GlobalOutlined,
+
   TeamOutlined,
   SettingOutlined,
   EnvironmentOutlined,
-  RiseOutlined,
+
   PoweroffOutlined,
   FireOutlined
 } from '@ant-design/icons';
@@ -17,8 +17,8 @@ import { useTranslation } from 'react-i18next';
 const { Title, Text, Paragraph } = Typography;
 
 export const EnergyPage = () => {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
+  const { t } = useTranslation();
+
 
   // Solutions data
   const solutionsData = [
@@ -49,7 +49,7 @@ export const EnergyPage = () => {
       {/* Header Section */}
       <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
         <Col span={24}>
-          <Card style={{ background: 'linear-gradient(135deg, #52c41a 0%, #389e0d 100%)', border: 'none' }}>
+          <Card style={{ background: '#52c41a', border: 'none' }}>
             <Row align="middle" gutter={24}>
               <Col flex="none">
                 <img 
@@ -145,7 +145,7 @@ export const EnergyPage = () => {
               <Divider />
               
               <Title level={4} style={{ color: '#0C085C' }}>Core Services:</Title>
-              <Row gutter={[16, 16]}>
+              <Row gutter={[24, 24]}>
                 <Col span={12}>
                   <Tag color="green">Solar Energy Systems</Tag>
                 </Col>
@@ -208,7 +208,7 @@ export const EnergyPage = () => {
         <Col span={24}>
           <Card title={t("Energy Solutions Portfolio")} 
                 headStyle={{ background: '#f6ffed', borderBottom: '2px solid #52c41a' }}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[24, 24]}>
               {solutionsData.map((solution, index) => (
                 <Col xs={24} sm={12} lg={8} key={index}>
                   <Card size="small" style={{ textAlign: 'center', height: '140px' }}>
@@ -236,7 +236,7 @@ export const EnergyPage = () => {
         <Col xs={24} lg={16}>
           <Card title={t("Sustainability Impact")} 
                 headStyle={{ background: '#f6ffed', borderBottom: '2px solid #52c41a' }}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[24, 24]}>
               {sustainabilityMetrics.map((metric, index) => (
                 <Col xs={24} md={8} key={index}>
                   <Card size="small" style={{ background: '#f9f9f9', textAlign: 'center' }}>
@@ -307,7 +307,7 @@ export const EnergyPage = () => {
         <Col span={24}>
           <Card title={t("Portfolio Integration Opportunities")} 
                 headStyle={{ background: '#f6ffed', borderBottom: '2px solid #52c41a' }}>
-            <Row gutter={[16, 16]}>
+            <Row gutter={[24, 24]}>
               <Col xs={24} md={8}>
                 <Card size="small" style={{ background: '#f9f9f9' }}>
                   <Space direction="vertical" size="small">

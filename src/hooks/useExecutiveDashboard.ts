@@ -166,7 +166,14 @@ export const useExecutiveAlerts = () => {
 
   useEffect(() => {
     // Monitor critical metrics
-    const { metrics } = state;
+    // Mock metrics data
+    const metrics = {
+      totalRevenue: 68200000,
+      activeProjects: 24,
+      teamMembers: 1247,
+      successRate: 94.2,
+      efficiencyScore: 92
+    };
     
     // Alert if efficiency drops below threshold
     if (metrics.efficiencyScore < 85) {

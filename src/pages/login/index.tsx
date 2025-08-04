@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useLogin } from "@refinedev/core";
 import {
   Card,
@@ -103,7 +103,7 @@ export const Login: FC = () => {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #0C085C 0%, #0095CE 100%)",
+        background: "#0C085C",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -179,7 +179,7 @@ export const Login: FC = () => {
                 style={{
                   fontSize: "64px",
                   marginBottom: "16px",
-                  background: "linear-gradient(135deg, #1e3a8a, #3b82f6)",
+                  background: "#0C085C",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -193,7 +193,7 @@ export const Login: FC = () => {
                   margin: 0,
                   fontSize: "32px",
                   fontWeight: "700",
-                  background: "linear-gradient(135deg, #1e3a8a, #3b82f6)",
+                  background: "#0C085C",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",

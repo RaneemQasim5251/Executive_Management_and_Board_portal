@@ -6,7 +6,7 @@ import {
   SettingOutlined,
   UserOutlined,
   BellOutlined,
-  GlobalOutlined,
+
   MoonOutlined,
   SunOutlined,
 } from "@ant-design/icons";

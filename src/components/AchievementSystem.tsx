@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { 
   Badge, 
   Card, 
@@ -128,10 +128,10 @@ const getAchievements = (t: any): Achievement[] => [
 export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose }) => {
   const { t } = useTranslation();
   const achievements = getAchievements(t);
-  const [userAchievements, setUserAchievements] = useState<Achievement[]>(achievements);
+  const [userAchievements] = useState<Achievement[]>(achievements);
   const [showCelebration, setShowCelebration] = useState(false);
-  const [newAchievement, setNewAchievement] = useState<Achievement | null>(null);
-  const [api, contextHolder] = notification.useNotification();
+  const [newAchievement] = useState<Achievement | null>(null);
+  const [, contextHolder] = notification.useNotification();
 
   // Removed auto-simulation for cleaner executive experience
   // useEffect(() => {
@@ -143,48 +143,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
   //   return () => clearInterval(interval);
   // }, []);
 
-  const simulateProgress = () => {
-    setUserAchievements(prev => {
-      const incompleteAchievements = prev.filter(a => !a.completed);
-      if (incompleteAchievements.length === 0) return prev;
-      
-      const randomAchievement = incompleteAchievements[Math.floor(Math.random() * incompleteAchievements.length)];
-      
-      return prev.map(achievement => {
-        if (achievement.id === randomAchievement.id && !achievement.completed) {
-          const newProgress = Math.min(achievement.progress + 1, achievement.maxProgress);
-          const isCompleted = newProgress >= achievement.maxProgress;
-          
-          if (isCompleted && !achievement.completed) {
-            // Achievement completed!
-            setNewAchievement({ ...achievement, progress: newProgress, completed: true });
-            setShowCelebration(true);
-            
-            // Only show notification for rare/epic/legendary achievements to avoid spam
-            if (achievement.rarity === 'epic' || achievement.rarity === 'legendary') {
-              api.success({
-                message: t('Achievement Unlocked!'),
-                description: `${t("You've earned")} "${achievement.title}"! +${achievement.reward.points} ${t('points')}`,
-                duration: 4, // Reduced from 6 seconds
-                style: {
-                  background: '#0C085C',
-                  color: 'white',
-                  border: 'none'
-                }
-              });
-            }
-          }
-          
-          return {
-            ...achievement,
-            progress: newProgress,
-            completed: isCompleted
-          };
-        }
-        return achievement;
-      });
-    });
-  };
+  // simulateProgress function removed as it was unused
 
   const getRarityColor = (rarity: Achievement['rarity']) => {
     switch (rarity) {
@@ -234,13 +193,13 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
       >
         {/* Progress Summary */}
         <div style={{ 
-          background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)',
+          background: '#0C085C',
           borderRadius: '16px',
           padding: '24px',
           marginBottom: '24px',
           color: 'white'
         }}>
-          <Row gutter={[24, 16]} align="middle">
+          <Row gutter={[24, 24]} align="middle">
             <Col span={8}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '32px', fontWeight: 'bold' }}>{totalPoints}</div>
@@ -272,7 +231,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
         </div>
 
         {/* Achievements Grid */}
-        <Row gutter={[16, 16]}>
+        <Row gutter={[24, 24]}>
           {userAchievements.map((achievement, index) => (
             <Col span={12} key={achievement.id}>
               <motion.div
@@ -296,7 +255,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                       width: '48px',
                       height: '48px',
                       borderRadius: '12px',
-                      background: `linear-gradient(135deg, ${getRarityColor(achievement.rarity)}, ${getRarityColor(achievement.rarity)}80)`,
+                      background: getRarityColor(achievement.rarity),
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -404,7 +363,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
             </Text>
             
             <div style={{
-              background: 'linear-gradient(135deg, #0C085C15, #0095CE15)',
+              background: 'rgba(12, 8, 92, 0.1)',
               padding: '16px',
               borderRadius: '12px',
               border: `2px solid ${getRarityColor(newAchievement.rarity)}30`

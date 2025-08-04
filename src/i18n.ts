@@ -8,13 +8,46 @@ const resources = {
     translation: {
       // Navigation & Menu - التنقل والقوائم
       "Executive Overview": "النظرة العامة التنفيذية",
-      "Strategic Timeline": "الجدول الزمني الاستراتيجي", 
       "Strategic Projects": "المشاريع الاستراتيجية",
       "Board Management": "إدارة مجلس الإدارة",
       "Reports & Analytics": "التقارير والتحليلات",
       "Executive Management Portal": "بوابة الإدارة التنفيذية",
       "Qarar Executive Portal": "بوابة قرار التنفيذية",
       "Board & C-Suite Command Center": "مركز قيادة مجلس الإدارة والإدارة العليا",
+      
+      // Navigation & Menu Items - الملاحة وعناصر القائمة
+      "Strategic Planning": "التخطيط الاستراتيجي",
+      "Strategic Timeline": "الجدول الزمني الاستراتيجي",
+      "Investment Portfolio": "محفظة الاستثمار",
+      "Enterprise Systems": "الأنظمة المؤسسية",
+      
+      // Companies - الشركات
+      "JTC Transport & Logistics": "شركة الجري للنقل واللوجستيات",
+      "J:Oil Petroleum": "جي أويل للبترول",
+      "Shaheen Rent a Car": "شاهين لتأجير السيارات",
+      "45degrees Cafe": "مقهى 45 درجة",
+      "Al Jeri Energy": "الجري للطاقة",
+      
+      // Enterprise Systems - الأنظمة المؤسسية
+      "ECC": "نظام التحكم المؤسسي",
+      "ECP": "منصة التحكم المؤسسية",
+      "KPIs → ERP": "مؤشرات الأداء ← تخطيط موارد المؤسسة",
+      
+      // Archive Pages - Arabic
+      "Executive Reports": "التقارير التنفيذية",
+      "2024 Archive": "أرشيف 2024",
+      "2025 Current": "الحالية 2025",
+      "Total Projects": "إجمالي المشاريع",
+      "Quarter": "الربع",
+      "Current Projects": "المشاريع الحالية",
+      "YTD Revenue": "إيرادات العام حتى التاريخ",
+      "Goals Progress": "تقدم الأهداف",
+      "Current Quarter": "الربع الحالي",
+      "Year Summary": "ملخص العام",
+      "Key Achievements": "الإنجازات الرئيسية",
+      "Active Initiatives": "المبادرات النشطة",
+      "APAC Market Expansion": "توسع السوق في منطقة آسيا والمحيط الهادئ",
+      "Sustainability Initiative Rollout": "طرح مبادرة الاستدامة",
       
       // Login Page
       "Board of Directors & C-Suite Access": "دخول مجلس الإدارة والإدارة العليا",
@@ -83,160 +116,6 @@ const resources = {
       "Partnership Agreements": "اتفاقيات الشراكة",
       "Joint Ventures": "المشاريع المشتركة",
       "Market Access": "الوصول للسوق",
-      "SEC Filing": "تقديم هيئة الأوراق المالية",
-      "Roadshow": "العرض التسويقي",
-      "Public Trading": "التداول العام",
-      
-      "Executive roadmap and strategic milestones": "خارطة الطريق التنفيذية والمعالم الاستراتيجية",
-
-      // KPI Cards - بطاقات مؤشرات الأداء الرئيسية
-      "Excellent": "ممتاز",
-      "Outstanding": "رائع",
-      "Great": "رائع",
-      "Hot": "رائع",
-      
-      // Al Jeri Companies
-      "JTC Transport & Logistics": "شركة الجري للنقل واللوجستيات",
-      "J:Oil Petroleum": "جويل للبترول",
-      "Shaheen Rent a Car": "شاهين لتأجير السيارات",
-      "45degrees Cafe": "مقهى 45 درجة",
-      "Al Jeri Energy": "الجري للطاقة",
-      
-      // Enterprise Systems
-      "ECC": "نظام التحكم المؤسسي",
-      "ECP": "منصة المؤسسة السحابية",
-      "KPIs → ERP": "مؤشرات الأداء ← نظام التخطيط",
-      "Growth": "النمو",
-      "Revenue": "الإيرادات",
-      "Performance": "الأداء",
-      "Alerts": "التنبيهات",
-      "Alert": "تنبيه",
-      "vs Target": "مقابل الهدف",
-      "Target": "الهدف",
-      
-      // Notifications - الإشعارات
-      "Notifications": "الإشعارات",
-      "3 Alerts": "3 تنبيهات",
-      "Mark all as read": "تعيين الكل كمقروء",
-      "No notifications yet": "لا توجد إشعارات بعد",
-      "New notification": "إشعار جديد",
-      "لديك إشعار جديد": "لديك إشعار جديد",
-      
-      // Events - الأحداث
-      "Upcoming Events": "الأحداث القادمة",
-      "Board Meeting Q4 Review": "اجتماع مجلس الإدارة - مراجعة الربع الرابع",
-      "Digital Strategy Presentation": "عرض الاستراتيجية الرقمية", 
-      "Investor Relations Call": "مكالمة علاقات المستثمرين",
-      "Today": "اليوم",
-      "Tomorrow": "غداً",
-      "Join Meeting": "انضم للاجتماع",
-      "View Report": "عرض التقرير",
-      "Review Budget": "مراجعة الميزانية",
-      
-      // Quick Actions - الإجراءات السريعة
-      "Quick Actions": "الإجراءات السريعة",  
-      "New Initiative": "مبادرة جديدة",
-      "Team Review": "مراجعة الفريق", 
-      "Schedule Meeting": "جدولة اجتماع",
-      "Send Update": "إرسال تحديث",
-      "Executive Guide": "دليل المدير التنفيذي",
-      
-      // Achievements - الإنجازات
-      "Achievements": "الإنجازات",
-      "Achievement Unlocked!": "تم فتح إنجاز!",
-      "Total Points": "إجمالي النقاط",
-      "Overall Progress": "التقدم العام",
-      "Revenue Master": "سيد الإيرادات",
-      "Team Builder": "بناء الفريق",
-      "Innovation Champion": "بطل الابتكار",
-      "Meeting Master": "سيد الاجتماعات",
-      "Efficiency Expert": "خبير الكفاءة",
-      "Strategic Visionary": "صاحب الرؤية الاستراتيجية",
-      
-      // Recommendations - التوصيات
-      "Recommendations": "التوصيات",
-      "Add Recommendation": "إضافة توصية",
-      "Recommendation Title": "عنوان التوصية",
-      "Recommendation Description": "وصف التوصية", 
-      "Submit Recommendation": "تقديم التوصية",
-      "Project Recommendations": "توصيات المشروع",
-      
-      // Board Management  
-      "Executive initiatives": "المبادرات التنفيذية",
-      "Strategic tracking": "التتبع الاستراتيجي",
-      "Add Task": "إضافة مهمة",
-      "Edit Task": "تعديل المهمة",
-      "Delete": "حذف",
-      "Priority": "الأولوية",
-      "Status": "الحالة",
-      "Assignee": "المكلف",
-      "Due Date": "تاريخ الاستحقاق",
-      
-      // User Menu
-      "Board Profile": "ملف مجلس الإدارة",
-      "Executive Settings": "إعدادات الإدارة التنفيذية",
-      "Logout": "تسجيل الخروج",
-      "Profile": "الملف الشخصي",
-      "Settings": "الإعدادات",
-      
-      // Kanban Board - لوحة كانبان
-      "Strategic Planning": "التخطيط الاستراتيجي",
-      "In Execution": "قيد التنفيذ",
-      "Board Review": "مراجعة مجلس الإدارة",
-      "Completed Tasks": "المهام المكتملة",
-      "Add Strategic Initiative": "إضافة مبادرة استراتيجية",
-      "Executive Commentary": "التعليق التنفيذي",
-      "Add Executive Comment": "إضافة تعليق تنفيذي",
-      "Executive Comment or Strategic Direction:": "تعليق تنفيذي أو توجيه استراتيجي:",
-      "Add your executive insight, strategic direction, or board-level commentary...": "أضف رؤيتك التنفيذية أو التوجيه الاستراتيجي أو تعليق مستوى مجلس الإدارة...",
-      "Visibility Level:": "مستوى الرؤية:",
-      "C-Level Only": "الإدارة العليا فقط",
-      "Board Members": "أعضاء مجلس الإدارة",
-      "Senior Management": "الإدارة العليا",
-      "2025 Vision & Strategy Document": "وثيقة الرؤية والاستراتيجية 2025",
-      "Develop comprehensive strategic vision and roadmap for 2025-2027": "تطوير رؤية استراتيجية شاملة وخارطة طريق للفترة 2025-2027",
-      "Market Analysis - Emerging Technologies": "تحليل السوق - التقنيات الناشئة",
-      "Digital Transformation Phase 2": "المرحلة الثانية من التحول الرقمي",
-
-      
-
-      // Archive Pages - Arabic
-      "Total Projects": "إجمالي المشاريع",
-      "Quarter": "الربع",
-      "Current Projects": "المشاريع الحالية",
-      "YTD Revenue": "إيرادات العام حتى التاريخ",
-      "Goals Progress": "تقدم الأهداف",
-      "Current Quarter": "الربع الحالي",
-      "Year Summary": "ملخص العام",
-      "Key Achievements": "الإنجازات الرئيسية",
-      "Active Initiatives": "المبادرات النشطة",
-      "APAC Market Expansion": "توسع السوق في منطقة آسيا والمحيط الهادئ",
-      "Sustainability Initiative Rollout": "طرح مبادرة الاستدامة",
-      
-      // Timeline - الجدول الزمني
-      "Digital Transformation Initiative Launch": "إطلاق مبادرة التحول الرقمي",
-      "Q1 Board Meeting - Strategic Review": "اجتماع مجلس الإدارة للربع الأول - المراجعة الاستراتيجية",
-      "Market Expansion - APAC Region": "توسع السوق - منطقة آسيا والمحيط الهادئ",
-      "Official launch of operations in Asia-Pacific region": "الإطلاق الرسمي للعمليات في منطقة آسيا والمحيط الهادئ",
-      
-      // Priority levels - مستويات الأولوية
-      "critical": "حرج",
-      "Critical": "حرج",
-      "high": "عالي",
-      "High": "عالي", 
-      "medium": "متوسط",
-      "Medium": "متوسط",
-      "low": "منخفض",
-      "Low": "منخفض",
-      
-      // Status - الحالة
-      "completed": "مكتمل",
-      "in-progress": "قيد التنفيذ", 
-      "In Progress": "قيد التنفيذ",
-      "active": "نشط",
-      "upcoming": "قادم",
-      "delayed": "متأخر",
-      "Planned": "مخطط",
       
       // Common
       "Save": "حفظ",
@@ -261,71 +140,69 @@ const resources = {
       "Add": "إضافة",
       "Close": "إغلاق",
       
-      // Timeline Categories - فئات الجدول الزمني  
-      "strategic": "استراتيجي",
-      "operational": "تشغيلي",
-      "partnership": "شراكة",
+      // User Menu
+      "Board Profile": "ملف مجلس الإدارة",
+      "Executive Settings": "إعدادات الإدارة التنفيذية",
+      "Logout": "تسجيل الخروج",
+      "Profile": "الملف الشخصي",
+      "Settings": "الإعدادات",
       
-      // Strategic Planning & Archives  
-      "Archives": "الأرشيف",
-      "2024 Archive": "أرشيف 2024",
-      "2025 Current": "العام الحالي 2025",
-
-      // Timeline - الجدول الزمني (NEW TIMELINE TRANSLATIONS)
-      "Board-level milestones and strategic initiatives roadmap": "معالم مستوى مجلس الإدارة وخارطة طريق المبادرات الاستراتيجية",
-
+      // Board Management  
+      "Executive initiatives": "المبادرات التنفيذية",
+      "Strategic tracking": "التتبع الاستراتيجي",
+      "Add Task": "إضافة مهمة",
+      "Edit Task": "تعديل المهمة",
+      "Delete": "حذف",
+      "Priority": "الأولوية",
+      "Status": "الحالة",
+      "Assignee": "المكلف",
+      "Due Date": "تاريخ الاستحقاق",
     }
   },
   en: {
     translation: {
-      // Complete English translations
+      // Navigation & Menu
       "Executive Overview": "Executive Overview",
-      "Strategic Timeline": "Strategic Timeline",
-      
-      // Timeline - English
-      "Q1 Strategic Planning": "Q1 Strategic Planning",
-      "Innovation Lab Launch": "Innovation Lab Launch",
-      "Strategic Partnerships": "Strategic Partnerships",
-      "IPO Preparation": "IPO Preparation",
-      
-      "Jan 2024": "Jan 2024",
-      "Feb - Apr 2024": "Feb - Apr 2024",
-      "May - Aug 2024": "May - Aug 2024", 
-      "Sep - Nov 2024": "Sep - Nov 2024",
-      "Dec 2024 - Feb 2025": "Dec 2024 - Feb 2025",
-      "Mar - Jun 2025": "Mar - Jun 2025",
-      
-      "Comprehensive strategic review and 2025 roadmap development": "Comprehensive strategic review and 2025 roadmap development",
-      "Enterprise-wide digital infrastructure modernization": "Enterprise-wide digital infrastructure modernization",
-      "Entry into European and Asian markets": "Entry into European and Asian markets",
-      "Establish R&D center for next-gen products": "Establish R&D center for next-gen products",
-      "Form alliances with industry leaders": "Form alliances with industry leaders",
-      "Prepare for public listing and regulatory compliance": "Prepare for public listing and regulatory compliance",
-      
-      "5-Year Strategic Plan": "5-Year Strategic Plan",
-      "Resource Allocation": "Resource Allocation", 
-      "KPI Framework": "KPI Framework",
-      "Cloud Migration": "Cloud Migration",
-      "AI Integration": "AI Integration",
-      "Process Automation": "Process Automation",
-      "Market Research": "Market Research",
-      "Local Partnerships": "Local Partnerships", 
-      "Revenue Growth": "Revenue Growth",
-      "Innovation Center": "Innovation Center",
-      "Patent Portfolio": "Patent Portfolio",
-      "Product Prototypes": "Product Prototypes",
-      "Partnership Agreements": "Partnership Agreements",
-      "Joint Ventures": "Joint Ventures",
-      "Market Access": "Market Access",
-      "SEC Filing": "SEC Filing",
-      "Roadshow": "Roadshow",
-      "Public Trading": "Public Trading",
       "Strategic Projects": "Strategic Projects",
       "Board Management": "Board Management",
       "Reports & Analytics": "Reports & Analytics",
       "Executive Management Portal": "Executive Management Portal",
       "Qarar Executive Portal": "Qarar Executive Portal",
       "Board & C-Suite Command Center": "Board & C-Suite Command Center",
+      
+      // Navigation & Menu Items - English
+      "Strategic Planning": "Strategic Planning",
+      "Strategic Timeline": "Strategic Timeline",
+      "Investment Portfolio": "Investment Portfolio",
+      "Enterprise Systems": "Enterprise Systems",
+      
+      // Companies - English
+      "JTC Transport & Logistics": "JTC Transport & Logistics",
+      "J:Oil Petroleum": "J:Oil Petroleum",
+      "Shaheen Rent a Car": "Shaheen Rent a Car",
+      "45degrees Cafe": "45degrees Cafe",
+      "Al Jeri Energy": "Al Jeri Energy",
+      
+      // Enterprise Systems - English
+      "ECC": "ECC",
+      "ECP": "ECP",
+      "KPIs → ERP": "KPIs → ERP",
+      
+      // Archive Pages - English
+      "Executive Reports": "Executive Reports",
+      "2024 Archive": "2024 Archive",
+      "2025 Current": "2025 Current",
+      "Total Projects": "Total Projects",
+      "Quarter": "Quarter",
+      "Current Projects": "Current Projects",
+      "YTD Revenue": "YTD Revenue",
+      "Goals Progress": "Goals Progress",
+      "Current Quarter": "Current Quarter",
+      "Year Summary": "Year Summary",
+      "Key Achievements": "Key Achievements",
+      "Active Initiatives": "Active Initiatives",
+      "APAC Market Expansion": "APAC Market Expansion",
+      "Sustainability Initiative Rollout": "Sustainability Initiative Rollout",
       
       // Login Page
       "Board of Directors & C-Suite Access": "Board of Directors & C-Suite Access",
@@ -348,7 +225,7 @@ const resources = {
       "Total Revenue": "Total Revenue",
       "Annual Revenue": "Annual Revenue",
       "Active Projects": "Active Projects",
-      "Team Members": "Team Members", 
+      "Team Members": "Team Members",
       "Success Rate": "Success Rate",
       "Efficiency Score": "Efficiency Score",
       "Revenue Performance vs Target": "Revenue Performance vs Target",
@@ -359,79 +236,41 @@ const resources = {
       "AI & Automation": "AI & Automation",
       "Innovation Lab": "Innovation Lab",
       
-      // Notifications
-      "Notifications": "Notifications",
-      "3 Alerts": "3 Alerts",
-      "Mark all as read": "Mark all as read",
-      "No notifications yet": "No notifications yet",
-      "New notification": "New notification",
-      "لديك إشعار جديد": "You have a new notification",
-      
-      // Events
-      "Upcoming Events": "Upcoming Events",
-      "Board Meeting Q4 Review": "Board Meeting Q4 Review",
-      "Digital Strategy Presentation": "Digital Strategy Presentation", 
-      "Investor Relations Call": "Investor Relations Call",
-      "Today": "Today",
-      "Tomorrow": "Tomorrow",
-      "Join Meeting": "Join Meeting",
-      "View Report": "View Report",
-      "Review Budget": "Review Budget",
-      
-      // Quick Actions
-      "Quick Actions": "Quick Actions",  
-      "New Initiative": "New Initiative",
-      "Team Review": "Team Review", 
-      "Schedule Meeting": "Schedule Meeting",
-      "Send Update": "Send Update",
-      "Executive Guide": "Executive Guide",
-      
-      // Achievements
-      "Achievements": "Achievements",
-      "Achievement Unlocked!": "Achievement Unlocked!",
-      "Total Points": "Total Points",
-      "Overall Progress": "Overall Progress",
-      "Revenue Master": "Revenue Master",
-      "Team Builder": "Team Builder",
-      "Innovation Champion": "Innovation Champion",
-      "Meeting Master": "Meeting Master",
-      "Efficiency Expert": "Efficiency Expert",
-      "Strategic Visionary": "Strategic Visionary",
-      
-      // Recommendations
-      "Recommendations": "Recommendations",
-      "Add Recommendation": "Add Recommendation",
-      "Recommendation Title": "Recommendation Title",
-      "Recommendation Description": "Recommendation Description", 
-      "Submit Recommendation": "Submit Recommendation",
-      "Project Recommendations": "Project Recommendations",
-      
       // Timeline
-      "Completed": "Completed",
-      "In Progress": "In Progress",
-      "Planned": "Planned",
-      "Critical": "Critical",
-      "High": "High",
-      "Medium": "Medium",
-      "Low": "Low",
+      "Q1 Strategic Planning": "Q1 Strategic Planning",
+      "Innovation Lab Launch": "Innovation Lab Launch",
+      "Strategic Partnerships": "Strategic Partnerships",
+      "IPO Preparation": "IPO Preparation",
       
-      // Board Management  
-      "Executive initiatives": "Executive initiatives",
-      "Strategic tracking": "Strategic tracking",
-      "Add Task": "Add Task",
-      "Edit Task": "Edit Task",
-      "Delete": "Delete",
-      "Priority": "Priority",
-      "Status": "Status",
-      "Assignee": "Assignee",
-      "Due Date": "Due Date",
+      "Jan 2024": "Jan 2024",
+      "Feb - Apr 2024": "Feb - Apr 2024",
+      "May - Aug 2024": "May - Aug 2024",
+      "Sep - Nov 2024": "Sep - Nov 2024",
+      "Dec 2024 - Feb 2025": "Dec 2024 - Feb 2025",
+      "Mar - Jun 2025": "Mar - Jun 2025",
       
-      // User Menu
-      "Board Profile": "Board Profile",
-      "Executive Settings": "Executive Settings",
-      "Logout": "Logout",
-      "Profile": "Profile",
-      "Settings": "Settings",
+      "Comprehensive strategic review and 2025 roadmap development": "Comprehensive strategic review and 2025 roadmap development",
+      "Enterprise-wide digital infrastructure modernization": "Enterprise-wide digital infrastructure modernization",
+      "Entry into European and Asian markets": "Entry into European and Asian markets",
+      "Establish R&D center for next-gen products": "Establish R&D center for next-gen products",
+      "Form alliances with industry leaders": "Form alliances with industry leaders",
+      "Prepare for public listing and regulatory compliance": "Prepare for public listing and regulatory compliance",
+      
+      "5-Year Strategic Plan": "5-Year Strategic Plan",
+      "Resource Allocation": "Resource Allocation",
+      "KPI Framework": "KPI Framework",
+      "Cloud Migration": "Cloud Migration",
+      "AI Integration": "AI Integration",
+      "Process Automation": "Process Automation",
+      "Market Research": "Market Research",
+      "Local Partnerships": "Local Partnerships",
+      "Revenue Growth": "Revenue Growth",
+      "Innovation Center": "Innovation Center",
+      "Patent Portfolio": "Patent Portfolio",
+      "Product Prototypes": "Product Prototypes",
+      "Partnership Agreements": "Partnership Agreements",
+      "Joint Ventures": "Joint Ventures",
+      "Market Access": "Market Access",
       
       // Common
       "Save": "Save",
@@ -444,44 +283,40 @@ const resources = {
       "Import": "Import",
       "Refresh": "Refresh",
       "Loading": "Loading",
+      "Loading Executive Dashboard...": "Loading Executive Dashboard...",
       "No data": "No data",
       "Success": "Success",
       "Error": "Error",
       "Warning": "Warning",
       "Info": "Info",
+      "Due": "Due",
+      "Comments Count": "Comments Count",
+      "Attachments": "Attachments",
+      "Add": "Add",
+      "Close": "Close",
       
-      // Timeline Categories - English
-      "strategic": "strategic",
-      "operational": "operational", 
-      "partnership": "partnership",
+      // User Menu
+      "Board Profile": "Board Profile",
+      "Executive Settings": "Executive Settings",
+      "Logout": "Logout",
+      "Profile": "Profile",
+      "Settings": "Settings",
       
-      // Strategic Planning & Archives - English
-      "Strategic Planning": "Strategic Planning",
-      "Archives": "Archives",
-      "2024 Archive": "2024 Archive",
-      "2025 Current": "2025 Current",
-
-      
-
-        // Archive Pages - English
-        "Total Projects": "Total Projects",
-      "Quarter": "Quarter",
-      "Current Projects": "Current Projects",
-      "YTD Revenue": "YTD Revenue",
-      "Goals Progress": "Goals Progress",
-      "Current Quarter": "Current Quarter",
-
-      // Timeline - English (CLEAN VERSION)
-      "Board-level milestones and strategic initiatives roadmap": "Board-level milestones and strategic initiatives roadmap",
-      "Add Executive Comment": "Add Executive Comment",
-      "Add Comment": "Add Comment",
-      "Add your executive comment or strategic insight...": "Add your executive comment or strategic insight...",
-      "Attach Documents": "Attach Documents"
+      // Board Management
+      "Executive initiatives": "Executive initiatives",
+      "Strategic tracking": "Strategic tracking",
+      "Add Task": "Add Task",
+      "Edit Task": "Edit Task",
+      "Delete": "Delete",
+      "Priority": "Priority",
+      "Status": "Status",
+      "Assignee": "Assignee",
+      "Due Date": "Due Date",
     }
   }
 };
 
-// Direction mapping for languages
+// Get direction based on language
 const getDirection = (language: string) => {
   return language === 'ar' ? 'rtl' : 'ltr';
 };

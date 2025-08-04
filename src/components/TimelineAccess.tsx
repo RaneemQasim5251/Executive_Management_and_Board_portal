@@ -4,7 +4,7 @@ import { CalendarOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-const { Text, Paragraph } = Typography;
+const { Paragraph } = Typography;
 
 export const TimelineAccess: React.FC = () => {
   const { t } = useTranslation();
@@ -25,7 +25,7 @@ export const TimelineAccess: React.FC = () => {
           onClick={() => navigate('/timeline')}
           size="small"
         >
-          {t("View Timeline")}
+          {t("View")}
         </Button>
       }
       size="small"

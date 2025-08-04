@@ -208,7 +208,7 @@ export const ExecutiveDashboard: FC = () => {
                     type="monotone"
                     dataKey="target"
                     stroke="#ef4444"
-                    size="small"
+
                     strokeDasharray="5 5"
                     name="Target"
                   />

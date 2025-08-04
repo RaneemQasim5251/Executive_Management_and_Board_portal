@@ -1,5 +1,5 @@
 // صفحة التقارير والتحليلات / Reports & Analytics Page
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import {
   Card,
   Button,
@@ -100,7 +100,7 @@ interface ProjectData {
 }
 
 export const ReportsPage: FC = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [reports, setReports] = useState<Report[]>([]);
   const [projectData, setProjectData] = useState<ProjectData[]>([]);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -339,7 +339,7 @@ export const ReportsPage: FC = () => {
     {
       title: i18n.language === 'ar' ? 'الإجراءات' : 'Actions',
       key: 'actions',
-      render: (_, record: Report) => (
+      render: (_: any, record: Report) => (
         <Space size="small">
           <Tooltip title={i18n.language === 'ar' ? 'عرض' : 'View'}>
             <Button
@@ -461,7 +461,7 @@ export const ReportsPage: FC = () => {
           style={{
             marginBottom: '24px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #0C085C 0%, #0095CE 100%)',
+                          background: '#0C085C',
             color: 'white',
             border: 'none',
           }}
@@ -688,7 +688,7 @@ export const ReportsPage: FC = () => {
           onFinish={handleUploadReport}
           style={{ marginTop: '20px' }}
         >
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={12}>
               <Form.Item
                 name="titleAr"
@@ -709,7 +709,7 @@ export const ReportsPage: FC = () => {
             </Col>
           </Row>
 
-          <Row gutter={16}>
+          <Row gutter={[24, 24]}>
             <Col span={12}>
               <Form.Item
                 name="type"
@@ -837,7 +837,7 @@ export const ReportsPage: FC = () => {
                 </Paragraph>
               </div>
 
-              <Row gutter={16}>
+              <Row gutter={[24, 24]}>
                 <Col span={8}>
                   <Text strong>{i18n.language === 'ar' ? 'النوع:' : 'Type:'}</Text>
                   <br />
