@@ -45,6 +45,7 @@ import {
 } from "recharts";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { AchievementSystem } from "../../components/AchievementSystem";
 
 const { Title, Text } = Typography;
@@ -72,6 +73,7 @@ const revenueData = [
 
 export const ModernExecutiveDashboard: FC = () => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   
   // Force cache refresh with language check
@@ -553,12 +555,32 @@ export const ModernExecutiveDashboard: FC = () => {
                   <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("dashboard.boardMembers")}</Text>
                   <div style={{ fontSize: "36px", fontWeight: "800" }}>1,247</div>
                 </div>
-                <Progress 
-                  percent={94} 
-                  showInfo={false} 
-                  strokeColor="rgba(255,255,255,0.8)"
-                  trailColor="rgba(255,255,255,0.2)"
-                />
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <Progress 
+                    percent={94} 
+                    showInfo={false} 
+                    strokeColor="rgba(255,255,255,0.8)"
+                    trailColor="rgba(255,255,255,0.2)"
+                    style={{ flex: 1, marginRight: "12px" }}
+                  />
+                  <Button 
+                    type="link" 
+                    size="small"
+                    onClick={() => navigate('/my-meetings')}
+                    style={{ 
+                      color: 'rgba(255,255,255,0.9)', 
+                      fontWeight: 600,
+                      padding: '4px 8px',
+                      height: 'auto',
+                      fontSize: '12px',
+                      border: '1px solid rgba(255,255,255,0.3)',
+                      borderRadius: '6px',
+                      background: 'rgba(255,255,255,0.1)'
+                    }}
+                  >
+                    {t("buttons.viewRegister")}
+                  </Button>
+                </div>
               </Space>
             </Card>
           </motion.div>
