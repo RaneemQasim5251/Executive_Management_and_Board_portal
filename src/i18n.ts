@@ -133,6 +133,7 @@ const resources = {
       
       // Secretary Workspace
       "Executive-Secretary Workspace": "مساحة عمل السكرتير التنفيذي",
+      "Executive-Secretary Dashboard": "لوحة تحكم السكرتير التنفيذي",
       "Create Meeting Agenda": "إنشاء جدول أعمال الاجتماع",
       "Task Board": "لوحة المهام",
       "Board Resolutions": "قرارات مجلس الإدارة",
@@ -352,6 +353,7 @@ const resources = {
       
       // Secretary Workspace
       "Executive-Secretary Workspace": "Executive-Secretary Workspace",
+      "Executive-Secretary Dashboard": "Executive-Secretary Dashboard",
       "Create Meeting Agenda": "Create Meeting Agenda",
       "Task Board": "Task Board",
       "Board Resolutions": "Board Resolutions",

@@ -29,8 +29,10 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import arLocale from '@fullcalendar/core/locales/ar';
 import styled from 'styled-components';
 import { useTranslate } from '@refinedev/core';
+import { useTranslation } from 'react-i18next';
 import { MeetingModal } from '../../components/secretary/MeetingModal';
 import { LiveChat } from '../../components/secretary/LiveChat';
 import { QuarterlyKPIs } from '../../components/secretary/QuarterlyKPIs';
@@ -102,16 +104,52 @@ const CalendarCard = styled(Card)`
     border-color: #0095CE !important;
     border-radius: 8px !important;
     font-weight: 600 !important;
-    padding: 6px 12px !important;
+    padding: 8px 16px !important;
+    color: white !important;
+    font-size: 14px !important;
+    min-width: auto !important;
     
     &:hover {
       background: #363692 !important;
       border-color: #363692 !important;
+      color: white !important;
     }
     
     &:focus {
       box-shadow: 0 0 0 2px rgba(0, 149, 206, 0.2) !important;
+      color: white !important;
     }
+    
+    &:disabled {
+      background: #d9d9d9 !important;
+      border-color: #d9d9d9 !important;
+      color: #999 !important;
+    }
+  }
+  
+  .fc-prev-button,
+  .fc-next-button {
+    min-width: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    .fc-icon {
+      font-size: 16px !important;
+      font-weight: bold !important;
+    }
+  }
+  
+  .fc-prev-button .fc-icon-chevron-left:before {
+    content: "‹" !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+  }
+  
+  .fc-next-button .fc-icon-chevron-right:before {
+    content: "›" !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
   }
   
   .fc-button-active {
@@ -162,6 +200,33 @@ const CalendarCard = styled(Card)`
   .fc-scrollgrid {
     border: 1px solid #e8e8e8 !important;
     border-radius: 8px !important;
+  }
+  
+  &[dir="rtl"] {
+    .fc-toolbar {
+      direction: rtl !important;
+    }
+    
+    .fc-toolbar-chunk {
+      display: flex !important;
+      align-items: center !important;
+    }
+    
+    .fc-prev-button .fc-icon-chevron-left:before {
+      content: "›" !important;
+    }
+    
+    .fc-next-button .fc-icon-chevron-right:before {
+      content: "‹" !important;
+    }
+    
+    .fc-daygrid-day-number {
+      direction: rtl !important;
+    }
+    
+    .fc-col-header-cell {
+      direction: rtl !important;
+    }
   }
 `;
 
@@ -214,6 +279,7 @@ const ActionButton = styled(Button)`
 
 export const SecretaryWorkspace: React.FC = () => {
   const t = useTranslate();
+  const { i18n } = useTranslation();
   const [state, setState] = useState<SecretaryWorkspaceState>({
     selectedDate: new Date(),
     selectedQuarter: {
@@ -364,7 +430,7 @@ export const SecretaryWorkspace: React.FC = () => {
         </div>
 
         {/* Quick Actions */}
-        <SidebarCard title="Quick Actions" size="small">
+        <SidebarCard title={t("Quick Actions")} size="small">
           <Space direction="vertical" style={{ width: '100%' }} size={8}>
             <ActionButton 
               type="primary" 
@@ -372,31 +438,46 @@ export const SecretaryWorkspace: React.FC = () => {
               block
               className="primary"
               onClick={() => setIsMeetingModalVisible(true)}
+              style={{ 
+                color: 'white', 
+                fontWeight: '600',
+                border: 'none'
+              }}
             >
-              Create Meeting Agenda
+              {t("Create Meeting Agenda")}
             </ActionButton>
             <ActionButton 
               type="default" 
               icon={<CalendarOutlined />} 
               block
-              style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}
+              style={{ 
+                color: 'white', 
+                borderColor: 'rgba(255,255,255,0.4)',
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                fontWeight: '500'
+              }}
             >
-              Task Board
+              {t("Task Board")}
             </ActionButton>
             <ActionButton 
               type="default" 
               icon={<MessageOutlined />} 
               block
-              style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}
+              style={{ 
+                color: 'white', 
+                borderColor: 'rgba(255,255,255,0.4)',
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                fontWeight: '500'
+              }}
               onClick={() => setIsChatVisible(true)}
             >
-              Board Resolutions
+              {t("Board Resolutions")}
             </ActionButton>
           </Space>
         </SidebarCard>
 
         {/* Recent Activity */}
-        <SidebarCard title="Recent Activity" size="small">
+        <SidebarCard title={t("Recent Activity")} size="small">
           <Space direction="vertical" style={{ width: '100%' }} size={8}>
             <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>
               <Avatar size={24} style={{ marginRight: 8 }} />
@@ -422,18 +503,23 @@ export const SecretaryWorkspace: React.FC = () => {
           <Row justify="space-between" align="middle">
             <Col>
               <Space align="center">
-                <Title level={3} style={{ margin: 0, color: 'white' }}>
-                  Executive-Secretary Dashboard
+                <Title level={3} style={{ margin: 0, color: '#0C085C', fontWeight: '700' }}>
+                  {t("Executive-Secretary Dashboard")}
                 </Title>
                 <Badge count={pendingDirectivesCount} style={{ backgroundColor: '#FF2424' }}>
-                  <BellOutlined style={{ fontSize: 20, color: 'white' }} />
+                  <BellOutlined style={{ fontSize: 20, color: '#0C085C' }} />
                 </Badge>
               </Space>
             </Col>
             <Col>
               <Space align="center">
-                <Text style={{ color: 'rgba(255,255,255,0.8)' }}>
-                  Tuesday, April 23, 2024
+                <Text style={{ color: '#666666', fontWeight: '500' }}>
+                  {new Date().toLocaleDateString(i18n.language === 'ar' ? 'ar-SA' : 'en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
                 </Text>
                 <Avatar src="/avatars/user.jpg" />
               </Space>
@@ -489,16 +575,19 @@ export const SecretaryWorkspace: React.FC = () => {
                   month: 'long' 
                 }}
                 buttonText={{
-                  today: 'Today',
-                  month: 'Month',
-                  week: 'Week',
-                  day: 'Day'
+                  today: i18n.language === 'ar' ? 'اليوم' : 'Today',
+                  month: i18n.language === 'ar' ? 'شهر' : 'Month',
+                  week: i18n.language === 'ar' ? 'أسبوع' : 'Week',
+                  day: i18n.language === 'ar' ? 'يوم' : 'Day',
+                  prev: i18n.language === 'ar' ? 'السابق' : 'Previous',
+                  next: i18n.language === 'ar' ? 'التالي' : 'Next'
                 }}
-                locale="en"
-                firstDay={0}
+                locale={i18n.language === 'ar' ? arLocale : 'en'}
+                direction={i18n.language === 'ar' ? 'rtl' : 'ltr'}
+                firstDay={i18n.language === 'ar' ? 6 : 0}
                 weekends={true}
                 dayMaxEvents={3}
-                moreLinkText="more"
+                moreLinkText={i18n.language === 'ar' ? 'المزيد' : 'more'}
                 eventDisplay="block"
                 displayEventTime={true}
                 slotMinTime="06:00:00"
@@ -514,7 +603,7 @@ export const SecretaryWorkspace: React.FC = () => {
 
           {/* Quarterly Overview */}
           <Col xs={24} lg={8}>
-            <Card title="Quarter" extra={<Select defaultValue="q3" style={{ minWidth: 80 }}>
+            <Card title={t("Quarter")} extra={<Select defaultValue="q3" style={{ minWidth: 80 }}>
               <Option value="q3">Q3</Option>
               <Option value="q2">Q2</Option>
               <Option value="q1">Q1</Option>
