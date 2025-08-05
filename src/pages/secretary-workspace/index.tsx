@@ -27,6 +27,7 @@ import {
 } from '@ant-design/icons';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import styled from 'styled-components';
 import { useTranslate } from '@refinedev/core';
@@ -85,24 +86,82 @@ const CalendarCard = styled(Card)`
     font-family: inherit;
   }
   
+  .fc-header-toolbar {
+    margin-bottom: 1.5em !important;
+    padding: 0 8px;
+  }
+  
+  .fc-toolbar-title {
+    font-size: 1.75em !important;
+    font-weight: 600 !important;
+    color: #0C085C !important;
+  }
+  
+  .fc-button {
+    background: #0095CE !important;
+    border-color: #0095CE !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 6px 12px !important;
+    
+    &:hover {
+      background: #363692 !important;
+      border-color: #363692 !important;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(0, 149, 206, 0.2) !important;
+    }
+  }
+  
+  .fc-button-active {
+    background: #363692 !important;
+    border-color: #363692 !important;
+  }
+  
   .fc-event {
-    background: #0095CE;
-    border: none;
-    border-radius: 8px;
-    padding: 4px 8px;
+    background: #0095CE !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
   }
   
   .fc-event:hover {
-    background: #363692;
+    background: #363692 !important;
   }
   
   .fc-daygrid-day-number {
-    color: #0C085C;
-    font-weight: 600;
+    color: #0C085C !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 8px !important;
   }
   
   .fc-day-today {
     background: rgba(0, 149, 206, 0.1) !important;
+  }
+  
+  .fc-daygrid-day {
+    border: 1px solid #e8e8e8 !important;
+  }
+  
+  .fc-daygrid-day:hover {
+    background: rgba(0, 149, 206, 0.05) !important;
+  }
+  
+  .fc-col-header-cell {
+    background: #f8f9fa !important;
+    border: 1px solid #e8e8e8 !important;
+    font-weight: 600 !important;
+    color: #0C085C !important;
+    padding: 12px 4px !important;
+  }
+  
+  .fc-scrollgrid {
+    border: 1px solid #e8e8e8 !important;
+    border-radius: 8px !important;
   }
 `;
 
@@ -273,20 +332,35 @@ export const SecretaryWorkspace: React.FC = () => {
         {/* Logo Section */}
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
           <div style={{ 
-            width: 60, 
-            height: 60, 
+            width: 80, 
+            height: 80, 
             background: 'white', 
-            borderRadius: 12, 
-            margin: '0 auto 12px',
+            borderRadius: 16, 
+            margin: '0 auto 16px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            padding: 8
           }}>
-            <Text style={{ color: '#0C085C', fontWeight: 'bold', fontSize: 16 }}>Logo</Text>
+            <img 
+              src="/aljeri-logo.png" 
+              alt="Al Jeri Logo" 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'contain' 
+              }} 
+            />
           </div>
-          <Title level={4} style={{ color: 'white', margin: 0 }}>
-            Executive-Secretary<br />Workspace
+          <Title level={4} style={{ color: 'white', margin: '0 0 8px 0', fontSize: 16 }}>
+            Executive-Secretary Workspace
           </Title>
+          <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12, textAlign: 'center', display: 'block' }}>
+            منصَّة مجلس الإدارة التنفيذية لشركة الجِري
+          </Text>
+          <Text style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, textAlign: 'center', display: 'block' }}>
+            Al Jeri Executive Board Platform
+          </Text>
         </div>
 
         {/* Quick Actions */}
@@ -399,17 +473,41 @@ export const SecretaryWorkspace: React.FC = () => {
               </Row>
               
               <FullCalendar
-                plugins={[dayGridPlugin, interactionPlugin]}
+                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
                 dateClick={handleDateClick}
                 eventClick={handleEventClick}
                 events={calendarEvents}
                 height="auto"
                 headerToolbar={{
-                  left: 'prev,next',
+                  left: 'prev,next today',
                   center: 'title',
-                  right: ''
+                  right: 'dayGridMonth,timeGridWeek'
                 }}
+                titleFormat={{ 
+                  year: 'numeric', 
+                  month: 'long' 
+                }}
+                buttonText={{
+                  today: 'Today',
+                  month: 'Month',
+                  week: 'Week',
+                  day: 'Day'
+                }}
+                locale="en"
+                firstDay={0}
+                weekends={true}
+                dayMaxEvents={3}
+                moreLinkText="more"
+                eventDisplay="block"
+                displayEventTime={true}
+                slotMinTime="06:00:00"
+                slotMaxTime="22:00:00"
+                allDaySlot={true}
+                nowIndicator={true}
+                selectable={true}
+                selectMirror={true}
+                editable={false}
               />
             </CalendarCard>
           </Col>

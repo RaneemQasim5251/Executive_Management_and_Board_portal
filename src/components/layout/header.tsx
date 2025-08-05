@@ -135,13 +135,13 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         borderBottom: "1px solid #e5e7eb",
       }}
     >
-      {/* Left side - Qarar Logo & Portal Title */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+      {/* Left side - Al Jeri Logo & Portal Title */}
+      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
         <img 
-          src="/Qarar Logo.png" 
-          alt="Qarar Logo" 
+          src="/aljeri-logo.png" 
+          alt="Al Jeri Logo" 
           style={{ 
-            height: "70px", 
+            height: "60px", 
             width: "auto",
             filter: "drop-shadow(0 2px 4px rgba(12, 8, 92, 0.15))"
           }} 
@@ -149,16 +149,14 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         <div style={{ lineHeight: "1.3" }}>
           <Text strong style={{ 
             fontSize: "16px", 
-            background: "#0C085C",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
+            color: "#0C085C",
             display: "block",
             fontWeight: "700"
           }}>
-            {t("Qarar Executive Portal")}
+            {i18n.language === 'ar' ? 'منصَّة مجلس الإدارة التنفيذية لشركة الجِري' : 'Al Jeri Executive Board Platform'}
           </Text>
           <Text type="secondary" style={{ fontSize: "11px", marginTop: "2px", display: "block" }}>
-            {t("Board & C-Suite Command Center")}
+            {i18n.language === 'ar' ? 'مركز القيادة التنفيذية ومجلس الإدارة' : 'Executive Command & Board Center'}
           </Text>
         </div>
       </div>

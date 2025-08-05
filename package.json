@@ -29,6 +29,7 @@
     "@fullcalendar/daygrid": "^6.1.18",
     "@fullcalendar/interaction": "^6.1.18",
     "@fullcalendar/react": "^6.1.18",
+    "@fullcalendar/timegrid": "^6.1.18",
     "@hookform/resolvers": "^5.2.1",
     "@refinedev/antd": "^5.45.4",
     "@refinedev/core": "^4.53.0",

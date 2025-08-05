@@ -332,8 +332,8 @@ export const ModernExecutiveDashboard: FC = () => {
               />
               
               <img 
-                src="/Qarar Logo no text.png" 
-                alt="Qarar Logo" 
+                src="/aljeri-logo.png" 
+                alt="Al Jeri Logo" 
                 style={{ 
                   height: "160px", 
                   width: "auto",
@@ -390,14 +390,14 @@ export const ModernExecutiveDashboard: FC = () => {
                   background: "#0C085C",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
-                  fontSize: "48px",
+                  fontSize: "32px",
                   fontWeight: "900",
-                  letterSpacing: i18n.language === 'ar' ? "2px" : "1px",
+                  letterSpacing: i18n.language === 'ar' ? "1px" : "0.5px",
                   textAlign: "center",
                   direction: i18n.language === 'ar' ? "rtl" : "ltr"
                 }}
               >
-                {i18n.language === 'ar' ? 'قرار' : 'QARAR'}
+                {i18n.language === 'ar' ? 'شركة الجِري' : 'AL JERI'}
               </Title>
               
               <motion.div
@@ -436,13 +436,13 @@ export const ModernExecutiveDashboard: FC = () => {
                 style={{ 
                   margin: "16px 0 8px 0", 
                   color: "#0C085C",
-                  fontSize: "28px",
+                  fontSize: "24px",
                   fontWeight: "700",
                   textAlign: "center",
                   direction: i18n.language === 'ar' ? "rtl" : "ltr"
                 }}
               >
-                {t("Executive Command Center")}
+                {i18n.language === 'ar' ? 'منصَّة مجلس الإدارة التنفيذية' : 'Executive Board Platform'}
               </Title>
               
               <Text style={{ 
