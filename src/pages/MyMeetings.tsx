@@ -146,7 +146,7 @@ export const MyMeetings: React.FC = () => {
     {
       id: 'meeting-1',
       title: 'Q4 2024 Board Review - Al Jeri Investment',
-      date: new Date('2024-12-15T10:00:00'),
+      date: new Date('2024-12-25T10:00:00'),
       companyId: '1',
       quarterId: 'q4-2024',
       agenda: [
@@ -222,6 +222,13 @@ export const MyMeetings: React.FC = () => {
           email: 'fatima.zahra@aljeri.com',
           role: 'executive',
           status: 'pending'
+        },
+        {
+          id: 'att-demo',
+          name: 'Demo User',
+          email: 'demo@aljeri.com',
+          role: 'executive',
+          status: 'pending'
         }
       ],
       votes: []
@@ -229,7 +236,7 @@ export const MyMeetings: React.FC = () => {
     {
       id: 'meeting-2',
       title: '2025 Strategic Planning & Digital Transformation',
-      date: new Date('2024-12-20T14:00:00'),
+      date: new Date('2024-12-30T14:00:00'),
       companyId: '2',
       quarterId: 'q1-2025',
       agenda: [
@@ -288,6 +295,13 @@ export const MyMeetings: React.FC = () => {
           email: 'omar.fahad@aljeri.com',
           role: 'executive',
           status: 'pending'
+        },
+        {
+          id: 'att-demo2',
+          name: 'Demo User',
+          email: 'demo@aljeri.com',
+          role: 'executive',
+          status: 'pending'
         }
       ],
       votes: []
@@ -295,7 +309,7 @@ export const MyMeetings: React.FC = () => {
     {
       id: 'meeting-3',
       title: 'Emergency Board Meeting - Market Response Strategy',
-      date: new Date('2024-12-12T16:00:00'),
+      date: new Date('2024-12-28T16:00:00'),
       companyId: '1',
       quarterId: 'q4-2024',
       agenda: [
@@ -345,6 +359,13 @@ export const MyMeetings: React.FC = () => {
           email: 'mohammed.rashid@aljeri.com',
           role: 'executive',
           status: 'pending'
+        },
+        {
+          id: 'att-demo3',
+          name: 'Demo User',
+          email: 'demo@aljeri.com',
+          role: 'executive',
+          status: 'pending'
         }
       ],
       votes: []
@@ -352,7 +373,7 @@ export const MyMeetings: React.FC = () => {
   ];
 
   // Demo user email for testing - in real app, this comes from auth
-  const demoUserEmail = user?.email || 'sarah.mansouri@aljeri.com';
+  const demoUserEmail = user?.email || 'demo@aljeri.com';
   
   // Filter meetings for current user and future dates
   const userMeetings = mockMeetings.filter(meeting => 

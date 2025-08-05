@@ -540,57 +540,47 @@ export const ModernExecutiveDashboard: FC = () => {
                 ...cardStyle,
                 background: "#0095CE",
                 color: "white",
-                height: "200px",
-                overflow: "hidden"
+                height: "200px"
               }}
-              styles={{ body: { padding: "20px", height: "160px" } }}
+              styles={{ body: { padding: "32px" } }}
             >
-              <div style={{ 
-                display: "flex", 
-                flexDirection: "column", 
-                height: "100%", 
-                justifyContent: "space-between" 
-              }}>
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                    <TeamOutlined style={{ fontSize: "28px", opacity: 0.8 }} />
-                    <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#10B981", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
-                      <RiseOutlined /> +8.2%
-                    </Tag>
-                  </div>
-                  <div style={{ marginBottom: "8px" }}>
-                    <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>{t("dashboard.boardMembers")}</Text>
-                    <div style={{ fontSize: "28px", fontWeight: "800", lineHeight: "1.1" }}>1,247</div>
-                  </div>
+              <Space direction="vertical" size="large" style={{ width: "100%" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <TeamOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
+                  <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#10B981", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
+                    <RiseOutlined /> +8.2%
+                  </Tag>
                 </div>
                 <div>
+                  <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("dashboard.boardMembers")}</Text>
+                  <div style={{ fontSize: "36px", fontWeight: "800" }}>1,247</div>
                   <Button 
                     type="primary"
                     size="small"
                     onClick={() => navigate('/my-meetings')}
                     style={{ 
                       width: "100%",
-                      background: 'rgba(255,255,255,0.2)',
-                      borderColor: 'rgba(255,255,255,0.4)',
+                      background: 'rgba(255,255,255,0.15)',
+                      borderColor: 'rgba(255,255,255,0.3)',
                       color: 'white',
                       fontWeight: 600,
-                      fontSize: '9px',
-                      height: '20px',
+                      fontSize: '10px',
+                      height: '24px',
                       borderRadius: '4px',
                       boxShadow: 'none',
-                      marginBottom: '8px'
+                      marginTop: '12px'
                     }}
                   >
                     {t("buttons.viewRegister")}
                   </Button>
-                  <Progress 
-                    percent={94} 
-                    showInfo={false} 
-                    strokeColor="rgba(255,255,255,0.8)"
-                    trailColor="rgba(255,255,255,0.2)"
-                  />
                 </div>
-              </div>
+                <Progress 
+                  percent={94} 
+                  showInfo={false} 
+                  strokeColor="rgba(255,255,255,0.8)"
+                  trailColor="rgba(255,255,255,0.2)"
+                />
+              </Space>
             </Card>
           </motion.div>
         </Col>
