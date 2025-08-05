@@ -145,79 +145,204 @@ export const MyMeetings: React.FC = () => {
   const mockMeetings: Meeting[] = [
     {
       id: 'meeting-1',
-      title: 'Q4 Board Review',
+      title: 'Q4 2024 Board Review - Al Jeri Investment',
       date: new Date('2024-12-15T10:00:00'),
       companyId: '1',
       quarterId: 'q4-2024',
       agenda: [
         {
           id: 'agenda-1',
-          title: 'Financial Performance Review',
+          title: 'Financial Performance Review Q4',
           start: new Date('2024-12-15T10:00:00'),
-          end: new Date('2024-12-15T10:30:00'),
-          owner: 'CFO',
+          end: new Date('2024-12-15T10:45:00'),
+          owner: 'CFO - Ahmed Al-Rashid',
           status: 'pending',
           priority: 'high',
           directives: []
         },
         {
           id: 'agenda-2',
-          title: 'Strategic Initiatives Update',
-          start: new Date('2024-12-15T10:30:00'),
-          end: new Date('2024-12-15T11:00:00'),
-          owner: 'CEO',
+          title: 'JTC Transport Performance Update',
+          start: new Date('2024-12-15T10:45:00'),
+          end: new Date('2024-12-15T11:15:00'),
+          owner: 'JTC General Manager',
           status: 'pending',
           priority: 'high',
+          directives: []
+        },
+        {
+          id: 'agenda-3',
+          title: 'J:Oil Expansion Strategy Discussion',
+          start: new Date('2024-12-15T11:15:00'),
+          end: new Date('2024-12-15T11:45:00'),
+          owner: 'J:Oil Operations Director',
+          status: 'pending',
+          priority: 'medium',
+          directives: []
+        },
+        {
+          id: 'agenda-4',
+          title: '45 Degrees Cafe Growth Plan 2025',
+          start: new Date('2024-12-15T11:45:00'),
+          end: new Date('2024-12-15T12:15:00'),
+          owner: 'F&B Division Head',
+          status: 'pending',
+          priority: 'medium',
           directives: []
         }
       ],
       status: 'scheduled',
-      location: 'Board Room A',
-      description: 'Quarterly board meeting to review performance and strategic initiatives.',
+      location: 'Al Jeri Executive Board Room - 42nd Floor',
+      description: 'Comprehensive quarterly review covering all business units: JTC Transport (1250+ trucks), J:Oil (207 stations), Shaheen Rent-a-Car, 45 Degrees Cafe, and Energy Division. Key focus on Q4 performance, 2025 strategic planning, and digital transformation initiatives.',
       attendees: [
         {
           id: 'att-1',
-          name: 'Board Member 1',
-          email: 'member1@company.com',
+          name: 'Dr. Khalid Al-Jeri',
+          email: 'khalid.aljeri@aljeri.com',
+          role: 'executive',
+          status: 'accepted'
+        },
+        {
+          id: 'att-2',
+          name: 'Sarah Al-Mansouri',
+          email: 'sarah.mansouri@aljeri.com',
           role: 'executive',
           status: 'pending'
         },
         {
-          id: 'att-2',
-          name: 'Board Member 2',
-          email: 'member2@company.com',
+          id: 'att-3',
+          name: 'Mohammed Al-Rashid',
+          email: 'mohammed.rashid@aljeri.com',
           role: 'executive',
           status: 'accepted'
+        },
+        {
+          id: 'att-4',
+          name: 'Fatima Al-Zahra',
+          email: 'fatima.zahra@aljeri.com',
+          role: 'executive',
+          status: 'pending'
         }
       ],
       votes: []
     },
     {
       id: 'meeting-2',
-      title: 'Strategic Planning Session',
+      title: '2025 Strategic Planning & Digital Transformation',
       date: new Date('2024-12-20T14:00:00'),
       companyId: '2',
-      quarterId: 'q4-2024',
+      quarterId: 'q1-2025',
       agenda: [
         {
-          id: 'agenda-3',
-          title: '2025 Strategy Discussion',
+          id: 'agenda-5',
+          title: 'Digital Transformation Roadmap',
           start: new Date('2024-12-20T14:00:00'),
-          end: new Date('2024-12-20T16:00:00'),
-          owner: 'Strategy Director',
+          end: new Date('2024-12-20T15:00:00'),
+          owner: 'CTO - Technology Division',
           status: 'pending',
           priority: 'high',
+          directives: []
+        },
+        {
+          id: 'agenda-6',
+          title: 'Market Expansion Strategy - UAE & Jordan',
+          start: new Date('2024-12-20T15:00:00'),
+          end: new Date('2024-12-20T15:45:00'),
+          owner: 'Head of Business Development',
+          status: 'pending',
+          priority: 'high',
+          directives: []
+        },
+        {
+          id: 'agenda-7',
+          title: 'Sustainability & Green Energy Initiatives',
+          start: new Date('2024-12-20T15:45:00'),
+          end: new Date('2024-12-20T16:30:00'),
+          owner: 'Al Jeri Energy Director',
+          status: 'pending',
+          priority: 'medium',
           directives: []
         }
       ],
       status: 'scheduled',
-      location: 'Conference Room B',
-      description: 'Planning session for 2025 strategic initiatives and goals.',
+      location: 'Al Jeri Innovation Center - Conference Hall',
+      description: 'Strategic planning session for 2025 focusing on digital transformation across all business units, market expansion into UAE and Jordan, and sustainability initiatives. Discussion on TMS implementation for JTC, CRM systems for J:Oil, and renewable energy projects.',
       attendees: [
         {
-          id: 'att-3',
-          name: 'Board Member 1',
-          email: 'member1@company.com',
+          id: 'att-5',
+          name: 'Dr. Khalid Al-Jeri',
+          email: 'khalid.aljeri@aljeri.com',
+          role: 'executive',
+          status: 'accepted'
+        },
+        {
+          id: 'att-6',
+          name: 'Sarah Al-Mansouri',
+          email: 'sarah.mansouri@aljeri.com',
+          role: 'executive',
+          status: 'pending'
+        },
+        {
+          id: 'att-7',
+          name: 'Omar Al-Fahad',
+          email: 'omar.fahad@aljeri.com',
+          role: 'executive',
+          status: 'pending'
+        }
+      ],
+      votes: []
+    },
+    {
+      id: 'meeting-3',
+      title: 'Emergency Board Meeting - Market Response Strategy',
+      date: new Date('2024-12-12T16:00:00'),
+      companyId: '1',
+      quarterId: 'q4-2024',
+      agenda: [
+        {
+          id: 'agenda-8',
+          title: 'Market Volatility Response Plan',
+          start: new Date('2024-12-12T16:00:00'),
+          end: new Date('2024-12-12T16:30:00'),
+          owner: 'Chief Strategy Officer',
+          status: 'pending',
+          priority: 'critical',
+          directives: []
+        },
+        {
+          id: 'agenda-9',
+          title: 'Risk Management Assessment',
+          start: new Date('2024-12-12T16:30:00'),
+          end: new Date('2024-12-12T17:00:00'),
+          owner: 'Risk Management Director',
+          status: 'pending',
+          priority: 'critical',
+          directives: []
+        }
+      ],
+      status: 'scheduled',
+      location: 'Virtual Meeting - Microsoft Teams',
+      description: 'Urgent board meeting to address recent market developments and their impact on Al Jeri Investment portfolio. Focus on immediate response strategies and risk mitigation across all business units.',
+      attendees: [
+        {
+          id: 'att-8',
+          name: 'Dr. Khalid Al-Jeri',
+          email: 'khalid.aljeri@aljeri.com',
+          role: 'executive',
+          status: 'accepted'
+        },
+        {
+          id: 'att-9',
+          name: 'Sarah Al-Mansouri',
+          email: 'sarah.mansouri@aljeri.com',
+          role: 'executive',
+          status: 'declined',
+          reason: 'Traveling for JTC expansion meetings in UAE'
+        },
+        {
+          id: 'att-10',
+          name: 'Mohammed Al-Rashid',
+          email: 'mohammed.rashid@aljeri.com',
           role: 'executive',
           status: 'pending'
         }
@@ -226,10 +351,13 @@ export const MyMeetings: React.FC = () => {
     }
   ];
 
+  // Demo user email for testing - in real app, this comes from auth
+  const demoUserEmail = user?.email || 'sarah.mansouri@aljeri.com';
+  
   // Filter meetings for current user and future dates
   const userMeetings = mockMeetings.filter(meeting => 
     meeting.date >= new Date() && 
-    meeting.attendees.some(att => att.email === user?.email)
+    meeting.attendees.some(att => att.email === demoUserEmail)
   );
 
   const { mutateAsync: updateMeeting } = useUpdate();
@@ -239,7 +367,7 @@ export const MyMeetings: React.FC = () => {
     try {
       // Update attendee status to accepted
       const updatedAttendees = meeting.attendees.map(att => 
-        att.email === user?.email 
+        att.email === demoUserEmail 
           ? { ...att, status: 'accepted' as const, reason: undefined }
           : att
       );
@@ -292,7 +420,7 @@ export const MyMeetings: React.FC = () => {
     try {
       // Update attendee status to declined with reason
       const updatedAttendees = selectedMeeting.attendees.map(att => 
-        att.email === user?.email 
+        att.email === demoUserEmail 
           ? { ...att, status: 'declined' as const, reason: declineReason }
           : att
       );
@@ -329,7 +457,7 @@ export const MyMeetings: React.FC = () => {
   };
 
   const getAttendeeStatus = (meeting: Meeting): 'pending' | 'accepted' | 'declined' => {
-    const userAttendee = meeting.attendees.find(att => att.email === user?.email);
+    const userAttendee = meeting.attendees.find(att => att.email === demoUserEmail);
     return userAttendee?.status || 'pending';
   };
 

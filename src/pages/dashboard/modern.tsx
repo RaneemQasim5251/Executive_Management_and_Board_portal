@@ -540,9 +540,10 @@ export const ModernExecutiveDashboard: FC = () => {
                 ...cardStyle,
                 background: "#0095CE",
                 color: "white",
-                height: "200px"
+                height: "220px",
+                overflow: "hidden"
               }}
-              styles={{ body: { padding: "32px" } }}
+              styles={{ body: { padding: "20px", height: "180px" } }}
             >
               <div style={{ 
                 display: "flex", 
@@ -551,15 +552,15 @@ export const ModernExecutiveDashboard: FC = () => {
                 justifyContent: "space-between" 
               }}>
                 <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-                    <TeamOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                    <TeamOutlined style={{ fontSize: "28px", opacity: 0.8 }} />
                     <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#10B981", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
                       <RiseOutlined /> +8.2%
                     </Tag>
                   </div>
-                  <div style={{ marginBottom: "16px" }}>
-                    <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("dashboard.boardMembers")}</Text>
-                    <div style={{ fontSize: "36px", fontWeight: "800" }}>1,247</div>
+                  <div style={{ marginBottom: "12px" }}>
+                    <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>{t("dashboard.boardMembers")}</Text>
+                    <div style={{ fontSize: "32px", fontWeight: "800", lineHeight: "1.1" }}>1,247</div>
                   </div>
                 </div>
                 <div>
@@ -568,27 +569,26 @@ export const ModernExecutiveDashboard: FC = () => {
                     showInfo={false} 
                     strokeColor="rgba(255,255,255,0.8)"
                     trailColor="rgba(255,255,255,0.2)"
-                    style={{ marginBottom: "12px" }}
+                    style={{ marginBottom: "8px" }}
                   />
-                  <div style={{ textAlign: "center" }}>
-                    <Button 
-                      type="primary"
-                      size="small"
-                      onClick={() => navigate('/my-meetings')}
-                      style={{ 
-                        background: 'rgba(255,255,255,0.15)',
-                        borderColor: 'rgba(255,255,255,0.3)',
-                        color: 'white',
-                        fontWeight: 600,
-                        fontSize: '11px',
-                        height: '28px',
-                        borderRadius: '6px',
-                        boxShadow: 'none'
-                      }}
-                    >
-                      {t("buttons.viewRegister")}
-                    </Button>
-                  </div>
+                  <Button 
+                    type="primary"
+                    size="small"
+                    onClick={() => navigate('/my-meetings')}
+                    style={{ 
+                      width: "100%",
+                      background: 'rgba(255,255,255,0.2)',
+                      borderColor: 'rgba(255,255,255,0.4)',
+                      color: 'white',
+                      fontWeight: 600,
+                      fontSize: '10px',
+                      height: '24px',
+                      borderRadius: '4px',
+                      boxShadow: 'none'
+                    }}
+                  >
+                    {t("buttons.viewRegister")}
+                  </Button>
                 </div>
               </div>
             </Card>
