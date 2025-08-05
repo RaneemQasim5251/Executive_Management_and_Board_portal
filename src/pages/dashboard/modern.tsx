@@ -540,10 +540,10 @@ export const ModernExecutiveDashboard: FC = () => {
                 ...cardStyle,
                 background: "#0095CE",
                 color: "white",
-                height: "220px",
+                height: "200px",
                 overflow: "hidden"
               }}
-              styles={{ body: { padding: "20px", height: "180px" } }}
+              styles={{ body: { padding: "20px", height: "160px" } }}
             >
               <div style={{ 
                 display: "flex", 
@@ -558,9 +558,9 @@ export const ModernExecutiveDashboard: FC = () => {
                       <RiseOutlined /> +8.2%
                     </Tag>
                   </div>
-                  <div style={{ marginBottom: "12px" }}>
+                  <div style={{ marginBottom: "8px" }}>
                     <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "13px" }}>{t("dashboard.boardMembers")}</Text>
-                    <div style={{ fontSize: "32px", fontWeight: "800", lineHeight: "1.1" }}>1,247</div>
+                    <div style={{ fontSize: "28px", fontWeight: "800", lineHeight: "1.1" }}>1,247</div>
                   </div>
                 </div>
                 <div>
@@ -569,7 +569,7 @@ export const ModernExecutiveDashboard: FC = () => {
                     showInfo={false} 
                     strokeColor="rgba(255,255,255,0.8)"
                     trailColor="rgba(255,255,255,0.2)"
-                    style={{ marginBottom: "8px" }}
+                    style={{ marginBottom: "6px" }}
                   />
                   <Button 
                     type="primary"
@@ -581,8 +581,8 @@ export const ModernExecutiveDashboard: FC = () => {
                       borderColor: 'rgba(255,255,255,0.4)',
                       color: 'white',
                       fontWeight: 600,
-                      fontSize: '10px',
-                      height: '24px',
+                      fontSize: '9px',
+                      height: '20px',
                       borderRadius: '4px',
                       boxShadow: 'none'
                     }}
