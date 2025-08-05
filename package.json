@@ -26,6 +26,10 @@
   "license": "MIT",
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "@fullcalendar/daygrid": "^6.1.18",
+    "@fullcalendar/interaction": "^6.1.18",
+    "@fullcalendar/react": "^6.1.18",
+    "@hookform/resolvers": "^5.2.1",
     "@refinedev/antd": "^5.45.4",
     "@refinedev/core": "^4.53.0",
     "@refinedev/inferencer": "^4.7.0",
@@ -34,6 +38,7 @@
     "@refinedev/simple-rest": "^5.0.8",
     "@refinedev/supabase": "^5.9.8",
     "@supabase/supabase-js": "^2.53.0",
+    "@types/styled-components": "^5.1.34",
     "antd": "^5.21.4",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
@@ -45,11 +50,15 @@
     "powerbi-client-react": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.62.0",
     "react-i18next": "^15.6.1",
     "react-router-dom": "^6.26.1",
     "recharts": "^2.12.7",
+    "socket.io-client": "^4.8.1",
+    "styled-components": "^6.1.19",
     "typescript": "^5.2.2",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "zod": "^4.0.14"
   },
   "devDependencies": {
     "@types/react": "^18.3.23",
