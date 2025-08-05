@@ -239,7 +239,6 @@ const resources = {
       "Edit Task": "تعديل المهمة",
       "Delete": "حذف",
       "Priority": "الأولوية",
-      "Status": "الحالة",
       "Assignee": "المكلف",
       "Due Date": "تاريخ الاستحقاق",
     }
@@ -479,7 +478,6 @@ const resources = {
       "Edit Task": "Edit Task",
       "Delete": "Delete",
       "Priority": "Priority",
-      "Status": "Status",
       "Assignee": "Assignee",
       "Due Date": "Due Date",
     }

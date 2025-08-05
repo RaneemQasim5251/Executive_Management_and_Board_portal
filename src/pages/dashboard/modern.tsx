@@ -554,26 +554,25 @@ export const ModernExecutiveDashboard: FC = () => {
                 <div>
                   <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("dashboard.boardMembers")}</Text>
                   <div style={{ fontSize: "36px", fontWeight: "800" }}>1,247</div>
-                  <Button 
-                    type="primary"
-                    size="small"
-                    onClick={() => navigate('/my-meetings')}
-                    style={{ 
-                      width: "100%",
-                      background: 'rgba(255,255,255,0.15)',
-                      borderColor: 'rgba(255,255,255,0.3)',
-                      color: 'white',
-                      fontWeight: 600,
-                      fontSize: '10px',
-                      height: '24px',
-                      borderRadius: '4px',
-                      boxShadow: 'none',
-                      marginTop: '12px'
-                    }}
-                  >
-                    {t("buttons.viewRegister")}
-                  </Button>
                 </div>
+                <Button 
+                  type="primary"
+                  size="small"
+                  onClick={() => navigate('/my-meetings')}
+                  style={{ 
+                    width: "100%",
+                    background: 'rgba(255,255,255,0.15)',
+                    borderColor: 'rgba(255,255,255,0.3)',
+                    color: 'white',
+                    fontWeight: 600,
+                    fontSize: '10px',
+                    height: '24px',
+                    borderRadius: '4px',
+                    boxShadow: 'none',
+                  }}
+                >
+                  {t("buttons.viewRegister")}
+                </Button>
                 <Progress 
                   percent={94} 
                   showInfo={false} 
@@ -585,7 +584,7 @@ export const ModernExecutiveDashboard: FC = () => {
           </motion.div>
         </Col>
 
-        <Col xs={24} sm={12} lg={6}>
+        <Col xs={20} sm={12} lg={6}>
           <motion.div variants={itemVariants}>
             <Card 
               style={{

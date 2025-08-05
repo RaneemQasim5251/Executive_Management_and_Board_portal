@@ -136,33 +136,54 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
       }}
     >
       {/* Left side - Al Jeri Logo & Portal Title */}
-      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+      <div style={{ 
+        display: "flex", 
+        alignItems: "center", 
+        gap: "16px",
+        minWidth: 0,
+        flex: 1
+      }}>
         <img 
           src="/aljeri-logo.png" 
           alt="Al Jeri Logo" 
           style={{ 
-            height: "60px", 
+            height: "40px", 
             width: "auto",
-            filter: "drop-shadow(0 2px 4px rgba(12, 8, 92, 0.15))"
+            filter: "drop-shadow(0 2px 4px rgba(12, 8, 92, 0.15))",
+            flexShrink: 0
           }} 
         />
-        <div style={{ lineHeight: "1.3" }}>
+        <div style={{ 
+          lineHeight: "1.3",
+          minWidth: 0,
+          overflow: "hidden"
+        }}>
           <Text strong style={{ 
-            fontSize: "16px", 
+            fontSize: "14px", 
             color: "#0C085C",
             display: "block",
-            fontWeight: "700"
+            fontWeight: "700",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis"
           }}>
             {i18n.language === 'ar' ? 'منصَّة مجلس الإدارة التنفيذية لشركة الجِري' : 'Al Jeri Executive Board Platform'}
           </Text>
-          <Text type="secondary" style={{ fontSize: "11px", marginTop: "2px", display: "block" }}>
+          <Text type="secondary" style={{ 
+            fontSize: "10px", 
+            marginTop: "2px", 
+            display: "block",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis"
+          }}>
             {i18n.language === 'ar' ? 'مركز القيادة التنفيذية ومجلس الإدارة' : 'Executive Command & Board Center'}
           </Text>
         </div>
       </div>
 
       {/* Right side - Actions and User */}
-      <Space size="large">
+      <Space size="small" style={{ flexShrink: 0 }}>
         {/* Notifications */}
         <Badge count={3} size="small" style={{ backgroundColor: '#0C085C' }}>
           <Button

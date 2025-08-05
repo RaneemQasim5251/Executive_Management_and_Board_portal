@@ -146,7 +146,7 @@ export const MyMeetings: React.FC = () => {
     {
       id: 'meeting-1',
       title: 'Q4 2024 Board Review - Al Jeri Investment',
-      date: new Date('2024-12-25T10:00:00'),
+      date: new Date('2025-01-15T10:00:00'),
       companyId: '1',
       quarterId: 'q4-2024',
       agenda: [
@@ -236,7 +236,7 @@ export const MyMeetings: React.FC = () => {
     {
       id: 'meeting-2',
       title: '2025 Strategic Planning & Digital Transformation',
-      date: new Date('2024-12-30T14:00:00'),
+      date: new Date('2025-01-20T14:00:00'),
       companyId: '2',
       quarterId: 'q1-2025',
       agenda: [
@@ -309,7 +309,7 @@ export const MyMeetings: React.FC = () => {
     {
       id: 'meeting-3',
       title: 'Emergency Board Meeting - Market Response Strategy',
-      date: new Date('2024-12-28T16:00:00'),
+      date: new Date('2025-01-25T16:00:00'),
       companyId: '1',
       quarterId: 'q4-2024',
       agenda: [

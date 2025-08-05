@@ -21,7 +21,7 @@ export interface Task {
   end: Date;
   owner: string;
   status: 'pending' | 'in-progress' | 'completed';
-  priority: 'low' | 'medium' | 'high';
+  priority: 'low' | 'medium' | 'high' | 'critical';
   directives: Directive[];
 }
 
