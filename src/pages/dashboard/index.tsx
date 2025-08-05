@@ -134,7 +134,7 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>Team Members</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>Board Members</span>}
                 value={1247}
                 valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<TeamOutlined />}

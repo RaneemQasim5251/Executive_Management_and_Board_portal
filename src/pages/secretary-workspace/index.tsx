@@ -391,6 +391,11 @@ export const SecretaryWorkspace: React.FC = () => {
   const upcomingMeetingsCount = state.meetings.filter(m => 
     m.date > new Date() && m.status === 'scheduled'
   ).length;
+  
+  // Calculate registered members (those who confirmed attendance)
+  const registeredMembers = state.meetings
+    .flatMap(m => m.attendees)
+    .filter(a => a.status === 'accepted').length;
 
   return (
     <WorkspaceContainer>

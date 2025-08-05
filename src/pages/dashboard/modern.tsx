@@ -550,7 +550,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   </Tag>
                 </div>
                 <div>
-                  <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("Team Members")}</Text>
+                  <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("dashboard.boardMembers")}</Text>
                   <div style={{ fontSize: "36px", fontWeight: "800" }}>1,247</div>
                 </div>
                 <Progress 

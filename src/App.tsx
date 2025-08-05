@@ -89,6 +89,7 @@ import { Archive2025 } from "./pages/archive/Archive2025.tsx";
 import { JTCPage, JOilPage, ShaheenPage, FortyFiveDegreesPage, EnergyPage } from "./pages/companies";
 import KPIsERP from "./pages/enterprise-systems/KPIsERP";
 import { SecretaryWorkspace } from "./pages/secretary-workspace";
+import { MyMeetings } from "./pages/MyMeetings";
 
 import "./App.css";
 
@@ -204,6 +205,15 @@ function App() {
                 meta: {
                   label: t("Executive-Secretary Workspace"),
                   icon: <TeamOutlined />,
+                },
+              },
+              // My Meetings
+              {
+                name: "my-meetings",
+                list: "/my-meetings",
+                meta: {
+                  label: t("myMeetings.title"),
+                  icon: <CalendarOutlined />,
                 },
               },
               // Investment Portfolio Management
@@ -349,6 +359,9 @@ function App() {
                 
                 {/* Secretary Workspace */}
                 <Route path="/secretary" element={<SecretaryWorkspace />} />
+                
+                {/* My Meetings */}
+                <Route path="/my-meetings" element={<MyMeetings />} />
 
                 <Route path="*" element={<ErrorComponent />} />
               </Route>

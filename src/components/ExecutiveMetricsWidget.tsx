@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, Statistic, Row, Col, Progress, Tooltip } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined, InfoCircleOutlined } from '@ant-design/icons';
-
+import { Card, Statistic, Row, Col, Progress, Tooltip, Button } from 'antd';
+import { ArrowUpOutlined, ArrowDownOutlined, InfoCircleOutlined, TeamOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 interface MetricCardProps {
@@ -61,6 +61,48 @@ const MetricCard: React.FC<MetricCardProps> = ({
   );
 };
 
+const BoardMembersCard: React.FC<{ value: number; tooltip: string }> = ({ value, tooltip }) => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  return (
+    <Card size="small" style={{ height: '100%' }}>
+      <Statistic
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            {t("dashboard.boardMembers")}
+            <Tooltip title={t("myMeetings.membersConfirmed")}>
+              <InfoCircleOutlined style={{ color: '#8c8c8c', fontSize: 12 }} />
+            </Tooltip>
+          </div>
+        }
+        value={value}
+        prefix={<TeamOutlined />}
+        valueStyle={{ color: '#722ed1' }}
+      />
+      <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <ArrowUpOutlined style={{ color: '#52c41a' }} />
+          <span style={{ fontSize: 12, color: '#52c41a' }}>+5.2%</span>
+        </div>
+        <Button 
+          type="link" 
+          size="small"
+          onClick={() => navigate('/my-meetings')}
+          style={{ 
+            color: '#0095CE', 
+            fontWeight: 600,
+            padding: '0 8px',
+            height: 'auto'
+          }}
+        >
+          {t("buttons.viewRegister")}
+        </Button>
+      </div>
+    </Card>
+  );
+};
+
 export const ExecutiveMetricsWidget: React.FC = () => {
   const { t } = useTranslation();
 
@@ -101,13 +143,9 @@ export const ExecutiveMetricsWidget: React.FC = () => {
         </Col>
         
         <Col xs={24} sm={12} md={6}>
-          <MetricCard
-            title={t("Team Members")}
+          <BoardMembersCard
             value={metrics.teamMembers}
-            color="#722ed1"
-            trend="up"
-            trendValue={5.2}
-            tooltip="Total team members across all departments"
+            tooltip="Members who confirmed attendance"
           />
         </Col>
         

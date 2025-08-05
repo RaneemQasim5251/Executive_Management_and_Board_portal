@@ -57,7 +57,7 @@ class ExcelDataService {
           reject(new Error('Failed to read Excel file: ' + error));
         }
       };
-      
+       
       reader.onerror = () => {
         reject(new Error('Error reading file'));
       };

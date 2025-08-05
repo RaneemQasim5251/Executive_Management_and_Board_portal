@@ -58,6 +58,7 @@ export interface Attendee {
   role: 'secretary' | 'executive' | 'viewer';
   status: 'pending' | 'accepted' | 'declined';
   joinedAt?: Date;
+  reason?: string;
 }
 
 export interface Vote {

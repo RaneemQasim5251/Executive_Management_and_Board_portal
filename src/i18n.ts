@@ -70,7 +70,7 @@ const resources = {
       "Total Revenue": "إجمالي الإيرادات",
       "Annual Revenue": "الإيرادات السنوية",
       "Active Projects": "المشاريع النشطة",
-      "Team Members": "أعضاء الفريق", 
+      "Team Members": "أعضاء المجلس", 
       "Success Rate": "معدل النجاح",
       "Efficiency Score": "درجة الكفاءة",
       "Revenue Performance vs Target": "أداء الإيرادات مقابل الهدف",
@@ -182,6 +182,26 @@ const resources = {
       "All Clear": "كل شيء واضح",
       "Action Required": "مطلوب إجراء",
       
+      // Dashboard
+      "dashboard.boardMembers": "أعضاء المجلس",
+      
+      // Buttons
+      "buttons.attend": "حضور",
+      "buttons.decline": "اعتذار",
+      "buttons.viewRegister": "تأكيد الحضور",
+      
+      // My Meetings
+      "myMeetings.title": "اجتماعاتي",
+      "myMeetings.noMeetings": "لا توجد اجتماعات قادمة",
+      "myMeetings.declineReason": "سبب الاعتذار",
+      "myMeetings.reasonPlaceholder": "يرجى ذكر سبب عدم الحضور",
+      "myMeetings.confirmAttendance": "تأكيد الحضور",
+      "myMeetings.declineAttendance": "اعتذار عن الحضور",
+      "myMeetings.attendanceConfirmed": "تم تأكيد حضورك!",
+      "myMeetings.declineSubmitted": "تم تسجيل اعتذارك",
+      "myMeetings.reasonRequired": "يجب ذكر سبب الاعتذار",
+      "myMeetings.membersConfirmed": "الأعضاء الذين أكدوا الحضور",
+      
       // Common
       "Save": "حفظ",
       "Cancel": "إلغاء",
@@ -290,7 +310,7 @@ const resources = {
       "Total Revenue": "Total Revenue",
       "Annual Revenue": "Annual Revenue",
       "Active Projects": "Active Projects",
-      "Team Members": "Team Members",
+      "Team Members": "Board Members",
       "Success Rate": "Success Rate",
       "Efficiency Score": "Efficiency Score",
       "Revenue Performance vs Target": "Revenue Performance vs Target",
@@ -401,6 +421,26 @@ const resources = {
       "Target": "Target",
       "All Clear": "All Clear",
       "Action Required": "Action Required",
+      
+      // Dashboard
+      "dashboard.boardMembers": "Board Members",
+      
+      // Buttons
+      "buttons.attend": "Attend",
+      "buttons.decline": "Decline",
+      "buttons.viewRegister": "View & Register",
+      
+      // My Meetings
+      "myMeetings.title": "My Meetings",
+      "myMeetings.noMeetings": "No upcoming meetings",
+      "myMeetings.declineReason": "Reason for declining",
+      "myMeetings.reasonPlaceholder": "Please provide a reason for not attending",
+      "myMeetings.confirmAttendance": "Confirm Attendance",
+      "myMeetings.declineAttendance": "Decline Attendance",
+      "myMeetings.attendanceConfirmed": "You're in!",
+      "myMeetings.declineSubmitted": "Your decline has been recorded",
+      "myMeetings.reasonRequired": "Reason is required",
+      "myMeetings.membersConfirmed": "Members who confirmed attendance",
       
       // Common
       "Save": "Save",
