@@ -541,8 +541,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 background: "#0095CE",
                 color: "white",
                 height: "200px",
-                overflow: "hidden",
-                position: "relative"
+                overflow: "hidden"
               }}
               styles={{ body: { padding: "20px", height: "160px" } }}
             >
@@ -565,13 +564,6 @@ export const ModernExecutiveDashboard: FC = () => {
                   </div>
                 </div>
                 <div>
-                  <Progress 
-                    percent={94} 
-                    showInfo={false} 
-                    strokeColor="rgba(255,255,255,0.8)"
-                    trailColor="rgba(255,255,255,0.2)"
-                    style={{ marginBottom: "6px" }}
-                  />
                   <Button 
                     type="primary"
                     size="small"
@@ -585,23 +577,20 @@ export const ModernExecutiveDashboard: FC = () => {
                       fontSize: '9px',
                       height: '20px',
                       borderRadius: '4px',
-                      boxShadow: 'none'
+                      boxShadow: 'none',
+                      marginBottom: '8px'
                     }}
                   >
                     {t("buttons.viewRegister")}
                   </Button>
+                  <Progress 
+                    percent={94} 
+                    showInfo={false} 
+                    strokeColor="rgba(255,255,255,0.8)"
+                    trailColor="rgba(255,255,255,0.2)"
+                  />
                 </div>
               </div>
-              {/* Bottom gray line to match other cards */}
-              <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                height: '3px',
-                background: 'rgba(255,255,255,0.2)',
-                borderRadius: '0 0 12px 12px'
-              }} />
             </Card>
           </motion.div>
         </Col>
