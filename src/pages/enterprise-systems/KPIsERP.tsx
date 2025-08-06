@@ -26,8 +26,9 @@ import {
   DownloadOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { PowerBIEmbed } from 'powerbi-client-react';
-import { usePowerBI } from '../../hooks/usePowerBI';
+// Temporarily removed PowerBI client imports due to embed URL compatibility issues
+// import { PowerBIEmbed } from 'powerbi-client-react';
+// import { usePowerBI } from '../../hooks/usePowerBI';
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
@@ -51,15 +52,19 @@ const KPIsERP: React.FC = () => {
   const [localLoading, setLocalLoading] = useState<{[key: string]: boolean}>({});
   const [refreshKey, setRefreshKey] = useState<number>(0);
   
-  const {
-    loading: powerBILoading,
-    error: powerBIError,
-    refreshReport,
-    exportToPDF,
-    getEmbedConfig,
-    handleEmbedded,
-    getEventHandlers
-  } = usePowerBI();
+  // Simplified iframe-based Power BI embedding
+  const handleRefresh = (reportId: string) => {
+    setLocalLoading(prev => ({ ...prev, [reportId]: true }));
+    setRefreshKey(prev => prev + 1);
+    setTimeout(() => {
+      setLocalLoading(prev => ({ ...prev, [reportId]: false }));
+      message.success(t('Report refreshed successfully'));
+    }, 1500);
+  };
+  
+  const handleExport = () => {
+    message.info(t('Export functionality requires Power BI Pro license'));
+  };
 
   const reports: PowerBIReport[] = [
     {
@@ -141,38 +146,11 @@ const KPIsERP: React.FC = () => {
     }
   ];
 
-  const handleReportLoad = (reportId: string) => {
-    setLocalLoading(prev => ({ ...prev, [reportId]: true }));
-    setTimeout(() => {
-      setLocalLoading(prev => ({ ...prev, [reportId]: false }));
-    }, 3000);
-  };
-
-  const handleRefreshReport = async (reportId: string) => {
-    setRefreshKey(prev => prev + 1);
-    handleReportLoad(reportId);
-    try {
-      await refreshReport(reportId);
-      message.success(t("Report refreshed successfully"));
-    } catch (error) {
-      message.error(t("Failed to refresh report"));
-    }
-  };
-
-  const handleExportToPDF = async (reportId: string) => {
-    try {
-      await exportToPDF(reportId);
-      message.success(t("Export started successfully"));
-    } catch (error) {
-      message.error(t("Failed to export report"));
-    }
-  };
+  // Removed unused Power BI client functions
 
   const openFullscreen = (embedUrl: string) => {
     window.open(embedUrl, '_blank', 'fullscreen=yes,scrollbars=yes,resizable=yes');
   };
-
-  const eventHandlersMap = getEventHandlers();
 
   const renderPowerBIReport = (report: PowerBIReport) => (
     <Card
@@ -185,22 +163,22 @@ const KPIsERP: React.FC = () => {
             type="text"
             size="small"
             icon={<ReloadOutlined />}
-            onClick={() => handleRefreshReport(report.id)}
+            onClick={() => handleRefresh(report.id)}
             title={t("Refresh")}
-            loading={powerBILoading}
+            loading={localLoading[report.id]}
           />
           <Button
             type="text"
             size="small"
             icon={<DownloadOutlined />}
-            onClick={() => handleExportToPDF(report.id)}
+            onClick={() => handleExport()}
             title={t("Export to PDF")}
           />
           <Button
             type="text"
             size="small"
             icon={<FullscreenOutlined />}
-            onClick={() => openFullscreen(report.embedUrl)}
+            onClick={() => window.open(report.embedUrl, '_blank')}
             title={t("Open in new tab")}
           />
         </Space>
@@ -219,7 +197,7 @@ const KPIsERP: React.FC = () => {
       </Text>
       
       <div style={{ position: 'relative', height: '600px', background: '#f8f9fa', borderRadius: '8px' }}>
-        {(localLoading[report.id] || powerBILoading) && (
+        {localLoading[report.id] && (
           <div style={{
             position: 'absolute',
             top: 0,
@@ -237,30 +215,24 @@ const KPIsERP: React.FC = () => {
           </div>
         )}
         
-        {powerBIError && (
-          <Alert
-            message="Power BI Error"
-            description={powerBIError}
-            type="error"
-            showIcon
-            style={{ margin: '16px 0' }}
-          />
-        )}
-        
-        {/* Power BI Embed Component */}
-        <PowerBIEmbed
-          embedConfig={getEmbedConfig({
-            reportId: report.reportId,
-            embedUrl: report.embedUrl
-          })}
-          eventHandlers={eventHandlersMap}
-          cssClassName={`powerbi-report-${report.id}`}
-          getEmbeddedComponent={(embeddedComponent) => handleEmbedded(report.id, embeddedComponent)}
+        {/* Simple iframe-based Power BI embedding */}
+        <iframe
+          key={`${report.id}-${refreshKey}`}
+          title={i18n.language === 'ar' ? report.titleAr : report.title}
+          width="100%"
+          height="600"
+          src={report.embedUrl}
+          frameBorder="0"
+          allowFullScreen={true}
           style={{
-            height: '600px',
-            width: '100%',
-            border: 'none',
-            borderRadius: '8px'
+            borderRadius: '8px',
+            border: '1px solid #e1e5e9'
+          }}
+          onLoad={() => {
+            // Auto-hide loading after iframe loads
+            setTimeout(() => {
+              setLocalLoading(prev => ({ ...prev, [report.id]: false }));
+            }, 500);
           }}
         />
       </div>
