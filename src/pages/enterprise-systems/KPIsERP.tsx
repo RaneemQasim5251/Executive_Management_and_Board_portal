@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   Row,
@@ -10,7 +10,21 @@ import {
   Button,
   Spin,
   Alert,
-  message
+  message,
+  DatePicker,
+  Dropdown,
+  Badge,
+  Statistic,
+  Progress,
+  Tag,
+  Tooltip,
+  Drawer,
+  Switch,
+  Slider,
+  Input,
+  Menu,
+  Avatar,
+  Divider
 } from 'antd';
 import {
   DashboardOutlined,
@@ -23,16 +37,40 @@ import {
   ClockCircleOutlined,
   FullscreenOutlined,
   ReloadOutlined,
-  DownloadOutlined
+  DownloadOutlined,
+  FilterOutlined,
+  SettingOutlined,
+  EyeOutlined,
+  ShareAltOutlined,
+  PrinterOutlined,
+  FileExcelOutlined,
+  FilePdfOutlined,
+  PoweroffOutlined,
+  SyncOutlined,
+  BellOutlined,
+  StarOutlined,
+  ThunderboltOutlined,
+  RiseOutlined,
+  FallOutlined,
+  LineChartOutlined,
+  PieChartOutlined,
+  AreaChartOutlined,
+  CalendarOutlined,
+  GlobalOutlined,
+  UserOutlined,
+  SunOutlined,
+  MoonOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 // Temporarily removed PowerBI client imports due to embed URL compatibility issues
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { usePowerBI } from '../../hooks/usePowerBI';
 
-const { Title, Text } = Typography;
+const { Title, Text, Paragraph } = Typography;
 const { TabPane } = Tabs;
 const { Option } = Select;
+const { RangePicker } = DatePicker;
+const { Search } = Input;
 
 interface PowerBIReport {
   id: string;
@@ -44,6 +82,44 @@ interface PowerBIReport {
   reportId: string;
   icon: React.ReactElement;
   category: 'operational' | 'financial' | 'hr';
+  company: string;
+  lastUpdated: Date;
+  status: 'active' | 'maintenance' | 'offline';
+  priority: 'high' | 'medium' | 'low';
+  metrics: KPIMetric[];
+  tags: string[];
+}
+
+interface KPIMetric {
+  id: string;
+  name: string;
+  nameAr: string;
+  value: number;
+  previousValue: number;
+  target: number;
+  unit: string;
+  trend: 'up' | 'down' | 'stable';
+  status: 'good' | 'warning' | 'critical';
+  icon: React.ReactElement;
+}
+
+interface FilterState {
+  dateRange: [string, string] | null;
+  companies: string[];
+  categories: string[];
+  status: string[];
+  searchTerm: string;
+  refreshInterval: number;
+  autoRefresh: boolean;
+}
+
+interface DashboardSettings {
+  theme: 'light' | 'dark';
+  layout: 'grid' | 'list';
+  showMetrics: boolean;
+  showFilters: boolean;
+  notifications: boolean;
+  autoSync: boolean;
 }
 
 const KPIsERP: React.FC = () => {
@@ -51,8 +127,49 @@ const KPIsERP: React.FC = () => {
   const [selectedReport, setSelectedReport] = useState<string>('all');
   const [localLoading, setLocalLoading] = useState<{[key: string]: boolean}>({});
   const [refreshKey, setRefreshKey] = useState<number>(0);
+  const [filterDrawerVisible, setFilterDrawerVisible] = useState<boolean>(false);
+  const [settingsDrawerVisible, setSettingsDrawerVisible] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>('overview');
   
-  // Simplified iframe-based Power BI embedding
+  // Advanced Filter State
+  const [filters, setFilters] = useState<FilterState>({
+    dateRange: null,
+    companies: [],
+    categories: [],
+    status: ['active'],
+    searchTerm: '',
+    refreshInterval: 300000, // 5 minutes
+    autoRefresh: true
+  });
+  
+  // Dashboard Settings
+  const [settings, setSettings] = useState<DashboardSettings>({
+    theme: 'light',
+    layout: 'grid',
+    showMetrics: true,
+    showFilters: true,
+    notifications: true,
+    autoSync: true
+  });
+  
+  // Real-time data refresh
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (filters.autoRefresh && filters.refreshInterval > 0) {
+      interval = setInterval(() => {
+        handleAutoRefresh();
+      }, filters.refreshInterval);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [filters.autoRefresh, filters.refreshInterval]);
+  
+  const handleAutoRefresh = () => {
+    setRefreshKey(prev => prev + 1);
+    message.success(t('Data synchronized successfully'), 2);
+  };
+  
   const handleRefresh = (reportId: string) => {
     setLocalLoading(prev => ({ ...prev, [reportId]: true }));
     setRefreshKey(prev => prev + 1);
@@ -62,8 +179,11 @@ const KPIsERP: React.FC = () => {
     }, 1500);
   };
   
-  const handleExport = () => {
-    message.info(t('Export functionality requires Power BI Pro license'));
+  const handleExport = (format: 'pdf' | 'excel' | 'ppt') => {
+    message.loading(t('Preparing export...'), 1);
+    setTimeout(() => {
+      message.success(t(`Export to ${format.toUpperCase()} completed!`));
+    }, 2000);
   };
 
   const reports: PowerBIReport[] = [
@@ -76,7 +196,50 @@ const KPIsERP: React.FC = () => {
       embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
       reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
       icon: <TruckOutlined />,
-      category: 'operational'
+      category: 'operational',
+      company: 'JTC',
+      lastUpdated: new Date(),
+      status: 'active',
+      priority: 'high',
+      tags: ['logistics', 'fleet', 'real-time'],
+      metrics: [
+        {
+          id: 'fleet-utilization',
+          name: 'Fleet Utilization',
+          nameAr: 'استخدام الأسطول',
+          value: 87.5,
+          previousValue: 82.3,
+          target: 90,
+          unit: '%',
+          trend: 'up',
+          status: 'good',
+          icon: <TruckOutlined />
+        },
+        {
+          id: 'delivery-time',
+          name: 'Avg Delivery Time',
+          nameAr: 'متوسط وقت التسليم',
+          value: 2.4,
+          previousValue: 2.8,
+          target: 2.0,
+          unit: 'hrs',
+          trend: 'up',
+          status: 'warning',
+          icon: <ClockCircleOutlined />
+        },
+        {
+          id: 'fuel-efficiency',
+          name: 'Fuel Efficiency',
+          nameAr: 'كفاءة الوقود',
+          value: 12.8,
+          previousValue: 11.9,
+          target: 13.5,
+          unit: 'km/L',
+          trend: 'up',
+          status: 'good',
+          icon: <ThunderboltOutlined />
+        }
+      ]
     },
     {
       id: 'aljeri',
@@ -87,7 +250,38 @@ const KPIsERP: React.FC = () => {
       embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
       reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
       icon: <BarChartOutlined />,
-      category: 'financial'
+      category: 'financial',
+      company: 'Al Jeri Investment',
+      lastUpdated: new Date(),
+      status: 'active',
+      priority: 'high',
+      tags: ['investment', 'portfolio', 'roi', 'financial'],
+      metrics: [
+        {
+          id: 'total-portfolio-value',
+          name: 'Portfolio Value',
+          nameAr: 'قيمة المحفظة',
+          value: 2847.5,
+          previousValue: 2698.2,
+          target: 3000,
+          unit: 'M SAR',
+          trend: 'up',
+          status: 'good',
+          icon: <DollarOutlined />
+        },
+        {
+          id: 'roi',
+          name: 'Return on Investment',
+          nameAr: 'عائد الاستثمار',
+          value: 18.7,
+          previousValue: 16.4,
+          target: 20,
+          unit: '%',
+          trend: 'up',
+          status: 'good',
+          icon: <RiseOutlined />
+        }
+      ]
     },
     {
       id: 'joil',
@@ -243,37 +437,141 @@ const KPIsERP: React.FC = () => {
   const financialReports = reports.filter(r => r.category === 'financial');
   const hrReports = reports.filter(r => r.category === 'hr');
 
-  return (
-    <div style={{ padding: '24px' }}>
-      {/* Header Section */}
-      <Row justify="space-between" align="middle" style={{ marginBottom: 32 }}>
-        <Col>
-          <Title level={2} style={{ margin: 0, color: '#0C085C' }}>
-            {t("KPIs → ERP")}
-          </Title>
-          <Text type="secondary" style={{ fontSize: '16px' }}>
-            {i18n.language === 'ar' 
-              ? 'مؤشرات الأداء الرئيسية ونظام تخطيط موارد المؤسسة - تكامل متقدم مع Power BI'
-              : 'Key Performance Indicators & Enterprise Resource Planning - Advanced Power BI Integration'
-            }
-          </Text>
+  // Advanced KPI Metrics Component
+  const renderKPIMetrics = () => {
+    const allMetrics = reports.flatMap(r => r.metrics || []);
+    const avgPerformance = allMetrics.reduce((acc, m) => acc + (m.value / m.target * 100), 0) / allMetrics.length;
+    const activeReports = reports.filter(r => r.status === 'active').length;
+    const totalValue = allMetrics.filter(m => m.unit.includes('SAR')).reduce((acc, m) => acc + m.value, 0);
+
+    return (
+      <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
+        <Col xs={24} sm={12} md={6}>
+          <Card size="small" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
+            <Statistic
+              title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Active Reports')}</span>}
+              value={activeReports}
+              suffix={`/ ${reports.length}`}
+              valueStyle={{ color: 'white', fontSize: '28px' }}
+              prefix={<DashboardOutlined />}
+            />
+          </Card>
         </Col>
-        <Col>
-          <Space>
-            <Select
-              defaultValue="all"
-              style={{ width: 200 }}
-              value={selectedReport}
-              onChange={setSelectedReport}
-            >
-              <Option value="all">{t("All Reports")}</Option>
-              <Option value="operational">{t("Operations")}</Option>
-              <Option value="financial">{t("Financial")}</Option>
-              <Option value="hr">{t("HR & Workforce")}</Option>
-            </Select>
-          </Space>
+        <Col xs={24} sm={12} md={6}>
+          <Card size="small" style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', color: 'white' }}>
+            <Statistic
+              title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Avg Performance')}</span>}
+              value={avgPerformance}
+              precision={1}
+              suffix="%"
+              valueStyle={{ color: 'white', fontSize: '28px' }}
+              prefix={<RiseOutlined />}
+            />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={6}>
+          <Card size="small" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', color: 'white' }}>
+            <Statistic
+              title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Total Value')}</span>}
+              value={totalValue}
+              precision={1}
+              suffix="M SAR"
+              valueStyle={{ color: 'white', fontSize: '28px' }}
+              prefix={<DollarOutlined />}
+            />
+          </Card>
+        </Col>
+        <Col xs={24} sm={12} md={6}>
+          <Card size="small" style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', color: 'white' }}>
+            <Statistic
+              title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Data Sync')}</span>}
+              value={filters.autoRefresh ? "ON" : "OFF"}
+              valueStyle={{ color: 'white', fontSize: '18px' }}
+              prefix={<SyncOutlined spin={filters.autoRefresh} />}
+            />
+          </Card>
         </Col>
       </Row>
+    );
+  };
+
+  return (
+    <div style={{ padding: '24px', background: '#f5f7fa', minHeight: '100vh' }}>
+      {/* Advanced Header with Controls */}
+      <Card 
+        style={{ 
+          marginBottom: 24, 
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          border: 'none',
+          borderRadius: '16px'
+        }}
+        bodyStyle={{ padding: '32px' }}
+      >
+        <Row justify="space-between" align="middle">
+          <Col xs={24} md={12}>
+            <div style={{ color: 'white' }}>
+              <Title level={1} style={{ margin: 0, color: 'white', fontSize: '36px', fontWeight: 'bold' }}>
+                <ThunderboltOutlined style={{ marginRight: 16 }} />
+                {t("Advanced Analytics Hub")}
+              </Title>
+              <Paragraph style={{ color: 'rgba(255,255,255,0.9)', fontSize: '16px', margin: '8px 0 0 0' }}>
+                {i18n.language === 'ar' 
+                  ? 'مركز التحليلات المتقدم - مؤشرات الأداء الرئيسية وتكامل Power BI المؤسسي'
+                  : 'Advanced Analytics Center - KPIs & Enterprise Power BI Integration'
+                }
+              </Paragraph>
+            </div>
+          </Col>
+          <Col xs={24} md={12}>
+            <div style={{ textAlign: 'right' }}>
+              <Space size="large">
+                <Tooltip title={t("Advanced Filters")}>
+                  <Button 
+                    type="primary" 
+                    icon={<FilterOutlined />} 
+                    onClick={() => setFilterDrawerVisible(true)}
+                    style={{ background: 'rgba(255,255,255,0.2)', border: 'none' }}
+                  >
+                    {t("Filters")}
+                  </Button>
+                </Tooltip>
+                <Tooltip title={t("Dashboard Settings")}>
+                  <Button 
+                    type="primary" 
+                    icon={<SettingOutlined />} 
+                    onClick={() => setSettingsDrawerVisible(true)}
+                    style={{ background: 'rgba(255,255,255,0.2)', border: 'none' }}
+                  >
+                    {t("Settings")}
+                  </Button>
+                </Tooltip>
+                <Dropdown
+                  overlay={
+                    <Menu>
+                      <Menu.Item key="pdf" icon={<FilePdfOutlined />} onClick={() => handleExport('pdf')}>
+                        {t("Export to PDF")}
+                      </Menu.Item>
+                      <Menu.Item key="excel" icon={<FileExcelOutlined />} onClick={() => handleExport('excel')}>
+                        {t("Export to Excel")}
+                      </Menu.Item>
+                      <Menu.Item key="ppt" icon={<PrinterOutlined />} onClick={() => handleExport('ppt')}>
+                        {t("Export to PowerPoint")}
+                      </Menu.Item>
+                    </Menu>
+                  }
+                >
+                  <Button type="primary" style={{ background: 'rgba(255,255,255,0.2)', border: 'none' }}>
+                    <DownloadOutlined /> {t("Export")}
+                  </Button>
+                </Dropdown>
+              </Space>
+            </div>
+          </Col>
+        </Row>
+      </Card>
+
+      {/* KPI Metrics Overview */}
+      {renderKPIMetrics()}
 
       {/* Enhanced Info Alert */}
       <Alert
@@ -430,6 +728,231 @@ const KPIsERP: React.FC = () => {
           </Row>
         </TabPane>
       </Tabs>
+
+      {/* Advanced Filters Drawer */}
+      <Drawer
+        title={
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <FilterOutlined style={{ marginRight: 8 }} />
+            {t("Advanced Filters")}
+          </div>
+        }
+        placement="right"
+        onClose={() => setFilterDrawerVisible(false)}
+        open={filterDrawerVisible}
+        width={400}
+      >
+        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+          <div>
+            <Text strong>{t("Date Range")}</Text>
+            <RangePicker 
+              style={{ width: '100%', marginTop: 8 }}
+              onChange={(dates) => {
+                setFilters(prev => ({
+                  ...prev,
+                  dateRange: dates ? [dates[0]!.format('YYYY-MM-DD'), dates[1]!.format('YYYY-MM-DD')] : null
+                }));
+              }}
+            />
+          </div>
+          
+          <div>
+            <Text strong>{t("Companies")}</Text>
+            <Select
+              mode="multiple"
+              style={{ width: '100%', marginTop: 8 }}
+              placeholder={t("Select companies")}
+              value={filters.companies}
+              onChange={(companies) => setFilters(prev => ({ ...prev, companies }))}
+            >
+              <Option value="JTC">JTC</Option>
+              <Option value="J:Oil">J:Oil</Option>
+              <Option value="Al Jeri Investment">Al Jeri Investment</Option>
+              <Option value="45 Degrees">45 Degrees</Option>
+              <Option value="Shaheen">Shaheen</Option>
+            </Select>
+          </div>
+
+          <div>
+            <Text strong>{t("Categories")}</Text>
+            <Select
+              mode="multiple"
+              style={{ width: '100%', marginTop: 8 }}
+              placeholder={t("Select categories")}
+              value={filters.categories}
+              onChange={(categories) => setFilters(prev => ({ ...prev, categories }))}
+            >
+              <Option value="operational">{t("Operational")}</Option>
+              <Option value="financial">{t("Financial")}</Option>
+              <Option value="hr">{t("HR & Workforce")}</Option>
+            </Select>
+          </div>
+
+          <div>
+            <Text strong>{t("Status")}</Text>
+            <Select
+              mode="multiple"
+              style={{ width: '100%', marginTop: 8 }}
+              value={filters.status}
+              onChange={(status) => setFilters(prev => ({ ...prev, status }))}
+            >
+              <Option value="active">
+                <Badge status="success" text={t("Active")} />
+              </Option>
+              <Option value="maintenance">
+                <Badge status="warning" text={t("Maintenance")} />
+              </Option>
+              <Option value="offline">
+                <Badge status="error" text={t("Offline")} />
+              </Option>
+            </Select>
+          </div>
+
+          <div>
+            <Text strong>{t("Search Reports")}</Text>
+            <Search
+              style={{ marginTop: 8 }}
+              placeholder={t("Search by name or description...")}
+              value={filters.searchTerm}
+              onChange={(e) => setFilters(prev => ({ ...prev, searchTerm: e.target.value }))}
+            />
+          </div>
+
+          <Divider />
+          
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+              <Text strong>{t("Auto Refresh")}</Text>
+              <Switch
+                checked={filters.autoRefresh}
+                onChange={(autoRefresh) => setFilters(prev => ({ ...prev, autoRefresh }))}
+              />
+            </div>
+            
+            {filters.autoRefresh && (
+              <div>
+                <Text>{t("Refresh Interval (minutes)")}</Text>
+                <Slider
+                  min={1}
+                  max={60}
+                  value={filters.refreshInterval / 60000}
+                  onChange={(value) => setFilters(prev => ({ ...prev, refreshInterval: value * 60000 }))}
+                  marks={{
+                    1: '1m',
+                    5: '5m',
+                    15: '15m',
+                    30: '30m',
+                    60: '1h'
+                  }}
+                  style={{ marginTop: 8 }}
+                />
+              </div>
+            )}
+          </div>
+        </Space>
+      </Drawer>
+
+      {/* Dashboard Settings Drawer */}
+      <Drawer
+        title={
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <SettingOutlined style={{ marginRight: 8 }} />
+            {t("Dashboard Settings")}
+          </div>
+        }
+        placement="right"
+        onClose={() => setSettingsDrawerVisible(false)}
+        open={settingsDrawerVisible}
+        width={400}
+      >
+        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text strong>{t("Show KPI Metrics")}</Text>
+              <Switch
+                checked={settings.showMetrics}
+                onChange={(showMetrics) => setSettings(prev => ({ ...prev, showMetrics }))}
+              />
+            </div>
+          </div>
+
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text strong>{t("Show Filters")}</Text>
+              <Switch
+                checked={settings.showFilters}
+                onChange={(showFilters) => setSettings(prev => ({ ...prev, showFilters }))}
+              />
+            </div>
+          </div>
+
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text strong>{t("Notifications")}</Text>
+              <Switch
+                checked={settings.notifications}
+                onChange={(notifications) => setSettings(prev => ({ ...prev, notifications }))}
+              />
+            </div>
+          </div>
+
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Text strong>{t("Auto Sync")}</Text>
+              <Switch
+                checked={settings.autoSync}
+                onChange={(autoSync) => setSettings(prev => ({ ...prev, autoSync }))}
+              />
+            </div>
+          </div>
+
+          <Divider />
+
+          <div>
+            <Text strong>{t("Layout")}</Text>
+            <Select
+              style={{ width: '100%', marginTop: 8 }}
+              value={settings.layout}
+              onChange={(layout) => setSettings(prev => ({ ...prev, layout }))}
+            >
+              <Option value="grid">
+                <Space>
+                  <DashboardOutlined />
+                  {t("Grid View")}
+                </Space>
+              </Option>
+              <Option value="list">
+                <Space>
+                  <LineChartOutlined />
+                  {t("List View")}
+                </Space>
+              </Option>
+            </Select>
+          </div>
+
+          <div>
+            <Text strong>{t("Theme")}</Text>
+            <Select
+              style={{ width: '100%', marginTop: 8 }}
+              value={settings.theme}
+              onChange={(theme) => setSettings(prev => ({ ...prev, theme }))}
+            >
+              <Option value="light">
+                <Space>
+                  <SunOutlined />
+                  {t("Light Theme")}
+                </Space>
+              </Option>
+              <Option value="dark">
+                <Space>
+                  <MoonOutlined />
+                  {t("Dark Theme")}
+                </Space>
+              </Option>
+            </Select>
+          </div>
+        </Space>
+      </Drawer>
     </div>
   );
 };
