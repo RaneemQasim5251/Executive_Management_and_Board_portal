@@ -186,6 +186,25 @@ const KPIsERP: React.FC = () => {
     }, 2000);
   };
 
+  // Environment variables for report configuration
+  const getReportId = (reportType: string): string => {
+    const reportIds = {
+      'jtc': import.meta.env.VITE_APP_JTC_REPORT_ID || 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      'aljeri': import.meta.env.VITE_APP_ALJERI_REPORT_ID || 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      'joil': import.meta.env.REACT_APP_JOIL_REPORT_ID || 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      'timeAttendance': import.meta.env.REACT_APP_TIME_ATTENDANCE_REPORT_ID || 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      '45degrees': import.meta.env.REACT_APP_45DEGREES_REPORT_ID || 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      'shaheen': import.meta.env.REACT_APP_SHAHEEN_REPORT_ID || 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      'revenue': import.meta.env.REACT_APP_REVENUE_REPORT_ID || 'de40b238-ed32-4ca6-abe5-7383e5785ddf'
+    };
+    return reportIds[reportType as keyof typeof reportIds] || 'de40b238-ed32-4ca6-abe5-7383e5785ddf';
+  };
+
+  const buildEmbedUrl = (reportId: string, pageName?: string): string => {
+    const baseUrl = `https://app.powerbi.com/reportEmbed?reportId=${reportId}&autoAuth=true&ctid=${import.meta.env.VITE_POWERBI_TENANT_ID || 'ba2cab20-721a-44f0-bec4-f2e784ba3c23'}`;
+    return pageName ? `${baseUrl}&pageName=${pageName}` : baseUrl;
+  };
+
   const reports: PowerBIReport[] = [
     {
       id: 'jtc',
@@ -193,8 +212,8 @@ const KPIsERP: React.FC = () => {
       titleAr: 'حالة أسطول الجري للنقل',
       description: 'Real-time fleet monitoring and logistics KPIs',
       descriptionAr: 'مراقبة الأسطول في الوقت الفعلي ومؤشرات اللوجستيات',
-      embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
-      reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      embedUrl: buildEmbedUrl(getReportId('jtc'), 'ReportSection'),
+      reportId: getReportId('jtc'),
       icon: <TruckOutlined />,
       category: 'operational',
       company: 'JTC',
@@ -247,8 +266,8 @@ const KPIsERP: React.FC = () => {
       titleAr: 'محفظة استثمارات الجري',
       description: 'Consolidated investment performance and ROI analytics',
       descriptionAr: 'أداء الاستثمارات الموحد وتحليلات العائد على الاستثمار',
-      embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
-      reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      embedUrl: buildEmbedUrl(getReportId('aljeri'), 'ReportSection2'),
+      reportId: getReportId('aljeri'),
       icon: <BarChartOutlined />,
       category: 'financial',
       company: 'Al Jeri Investment',
@@ -289,8 +308,8 @@ const KPIsERP: React.FC = () => {
       titleAr: 'عمليات جي أويل للبترول',
       description: 'Fuel station performance and petroleum distribution metrics',
       descriptionAr: 'أداء محطات الوقود ومقاييس توزيع البترول',
-      embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
-      reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      embedUrl: buildEmbedUrl(getReportId('joil'), 'ReportSection3'),
+      reportId: getReportId('joil'),
       icon: <DashboardOutlined />,
       category: 'operational'
     },
@@ -300,10 +319,16 @@ const KPIsERP: React.FC = () => {
       titleAr: 'الوقت والحضور',
       description: 'Employee attendance tracking and workforce analytics',
       descriptionAr: 'تتبع حضور الموظفين وتحليلات القوى العاملة',
-      embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
-      reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      embedUrl: buildEmbedUrl(getReportId('timeAttendance'), 'ReportSection4'),
+      reportId: getReportId('timeAttendance'),
       icon: <ClockCircleOutlined />,
-      category: 'hr'
+      category: 'hr',
+      company: 'Al Jeri Group',
+      lastUpdated: new Date(),
+      status: 'active',
+      priority: 'medium',
+      tags: ['hr', 'attendance', 'workforce'],
+      metrics: []
     },
     {
       id: 'fortyfive',
@@ -447,7 +472,7 @@ const KPIsERP: React.FC = () => {
     return (
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
         <Col xs={24} sm={12} md={6}>
-          <Card size="small" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
+          <Card size="small" style={{ background: '#0C085C', color: 'white' }}>
             <Statistic
               title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Active Reports')}</span>}
               value={activeReports}
@@ -458,7 +483,7 @@ const KPIsERP: React.FC = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card size="small" style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', color: 'white' }}>
+          <Card size="small" style={{ background: '#363692', color: 'white' }}>
             <Statistic
               title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Avg Performance')}</span>}
               value={avgPerformance}
@@ -470,7 +495,7 @@ const KPIsERP: React.FC = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card size="small" style={{ background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', color: 'white' }}>
+          <Card size="small" style={{ background: '#0095CE', color: 'white' }}>
             <Statistic
               title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Total Value')}</span>}
               value={totalValue}
@@ -482,7 +507,7 @@ const KPIsERP: React.FC = () => {
           </Card>
         </Col>
         <Col xs={24} sm={12} md={6}>
-          <Card size="small" style={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', color: 'white' }}>
+          <Card size="small" style={{ background: '#FF2424', color: 'white' }}>
             <Statistic
               title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Data Sync')}</span>}
               value={filters.autoRefresh ? "ON" : "OFF"}
@@ -501,7 +526,7 @@ const KPIsERP: React.FC = () => {
       <Card 
         style={{ 
           marginBottom: 24, 
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #0C085C 0%, #363692 100%)',
           border: 'none',
           borderRadius: '16px'
         }}
