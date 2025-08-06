@@ -212,7 +212,7 @@ const KPIsERP: React.FC = () => {
       titleAr: 'حالة أسطول الجري للنقل',
       description: 'Real-time fleet monitoring and logistics KPIs',
       descriptionAr: 'مراقبة الأسطول في الوقت الفعلي ومؤشرات اللوجستيات',
-      embedUrl: buildEmbedUrl(getReportId('jtc'), 'ReportSection'),
+      embedUrl: buildEmbedUrl(getReportId('jtc'), 'JTC'),
       reportId: getReportId('jtc'),
       icon: <TruckOutlined />,
       category: 'operational',
@@ -266,7 +266,7 @@ const KPIsERP: React.FC = () => {
       titleAr: 'محفظة استثمارات الجري',
       description: 'Consolidated investment performance and ROI analytics',
       descriptionAr: 'أداء الاستثمارات الموحد وتحليلات العائد على الاستثمار',
-      embedUrl: buildEmbedUrl(getReportId('aljeri'), 'ReportSection2'),
+      embedUrl: buildEmbedUrl(getReportId('aljeri'), 'Aljeri Investment'),
       reportId: getReportId('aljeri'),
       icon: <BarChartOutlined />,
       category: 'financial',
@@ -308,7 +308,7 @@ const KPIsERP: React.FC = () => {
       titleAr: 'عمليات جي أويل للبترول',
       description: 'Fuel station performance and petroleum distribution metrics',
       descriptionAr: 'أداء محطات الوقود ومقاييس توزيع البترول',
-      embedUrl: buildEmbedUrl(getReportId('joil'), 'ReportSection3'),
+      embedUrl: buildEmbedUrl(getReportId('joil'), 'JOIL'),
       reportId: getReportId('joil'),
       icon: <DashboardOutlined />,
       category: 'operational'
@@ -319,7 +319,7 @@ const KPIsERP: React.FC = () => {
       titleAr: 'الوقت والحضور',
       description: 'Employee attendance tracking and workforce analytics',
       descriptionAr: 'تتبع حضور الموظفين وتحليلات القوى العاملة',
-      embedUrl: buildEmbedUrl(getReportId('timeAttendance'), 'ReportSection4'),
+      embedUrl: buildEmbedUrl(getReportId('timeAttendance'), 'Time and Attendance'),
       reportId: getReportId('timeAttendance'),
       icon: <ClockCircleOutlined />,
       category: 'hr',
@@ -336,10 +336,16 @@ const KPIsERP: React.FC = () => {
       titleAr: 'تحليلات مقهى 45 درجة',
       description: 'Cafe operations, sales trends and customer insights',
       descriptionAr: 'عمليات المقهى واتجاهات المبيعات ورؤى العملاء',
-      embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
-      reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      embedUrl: buildEmbedUrl(getReportId('45degrees'), '45 Degrees'),
+      reportId: getReportId('45degrees'),
       icon: <CoffeeOutlined />,
-      category: 'operational'
+      category: 'operational',
+      company: '45 Degrees',
+      lastUpdated: new Date(),
+      status: 'active',
+      priority: 'medium',
+      tags: ['cafe', 'customer-analytics', 'food-beverage'],
+      metrics: []
     },
     {
       id: 'shaheen',
@@ -347,10 +353,16 @@ const KPIsERP: React.FC = () => {
       titleAr: 'شاهين لتأجير السيارات',
       description: 'Vehicle rental fleet utilization and revenue tracking',
       descriptionAr: 'استخدام أسطول تأجير المركبات وتتبع الإيرادات',
-      embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
-      reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      embedUrl: buildEmbedUrl(getReportId('shaheen'), 'Shaheen Rent A Car'),
+      reportId: getReportId('shaheen'),
       icon: <CarOutlined />,
-      category: 'operational'
+      category: 'operational',
+      company: 'Shaheen',
+      lastUpdated: new Date(),
+      status: 'active',
+      priority: 'medium',
+      tags: ['car-rental', 'fleet-management', 'automotive'],
+      metrics: []
     },
     {
       id: 'revenue',
@@ -358,10 +370,16 @@ const KPIsERP: React.FC = () => {
       titleAr: 'لوحة إيرادات المجموعة',
       description: 'Consolidated group revenue analysis and financial performance',
       descriptionAr: 'تحليل إيرادات المجموعة الموحد والأداء المالي',
-      embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf&autoAuth=true&ctid=ba2cab20-721a-44f0-bec4-f2e784ba3c23',
-      reportId: 'de40b238-ed32-4ca6-abe5-7383e5785ddf',
+      embedUrl: buildEmbedUrl(getReportId('revenue'), 'Group'),
+      reportId: getReportId('revenue'),
       icon: <DollarOutlined />,
-      category: 'financial'
+      category: 'financial',
+      company: 'Al Jeri Group',
+      lastUpdated: new Date(),
+      status: 'active',
+      priority: 'high',
+      tags: ['revenue', 'consolidated', 'financial'],
+      metrics: []
     }
   ];
 
