@@ -3,7 +3,7 @@ import {
   Row, 
   Col, 
   Card, 
- 
+  Statistic,
   Typography, 
   Space, 
   Button, 
@@ -469,204 +469,132 @@ export const ModernExecutiveDashboard: FC = () => {
       <Row gutter={[24, 24]} style={{ marginBottom: "24px" }}>
         <Col xs={24} sm={12} lg={6}>
           <motion.div variants={itemVariants}>
-            <Card 
-              style={{
-                ...cardStyle,
-                background: "#0C085C",
-                color: "white",
-                height: "200px"
-              }}
-              styles={{ body: { padding: "32px" } }}
-            >
-              <Space direction="vertical" size="large" style={{ width: "100%" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <DollarOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#10B981", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
-                    <ArrowUpOutlined /> +12.5%
-                  </Tag>
-                </div>
-                <div>
-                  <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("Annual Revenue")}</Text>
-                  <div style={{ fontSize: "36px", fontWeight: "800" }}>$68.2M</div>
+            <Card className="kpi-card">
+              <Statistic
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Annual Revenue")}</span>}
+                value={68.2}
+                precision={1}
+                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
+                prefix={<DollarOutlined />}
+                suffix="M"
+              />
+              <div className="trend-info">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+12.5% vs last year</Text>
                 </div>
                 <Button 
-                  type="primary"
+                  type="link" 
                   size="small"
                   onClick={() => navigate('/reports')}
                   style={{ 
-                    width: "100%",
-                    background: 'rgba(255,255,255,0.15)',
-                    borderColor: 'rgba(255,255,255,0.3)',
-                    color: 'white',
+                    color: "white", 
                     fontWeight: 600,
-                    fontSize: '10px',
-                    height: '24px',
-                    borderRadius: '4px',
-                    boxShadow: 'none',
+                    padding: "4px 8px",
+                    fontSize: "12px"
                   }}
                 >
                   {t("View Details")}
                 </Button>
-                <Progress 
-                  percent={85} 
-                  showInfo={false} 
-                  strokeColor="rgba(255,255,255,0.8)"
-                  trailColor="rgba(255,255,255,0.2)"
-                />
-              </Space>
+              </div>
             </Card>
           </motion.div>
         </Col>
 
         <Col xs={24} sm={12} lg={6}>
           <motion.div variants={itemVariants}>
-            <Card 
-              style={{
-                ...cardStyle,
-                background: "#0095CE",
-                color: "white",
-                height: "200px"
-              }}
-              styles={{ body: { padding: "32px" } }}
-            >
-              <Space direction="vertical" size="large" style={{ width: "100%" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <ProjectOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#0095CE", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
-                    <FireOutlined /> {t("Hot")}
-                  </Tag>
-                </div>
-                <div>
-                  <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("Active Projects")}</Text>
-                  <div style={{ fontSize: "36px", fontWeight: "800" }}>24</div>
+            <Card className="kpi-card">
+              <Statistic
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Active Projects")}</span>}
+                value={24}
+                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
+                prefix={<ProjectOutlined />}
+              />
+              <div className="trend-info">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+3 new this quarter</Text>
                 </div>
                 <Button 
-                  type="primary"
+                  type="link" 
                   size="small"
                   onClick={() => navigate('/strategic-planning')}
                   style={{ 
-                    width: "100%",
-                    background: 'rgba(255,255,255,0.15)',
-                    borderColor: 'rgba(255,255,255,0.3)',
-                    color: 'white',
+                    color: "white", 
                     fontWeight: 600,
-                    fontSize: '10px',
-                    height: '24px',
-                    borderRadius: '4px',
-                    boxShadow: 'none',
+                    padding: "4px 8px",
+                    fontSize: "12px"
                   }}
                 >
                   {t("View Projects")}
                 </Button>
-                <Progress 
-                  percent={72} 
-                  showInfo={false} 
-                  strokeColor="rgba(255,255,255,0.8)"
-                  trailColor="rgba(255,255,255,0.2)"
-                />
-              </Space>
+              </div>
             </Card>
           </motion.div>
         </Col>
 
         <Col xs={24} sm={12} lg={6}>
           <motion.div variants={itemVariants}>
-            <Card 
-              style={{
-                ...cardStyle,
-                background: "#0095CE",
-                color: "white",
-                height: "200px"
-              }}
-              styles={{ body: { padding: "32px" } }}
-            >
-              <Space direction="vertical" size="large" style={{ width: "100%" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <TeamOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag style={{ border: "none", background: "rgba(255,255,255,0.95)", color: "#10B981", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
-                    <RiseOutlined /> +8.2%
-                  </Tag>
-                </div>
-                <div>
-                  <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("dashboard.boardMembers")}</Text>
-                  <div style={{ fontSize: "36px", fontWeight: "800" }}>1,247</div>
+            <Card className="kpi-card">
+              <Statistic
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("dashboard.boardMembers")}</span>}
+                value={1247}
+                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
+                prefix={<TeamOutlined />}
+              />
+              <div className="trend-info">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+8.2% growth rate</Text>
                 </div>
                 <Button 
-                  type="primary"
+                  type="link" 
                   size="small"
                   onClick={() => navigate('/my-meetings')}
                   style={{ 
-                    width: "100%",
-                    background: 'rgba(255,255,255,0.15)',
-                    borderColor: 'rgba(255,255,255,0.3)',
-                    color: 'white',
+                    color: "white", 
                     fontWeight: 600,
-                    fontSize: '10px',
-                    height: '24px',
-                    borderRadius: '4px',
-                    boxShadow: 'none',
+                    padding: "4px 8px",
+                    fontSize: "12px"
                   }}
                 >
                   {t("buttons.viewRegister")}
                 </Button>
-                <Progress 
-                  percent={94} 
-                  showInfo={false} 
-                  strokeColor="rgba(255,255,255,0.8)"
-                  trailColor="rgba(255,255,255,0.2)"
-                />
-              </Space>
+              </div>
             </Card>
           </motion.div>
         </Col>
 
         <Col xs={24} sm={12} lg={6}>
           <motion.div variants={itemVariants}>
-            <Card 
-              style={{
-                ...cardStyle,
-                background: "#0C085C",
-                color: "white",
-                height: "200px"
-              }}
-              styles={{ body: { padding: "32px" } }}
-            >
-              <Space direction="vertical" size="large" style={{ width: "100%" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <TrophyOutlined style={{ fontSize: "32px", opacity: 0.8 }} />
-                  <Tag style={{ border: "none", background: "rgba(255, 255, 255, 0.9)", color: "#0C085C", fontWeight: "700", boxShadow: "0 2px 4px rgba(0,0,0,0.1)" }}>
-                    <StarOutlined /> {t("Excellent")}
-                  </Tag>
-                </div>
-                <div>
-                  <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("Success Rate")}</Text>
-                  <div style={{ fontSize: "36px", fontWeight: "800" }}>94.2%</div>
+            <Card className="kpi-card">
+              <Statistic
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Success Rate")}</span>}
+                value={94.2}
+                precision={1}
+                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
+                prefix={<TrophyOutlined />}
+                suffix="%"
+              />
+              <div className="trend-info">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+2.1% improvement</Text>
                 </div>
                 <Button 
-                  type="primary"
+                  type="link" 
                   size="small"
                   onClick={() => navigate('/enterprise-systems/kpis-erp')}
                   style={{ 
-                    width: "100%",
-                    background: 'rgba(255,255,255,0.15)',
-                    borderColor: 'rgba(255,255,255,0.3)',
-                    color: 'white',
+                    color: "white", 
                     fontWeight: 600,
-                    fontSize: '10px',
-                    height: '24px',
-                    borderRadius: '4px',
-                    boxShadow: 'none',
+                    padding: "4px 8px",
+                    fontSize: "12px"
                   }}
                 >
                   {t("View Metrics")}
                 </Button>
-                <Progress 
-                  percent={94} 
-                  showInfo={false} 
-                  strokeColor="rgba(255,255,255,0.8)"
-                  trailColor="rgba(255,255,255,0.2)"
-                />
-              </Space>
+              </div>
             </Card>
           </motion.div>
         </Col>
