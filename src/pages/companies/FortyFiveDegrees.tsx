@@ -44,7 +44,7 @@ export const FortyFiveDegreesPage = () => {
       {/* Header Section */}
       <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
         <Col span={24}>
-          <Card style={{ background: '#8B4513', border: 'none' }}>
+          <Card style={{ background: '#a47141', border: 'none' }}>
             <Row align="middle" gutter={24}>
               <Col flex="none">
                 <img 

@@ -181,7 +181,7 @@ export const JTCPage = () => {
       {/* Header Section */}
       <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
         <Col span={24}>
-          <Card style={{ background: '#0C085C', border: 'none' }}>
+          <Card style={{ background: '#069cfc', border: 'none' }}>
             <Row align="middle" gutter={24}>
               <Col flex="none">
                 <img 
