@@ -777,3 +777,21 @@ html[dir="rtl"] .brand-text-arabic {
   border-color: rgba(255, 255, 255, 0.3);
   color: white;
 }
+
+/* Dashboard KPI Card Button Styles */
+.ant-card .ant-btn {
+  transition: all 0.2s ease;
+}
+
+.ant-card .ant-btn:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: white !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.ant-card .ant-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+}

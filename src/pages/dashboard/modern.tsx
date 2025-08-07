@@ -489,6 +489,24 @@ export const ModernExecutiveDashboard: FC = () => {
                   <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("Annual Revenue")}</Text>
                   <div style={{ fontSize: "36px", fontWeight: "800" }}>$68.2M</div>
                 </div>
+                <Button 
+                  type="primary"
+                  size="small"
+                  onClick={() => navigate('/reports')}
+                  style={{ 
+                    width: "100%",
+                    background: 'rgba(255,255,255,0.15)',
+                    borderColor: 'rgba(255,255,255,0.3)',
+                    color: 'white',
+                    fontWeight: 600,
+                    fontSize: '10px',
+                    height: '24px',
+                    borderRadius: '4px',
+                    boxShadow: 'none',
+                  }}
+                >
+                  {t("View Details")}
+                </Button>
                 <Progress 
                   percent={85} 
                   showInfo={false} 
@@ -522,6 +540,24 @@ export const ModernExecutiveDashboard: FC = () => {
                   <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("Active Projects")}</Text>
                   <div style={{ fontSize: "36px", fontWeight: "800" }}>24</div>
                 </div>
+                <Button 
+                  type="primary"
+                  size="small"
+                  onClick={() => navigate('/strategic-planning')}
+                  style={{ 
+                    width: "100%",
+                    background: 'rgba(255,255,255,0.15)',
+                    borderColor: 'rgba(255,255,255,0.3)',
+                    color: 'white',
+                    fontWeight: 600,
+                    fontSize: '10px',
+                    height: '24px',
+                    borderRadius: '4px',
+                    boxShadow: 'none',
+                  }}
+                >
+                  {t("View Projects")}
+                </Button>
                 <Progress 
                   percent={72} 
                   showInfo={false} 
@@ -606,6 +642,24 @@ export const ModernExecutiveDashboard: FC = () => {
                   <Text style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px" }}>{t("Success Rate")}</Text>
                   <div style={{ fontSize: "36px", fontWeight: "800" }}>94.2%</div>
                 </div>
+                <Button 
+                  type="primary"
+                  size="small"
+                  onClick={() => navigate('/enterprise-systems/kpis-erp')}
+                  style={{ 
+                    width: "100%",
+                    background: 'rgba(255,255,255,0.15)',
+                    borderColor: 'rgba(255,255,255,0.3)',
+                    color: 'white',
+                    fontWeight: 600,
+                    fontSize: '10px',
+                    height: '24px',
+                    borderRadius: '4px',
+                    boxShadow: 'none',
+                  }}
+                >
+                  {t("View Metrics")}
+                </Button>
                 <Progress 
                   percent={94} 
                   showInfo={false} 
