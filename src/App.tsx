@@ -34,7 +34,8 @@ import {
   FireOutlined,
   SettingOutlined,
   LineChartOutlined,
-  DatabaseOutlined
+  DatabaseOutlined,
+  TrophyOutlined
 } from '@ant-design/icons';
 
 
@@ -133,6 +134,14 @@ function App() {
                 },
               },
               {
+                name: "executive-board",
+                list: "/executive-board",
+                meta: {
+                  label: t("Executive Board"),
+                  icon: <TrophyOutlined />,
+                },
+              },
+              {
                 name: "board",
                 list: "/board",
                 create: "/board/create",
@@ -214,7 +223,7 @@ function App() {
                 name: "my-meetings",
                 list: "/my-meetings",
                 meta: {
-                  label: t("myMeetings.title"),
+                  label: t("My Meetings"),
                   icon: <CalendarOutlined />,
                 },
               },
