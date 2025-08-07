@@ -79,6 +79,7 @@ import { ColorModeContextProvider } from "./contexts/color-mode";
 import { AppStateProvider } from "./contexts/AppStateProvider";
 import { Header } from "./components/layout";
 import { ModernExecutiveDashboard } from "./pages/dashboard/modern.tsx";
+import { ExecutiveDashboard } from "./pages/dashboard/index.tsx";
 import { HorizontalTimeline } from "./pages/timeline/horizontal.tsx";
 import { KanbanPage } from "./pages/kanban/index.tsx";
 import { Login } from "./pages/login";
@@ -339,6 +340,7 @@ function App() {
                 }
               >
                 <Route index element={<ModernExecutiveDashboard />} />
+                <Route path="/executive-board" element={<ExecutiveDashboard />} />
                 <Route path="/board" element={<KanbanPage />} />
                 <Route path="/board/strategic-planning" element={<StrategicPlanningPage />} />
                 <Route path="/timeline" element={<HorizontalTimeline />} />

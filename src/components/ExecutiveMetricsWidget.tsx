@@ -66,21 +66,43 @@ const BoardMembersCard: React.FC<{ value: number; tooltip: string }> = ({ value,
   const { t } = useTranslation();
 
   return (
-    <Card size="small" style={{ height: '100%' }}>
-      <Statistic
-        title={
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            {t("dashboard.boardMembers")}
-            <Tooltip title={t("myMeetings.membersConfirmed")}>
-              <InfoCircleOutlined style={{ color: '#8c8c8c', fontSize: 12 }} />
-            </Tooltip>
-          </div>
-        }
-        value={value}
-        prefix={<TeamOutlined />}
-        valueStyle={{ color: '#722ed1' }}
-      />
-      <div style={{ marginTop: 8, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Card 
+      size="small" 
+      style={{ 
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+      bodyStyle={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        padding: '20px'
+      }}
+    >
+      <div style={{ flex: 1 }}>
+        <Statistic
+          title={
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              {t("dashboard.boardMembers")}
+              <Tooltip title={t("myMeetings.membersConfirmed")}>
+                <InfoCircleOutlined style={{ color: '#8c8c8c', fontSize: 12 }} />
+              </Tooltip>
+            </div>
+          }
+          value={value}
+          prefix={<TeamOutlined />}
+          valueStyle={{ color: '#722ed1' }}
+        />
+      </div>
+      
+      <div style={{ 
+        marginTop: 'auto', 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center',
+        paddingTop: '12px'
+      }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <ArrowUpOutlined style={{ color: '#52c41a' }} />
           <span style={{ fontSize: 12, color: '#52c41a' }}>+5.2%</span>
@@ -92,8 +114,9 @@ const BoardMembersCard: React.FC<{ value: number; tooltip: string }> = ({ value,
           style={{ 
             color: '#0095CE', 
             fontWeight: 600,
-            padding: '0 8px',
-            height: 'auto'
+            padding: '4px 8px',
+            height: 'auto',
+            fontSize: '12px'
           }}
         >
           {t("buttons.viewRegister")}

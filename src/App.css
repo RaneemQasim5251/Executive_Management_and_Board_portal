@@ -658,3 +658,122 @@ html[dir="rtl"] .brand-text-arabic {
 * {
   transition: margin-left 0.3s ease, width 0.3s ease;
 }
+
+/* Executive Dashboard Styles */
+.executive-header {
+  background: linear-gradient(135deg, #0C085C 0%, #363692 50%, #0095CE 100%);
+  padding: 32px 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(12, 8, 92, 0.15);
+}
+
+.kpi-card {
+  background: linear-gradient(135deg, #0C085C 0%, #363692 100%);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(12, 8, 92, 0.15);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 149, 206, 0.1) 0%, rgba(54, 54, 146, 0.1) 100%);
+  pointer-events: none;
+}
+
+.kpi-card .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.kpi-card .ant-statistic {
+  flex: 1;
+}
+
+.kpi-card .ant-statistic-title {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.kpi-card .ant-statistic-content {
+  color: white !important;
+}
+
+.kpi-card .ant-statistic-content-value {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  color: white !important;
+}
+
+.kpi-card .ant-statistic-content-prefix,
+.kpi-card .ant-statistic-content-suffix {
+  color: white !important;
+}
+
+.kpi-card .trend-info {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpi-card .trend-info .ant-typography {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 12px;
+}
+
+.chart-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+}
+
+.chart-title {
+  color: #0C085C !important;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.executive-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+  height: 100%;
+}
+
+/* Fix for button layout in KPI cards */
+.kpi-card .ant-btn {
+  margin-top: 8px;
+  align-self: flex-end;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.kpi-card .ant-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}

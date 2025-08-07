@@ -7,7 +7,7 @@ import {
   SearchOutlined, DownOutlined, ProjectOutlined, TeamOutlined,
   FileTextOutlined, CalendarOutlined, BarChartOutlined, GlobalOutlined,
   BankOutlined, CarOutlined, RocketOutlined, ExperimentOutlined,
-  SafetyOutlined, ToolOutlined
+  SafetyOutlined, ToolOutlined, TrophyOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -49,6 +49,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       icon: <DashboardOutlined />,
       label: t('Dashboard'),
       onClick: () => navigate('/dashboard')
+    },
+    {
+      key: 'executive-board',
+      icon: <TrophyOutlined />,
+      label: t('Executive Board'),
+      onClick: () => navigate('/executive-board')
     },
     {
       key: 'enterprise-systems',
@@ -139,7 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       key: 'meetings',
       icon: <TeamOutlined />,
       label: t('My Meetings'),
-      onClick: () => navigate('/meetings')
+      onClick: () => navigate('/my-meetings')
     }
   ];
 

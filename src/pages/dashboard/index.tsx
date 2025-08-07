@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { Row, Col, Card, Statistic, Typography, Space } from "antd";
+import { Row, Col, Card, Statistic, Typography, Space, Button } from "antd";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowUpOutlined,
   TeamOutlined,
@@ -75,6 +76,8 @@ const itemVariants = {
 };
 
 export const ExecutiveDashboard: FC = () => {
+  const navigate = useNavigate();
+  
   return (
     <motion.div
       variants={containerVariants}
@@ -105,9 +108,24 @@ export const ExecutiveDashboard: FC = () => {
                 prefix={<DollarOutlined />}
                 suffix="M"
               />
-              <div style={{ marginTop: "8px" }}>
-                <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+12.5% vs last year</Text>
+              <div className="trend-info">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+12.5% vs last year</Text>
+                </div>
+                <Button 
+                  type="link" 
+                  size="small"
+                  onClick={() => navigate('/reports')}
+                  style={{ 
+                    color: "white", 
+                    fontWeight: 600,
+                    padding: "4px 8px",
+                    fontSize: "12px"
+                  }}
+                >
+                  View Details
+                </Button>
               </div>
             </Card>
           </motion.div>
@@ -122,9 +140,24 @@ export const ExecutiveDashboard: FC = () => {
                 valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<ProjectOutlined />}
               />
-              <div style={{ marginTop: "8px" }}>
-                <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+3 new this quarter</Text>
+              <div className="trend-info">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+3 new this quarter</Text>
+                </div>
+                <Button 
+                  type="link" 
+                  size="small"
+                  onClick={() => navigate('/strategic-planning')}
+                  style={{ 
+                    color: "white", 
+                    fontWeight: 600,
+                    padding: "4px 8px",
+                    fontSize: "12px"
+                  }}
+                >
+                  View Projects
+                </Button>
               </div>
             </Card>
           </motion.div>
@@ -139,9 +172,24 @@ export const ExecutiveDashboard: FC = () => {
                 valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<TeamOutlined />}
               />
-              <div style={{ marginTop: "8px" }}>
-                <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+8.2% growth rate</Text>
+              <div className="trend-info">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+8.2% growth rate</Text>
+                </div>
+                <Button 
+                  type="link" 
+                  size="small"
+                  onClick={() => navigate('/my-meetings')}
+                  style={{ 
+                    color: "white", 
+                    fontWeight: 600,
+                    padding: "4px 8px",
+                    fontSize: "12px"
+                  }}
+                >
+                  View & Register
+                </Button>
               </div>
             </Card>
           </motion.div>
@@ -158,9 +206,24 @@ export const ExecutiveDashboard: FC = () => {
                 prefix={<TrophyOutlined />}
                 suffix="%"
               />
-              <div style={{ marginTop: "8px" }}>
-                <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+2.1% improvement</Text>
+              <div className="trend-info">
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+2.1% improvement</Text>
+                </div>
+                <Button 
+                  type="link" 
+                  size="small"
+                  onClick={() => navigate('/enterprise-systems/kpis-erp')}
+                  style={{ 
+                    color: "white", 
+                    fontWeight: 600,
+                    padding: "4px 8px",
+                    fontSize: "12px"
+                  }}
+                >
+                  View Metrics
+                </Button>
               </div>
             </Card>
           </motion.div>
