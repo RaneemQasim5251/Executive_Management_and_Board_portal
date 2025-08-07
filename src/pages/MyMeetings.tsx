@@ -375,11 +375,16 @@ export const MyMeetings: React.FC = () => {
   // Demo user email for testing - in real app, this comes from auth
   const demoUserEmail = user?.email || 'demo@aljeri.com';
   
-  // Filter meetings for current user and future dates
+  // Filter meetings for current user - show all meetings for demo purposes
   const userMeetings = mockMeetings.filter(meeting => 
-    meeting.date >= new Date() && 
     meeting.attendees.some(att => att.email === demoUserEmail)
   );
+
+  // Debug logging
+  console.log('Demo user email:', demoUserEmail);
+  console.log('Total mock meetings:', mockMeetings.length);
+  console.log('Filtered user meetings:', userMeetings.length);
+  console.log('User meetings:', userMeetings);
 
   const { mutateAsync: updateMeeting } = useUpdate();
 
