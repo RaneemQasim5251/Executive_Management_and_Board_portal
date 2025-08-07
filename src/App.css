@@ -634,29 +634,18 @@ html[dir="rtl"] .brand-text-arabic {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* New layout styles for content pushing */
-.main-content-wrapper {
-  transition: margin-left 0.3s ease, width 0.3s ease;
+/* Flexbox layout for sidebar and content */
+.ant-layout {
+  display: flex !important;
 }
 
-.main-content-wrapper.sidebar-open {
-  margin-left: 280px;
-  width: calc(100% - 280px);
+.ant-layout-sider {
+  flex-shrink: 0 !important;
 }
 
-.main-content-wrapper.sidebar-collapsed {
-  margin-left: 80px;
-  width: calc(100% - 80px);
-}
-
-.main-content-wrapper.mobile {
-  margin-left: 0 !important;
-  width: 100% !important;
-}
-
-/* Ensure smooth transitions */
-* {
-  transition: margin-left 0.3s ease, width 0.3s ease;
+.ant-layout-content {
+  flex: 1 !important;
+  transition: all 0.3s ease;
 }
 
 /* Executive Dashboard Styles */

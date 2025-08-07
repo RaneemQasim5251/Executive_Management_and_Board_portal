@@ -176,8 +176,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
         transition: 'all 0.3s ease',
         overflow: 'auto',
         height: '100vh',
-        position: 'relative',
-        zIndex: 1000
+        position: 'relative'
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
