@@ -55,6 +55,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.62.0",
     "react-i18next": "^15.6.1",
+    "react-mui-sidebar": "^1.6.3",
     "react-router-dom": "^6.26.1",
     "recharts": "^2.12.7",
     "socket.io-client": "^4.8.1",

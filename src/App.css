@@ -565,3 +565,96 @@ html[dir="rtl"] .brand-text-arabic {
   width: 100% !important;
   display: block !important;
 }
+
+/* Custom Sidebar Layout Styles */
+.sidebar-layout {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.sidebar-content {
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar-content.mobile {
+  margin-left: 0 !important;
+}
+
+/* Ensure sidebar doesn't interfere with existing components */
+.ant-layout-sider {
+  z-index: 1000;
+}
+
+/* Custom scrollbar for sidebar */
+.ant-layout-sider::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ant-layout-sider::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ant-layout-sider::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.ant-layout-sider::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure proper spacing for content */
+.ant-layout-content {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ant-layout-sider {
+    position: fixed !important;
+    height: 100vh !important;
+  }
+  
+  .sidebar-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .sidebar-layout {
+  background: #141414;
+}
+
+[data-theme="dark"] .ant-layout-sider::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .ant-layout-sider::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* New layout styles for content pushing */
+.main-content-wrapper {
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.main-content-wrapper.sidebar-open {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+}
+
+.main-content-wrapper.sidebar-collapsed {
+  margin-left: 80px;
+  width: calc(100% - 80px);
+}
+
+.main-content-wrapper.mobile {
+  margin-left: 0 !important;
+  width: 100% !important;
+}
+
+/* Ensure smooth transitions */
+* {
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}

@@ -144,7 +144,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         flex: 1
       }}>
         <img 
-          src="C:\Users\raneem althaqafi\Executive-Management-Portal\public\Aljeri_logo.png - Copy01.png" 
+          src="/aljeri-logo.png" 
           alt="Al Jeri Logo" 
           style={{ 
             height: "40px", 

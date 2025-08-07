@@ -90,6 +90,7 @@ import { JTCPage, JOilPage, ShaheenPage, FortyFiveDegreesPage, EnergyPage } from
 import KPIsERP from "./pages/enterprise-systems/KPIsERP";
 import { SecretaryWorkspace } from "./pages/secretary-workspace";
 import { MyMeetings } from "./pages/MyMeetings";
+import { DemoSidebarPage } from "./pages/demo-sidebar";
 
 import "./App.css";
 
@@ -362,6 +363,9 @@ function App() {
                 
                 {/* My Meetings */}
                 <Route path="/my-meetings" element={<MyMeetings />} />
+                
+                {/* Demo Sidebar */}
+                <Route path="/demo-sidebar" element={<DemoSidebarPage />} />
 
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
