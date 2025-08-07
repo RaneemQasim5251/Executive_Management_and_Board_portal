@@ -376,15 +376,28 @@ export const MyMeetings: React.FC = () => {
   const demoUserEmail = user?.email || 'demo@aljeri.com';
   
   // Filter meetings for current user - show all meetings for demo purposes
-  const userMeetings = mockMeetings.filter(meeting => 
+  let userMeetings = mockMeetings.filter(meeting => 
     meeting.attendees.some(att => att.email === demoUserEmail)
   );
+  
+  // Fallback: if no meetings found for user, show all meetings for demo purposes
+  if (userMeetings.length === 0) {
+    console.log('No meetings found for user, showing all meetings as fallback');
+    userMeetings = mockMeetings;
+  }
 
   // Debug logging
+  console.log('User object:', user);
   console.log('Demo user email:', demoUserEmail);
   console.log('Total mock meetings:', mockMeetings.length);
   console.log('Filtered user meetings:', userMeetings.length);
   console.log('User meetings:', userMeetings);
+  
+  // If no meetings found, show all meetings for debugging
+  if (userMeetings.length === 0) {
+    console.log('No meetings found for user, showing all meetings for debugging');
+    console.log('All attendees in mock meetings:', mockMeetings.map(m => m.attendees.map(a => a.email)));
+  }
 
   const { mutateAsync: updateMeeting } = useUpdate();
 
