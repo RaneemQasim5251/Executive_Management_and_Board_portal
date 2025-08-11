@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Layout, Menu, Avatar, Typography, Badge, Button } from 'antd';
+import { SIDEBAR_EXPANDED_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from './constants';
 import type { MenuProps } from 'antd';
 import {
   HomeOutlined, DashboardOutlined,
@@ -29,7 +30,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
   
   const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-  const [isHovered, setIsHovered] = useState(false);
+  // Hover expansion removed to prevent overlaying content; use explicit collapse toggle only
 
   useEffect(() => {
     const pathname = location.pathname;
@@ -167,9 +168,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
     <Sider
       trigger={null}
       collapsible
-      collapsed={collapsed && !isHovered}
-      width={280}
-      collapsedWidth={80}
+      collapsed={collapsed}
+      width={SIDEBAR_EXPANDED_WIDTH}
+      collapsedWidth={SIDEBAR_COLLAPSED_WIDTH}
       style={{
         background: mode === 'dark' ? '#1f2937' : '#ffffff',
         borderRight: `1px solid ${mode === 'dark' ? '#374151' : '#e5e7eb'}`,
@@ -178,26 +179,25 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
         height: '100vh',
         position: 'relative'
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      
     >
       {/* Logo Section */}
       <div style={{ 
         padding: '16px', 
         borderBottom: `1px solid ${mode === 'dark' ? '#374151' : '#e5e7eb'}`,
-        textAlign: collapsed && !isHovered ? 'center' : 'left'
+        textAlign: collapsed ? 'center' : 'left'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <img
             src="/aljeri-logo.png"
             alt="Al Jeri Logo"
             style={{
-              width: collapsed && !isHovered ? '32px' : '40px',
+              width: collapsed ? '32px' : '40px',
               height: 'auto',
               filter: 'drop-shadow(0 2px 4px rgba(12, 8, 92, 0.15))'
             }}
           />
-          {(!collapsed || isHovered) && (
+          {!collapsed && (
             <div style={{ flex: 1, minWidth: 0 }}>
               <Title level={5} style={{ margin: 0, color: '#0C085C', fontSize: '14px', fontWeight: 700 }}>
                 {i18n.language === 'ar' ? 'منصَّة مجلس الإدارة' : 'Executive Board'}
@@ -211,7 +211,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       </div>
 
       {/* Search Section */}
-      {(!collapsed || isHovered) && (
+      {!collapsed && (
         <div style={{ padding: '16px', borderBottom: `1px solid ${mode === 'dark' ? '#374151' : '#e5e7eb'}` }}>
           <div style={{ position: 'relative' }}>
             <SearchOutlined style={{ position: 'absolute', [i18n.language === 'ar' ? 'right' : 'left']: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
@@ -257,7 +257,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
         borderTop: `1px solid ${mode === 'dark' ? '#374151' : '#e5e7eb'}`,
         background: mode === 'dark' ? '#111827' : '#f9fafb'
       }}>
-        {(!collapsed || isHovered) ? (
+        {!collapsed ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <Avatar size={40} style={{ background: '#0C085C', color: 'white', fontSize: '16px' }}>
               JD

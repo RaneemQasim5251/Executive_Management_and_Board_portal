@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
 import { Header } from './header';
 import { Sidebar } from './Sidebar';
+import {
+  SIDEBAR_EXPANDED_WIDTH,
+  SIDEBAR_COLLAPSED_WIDTH,
+  MOBILE_MAX_WIDTH,
+  DESKTOP_OPEN_GAP_PX,
+  DESKTOP_COLLAPSED_GAP_PX,
+} from './constants';
 
 const { Content } = Layout;
 
@@ -15,11 +22,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth < 768;
+      const mobile = window.innerWidth < MOBILE_MAX_WIDTH; // centralized breakpoint
       setIsMobile(mobile);
-      if (mobile) {
-        setSidebarCollapsed(true);
-      }
+      if (mobile) setSidebarCollapsed(true);
     };
 
     handleResize();
@@ -35,9 +40,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     <Layout style={{ minHeight: '100vh', display: 'flex' }}>
       {/* Sidebar - Part of the flex layout */}
       <div style={{ 
-        width: sidebarCollapsed ? 80 : 280,
+        width: sidebarCollapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_EXPANDED_WIDTH,
         transition: 'width 0.3s ease',
-        flexShrink: 0
+        flexShrink: 0,
+        marginInlineEnd: isMobile ? 0 : (sidebarCollapsed ? DESKTOP_COLLAPSED_GAP_PX : DESKTOP_OPEN_GAP_PX)
       }}>
         <Sidebar 
           collapsed={sidebarCollapsed} 

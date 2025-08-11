@@ -36,12 +36,12 @@ html[dir="rtl"] .ant-layout-sider {
   box-shadow: -2px 0 8px rgba(12, 8, 92, 0.25);
 }
 
-/* Expanded sidebar width - smaller size */
+/* Remove hard-coded sidebar width to respect JS constants */
 .ant-layout-sider:not(.ant-layout-sider-collapsed) {
-  width: 290px !important;
-  min-width: 290px !important;
-  max-width: 290px !important;
-  flex: 0 0 290px !important;
+  width: auto !important;
+  min-width: unset !important;
+  max-width: none !important;
+  flex: 0 0 auto !important;
 }
 
 /* Smooth transitions for sidebar */
@@ -582,7 +582,7 @@ html[dir="rtl"] .brand-text-arabic {
 
 /* Ensure sidebar doesn't interfere with existing components */
 .ant-layout-sider {
-  z-index: 1000;
+  z-index: 1000; /* restore original layering, Ant default */
 }
 
 /* Custom scrollbar for sidebar */
@@ -605,14 +605,14 @@ html[dir="rtl"] .brand-text-arabic {
 
 /* Ensure proper spacing for content */
 .ant-layout-content {
-  padding: 24px;
+  padding: 32px; /* slight bump */
   min-height: calc(100vh - 64px);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .ant-layout-sider {
-    position: fixed !important;
+    position: fixed !important; /* overlay on small screens only */
     height: 100vh !important;
   }
   
