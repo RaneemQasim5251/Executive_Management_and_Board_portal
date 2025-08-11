@@ -4,6 +4,9 @@ interface ImportMetaEnv {
   readonly VITE_POWERBI_CLIENT_ID: string
   readonly VITE_POWERBI_TENANT_ID: string
   readonly VITE_POWERBI_CLIENT_SECRET: string
+  readonly VITE_POWERBI_ACCESS_TOKEN: string
+  readonly VITE_POWERBI_GROUP_ID: string
+  readonly VITE_FORCE_IFRAME_MODE: string
   readonly VITE_APP_JTC_REPORT_ID: string
   readonly VITE_APP_ALJERI_REPORT_ID: string
   readonly VITE_APP_JOIL_REPORT_ID: string

@@ -116,8 +116,7 @@ const KPIsERP: React.FC = () => {
   const [refreshKey, setRefreshKey] = useState<number>(0);
   const [filterDrawerVisible, setFilterDrawerVisible] = useState<boolean>(false);
   const [settingsDrawerVisible, setSettingsDrawerVisible] = useState<boolean>(false);
-  // Store Power BI report instances for API access (used in getEmbeddedComponent)
-  const [reportInstances, setReportInstances] = useState<{[key: string]: any}>({});
+  // Hold embedded references if needed (no state to avoid unused warnings)
   
   // Advanced Filter State
   const [filters, setFilters] = useState<FilterState>({
@@ -194,26 +193,41 @@ const KPIsERP: React.FC = () => {
   // Convert Power BI URLs to proper embed format for React component
   const convertToEmbedUrl = (powerBiUrl: string): string => {
     try {
-      // Extract report ID and page ID from the URL
       const url = new URL(powerBiUrl);
       const pathParts = url.pathname.split('/');
-      const reportId = pathParts[4]; // Extract report ID
-      const pageId = pathParts[5] || ''; // Extract page ID if present
-      
-      // For Power BI React component, use the standard embed URL format
+      const reportId = pathParts[4];
+      const pageId = pathParts[5] || '';
+
+      const tenantId = import.meta.env.VITE_POWERBI_TENANT_ID;
+      const groupId = (url.searchParams.get('groupId') || import.meta.env.VITE_POWERBI_GROUP_ID || '').trim();
+
+      // Base embed URL
       let embedUrl = `https://app.powerbi.com/reportEmbed?reportId=${reportId}`;
-      
-      // Add page name if it's not the default
+
+      // Preserve page when available
       if (pageId && pageId !== 'ReportSection' && !pageId.includes('?')) {
         embedUrl += `&pageName=${encodeURIComponent(pageId)}`;
       }
-      
+
+      // Add tenant context id to prevent cross-tenant prompts
+      if (tenantId) {
+        embedUrl += `&ctid=${encodeURIComponent(tenantId)}`;
+      }
+
+      // If workspace id is known, include it
+      if (groupId) {
+        embedUrl += `&groupId=${encodeURIComponent(groupId)}`;
+      }
+
+      // Enable auto auth where supported
+      embedUrl += `&autoAuth=true`;
+
       console.log(`Converting URL: ${powerBiUrl} -> ${embedUrl}`);
       return embedUrl;
     } catch (error) {
       console.warn('Failed to convert Power BI URL:', powerBiUrl, error);
-      // Return a basic embed URL as fallback
-      return `https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf`;
+      const tenantId = import.meta.env.VITE_POWERBI_TENANT_ID;
+      return `https://app.powerbi.com/reportEmbed?reportId=de40b238-ed32-4ca6-abe5-7383e5785ddf${tenantId ? `&ctid=${encodeURIComponent(tenantId)}` : ''}&autoAuth=true`;
     }
   };
 
@@ -459,37 +473,11 @@ const KPIsERP: React.FC = () => {
 
 
 
-  // Power BI Event Handlers
-  const powerBIEventHandlers = new Map([
-    ['loaded', function () {
-      console.log('Report loaded');
-      message.success(t('Power BI report loaded successfully'), 2);
-    }],
-    ['rendered', function () {
-      console.log('Report rendered');
-    }],
-    ['error', function (event: any) {
-      console.error('Power BI Error:', event.detail);
-      message.error(t('Failed to load Power BI report'), 3);
-    }],
-    ['pageChanged', function (event: any) {
-      console.log('Page changed:', event);
-    }],
-    ['visualClicked', function (event: any) {
-      console.log('Visual clicked:', event);
-    }],
-    ['dataSelected', function (event: any) {
-      console.log('Data selected:', event);
-    }]
-  ]);
+  // Power BI Event Handlers handled inline where used
 
   // Get embedded component reference
   const getEmbeddedComponent = (reportId: string) => (embeddedReport: any) => {
-    setReportInstances(prev => ({
-      ...prev,
-      [reportId]: embeddedReport
-    }));
-    
+    console.log('Embedded component ready:', reportId);
     // Get page-level filters example
     if (embeddedReport && embeddedReport.getPages) {
       embeddedReport.getPages().then((pages: any[]) => {
@@ -609,7 +597,6 @@ const KPIsERP: React.FC = () => {
                     }
                   },
                   background: models.BackgroundType.Transparent,
-                  layoutType: models.LayoutType.FitToWidth,
                   bars: {
                     statusBar: {
                       visible: false
