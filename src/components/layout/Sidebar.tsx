@@ -166,6 +166,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
 
   return (
     <Sider
+      className="app-sider"
       trigger={null}
       collapsible
       collapsed={collapsed}
@@ -236,6 +237,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       {/* Menu Section */}
       <div style={{ flex: 1, overflow: 'auto' }}>
         <Menu
+          className="app-sider-menu"
           mode="inline"
           selectedKeys={selectedKeys}
           defaultOpenKeys={expandedKeys}
@@ -247,7 +249,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
             border: 'none',
             fontSize: '14px'
           }}
-          theme={mode as 'light' | 'dark'}
+          theme="dark"
         />
       </div>
 

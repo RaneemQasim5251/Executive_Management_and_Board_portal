@@ -56,7 +56,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         style={{ 
           flex: 1,
           minHeight: '100vh',
-          background: '#f5f5f5',
+          background: '#f5f7fa',
           display: 'flex',
           flexDirection: 'column'
         }}
@@ -67,13 +67,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         {/* Content */}
         <Content 
           style={{ 
-            margin: '16px',
-            padding: '24px',
-            background: '#fff',
-            borderRadius: '8px',
+            margin: 0,
+            padding: 0,
+            background: 'transparent',
+            borderRadius: 0,
             flex: 1,
-            overflow: 'auto',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+            overflow: 'auto'
           }}
         >
           {children}
