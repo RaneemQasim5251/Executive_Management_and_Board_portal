@@ -73,7 +73,7 @@ export const Archive2024: React.FC = () => {
 
       <Row gutter={[24, 24]} style={{ marginTop: '24px' }}>
         <Col xs={24} lg={16}>
-          <Card title="📊 Key 2024 Achievements" style={{ height: '400px' }}>
+          <Card title={t('📊 Key 2024 Achievements')} style={{ height: '400px' }}>
             <List
               itemLayout="horizontal"
               dataSource={[
@@ -116,9 +116,9 @@ export const Archive2024: React.FC = () => {
           </Card>
         </Col>
         <Col xs={24} lg={8}>
-          <Card title="📈 Year Summary" style={{ height: '400px' }}>
+          <Card title={t('📈 Year Summary')} style={{ height: '400px' }}>
             <div style={{ textAlign: 'center', padding: '20px' }}>
-              <Title level={3} style={{ color: '#10b981' }}>Outstanding Year!</Title>
+              <Title level={3} style={{ color: '#10b981' }}>{t('Outstanding Year!')}</Title>
               <Text type="secondary">
                 2024 was a remarkable year for our organization with significant achievements in digital transformation, market expansion, and financial performance.
               </Text>

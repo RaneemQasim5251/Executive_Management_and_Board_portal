@@ -52,9 +52,9 @@ export const NotificationCenter: FC<NotificationCenterProps> = ({ visible, onClo
     const days = Math.floor(diff / 86400000);
 
     if (minutes < 1) return t("Just now");
-    if (minutes < 60) return `${minutes}m ago`;
-    if (hours < 24) return `${hours}h ago`;
-    return `${days}d ago`;
+    if (minutes < 60) return t("time.minute", { count: minutes });
+    if (hours < 24) return t("time.hour", { count: hours });
+    return t("time.day", { count: days });
   };
 
   const handleMarkAsRead = (id: string) => {

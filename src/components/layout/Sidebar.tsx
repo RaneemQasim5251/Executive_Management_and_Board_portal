@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Layout, Menu, Avatar, Typography, Badge, Button } from 'antd';
 import type { MenuProps } from 'antd';
 import {
-  HomeOutlined, DashboardOutlined, UserOutlined, SettingOutlined,
-  LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, BellOutlined,
-  SearchOutlined, DownOutlined, ProjectOutlined, TeamOutlined,
+  HomeOutlined, DashboardOutlined,
+  LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined,
+  SearchOutlined, ProjectOutlined, TeamOutlined,
   FileTextOutlined, CalendarOutlined, BarChartOutlined, GlobalOutlined,
   BankOutlined, CarOutlined, RocketOutlined, ExperimentOutlined,
   SafetyOutlined, ToolOutlined, TrophyOutlined
@@ -41,14 +41,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
     {
       key: 'home',
       icon: <HomeOutlined />,
-      label: t('Home'),
+      label: t('Executive Overview'),
       onClick: () => navigate('/')
     },
     {
       key: 'dashboard',
       icon: <DashboardOutlined />,
-      label: t('Dashboard'),
-      onClick: () => navigate('/dashboard')
+      label: t('Executive Board'),
+      onClick: () => navigate('/executive-board')
     },
     {
       key: 'executive-board',
@@ -62,46 +62,46 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       label: t('Enterprise Systems'),
       children: [
         {
-          key: 'kpis-erp',
+          key: 'kpi-erp',
           icon: <BarChartOutlined />,
-          label: t('KPIs & ERP'),
-          onClick: () => navigate('/enterprise-systems/kpis-erp')
+          label: t('KPIs → ERP'),
+          onClick: () => navigate('/systems/kpi-erp')
         }
       ]
     },
     {
       key: 'companies',
       icon: <TeamOutlined />,
-      label: t('Companies'),
+      label: t('Investment Portfolio'),
       children: [
         {
           key: 'jtc',
           icon: <CarOutlined />,
-          label: 'JTC',
+          label: t('JTC Transport & Logistics'),
           onClick: () => navigate('/companies/jtc')
         },
         {
           key: 'energy',
           icon: <RocketOutlined />,
-          label: t('Energy'),
+          label: t('Al Jeri Energy'),
           onClick: () => navigate('/companies/energy')
         },
         {
           key: 'joil',
           icon: <ExperimentOutlined />,
-          label: 'JOIL',
+          label: t('J:Oil Petroleum'),
           onClick: () => navigate('/companies/joil')
         },
         {
           key: '45degrees',
           icon: <GlobalOutlined />,
-          label: '45 Degrees',
+          label: t('45degrees Cafe'),
           onClick: () => navigate('/companies/45degrees')
         },
         {
           key: 'shaheen',
           icon: <SafetyOutlined />,
-          label: 'Shaheen',
+          label: t('Shaheen Rent a Car'),
           onClick: () => navigate('/companies/shaheen')
         }
       ]
@@ -111,40 +111,40 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       icon: <FileTextOutlined />,
       label: (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span>{t('Secretary Workspace')}</span>
+          <span>{t('Executive-Secretary Workspace')}</span>
           <Badge count="3" size="small" style={{ backgroundColor: '#0C085C' }} />
         </div>
       ),
-      onClick: () => navigate('/secretary-workspace')
+      onClick: () => navigate('/secretary')
     },
     {
       key: 'strategic-planning',
       icon: <ProjectOutlined />,
       label: t('Strategic Planning'),
-      onClick: () => navigate('/strategic-planning')
+      onClick: () => navigate('/board/strategic-planning')
     },
     {
       key: 'reports',
       icon: <BarChartOutlined />,
-      label: t('Reports'),
+      label: t('Reports & Analytics'),
       onClick: () => navigate('/reports')
     },
     {
-      key: 'kanban',
+      key: 'board',
       icon: <ToolOutlined />,
-      label: t('Kanban'),
-      onClick: () => navigate('/kanban')
+      label: t('Board Management'),
+      onClick: () => navigate('/board')
     },
     {
       key: 'timeline',
       icon: <CalendarOutlined />,
-      label: t('Timeline'),
+      label: t('Strategic Timeline'),
       onClick: () => navigate('/timeline')
     },
     {
       key: 'meetings',
       icon: <TeamOutlined />,
-      label: t('My Meetings'),
+      label: t('myMeetings.title'),
       onClick: () => navigate('/my-meetings')
     }
   ];
@@ -214,13 +214,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       {(!collapsed || isHovered) && (
         <div style={{ padding: '16px', borderBottom: `1px solid ${mode === 'dark' ? '#374151' : '#e5e7eb'}` }}>
           <div style={{ position: 'relative' }}>
-            <SearchOutlined style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
+            <SearchOutlined style={{ position: 'absolute', [i18n.language === 'ar' ? 'right' : 'left']: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
             <input
               type="text"
               placeholder={t('Search...')}
               style={{
                 width: '100%',
-                padding: '8px 12px 8px 36px',
+                padding: i18n.language === 'ar' ? '8px 36px 8px 12px' : '8px 12px 8px 36px',
                 border: `1px solid ${mode === 'dark' ? '#374151' : '#d1d5db'}`,
                 borderRadius: '8px',
                 background: mode === 'dark' ? '#374151' : '#f9fafb',

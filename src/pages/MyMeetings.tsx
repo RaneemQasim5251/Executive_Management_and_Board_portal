@@ -24,10 +24,10 @@ import {
   FileTextOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { useList, useUpdate, useGetIdentity } from '@refinedev/core';
+import { useUpdate, useGetIdentity } from '@refinedev/core';
 import { useQueryClient } from '@tanstack/react-query';
 import styled from 'styled-components';
-import { Meeting, Attendee } from '../types/secretary';
+import { Meeting } from '../types/secretary';
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
@@ -521,7 +521,7 @@ export const MyMeetings: React.FC = () => {
     switch (status) {
       case 'accepted': return t('buttons.attend');
       case 'declined': return t('buttons.decline');
-      default: return 'Pending';
+      default: return t('Pending');
     }
   };
 
@@ -675,7 +675,7 @@ export const MyMeetings: React.FC = () => {
       >
         <div style={{ marginBottom: 16 }}>
           <Text>
-            Meeting: <strong>{selectedMeeting?.title}</strong>
+            {t('Meeting')}: <strong>{selectedMeeting?.title}</strong>
           </Text>
         </div>
         <TextArea

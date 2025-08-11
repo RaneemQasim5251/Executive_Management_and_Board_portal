@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { updateDocumentDirection } from "../i18n";
 
 export const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
 
+  // Set Arabic as default language on component mount
+  useEffect(() => {
+    if (!localStorage.getItem('selectedLanguage')) {
+      localStorage.setItem('selectedLanguage', 'ar');
+      localStorage.setItem('i18nextLng', 'ar');
+      i18n.changeLanguage('ar');
+      updateDocumentDirection('ar');
+    }
+  }, [i18n]);
+
   const handleLanguageChange = () => {
     const currentLang = i18n.language;
     const newLang = currentLang === 'ar' ? 'en' : 'ar';
-    
-    console.log(`🔄 Language switch: ${currentLang} → ${newLang}`);
-    
-    // Simply set URL parameter - i18next will detect and handle it
+
+    // Persist selection
+    localStorage.setItem('i18nextLng', newLang);
+    localStorage.setItem('selectedLanguage', newLang);
+
+    // Update URL without reload
     const url = new URL(window.location.href);
     url.searchParams.set('lng', newLang);
-    window.location.href = url.toString();
+    window.history.replaceState({}, '', url.toString());
+
+    // Change language and update direction immediately
+    i18n.changeLanguage(newLang);
+    updateDocumentDirection(newLang);
   };
 
   return (

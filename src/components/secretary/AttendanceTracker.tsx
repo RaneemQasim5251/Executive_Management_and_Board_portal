@@ -7,6 +7,7 @@ import {
   UserOutlined 
 } from '@ant-design/icons';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { Attendee, Vote } from '../../types/secretary';
 
 const { Text, Title } = Typography;
@@ -73,6 +74,7 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
   currentUserId = 'user-1',
   canVote = true
 }) => {
+  const { t, i18n } = useTranslation();
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'accepted':
@@ -86,9 +88,9 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'accepted': return 'Attending';
-      case 'declined': return 'Not Attending';
-      default: return 'Pending Response';
+      case 'accepted': return t('Attending');
+      case 'declined': return t('Not Attending');
+      default: return t('Pending Response');
     }
   };
 
@@ -111,9 +113,9 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
     <div>
       {/* Voting Section */}
       {canVote && !currentUserVote && (
-        <Card title="Your Response" style={{ marginBottom: 16, borderRadius: 12 }}>
+        <Card title={t('Your Response')} style={{ marginBottom: 16, borderRadius: 12 }}>
           <Space direction="vertical" style={{ width: '100%' }}>
-            <Text>Will you be attending this meeting?</Text>
+            <Text>{t('Will you be attending this meeting?')}</Text>
             <Space>
               <VoteButton
                 voteType="approve"
@@ -121,7 +123,7 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
                 icon={<CheckCircleOutlined />}
                 onClick={() => onVote?.('approve')}
               >
-                Attend
+                {t('Attend')}
               </VoteButton>
               <VoteButton
                 voteType="decline"
@@ -129,7 +131,7 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
                 icon={<CloseCircleOutlined />}
                 onClick={() => onVote?.('decline')}
               >
-                Decline
+                {t('Decline')}
               </VoteButton>
             </Space>
           </Space>
@@ -137,14 +139,14 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
       )}
 
       {/* Vote Summary */}
-      <Card title="Attendance Summary" style={{ marginBottom: 16, borderRadius: 12 }}>
+      <Card title={t('Attendance Summary')} style={{ marginBottom: 16, borderRadius: 12 }}>
         <Row gutter={16}>
           <Col span={8}>
             <div style={{ textAlign: 'center' }}>
               <Title level={3} style={{ margin: 0, color: '#52c41a' }}>
                 {attendingCount}
               </Title>
-              <Text type="secondary">Attending</Text>
+              <Text type="secondary">{t('Attending')}</Text>
             </div>
           </Col>
           <Col span={8}>
@@ -152,7 +154,7 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
               <Title level={3} style={{ margin: 0, color: '#ff4d4f' }}>
                 {attendees.filter(att => att.status === 'declined').length}
               </Title>
-              <Text type="secondary">Declined</Text>
+              <Text type="secondary">{t('Declined')}</Text>
             </div>
           </Col>
           <Col span={8}>
@@ -160,14 +162,14 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
               <Title level={3} style={{ margin: 0, color: '#d9d9d9' }}>
                 {attendees.filter(att => att.status === 'pending').length}
               </Title>
-              <Text type="secondary">Pending</Text>
+              <Text type="secondary">{t('Pending')}</Text>
             </div>
           </Col>
         </Row>
       </Card>
 
       {/* Attendees List */}
-      <Card title="Attendees" style={{ borderRadius: 12 }}>
+      <Card title={t('Attendees')} style={{ borderRadius: 12 }}>
         <div>
           {attendees.map(attendee => (
             <AttendeeCard key={attendee.id} status={attendee.status}>
@@ -209,7 +211,7 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
 
       {/* Voting Results */}
       {votes.length > 0 && (
-        <Card title="Voting Results" style={{ marginTop: 16, borderRadius: 12 }}>
+        <Card title={t('Voting Results')} style={{ marginTop: 16, borderRadius: 12 }}>
           <Space direction="vertical" style={{ width: '100%' }}>
             {votes.map(vote => (
               <div key={vote.id} style={{ 
@@ -228,7 +230,7 @@ export const AttendanceTracker: React.FC<AttendanceTrackerProps> = ({
                       {attendees.find(att => att.id === vote.userId)?.name || 'Unknown'}
                     </Text>
                     <Text type="secondary">
-                      {vote.vote === 'approve' ? 'approved' : 'declined'}
+                      {vote.vote === 'approve' ? t('approved') : t('declined')}
                     </Text>
                   </Space>
                   <Text type="secondary" style={{ fontSize: 12 }}>

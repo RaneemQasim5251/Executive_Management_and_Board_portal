@@ -25,6 +25,7 @@ import {
   Legend,
 } from "recharts";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const { Title, Text } = Typography;
 
@@ -77,6 +78,7 @@ const itemVariants = {
 
 export const ExecutiveDashboard: FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   return (
     <motion.div
@@ -88,10 +90,10 @@ export const ExecutiveDashboard: FC = () => {
       {/* Executive Header */}
       <motion.div variants={itemVariants} className="executive-header">
         <Title level={2} style={{ color: "white", margin: 0 }}>
-          Executive Dashboard
+          {t('Executive Dashboard')}
         </Title>
         <Text style={{ color: "rgba(255, 255, 255, 0.9)" }}>
-          Strategic overview and key performance indicators
+          {t('Strategic overview and key performance indicators')}
         </Text>
       </motion.div>
 
@@ -101,7 +103,7 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>Annual Revenue</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t('Annual Revenue')}</span>}
                 value={68.2}
                 precision={1}
                 valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
@@ -111,7 +113,7 @@ export const ExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+12.5% vs last year</Text>
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+12.5% vs last year')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -124,7 +126,7 @@ export const ExecutiveDashboard: FC = () => {
                     fontSize: "12px"
                   }}
                 >
-                  View Details
+                  {t('View Details')}
                 </Button>
               </div>
             </Card>
@@ -135,7 +137,7 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>Active Projects</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t('Active Projects')}</span>}
                 value={24}
                 valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<ProjectOutlined />}
@@ -143,7 +145,7 @@ export const ExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+3 new this quarter</Text>
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+3 new this quarter')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -156,7 +158,7 @@ export const ExecutiveDashboard: FC = () => {
                     fontSize: "12px"
                   }}
                 >
-                  View Projects
+                  {t('View Projects')}
                 </Button>
               </div>
             </Card>
@@ -167,7 +169,7 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>Board Members</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t('dashboard.boardMembers')}</span>}
                 value={1247}
                 valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<TeamOutlined />}
@@ -175,7 +177,7 @@ export const ExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+8.2% growth rate</Text>
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+8.2% growth rate')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -188,7 +190,7 @@ export const ExecutiveDashboard: FC = () => {
                     fontSize: "12px"
                   }}
                 >
-                  View & Register
+                  {t('buttons.viewRegister')}
                 </Button>
               </div>
             </Card>
@@ -199,7 +201,7 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>Efficiency Score</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t('Efficiency Score')}</span>}
                 value={94.2}
                 precision={1}
                 valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
@@ -209,7 +211,7 @@ export const ExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+2.1% improvement</Text>
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+2.1% improvement')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -222,7 +224,7 @@ export const ExecutiveDashboard: FC = () => {
                     fontSize: "12px"
                   }}
                 >
-                  View Metrics
+                  {t('View Metrics')}
                 </Button>
               </div>
             </Card>
@@ -237,7 +239,7 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="chart-container">
               <Title level={4} className="chart-title">
-                Revenue Performance vs Target
+                {t('Revenue Performance vs Target')}
               </Title>
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={revenueData}>
@@ -265,7 +267,7 @@ export const ExecutiveDashboard: FC = () => {
                     stroke="#1e3a8a"
                     fillOpacity={1}
                     fill="url(#revenueGradient)"
-                    name="Actual Revenue"
+                    name={t('Actual Revenue')}
                   />
                   <Line
                     type="monotone"
@@ -273,7 +275,7 @@ export const ExecutiveDashboard: FC = () => {
                     stroke="#ef4444"
 
                     strokeDasharray="5 5"
-                    name="Target"
+                    name={t('Target')}
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -286,7 +288,7 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="chart-container">
               <Title level={4} className="chart-title">
-                Strategic Project Distribution
+                {t('Strategic Project Distribution')}
               </Title>
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
@@ -316,7 +318,7 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="chart-container">
               <Title level={4} className="chart-title">
-                Quarterly Performance Metrics
+                {t('Quarterly Performance Metrics')}
               </Title>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={performanceData}>
@@ -335,19 +337,19 @@ export const ExecutiveDashboard: FC = () => {
                   <Bar
                     dataKey="efficiency"
                     fill="#0C085C"
-                    name="Operational Efficiency (%)"
+                    name={t('Operational Efficiency (%)')}
                     radius={[4, 4, 0, 0]}
                   />
                   <Bar
                     dataKey="satisfaction"
                     fill="#0095CE"
-                    name="Customer Satisfaction (%)"
+                    name={t('Customer Satisfaction (%)')}
                     radius={[4, 4, 0, 0]}
                   />
                   <Bar
                     dataKey="growth"
                     fill="#363692"
-                    name="Market Growth (%)"
+                    name={t('Market Growth (%)')}
                     radius={[4, 4, 0, 0]}
                   />
                 </BarChart>
@@ -363,28 +365,28 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="executive-card">
               <Title level={4} style={{ color: "#1e3a8a", marginBottom: "16px" }}>
-                📈 Strategic Insights
+                📈 {t('Strategic Insights')}
               </Title>
               <Space direction="vertical" size="middle" style={{ width: "100%" }}>
                 <div>
-                  <Text strong>Revenue Growth Acceleration</Text>
+                  <Text strong>{t('Revenue Growth Acceleration')}</Text>
                   <br />
                   <Text type="secondary">
-                    Q2 revenue exceeded targets by 14.3%, driven by digital transformation initiatives.
+                    {t('Q2 revenue exceeded targets by 14.3%, driven by digital transformation initiatives.')}
                   </Text>
                 </div>
                 <div>
-                  <Text strong>Market Expansion Success</Text>
+                  <Text strong>{t('Market Expansion Success')}</Text>
                   <br />
                   <Text type="secondary">
-                    New market penetration increased by 22%, with strong performance in APAC region.
+                    {t('New market penetration increased by 22%, with strong performance in APAC region.')}
                   </Text>
                 </div>
                 <div>
-                  <Text strong>Operational Excellence</Text>
+                  <Text strong>{t('Operational Excellence')}</Text>
                   <br />
                   <Text type="secondary">
-                    Efficiency improvements of 9.2% achieved through AI-driven process optimization.
+                    {t('Efficiency improvements of 9.2% achieved through AI-driven process optimization.')}
                   </Text>
                 </div>
               </Space>
@@ -396,28 +398,28 @@ export const ExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="executive-card">
               <Title level={4} style={{ color: "#1e3a8a", marginBottom: "16px" }}>
-                🎯 Strategic Priorities
+                🎯 {t('Strategic Priorities')}
               </Title>
               <Space direction="vertical" size="middle" style={{ width: "100%" }}>
                 <div>
-                  <Text strong>Digital Innovation Pipeline</Text>
+                  <Text strong>{t('Digital Innovation Pipeline')}</Text>
                   <br />
                   <Text type="secondary">
-                    Launch 3 AI-powered products by Q4 to maintain competitive edge.
+                    {t('Launch 3 AI-powered products by Q4 to maintain competitive edge.')}
                   </Text>
                 </div>
                 <div>
-                  <Text strong>Sustainability Goals</Text>
+                  <Text strong>{t('Sustainability Goals')}</Text>
                   <br />
                   <Text type="secondary">
-                    Achieve carbon neutrality by 2025 through green technology investments.
+                    {t('Achieve carbon neutrality by 2025 through green technology investments.')}
                   </Text>
                 </div>
                 <div>
-                  <Text strong>Talent Acquisition</Text>
+                  <Text strong>{t('Talent Acquisition')}</Text>
                   <br />
                   <Text type="secondary">
-                    Scale engineering team by 35% to support global expansion plans.
+                    {t('Scale engineering team by 35% to support global expansion plans.')}
                   </Text>
                 </div>
               </Space>

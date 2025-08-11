@@ -83,9 +83,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
     });
     
     // Wait a bit and then reload for complete refresh
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    // No reload needed; i18n + ConfigProvider handle updates
   };
 
   const menuItems: MenuProps["items"] = [
@@ -167,7 +165,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
             overflow: "hidden",
             textOverflow: "ellipsis"
           }}>
-            {i18n.language === 'ar' ? 'منصَّة مجلس الإدارة التنفيذية لشركة الجِري' : 'Al Jeri Executive Board Platform'}
+            {t('Al Jeri Executive Board Platform')}
           </Text>
           <Text type="secondary" style={{ 
             fontSize: "10px", 
@@ -177,7 +175,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
             overflow: "hidden",
             textOverflow: "ellipsis"
           }}>
-            {i18n.language === 'ar' ? 'مركز القيادة التنفيذية ومجلس الإدارة' : 'Executive Command & Board Center'}
+            {t('Executive Command & Board Center')}
           </Text>
         </div>
       </div>

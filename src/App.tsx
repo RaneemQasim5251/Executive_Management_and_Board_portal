@@ -365,8 +365,8 @@ function App() {
                 <Route path="/companies/energy" element={<EnergyPage />} />
                 
                 {/* Enterprise Systems */}
-                <Route path="/systems/ecc" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>ECC - Coming Soon</h2></div>} />
-                <Route path="/systems/ecp" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>ECP - Coming Soon</h2></div>} />
+                <Route path="/systems/ecc" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>{t('ECC - Coming Soon')}</h2></div>} />
+                <Route path="/systems/ecp" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>{t('ECP - Coming Soon')}</h2></div>} />
                 <Route path="/systems/kpi-erp" element={<KPIsERP />} />
                 
                 {/* Secretary Workspace */}

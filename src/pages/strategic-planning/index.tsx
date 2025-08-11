@@ -131,12 +131,12 @@ export const StrategicPlanningPage: React.FC = () => {
             </Paragraph>
             
             <div style={{ marginTop: '16px' }}>
-              <Text strong>Quick Overview:</Text>
+          <Text strong>{t('Quick Overview')}:</Text>
               <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
-                <li>Q1 2025: Strategic Review & Planning</li>
-                <li>Q2 2025: Digital Transformation Phase 2</li>
-                <li>Q3 2025: Market Expansion Initiative</li>
-                <li>Q4 2025: Innovation Lab Launch</li>
+                <li>{t('Q1 2025: Strategic Review & Planning')}</li>
+                <li>{t('Q2 2025: Digital Transformation Phase 2')}</li>
+                <li>{t('Q3 2025: Market Expansion Initiative')}</li>
+                <li>{t('Q4 2025: Innovation Lab Launch')}</li>
               </ul>
             </div>
           </Card>
@@ -183,14 +183,14 @@ export const StrategicPlanningPage: React.FC = () => {
 
       {/* Strategic Initiatives Overview */}
       <Card 
-        title="Strategic Initiatives Overview" 
+            title={t('Strategic Initiatives Overview')} 
         style={{ marginTop: '24px' }}
       >
         <Row gutter={[24, 24]}>
           <Col xs={24} md={8}>
             <Card size="small" style={{ backgroundColor: '#f6ffed', border: '1px solid #b7eb8f' }}>
               <Statistic
-                title="Completed Initiatives"
+                title={t('Completed Initiatives')}
                 value={8}
                 suffix="/ 12"
                 valueStyle={{ color: '#52c41a' }}
@@ -200,7 +200,7 @@ export const StrategicPlanningPage: React.FC = () => {
           <Col xs={24} md={8}>
             <Card size="small" style={{ backgroundColor: '#e6f7ff', border: '1px solid #91d5ff' }}>
               <Statistic
-                title="In Progress"
+                title={t('In Progress')}
                 value={3}
                 suffix="initiatives"
                 valueStyle={{ color: '#0095CE' }}
@@ -210,7 +210,7 @@ export const StrategicPlanningPage: React.FC = () => {
           <Col xs={24} md={8}>
             <Card size="small" style={{ backgroundColor: '#fff2e8', border: '1px solid #ffd591' }}>
               <Statistic
-                title="Planned"
+                title={t('Planned')}
                 value={1}
                 suffix="upcoming"
                 valueStyle={{ color: '#fa8c16' }}

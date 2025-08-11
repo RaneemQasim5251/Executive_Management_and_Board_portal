@@ -138,9 +138,9 @@ export const ModernExecutiveDashboard: FC = () => {
   };
 
   const headerMenuItems: MenuProps['items'] = [
-    { key: 'export', icon: <DownloadOutlined />, label: 'Export Report' },
-    { key: 'share', icon: <ShareAltOutlined />, label: 'Share Dashboard' },
-    { key: 'view', icon: <EyeOutlined />, label: 'Full Screen' },
+    { key: 'export', icon: <DownloadOutlined />, label: t('Export Report') },
+    { key: 'share', icon: <ShareAltOutlined />, label: t('Share Dashboard') },
+    { key: 'view', icon: <EyeOutlined />, label: t('Full Screen') },
   ];
 
   if (loading) {
@@ -399,7 +399,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   direction: i18n.language === 'ar' ? "rtl" : "ltr"
                 }}
               >
-                {i18n.language === 'ar' ? 'شركة الجِري' : 'AL JERI'}
+                {t('AL JERI')}
               </Title>
               
               <motion.div
@@ -444,7 +444,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   direction: i18n.language === 'ar' ? "rtl" : "ltr"
                 }}
               >
-                {i18n.language === 'ar' ? 'منصَّة مجلس الإدارة التنفيذية' : 'Executive Board Platform'}
+                {t('Executive Board Platform')}
               </Title>
               
               <Text style={{ 
@@ -481,7 +481,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+12.5% vs last year</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+12.5% vs last year')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -513,7 +513,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+3 new this quarter</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+3 new this quarter')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -545,7 +545,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+8.2% growth rate</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+8.2% growth rate')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -579,7 +579,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>+2.1% improvement</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+2.1% improvement')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -706,7 +706,7 @@ export const ModernExecutiveDashboard: FC = () => {
               title={
                 <Space>
                   <CalendarOutlined style={{ color: "#363692" }} />
-                  <span>Upcoming Events</span>
+                  <span>{t('Upcoming Events')}</span>
                 </Space>
               }
               style={cardStyle}
@@ -757,7 +757,7 @@ export const ModernExecutiveDashboard: FC = () => {
               title={
                 <Space>
                   <ThunderboltOutlined style={{ color: "#0C085C" }} />
-                  <span>Quick Actions</span>
+                  <span>{t('Quick Actions')}</span>
                 </Space>
               }
               style={cardStyle}
@@ -793,7 +793,7 @@ export const ModernExecutiveDashboard: FC = () => {
 
               <div style={{ textAlign: "center" }}>
                 <Text type="secondary" style={{ fontSize: "12px" }}>
-                  Need help? Check our <a href="#" style={{ color: "#0095CE" }}>Executive Guide</a>
+                  {t('Need help? Check our Executive Guide')}
                 </Text>
               </div>
             </Card>

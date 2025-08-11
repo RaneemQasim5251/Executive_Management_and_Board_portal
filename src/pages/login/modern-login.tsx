@@ -300,11 +300,7 @@ export const ModernLogin: FC = () => {
               >
                 <Input
                   prefix={<MailOutlined style={{ color: '#0C085C' }} />}
-                  placeholder={
-                    i18n.language === 'ar' 
-                      ? 'البريد الإلكتروني' 
-                      : 'Enter your email'
-                  }
+                  placeholder={t('Enter your email')}
                   style={{
                     borderRadius: '12px',
                     border: '2px solid #f0f0f0',
@@ -334,11 +330,7 @@ export const ModernLogin: FC = () => {
               >
                 <Input.Password
                   prefix={<LockOutlined style={{ color: '#0C085C' }} />}
-                  placeholder={
-                    i18n.language === 'ar' 
-                      ? 'كلمة المرور' 
-                      : 'Enter your password'
-                  }
+                  placeholder={t('Enter your password')}
                   iconRender={(visible) =>
                     visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                   }
@@ -372,7 +364,7 @@ export const ModernLogin: FC = () => {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   style={{ color: '#666' }}
                 >
-                  {i18n.language === 'ar' ? 'تذكرني' : 'Remember me'}
+                  {t('Remember me')}
                 </Checkbox>
                 
                 <Button 
@@ -383,7 +375,7 @@ export const ModernLogin: FC = () => {
                     fontWeight: '500',
                   }}
                 >
-                  {i18n.language === 'ar' ? 'نسيت كلمة المرور؟' : 'Forgot Password?'}
+                  {t('Forgot Password?')}
                 </Button>
               </div>
 
@@ -420,7 +412,7 @@ export const ModernLogin: FC = () => {
             </Form>
 
             <Divider style={{ margin: '32px 0 24px 0', color: '#ccc' }}>
-              {i18n.language === 'ar' ? 'أو' : 'or'}
+              {t('or')}
             </Divider>
 
             {/* أزرار تسجيل الدخول البديلة / Alternative Login Buttons */}
@@ -478,16 +470,13 @@ export const ModernLogin: FC = () => {
             {/* تذييل / Footer */}
             <div style={{ textAlign: 'center', marginTop: '32px' }}>
               <Text style={{ color: '#999', fontSize: '12px' }}>
-                {i18n.language === 'ar' 
-                  ? 'محمي بواسطة تشفير SSL وأمان المؤسسات'
-                  : 'Protected by SSL encryption and enterprise security'
-                }
+                {t('Protected by SSL encryption and enterprise security')}
               </Text>
               <br />
               <Space size="middle" style={{ marginTop: '8px' }}>
                 <SafetyCertificateOutlined style={{ color: '#52c41a' }} />
                 <Text style={{ color: '#52c41a', fontSize: '12px', fontWeight: '500' }}>
-                  {i18n.language === 'ar' ? 'اتصال آمن' : 'Secure Connection'}
+                  {t('Secure Connection')}
                 </Text>
               </Space>
             </div>
@@ -500,10 +489,7 @@ export const ModernLogin: FC = () => {
           style={{ textAlign: 'center', marginTop: '24px' }}
         >
           <Text style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '14px' }}>
-            {i18n.language === 'ar' 
-              ? 'صُمم خصيصاً للقادة التنفيذيين ومجالس الإدارة'
-              : 'Designed exclusively for C-Level executives and board members'
-            }
+            {t('Designed exclusively for C-Level executives and board members')}
           </Text>
         </motion.div>
       </motion.div>

@@ -1,5 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { Result, Button } from 'antd';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { ReloadOutlined } from '@ant-design/icons';
 
 interface Props {
@@ -11,7 +12,7 @@ interface State {
   error?: Error;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundaryBase extends Component<Props & WithTranslation, State> {
   public state: State = {
     hasError: false
   };
@@ -26,11 +27,12 @@ export class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
+      const { t } = this.props;
       return (
         <Result
           status="error"
-          title="Something went wrong"
-          subTitle="An unexpected error occurred. Please try refreshing the page."
+          title={t('Something went wrong')}
+          subTitle={t('An unexpected error occurred. Please try refreshing the page.')}
           extra={[
             <Button 
               type="primary" 
@@ -38,7 +40,7 @@ export class ErrorBoundary extends Component<Props, State> {
               onClick={() => window.location.reload()}
               key="reload"
             >
-              Reload Page
+              {t('Reload Page')}
             </Button>
           ]}
         />
@@ -48,3 +50,5 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+export const ErrorBoundary = withTranslation()(ErrorBoundaryBase);
