@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useState, useEffect } from "react";
 import { Layout, Space, Avatar, Dropdown, Button, Typography, Badge } from "antd";
 import type { MenuProps } from "antd";
 import {
@@ -35,6 +35,13 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   }>();
 
   const { mode, setMode } = useContext(ColorModeContext);
+  const [animateLogo, setAnimateLogo] = useState(true);
+
+  // Run a subtle circular movement on first mount for ~1 second
+  useEffect(() => {
+    const timeout = setTimeout(() => setAnimateLogo(false), 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const toggleLanguage = () => {
     const currentLng = i18n.language;
@@ -150,6 +157,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
             filter: "drop-shadow(0 2px 4px rgba(12, 8, 92, 0.15))",
             flexShrink: 0
           }} 
+          className={animateLogo ? "logo-circle-once" : undefined}
         />
         <div style={{ 
           lineHeight: "1.3",
@@ -158,7 +166,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         }}>
           <Text strong style={{ 
             fontSize: "14px", 
-            color: "#0C085C",
+            color: "var(--primary-color)",
             display: "block",
             fontWeight: "700",
             whiteSpace: "nowrap",
@@ -183,24 +191,24 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
       {/* Right side - Actions and User */}
       <Space size="small" style={{ flexShrink: 0 }}>
         {/* Notifications */}
-        <Badge count={3} size="small" style={{ backgroundColor: '#0C085C' }}>
+        <Badge count={3} size="small" style={{ backgroundColor: 'var(--primary-color)' }}>
           <Button
             type="text"
             shape="circle"
             icon={<BellOutlined />}
             onClick={() => setNotificationVisible(true)}
             style={{
-              color: "#0C085C",
+              color: "var(--primary-color)",
               fontSize: "16px",
               transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = "rgba(12, 8, 92, 0.1)";
-              e.currentTarget.style.color = "#0C085C";
+              e.currentTarget.style.color = "var(--primary-color)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "#0C085C";
+              e.currentTarget.style.color = "var(--primary-color)";
             }}
           />
         </Badge>
@@ -243,7 +251,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
             <Avatar
               size="default"
               style={{
-                background: "#0C085C",
+                background: "var(--primary-color)",
                 color: "white",
                 fontSize: "16px",
               }}

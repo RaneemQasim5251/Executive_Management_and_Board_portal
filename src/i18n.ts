@@ -8,6 +8,7 @@ const resources = {
     translation: {
       // Navigation & Menu - التنقل والقوائم
       "Executive Overview": "النظرة العامة التنفيذية",
+      "Board Mark": "خاتم المجلس",
       "Strategic Projects": "المشاريع الاستراتيجية",
       "Board Management": "إدارة مجلس الإدارة",
       "Reports & Analytics": "التقارير والتحليلات",
@@ -628,6 +629,7 @@ const resources = {
       
       // Navigation & Menu Items - English
       "Strategic Planning": "Strategic Planning",
+      "Board Mark": "Board Mark",
       "Strategic Timeline": "Strategic Timeline",
       "Investment Portfolio": "Investment Portfolio",
       "Enterprise Systems": "Enterprise Systems",

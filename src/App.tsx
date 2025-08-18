@@ -12,11 +12,10 @@ import routerBindings, {
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
 import dataProvider from "@refinedev/simple-rest";
-import { App as AntdApp, ConfigProvider, theme } from "antd";
+import { App as AntdApp } from "antd";
 import { Routes, Route, Outlet } from "react-router-dom";
+import { Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
-import arEG from 'antd/locale/ar_EG';
-import enUS from 'antd/locale/en_US';
 import { 
   DashboardOutlined, 
   TeamOutlined, 
@@ -35,7 +34,8 @@ import {
   SettingOutlined,
   LineChartOutlined,
   DatabaseOutlined,
-  TrophyOutlined
+  TrophyOutlined,
+  SafetyCertificateOutlined
 } from '@ant-design/icons';
 
 
@@ -79,45 +79,39 @@ const createDemoDataProvider = () => {
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { AppStateProvider } from "./contexts/AppStateProvider";
 import { Header } from "./components/layout";
-import { ModernExecutiveDashboard } from "./pages/dashboard/modern.tsx";
-import { ExecutiveDashboard } from "./pages/dashboard/index.tsx";
-import { HorizontalTimeline } from "./pages/timeline/horizontal.tsx";
-import { KanbanPage } from "./pages/kanban/index.tsx";
 import { Login } from "./pages/login";
-import { ReportsPage } from "./pages/reports/index.tsx";
-import { StrategicPlanningPage } from "./pages/strategic-planning/index.tsx";
-import { Archive2024 } from "./pages/archive/Archive2024.tsx";
-import { Archive2025 } from "./pages/archive/Archive2025.tsx";
-import { JTCPage, JOilPage, ShaheenPage, FortyFiveDegreesPage, EnergyPage } from "./pages/companies";
-import KPIsERP from "./pages/enterprise-systems/KPIsERP";
-import { SecretaryWorkspace } from "./pages/secretary-workspace";
-import { MyMeetings } from "./pages/MyMeetings";
-import { DemoSidebarPage } from "./pages/demo-sidebar";
 
 import "./App.css";
 
+// Route-level code splitting
+const ModernExecutiveDashboard = lazy(() => import("./pages/dashboard/modern.tsx").then(m => ({ default: m.ModernExecutiveDashboard })));
+const ExecutiveDashboard = lazy(() => import("./pages/dashboard/index.tsx").then(m => ({ default: m.ExecutiveDashboard })));
+const HorizontalTimeline = lazy(() => import("./pages/timeline/horizontal.tsx").then(m => ({ default: m.HorizontalTimeline })));
+const KanbanPage = lazy(() => import("./pages/kanban/index.tsx").then(m => ({ default: m.KanbanPage })));
+const ReportsPage = lazy(() => import("./pages/reports/index.tsx").then(m => ({ default: m.ReportsPage })));
+const StrategicPlanningPage = lazy(() => import("./pages/strategic-planning/index.tsx").then(m => ({ default: m.StrategicPlanningPage })));
+const Archive2024 = lazy(() => import("./pages/archive/Archive2024.tsx").then(m => ({ default: m.Archive2024 })));
+const Archive2025 = lazy(() => import("./pages/archive/Archive2025.tsx").then(m => ({ default: m.Archive2025 })));
+const JTCPage = lazy(() => import("./pages/companies/JTC.tsx").then(m => ({ default: m.JTCPage })));
+const JOilPage = lazy(() => import("./pages/companies/JOil.tsx").then(m => ({ default: m.JOilPage })));
+const ShaheenPage = lazy(() => import("./pages/companies/Shaheen.tsx").then(m => ({ default: m.ShaheenPage })));
+const FortyFiveDegreesPage = lazy(() => import("./pages/companies/FortyFiveDegrees.tsx").then(m => ({ default: m.FortyFiveDegreesPage })));
+const EnergyPage = lazy(() => import("./pages/companies/Energy.tsx").then(m => ({ default: m.EnergyPage })));
+const KPIsERP = lazy(() => import("./pages/enterprise-systems/KPIsERP"));
+const SecretaryWorkspace = lazy(() => import("./pages/secretary-workspace").then(m => ({ default: m.SecretaryWorkspace })));
+const MyMeetings = lazy(() => import("./pages/MyMeetings").then(m => ({ default: m.MyMeetings })));
+const DemoSidebarPage = lazy(() => import("./pages/demo-sidebar").then(m => ({ default: m.DemoSidebarPage })));
+const BoardMarkPage = lazy(() => import("./pages/board-mark/index"));
+const BoardMarkSignPage = lazy(() => import("./pages/board-mark/sign"));
+
 function App() {
-  const { t, i18n } = useTranslation();
-  const isRTL = i18n.language === 'ar';
-  
+  const { t } = useTranslation();
+
   return (
     <ErrorBoundary>
-      <ConfigProvider
-      locale={isRTL ? arEG : enUS}
-      direction={isRTL ? 'rtl' : 'ltr'}
-      theme={{
-        algorithm: theme.defaultAlgorithm,
-        token: {
-          colorPrimary: '#1e3a8a',
-          fontFamily: isRTL 
-            ? "'Noto Sans Arabic', 'Cairo', 'Amiri', system-ui, -apple-system, sans-serif"
-            : "'Inter', system-ui, -apple-system, sans-serif",
-        },
-      }}
-    >
-      <AntdApp>
-        <RefineKbarProvider>
-          <ColorModeContextProvider>
+      <ColorModeContextProvider>
+        <AntdApp>
+          <RefineKbarProvider>
             <AppStateProvider>
               <Refine
             dataProvider={createDemoDataProvider() as any}
@@ -237,6 +231,14 @@ function App() {
                 },
               },
               {
+                name: "board-mark",
+                list: "/board-mark",
+                meta: {
+                  label: t("Board Mark"),
+                  icon: <SafetyCertificateOutlined />,
+                },
+              },
+              {
                 name: "jtc",
                 list: "/companies/jtc",
                 parentName: "portfolio",
@@ -337,6 +339,7 @@ function App() {
               },
             }}
           >
+            <Suspense fallback={<div style={{ padding: 24 }}>Loading...</div>}>
             <Routes>
               <Route
                 element={
@@ -356,6 +359,8 @@ function App() {
                 <Route path="/archive/2024" element={<Archive2024 />} />
                 <Route path="/archive/2025" element={<Archive2025 />} />
                 <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/board-mark" element={<BoardMarkPage />} />
+                <Route path="/board-mark/:id/sign" element={<BoardMarkSignPage />} />
                 
                 {/* Al Jeri Companies */}
                 <Route path="/companies/jtc" element={<JTCPage />} />
@@ -385,16 +390,16 @@ function App() {
                   path="/login"
                 />
             </Routes>
+            </Suspense>
 
             <RefineKbar />
             <UnsavedChangesNotifier />
             <DocumentTitleHandler />
           </Refine>
         </AppStateProvider>
-      </ColorModeContextProvider>
-    </RefineKbarProvider>
-  </AntdApp>
-</ConfigProvider>
+      </RefineKbarProvider>
+    </AntdApp>
+  </ColorModeContextProvider>
     </ErrorBoundary>
   );
 }

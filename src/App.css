@@ -523,6 +523,30 @@ html[dir="rtl"] .ant-progress-circle-path {
   animation: float 3s ease-in-out infinite;
 }
 
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* One-time subtle circular move for logo on first page load */
+@keyframes circle-move-once {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  25% { transform: translate(2px, -2px) rotate(6deg) scale(1.02); }
+  50% { transform: translate(0, -3px) rotate(12deg) scale(1.025); }
+  75% { transform: translate(-2px, -1px) rotate(6deg) scale(1.02); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+}
+
+.logo-circle-once {
+  animation: circle-move-once 1s ease-out 1;
+  will-change: transform;
+}
+
 /* Pulse effect for divider */
 @keyframes pulse {
   0%, 100% { opacity: 1; }

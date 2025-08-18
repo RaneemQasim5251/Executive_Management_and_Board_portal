@@ -75,6 +75,7 @@ export const ModernExecutiveDashboard: FC = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [animateLogoOnce, setAnimateLogoOnce] = useState(true);
   
   // Force cache refresh with language check
   console.log("🌍 Current language:", i18n.language);
@@ -104,7 +105,8 @@ export const ModernExecutiveDashboard: FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200);
-    return () => clearTimeout(timer);
+    const logoTimer = setTimeout(() => setAnimateLogoOnce(false), 1000);
+    return () => { clearTimeout(timer); clearTimeout(logoTimer); };
   }, []);
 
   const containerVariants = {
@@ -344,6 +346,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   position: "relative",
                   zIndex: 2
                 }} 
+                className={animateLogoOnce ? "logo-circle-once" : undefined}
               />
               
               {/* Sparkle Effects */}
