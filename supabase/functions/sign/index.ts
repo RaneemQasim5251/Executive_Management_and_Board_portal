@@ -15,7 +15,8 @@ serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-my-example-header', // ADD THIS HEADER
+      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-my-example-header, x-my-custom-header',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     } });
   }
 
@@ -58,8 +59,10 @@ serve(async (req) => {
       });
     }
 
+    console.log(`Signatory ${signatoryId} - Expected token: ${signatoryData.sign_token}, Received token: ${token}`);
+    
     if (signatoryData.sign_token !== token) {
-      console.warn('Invalid sign token for signatory:', signatoryId);
+      console.warn(`Invalid sign token for signatory: ${signatoryId}. Expected: ${signatoryData.sign_token}, Received: ${token}`);
       return new Response(JSON.stringify({ error: 'Invalid token' }), {
         status: 403,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
@@ -124,18 +127,33 @@ serve(async (req) => {
     const allSigned = allSignatories?.every(s => s.signed_at !== null && s.decision === 'approved');
     const anyRejected = allSignatories?.some(s => s.decision === 'rejected');
 
+    console.log(`Resolution ${resolutionId} status check: allSigned=${allSigned}, anyRejected=${anyRejected}`);
+    console.log(`Signatories status:`, allSignatories?.map(s => ({ id: s.id, signed_at: s.signed_at, decision: s.decision })));
+
     if (anyRejected) {
       // If any signatory rejects, mark resolution as expired
-      await supabaseClient
+      const { error: statusError } = await supabaseClient
         .from('board_resolutions')
         .update({ status: 'expired', updated_at: new Date().toISOString() })
         .eq('id', resolutionId);
+      
+      if (statusError) {
+        console.error('Error updating resolution status to expired:', statusError);
+      } else {
+        console.log(`Resolution ${resolutionId} marked as expired due to rejection`);
+      }
     } else if (allSigned) {
       // If all approved, mark resolution as finalized
-      await supabaseClient
+      const { error: statusError } = await supabaseClient
         .from('board_resolutions')
         .update({ status: 'finalized', updated_at: new Date().toISOString() })
         .eq('id', resolutionId);
+      
+      if (statusError) {
+        console.error('Error updating resolution status to finalized:', statusError);
+      } else {
+        console.log(`Resolution ${resolutionId} marked as finalized - all signatures collected`);
+      }
     }
 
     // 4. Return updated resolution (or just success status)

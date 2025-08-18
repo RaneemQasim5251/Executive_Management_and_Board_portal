@@ -70,6 +70,22 @@ export const BoardMarkPage: FC = () => {
       }
     },
     {
+      title: isAr ? 'الموقعون' : 'Signatories',
+      dataIndex: 'signatories',
+      key: 'signatories',
+      render: (signatories: any[]) => (
+        <div>
+          {signatories?.map((s: any) => (
+            <div key={s.id} style={{ marginBottom: 4 }}>
+              <Tag color={s.signedAt ? (s.decision === 'approved' ? 'green' : 'red') : 'default'} size="small">
+                {s.name}: {s.signedAt ? (s.decision === 'approved' ? '✅' : '❌') : '⏳'}
+              </Tag>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
       title: isAr ? 'الموعد النهائي' : 'Deadline',
       dataIndex: 'deadlineAt',
       key: 'deadlineAt',
@@ -153,7 +169,7 @@ export const BoardMarkPage: FC = () => {
                 <Space align="center">
                   <SafetyCertificateOutlined style={{ color: 'var(--primary-color)' }} />
                   <Title level={3} style={{ margin: 0 }}>
-                    {isAr ? 'خاتم المجلس - قرارات مجلس الإدارة' : 'Board Mark - Board Resolutions'}
+                    {isAr ? 'توقيع المجلس - قرارات مجلس الإدارة' : 'Board Mark - Board Resolutions'}
                   </Title>
                 </Space>
               </Col>

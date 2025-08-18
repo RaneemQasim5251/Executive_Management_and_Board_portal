@@ -96,13 +96,13 @@ export class BoardMarkService {
       return resolution;
     } catch {
       // Fallback to localStorage mock
+      const now = new Date();
+      const id = `RES-${now.getTime()}`;
       const signatories: Signatory[] = [
         { id: `${id}-bm-1`, name: "Board Chairman", email: "board@company.com", jobTitle: "Chairman", nationalIdLast3: "123" },
         { id: `${id}-bm-2`, name: "Chief Executive Officer", email: "ceo@company.com", jobTitle: "CEO", nationalIdLast3: "456" },
         { id: `${id}-bm-3`, name: "Chief Financial Officer", email: "cfo@company.com", jobTitle: "CFO", nationalIdLast3: "789" },
       ];
-      const now = new Date();
-      const id = `RES-${now.getTime()}`;
       const deadline = new Date(input.meetingDate);
       const addDays = input.deadlineDays ?? 7;
       deadline.setDate(deadline.getDate() + addDays);

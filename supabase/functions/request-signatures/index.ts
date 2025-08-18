@@ -17,38 +17,56 @@ interface Resolution {
   signatories: Signatory[];
 }
 
-// Placeholder for your SMS sending logic
-async function sendSMS(to: string, message: string): Promise<void> {
-  console.log(`Sending SMS to ${to}: ${message}`);
+// Real SMS sending function for ConnectSaudi (Saudi Arabia)
+async function sendSMS(phoneNumber: string, message: string): Promise<void> {
+  console.log(`Sending SMS to ${phoneNumber}: ${message}`);
+  
   const SMS_USER = Deno.env.get('SMS_USER');
   const SMS_PASS = Deno.env.get('SMS_PASS');
-  const SMS_API_URL = Deno.env.get('SMS_API_URL');
-
-  if (!SMS_USER || !SMS_PASS || !SMS_API_URL) {
-    console.warn('SMS credentials or API URL not set in environment variables. Skipping SMS.');
+  const SMS_API_URL = Deno.env.get('SMS_API_URL') || 'https://sms.connectsaudi.com/sendurl.aspx';
+  
+  if (!SMS_USER || !SMS_PASS) {
+    console.warn('SMS credentials not set. Using demo mode.');
+    console.log(`📱 [DEMO SMS] To: ${phoneNumber} | Message: ${message}`);
     return;
   }
 
-  // Example: Replace with your actual SMS gateway API call
-  // This is a dummy implementation
-  const response = await fetch(SMS_API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${btoa(`${SMS_USER}:${SMS_PASS}`)}`
-    },
-    body: JSON.stringify({
-      to,
-      message,
-      // Add other parameters required by your SMS API
-    }),
-  });
+  try {
+    // Format phone number for Saudi Arabia (remove + and spaces)
+    const formattedNumber = phoneNumber.replace(/[\s\+\-\(\)]/g, '');
+    
+    // ConnectSaudi SMS gateway format - GET request with URL parameters
+    const smsParams = new URLSearchParams({
+      user: SMS_USER,
+      pwd: SMS_PASS,
+      senderid: 'BOARDMARK',
+      CountryCode: '966', // Saudi Arabia country code
+      mobileno: formattedNumber.startsWith('966') ? formattedNumber.substring(3) : formattedNumber,
+      msgtext: message.trim(),
+    });
+    
+    const fullUrl = `${SMS_API_URL}?${smsParams.toString()}`;
+    console.log('ConnectSaudi SMS URL:', fullUrl.replace(SMS_PASS, '***')); // Hide password in logs
+    
+    const response = await fetch(fullUrl, {
+      method: 'GET',
+    });
 
-  if (!response.ok) {
-    const errorBody = await response.text();
-    console.error(`Failed to send SMS: ${response.status} - ${errorBody}`);
-  } else {
-    console.log(`SMS sent successfully to ${to}`);
+    const responseText = await response.text();
+    
+    console.log(`SMS API Response: ${responseText}`);
+    
+    if (response.ok && (responseText.includes('success') || responseText.includes('sent') || responseText.trim().length < 50)) {
+      console.log(`✅ SMS sent successfully to ${phoneNumber}`);
+    } else {
+      console.error(`❌ SMS failed: ${responseText}`);
+      // Fallback to demo mode
+      console.log(`📱 [FALLBACK DEMO] To: ${phoneNumber} | Message: ${message}`);
+    }
+  } catch (error) {
+    console.error('SMS sending error:', error);
+    // Fallback to demo mode
+    console.log(`📱 [ERROR FALLBACK DEMO] To: ${phoneNumber} | Message: ${message}`);
   }
 }
 
@@ -57,7 +75,8 @@ serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-my-example-header', // ADD THIS HEADER
+      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-my-example-header, x-my-custom-header',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     } });
   }
 
@@ -84,9 +103,10 @@ serve(async (req) => {
   }
 
   try {
+    // First get the resolution
     const { data: resolutionData, error: resolutionError } = await supabaseClient
       .from('board_resolutions')
-      .select('*, board_signatories(*)') // Select resolution and its signatories
+      .select('*')
       .eq('id', resolutionId)
       .single();
 
@@ -98,10 +118,24 @@ serve(async (req) => {
       });
     }
 
-    const resolution: Resolution = resolutionData as unknown as Resolution;
+    // Then get the signatories separately including phone numbers
+    const { data: signatoriesData, error: signatoriesError } = await supabaseClient
+      .from('board_signatories')
+      .select('*, phone_number')
+      .eq('resolution_id', resolutionId);
+
+    if (signatoriesError) {
+      console.error('Error fetching signatories:', signatoriesError?.message);
+      return new Response(JSON.stringify({ error: 'Error fetching signatories' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      });
+    }
+
+    const signatories = signatoriesData || [];
     const updatedSignatories: Signatory[] = [];
 
-    for (const signatory of resolution.signatories) {
+    for (const signatory of signatories) {
       const sign_token = crypto.randomUUID();
       const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
       const otp_expires_at = new Date(Date.now() + 10 * 60 * 1000).toISOString(); // 10 minutes from now
@@ -122,15 +156,38 @@ serve(async (req) => {
       if (updateError) {
         console.error(`Error updating signatory ${signatory.id}:`, updateError.message);
         continue;
+      } else {
+        console.log(`Successfully updated signatory ${signatory.id} with token ${sign_token} and OTP ${otp}`);
       }
 
-      // Construct deep link for signing
-      const deepLink = `https://yourapp.com/board-mark/${resolutionId}/sign?sid=${signatory.id}&token=${sign_token}`;
-      const message = `Dear ${signatory.name}, please sign the board resolution. Your OTP is ${otp}. Link: ${deepLink}`;
+      // Construct deep link for signing (use localhost for demo)
+      const deepLink = `http://localhost:5173/board-mark/${resolutionId}/sign?sid=${signatory.id}&token=${sign_token}`;
+      
+      // Create simple SMS message without special characters
+      const message = `Board Resolution OTP: ${otp} for ${signatory.name}`;
+      
+      console.log(`SMS message length: ${message.length} characters`);
+      console.log(`SMS message content: ${message}`);
 
-      // In a real application, you'd send SMS to signatory.email or a phone number
-      // For demo, we'll log it
-      await sendSMS(signatory.nationalIdLast3 || 'N/A', message); // Assuming nationalIdLast3 is used as a dummy 'to' for SMS
+      // Debug: Log signatory data to see what we're getting
+      console.log(`Signatory ${signatory.id} data:`, JSON.stringify(signatory, null, 2));
+      
+      // Use real phone numbers from database, with proper fallback logic
+      let phoneNumber;
+      if ((signatory as any).phone_number && (signatory as any).phone_number.trim() !== '') {
+        phoneNumber = (signatory as any).phone_number;
+        console.log(`✅ Using database phone number: ${phoneNumber}`);
+      } else if (signatory.email && !signatory.email.includes('@')) {
+        phoneNumber = signatory.email; // Email field contains phone number
+        console.log(`📧 Using email field as phone number: ${phoneNumber}`);
+      } else {
+        phoneNumber = '+966501234567'; // Final fallback
+        console.log(`⚠️ Using fallback phone number: ${phoneNumber}`);
+      }
+      
+      console.log(`Final phone number for ${signatory.name}: ${phoneNumber}`);
+      
+      await sendSMS(phoneNumber, message);
       updatedSignatories.push({ ...signatory, sign_token, otp, otp_expires_at });
     }
 
