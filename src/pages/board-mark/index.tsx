@@ -6,6 +6,8 @@ import dayjs from 'dayjs';
 import { boardMarkService } from '../../services/boardMarkService';
 import { BoardResolution, CreateResolutionInput } from '../../types/boardMark';
 import { generateResolutionPDF } from '../../utils/pdf';
+import { supabase } from '../../supabase'; // Import supabase client
+import { notificationService } from '../../services/notificationService';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -103,8 +105,20 @@ export const BoardMarkPage: FC = () => {
         deadlineDays: values.deadlineDays,
       };
       setLoading(true);
-      await boardMarkService.createResolution(payload);
-      message.success(isAr ? 'تم إنشاء القرار وإرسال طلبات التوقيع' : 'Resolution created and signature requests sent');
+      const newResolution = await boardMarkService.createResolution(payload);
+
+      // Trigger the Supabase Edge Function to send signature requests
+      if (supabase) {
+        await supabase.functions.invoke('request-signatures', { body: { resolutionId: newResolution.id } });
+        notificationService.open({
+          key: newResolution.id,
+          message: t('board_mark.messages.signatureRequestSent'),
+          description: t('board_mark.messages.signatureRequestSentDescription', { resolutionId: newResolution.id }),
+          type: 'success',
+        });
+      }
+
+      message.success(t('board_mark.messages.createSuccess'));
       form.resetFields();
       await load();
     } catch (e) {

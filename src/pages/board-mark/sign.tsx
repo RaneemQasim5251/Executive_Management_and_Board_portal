@@ -1,107 +1,158 @@
-import { FC, useEffect, useState } from 'react';
-import { Card, Typography, Space, Button, Input, Form, message, Alert, Row, Col, Tag } from 'antd';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { boardMarkService } from '../../services/boardMarkService';
-import { BoardResolution } from '../../types/boardMark';
-import { SafetyCertificateOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from "react";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import { Card, Form, Input, Button, Typography, message, Spin, Radio } from "antd";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { boardMarkService } from "../../services/boardMarkService";
+import { BoardResolution } from "../../types/boardMark";
+import { useTranslation } from "react-i18next";
+import { supabase } from "../../supabase"; // Import supabase client
 
 const { Title, Text } = Typography;
 
-export const BoardMarkSignPage: FC = () => {
-  const { id } = useParams();
-  const { i18n } = useTranslation();
-  const isAr = i18n.language === 'ar';
+const SignResolutionPage: React.FC = () => {
+  const { id: resolutionId } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
+  const signatoryId = searchParams.get("sid");
+  const token = searchParams.get("token");
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [resolution, setResolution] = useState<BoardResolution | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [form] = Form.useForm();
-  const [res, setRes] = useState<BoardResolution | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [decision, setDecision] = useState<'approved' | 'rejected'>('approved');
 
   useEffect(() => {
-    const load = async () => {
-      if (!id) return;
-      const r = await boardMarkService.getResolution(id);
-      setRes(r);
+    const fetchResolution = async () => {
+      if (!resolutionId || !signatoryId || !token) {
+        message.error(t("board_mark.sign.error.missingParams"));
+        setLoading(false);
+        return;
+      }
+      try {
+        const fetchedResolution = await boardMarkService.getResolution(resolutionId);
+        setResolution(fetchedResolution);
+        setLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch resolution:", error);
+        message.error(t("board_mark.sign.error.fetchFailed"));
+        setLoading(false);
+      }
     };
-    load();
-  }, [id]);
+    fetchResolution();
+  }, [resolutionId, signatoryId, token, t]);
 
-  const handleSign = async () => {
+  const handleSign = async (values: { otp: string; reason?: string }) => {
+    if (!resolutionId || !signatoryId || !token || !supabase) {
+      message.error(t("board_mark.sign.error.internalError"));
+      return;
+    }
+    setSubmitting(true);
     try {
-      const values = await form.validateFields();
-      if (!id) return;
-      setLoading(true);
-      await boardMarkService.sign({
-        resolutionId: id,
-        signatoryId: values.signatoryId,
-        otp: values.otp,
+      const { data, error } = await supabase.functions.invoke('sign', {
+        body: {
+          resolutionId,
+          signatoryId,
+          token,
+          otp: values.otp,
+          decision,
+          reason: values.reason,
+        },
       });
-      message.success(isAr ? 'تم التوقيع بنجاح' : 'Signed successfully');
-      const r = await boardMarkService.getResolution(id);
-      setRes(r);
-    } catch (e) {
-      // ignore
+
+      if (error) {
+        console.error("Error from Supabase function:", error);
+        message.error(t(`board_mark.sign.error.${error.message.replace(/ /g, '')}`) || t("board_mark.sign.error.generic"));
+        setSubmitting(false);
+        return;
+      }
+
+      message.success(t("board_mark.sign.success.signed"));
+      // Optionally refresh resolution details or navigate away
+      navigate(`/board-mark`); // Redirect to dashboard or resolution list
+    } catch (error) {
+      console.error("Failed to sign resolution:", error);
+      message.error(t("board_mark.sign.error.generic"));
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
-  return (
-    <div style={{ padding: 24 }}>
-      <Card className="executive-card">
-        <Space align="center">
-          <SafetyCertificateOutlined style={{ color: 'var(--primary-color)' }} />
-          <Title level={3} style={{ margin: 0 }}>
-            {isAr ? 'توقيع القرار' : 'Sign Resolution'}
-          </Title>
-        </Space>
+  if (loading) {
+    return (
+      <Card>
+        <Spin tip={t("loading")}>
+          <div style={{ height: 200 }} />
+        </Spin>
       </Card>
+    );
+  }
 
-      <Row gutter={[24, 24]} style={{ marginTop: 16 }}>
-        <Col xs={24} lg={12}>
-          <Card title={isAr ? 'القرار' : 'Resolution'} className="executive-card">
-            {res ? (
-              <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                <Text strong>{isAr ? 'المعرف:' : 'ID:'} {res.id}</Text>
-                <Text>{isAr ? res.preambleAr : res.preambleEn}</Text>
-                <Text>{res.agreementDetails}</Text>
-                <div>
-                  <Text strong>{isAr ? 'الموقعون' : 'Signatories'}:</Text>
-                  <div style={{ marginTop: 8 }}>
-                    {res.signatories.map(s => (
-                      <div key={s.id} style={{ marginBottom: 6 }}>
-                        <Tag color={s.signedAt ? 'green' : 'default'}>
-                          {s.name} {s.signedAt && <CheckCircleOutlined />}
-                        </Tag>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </Space>
-            ) : (
-              <Alert type="info" showIcon message={isAr ? 'جاري التحميل...' : 'Loading...'} />
-            )}
-          </Card>
-        </Col>
+  if (!resolution) {
+    return (
+      <Card>
+        <Title level={4}>{t("board_mark.sign.title")}</Title>
+        <Text type="danger">{t("board_mark.sign.error.notFound")}</Text>
+      </Card>
+    );
+  }
 
-        <Col xs={24} lg={12}>
-          <Card title={isAr ? 'نموذج التوقيع' : 'Signature Form'} className="executive-card">
-            <Alert type="warning" showIcon style={{ marginBottom: 12 }} message={isAr ? 'لحماية إضافية، أدخل رمز OTP إذا طُلب' : 'For extra security, enter OTP if requested'} />
-            <Form form={form} layout="vertical" disabled={loading}>
-              <Form.Item name="signatoryId" label={isAr ? 'معرف العضو' : 'Member ID'} rules={[{ required: true }]}> 
-                <Input placeholder={isAr ? 'أدخل معرفك' : 'Enter your ID'} />
-              </Form.Item>
-              <Form.Item name="otp" label="OTP"> 
-                <Input placeholder="123456" />
-              </Form.Item>
-              <Button type="primary" onClick={handleSign}>{isAr ? 'توقيع' : 'Sign'}</Button>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
-    </div>
+  const currentSignatory = resolution.signatories.find(s => s.id === signatoryId);
+
+  if (!currentSignatory) {
+    return (
+      <Card>
+        <Title level={4}>{t("board_mark.sign.title")}</Title>
+        <Text type="danger">{t("board_mark.sign.error.signatoryNotFound")}</Text>
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <Title level={4}>{t("board_mark.sign.title")}</Title>
+      <Text>{t("board_mark.sign.instructions", { name: currentSignatory.name, resolutionId: resolution.id })}</Text>
+
+      <Form form={form} layout="vertical" onFinish={handleSign} style={{ marginTop: 20 }}>
+        <Form.Item
+          name="otp"
+          label={t("board_mark.sign.otpLabel")}
+          rules={[{ required: true, message: t("board_mark.sign.otpRequired") }]}
+        >
+          <Input.Password placeholder={t("board_mark.sign.otpPlaceholder")} />
+        </Form.Item>
+
+        <Form.Item name="decision" label={t("board_mark.sign.decisionLabel")}>
+          <Radio.Group onChange={(e) => setDecision(e.target.value as 'approved' | 'rejected')} value={decision}>
+            <Radio value="approved">
+              <CheckCircleOutlined style={{ color: "green" }} /> {t("board_mark.sign.approve")}
+            </Radio>
+            <Radio value="rejected">
+              <CloseCircleOutlined style={{ color: "red" }} /> {t("board_mark.sign.reject")}
+            </Radio>
+          </Radio.Group>
+        </Form.Item>
+
+        {decision === 'rejected' && (
+          <Form.Item
+            name="reason"
+            label={t("board_mark.sign.reasonLabel")}
+            rules={[{ required: true, message: t("board_mark.sign.reasonRequired") }]}
+          >
+            <Input.TextArea rows={4} placeholder={t("board_mark.sign.reasonPlaceholder")} />
+          </Form.Item>
+        )}
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={submitting}>
+            {t("board_mark.sign.submitButton")}
+          </Button>
+        </Form.Item>
+      </Form>
+    </Card>
   );
 };
 
-export default BoardMarkSignPage;
+export default SignResolutionPage;
 
 

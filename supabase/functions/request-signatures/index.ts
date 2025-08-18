@@ -53,16 +53,24 @@ async function sendSMS(to: string, message: string): Promise<void> {
 }
 
 serve(async (req) => {
+  // Handle preflight OPTIONS requests for CORS
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-my-example-header', // ADD THIS HEADER
+    } });
+  }
+
   const supabaseClient = createClient(
     Deno.env.get('SUPABASE_URL') ?? '',
     Deno.env.get('SUPABASE_ANON_KEY') ?? '',
     { global: { headers: { 'x-my-example-header': 'board-mark-request-signatures' } } }
-  )
+  );
 
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
       status: 405,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 
@@ -71,7 +79,7 @@ serve(async (req) => {
   if (!resolutionId) {
     return new Response(JSON.stringify({ error: 'resolutionId is required' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 
@@ -86,7 +94,7 @@ serve(async (req) => {
       console.error('Error fetching resolution:', resolutionError?.message);
       return new Response(JSON.stringify({ error: 'Resolution not found or error fetching' }), {
         status: 404,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       });
     }
 
@@ -128,14 +136,14 @@ serve(async (req) => {
 
     return new Response(JSON.stringify({ message: 'Signature requests initiated', updatedSignatories }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
 
   } catch (error) {
     console.error('Error in request-signatures:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
 })
