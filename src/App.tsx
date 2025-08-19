@@ -107,6 +107,8 @@ const MyMeetings = lazy(() => import("./pages/MyMeetings").then(m => ({ default:
 const DemoSidebarPage = lazy(() => import("./pages/demo-sidebar").then(m => ({ default: m.DemoSidebarPage })));
 const BoardMarkPage = lazy(() => import("./pages/board-mark/index"));
 const BoardMarkSignPage = lazy(() => import("./pages/board-mark/sign"));
+const SimplifiedPortal = lazy(() => import("./pages/SimplifiedPortal"));
+const SimplifiedLogin = lazy(() => import("./pages/login/SimplifiedLogin"));
 
 function App() {
   const { t } = useTranslation();
@@ -391,12 +393,22 @@ function App() {
                 {/* Demo Sidebar */}
                 <Route path="/demo-sidebar" element={<DemoSidebarPage />} />
 
+                {/* Simplified Portal Demo */}
+                <Route path="/simplified" element={<SimplifiedPortal />} />
+
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
-                              <Route
-                  element={<Login />}
-                  path="/login"
-                />
+              
+              {/* Simplified Login Route */}
+              <Route
+                element={<SimplifiedLogin />}
+                path="/login-simplified"
+              />
+              
+              <Route
+                element={<Login />}
+                path="/login"
+              />
             </Routes>
             </Suspense>
 
