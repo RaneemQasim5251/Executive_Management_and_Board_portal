@@ -145,7 +145,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
     {
       key: 'meetings',
       icon: <TeamOutlined />,
-      label: t('myMeetings.title'),
+      label: t("My Meetings"),
       onClick: () => navigate('/my-meetings')
     }
   ];

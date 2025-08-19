@@ -15,6 +15,7 @@ const resources = {
       "Executive Management Portal": "بوابة الإدارة التنفيذية",
       "Qarar Executive Portal": "بوابة قرار التنفيذية",
       "Board & C-Suite Command Center": "مركز قيادة مجلس الإدارة والإدارة العليا",
+      "My Meetings": "جدول الأعمال",
       
       // Additional Arabic translations for full Arabic experience
       "Overview": "نظرة عامة",
@@ -70,6 +71,7 @@ const resources = {
       "Active Initiatives": "المبادرات النشطة",
       "APAC Market Expansion": "توسع السوق في منطقة آسيا والمحيط الهادئ",
       "Sustainability Initiative Rollout": "طرح مبادرة الاستدامة",
+      "Logout": "تسجيل الخروج",
       
       // Login Page
       "Board of Directors & C-Suite Access": "دخول مجلس الإدارة والإدارة العليا",
@@ -491,7 +493,7 @@ const resources = {
       // User Menu
       "Board Profile": "ملف مجلس الإدارة",
       "Executive Settings": "إعدادات الإدارة التنفيذية",
-      "Logout": "تسجيل الخروج",
+      
       
       // Board Management  
       "Executive initiatives": "المبادرات التنفيذية",
@@ -554,7 +556,7 @@ const resources = {
       "Advanced Transportation Solutions, Delivering Tomorrow's Infrastructure": "حلول النقل المتقدمة، تقديم البنية التحتية للغد",
       "Fleet Size": "حجم الأسطول",
       "Trailers": "المقطورات",
-      "Active Projects": "المشاريع النشطة",
+      
       "Client Satisfaction": "رضا العملاء",
       "A client in motion stays in motion": "العميل في الحركة يبقى في الحركة",
       "Since our inception, our core business area has been industrial and commercial transportation. A sector poised for further growth with the expansion of the Saudi economy, and related development projects.": "منذ تأسيسنا، كان مجال عملنا الأساسي هو النقل الصناعي والتجاري. قطاع مستعد لمزيد من النمو مع توسع الاقتصاد السعودي والمشاريع التنموية ذات الصلة.",
@@ -563,7 +565,7 @@ const resources = {
       "Asphalt Transportation": "نقل الإسفلت",
       "Consumer Grade Fuels": "وقود المستهلكين",
       "Industrial Fuels (A1 Jet Fuel)": "الوقود الصناعي (وقود الطائرات A1)",
-      "Heavy Fuel Oil": "زيت الوقود الثقيل",
+      
       "Cement Transportation": "نقل الإسمنت",
       "General Goods & Perishables": "البضائع العامة والقابلة للتلف",
       "Key Clients": "العملاء الرئيسيون",
@@ -576,11 +578,11 @@ const resources = {
       "Q1 2026: Digital Transformation": "الربع 1 2026: التحول الرقمي",
       "Full digital assessment and implementation": "التقييم الرقمي الكامل والتنفيذ",
       "Action No.": "رقم الإجراء",
-      "Description": "الوصف",
+      
       "CEO/JTC Management Remarks": "ملاحظات الإدارة التنفيذية/إدارة JTC",
       "Period / Date": "الفترة / التاريخ",
       "Responsibility": "المسؤولية",
-      "Status": "الحالة",
+      
 
       // Additional missing translations (removed duplicates)
       
@@ -975,7 +977,7 @@ const resources = {
        "Customer Satisfaction (%)": "Customer Satisfaction (%)",
        "Market Growth (%)": "Market Growth (%)",
        "Actual Revenue": "Actual Revenue",
-       "Target": "Target",
+       
        "Strategic Insights": "Strategic Insights",
        "Revenue Growth Acceleration": "Revenue Growth Acceleration",
        "Q2 revenue exceeded targets by 14.3%, driven by digital transformation initiatives.": "Q2 revenue exceeded targets by 14.3%, driven by digital transformation initiatives.",
@@ -1012,7 +1014,7 @@ const resources = {
       "myMeetings.upcomingCount": "{{count}} upcoming meeting",
       
       // My Meetings
-      "myMeetings.title": "My Meetings",
+      "My Meetings": "My Meetings",
       "myMeetings.noMeetings": "No upcoming meetings",
       "myMeetings.declineReason": "Reason for declining",
       "myMeetings.reasonPlaceholder": "Please provide a reason for not attending",
