@@ -1,0 +1,157 @@
+# Multi-stage Dockerfile for Executive Portal API
+# Production-ready with security hardening and optimization
+
+# ============================================
+# Build Stage
+# ============================================
+FROM node:18-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    git \
+    && rm -rf /var/cache/apk/*
+
+# Copy package files
+COPY api-package.json package.json
+COPY package-lock.json* ./
+
+# Install dependencies
+RUN npm ci --only=production --no-audit --no-fund \
+    && npm cache clean --force
+
+# Copy source code
+COPY src/ src/
+COPY tsconfig.api.json ./
+COPY .env.production.example .env
+
+# Build the application
+RUN npm run build
+
+# Remove dev dependencies and source files
+RUN npm prune --production \
+    && rm -rf src/ tsconfig.api.json
+
+# ============================================
+# Production Stage
+# ============================================
+FROM node:18-alpine AS production
+
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs \
+    && adduser -S apiuser -u 1001
+
+# Install runtime dependencies only
+RUN apk add --no-cache \
+    dumb-init \
+    curl \
+    && rm -rf /var/cache/apk/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy built application from builder stage
+COPY --from=builder --chown=apiuser:nodejs /app/dist ./dist
+COPY --from=builder --chown=apiuser:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=apiuser:nodejs /app/package.json ./
+
+# Create directories for logs and uploads
+RUN mkdir -p /app/logs /app/uploads \
+    && chown -R apiuser:nodejs /app/logs /app/uploads
+
+# Create health check script
+RUN echo '#!/bin/sh\ncurl -f http://localhost:3001/health || exit 1' > /app/healthcheck.sh \
+    && chmod +x /app/healthcheck.sh \
+    && chown apiuser:nodejs /app/healthcheck.sh
+
+# Switch to non-root user
+USER apiuser
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=3001
+ENV LOG_LEVEL=info
+
+# Expose port
+EXPOSE 3001
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD /app/healthcheck.sh
+
+# Use dumb-init for proper signal handling
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start the application
+CMD ["node", "dist/server.js"]
+
+# ============================================
+# Development Stage (optional)
+# ============================================
+FROM node:18-alpine AS development
+
+WORKDIR /app
+
+# Install all dependencies including dev dependencies
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    git
+
+# Copy package files
+COPY api-package.json package.json
+COPY package-lock.json* ./
+
+# Install all dependencies
+RUN npm ci --no-audit --no-fund
+
+# Copy source code
+COPY src/ src/
+COPY tsconfig.api.json ./
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs \
+    && adduser -S apiuser -u 1001 \
+    && chown -R apiuser:nodejs /app
+
+USER apiuser
+
+# Set development environment
+ENV NODE_ENV=development
+ENV PORT=3001
+
+EXPOSE 3001
+
+# Start with nodemon for hot reloading
+CMD ["npm", "run", "dev"]
+
+# ============================================
+# Labels for metadata
+# ============================================
+LABEL maintainer="Al Jeri Group <dev@aljeri.com>"
+LABEL version="1.0.0"
+LABEL description="Executive Management Portal - Backend API"
+LABEL org.opencontainers.image.title="Executive Portal API"
+LABEL org.opencontainers.image.description="Production-ready API server for executive management portal"
+LABEL org.opencontainers.image.version="1.0.0"
+LABEL org.opencontainers.image.authors="Al Jeri Group"
+LABEL org.opencontainers.image.url="https://github.com/aljeri-group/executive-portal"
+LABEL org.opencontainers.image.source="https://github.com/aljeri-group/executive-portal"
+LABEL org.opencontainers.image.licenses="MIT"
+
+# ============================================
+# Build Arguments for CI/CD
+# ============================================
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+
+LABEL org.opencontainers.image.created=$BUILD_DATE
+LABEL org.opencontainers.image.revision=$VCS_REF
+LABEL org.opencontainers.image.version=$VERSION

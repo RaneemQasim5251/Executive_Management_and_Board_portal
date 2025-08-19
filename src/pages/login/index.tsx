@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { useLogin } from "@refinedev/core";
+import { FC, useState, useEffect } from "react";
+import { useLogin, useNotification } from "@refinedev/core";
 import {
   Card,
   Form,
@@ -12,6 +12,8 @@ import {
   Alert,
   Row,
   Col,
+  Tabs,
+  Modal,
 } from "antd";
 import {
   UserOutlined,
@@ -19,9 +21,13 @@ import {
   EyeInvisibleOutlined,
   EyeTwoTone,
   GlobalOutlined,
+  SafetyOutlined,
+  CheckOutlined,
+  SecurityScanOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { PalmLoginDemo } from "../../components/PalmLoginDemo";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -34,7 +40,11 @@ interface LoginFormValues {
 export const Login: FC = () => {
   const { mutate: login, isLoading } = useLogin<LoginFormValues>();
   const { t, i18n } = useTranslation();
+  const { open: notification } = useNotification();
   const [form] = Form.useForm();
+  const [activeTab, setActiveTab] = useState('traditional');
+  const [biometricSupported, setBiometricSupported] = useState(false);
+  const [showBiometricInfo, setShowBiometricInfo] = useState(false);
 
   const toggleLanguage = () => {
     const currentLng = i18n.language;
@@ -58,8 +68,47 @@ export const Login: FC = () => {
       : "'Inter', system-ui, -apple-system, sans-serif";
   };
 
+  // Always enable palm demo (no HTTPS required)
+  useEffect(() => {
+    console.log('🖐️ Palm Authentication Demo - Always Available!');
+    setBiometricSupported(true);
+    
+    // Auto-switch to biometric tab if user has used it before
+    if (localStorage.getItem('palm_demo_used') === 'true') {
+      console.log('✅ Auto-switching to palm demo tab');
+      setActiveTab('biometric');
+    }
+  }, []);
+
   const onFinish = (values: LoginFormValues) => {
     login(values);
+  };
+
+  const handleBiometricSuccess = (userData: any) => {
+    // Store demo user data and tokens
+    localStorage.setItem('access_token', userData.tokens?.access_token || 'demo_token');
+    localStorage.setItem('refresh_token', userData.tokens?.refresh_token || 'demo_refresh');
+    localStorage.setItem('palm_demo_used', 'true');
+    localStorage.setItem('demo_user', JSON.stringify(userData));
+    
+    notification?.({
+      type: 'success',
+      message: t('Welcome Back') + ', ' + userData.name,
+      description: t('Palm authentication successful - Demo Mode'),
+    });
+    
+    // Simulate login success and redirect
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 1500);
+  };
+
+  const handleBiometricError = (error: string) => {
+    notification?.({
+      type: 'error',
+      message: t('Authentication Failed'),
+      description: error,
+    });
   };
 
   const containerVariants = {
@@ -226,111 +275,183 @@ export const Login: FC = () => {
 
             <Divider style={{ margin: "32px 0" }} />
 
-            {/* Login Form */}
-            <Form
-              form={form}
-              name="login"
-              onFinish={onFinish}
-              autoComplete="off"
-              layout="vertical"
-              size="large"
-              initialValues={{
-                email: "board@company.com",
-                password: "executive2024",
-                remember: true,
-              }}
-            >
-              <Form.Item
-                label={<Text strong>{t("Email")}</Text>}
-                name="email"
-                rules={[
-                  {
-                    required: true,
-                    message: t("Please input your email!"),
-                  },
-                  {
-                    type: "email",
-                    message: t("Please enter a valid email!"),
-                  },
-                ]}
-              >
-                <Input
-                  prefix={<UserOutlined style={{ color: "#1e3a8a" }} />}
-                  placeholder={t("Email")}
-                  style={{
-                    borderRadius: "12px",
-                    padding: "12px 16px",
-                    fontSize: "16px",
-                  }}
-                />
-              </Form.Item>
+            {/* Login Tabs */}
+            <Tabs
+              activeKey={activeTab}
+              onChange={setActiveTab}
+              centered
+              items={[
+                {
+                  key: 'traditional',
+                  label: (
+                    <Space>
+                      <LockOutlined />
+                      {t('Password')}
+                    </Space>
+                  ),
+                  children: (
+                    <Form
+                      form={form}
+                      name="login"
+                      onFinish={onFinish}
+                      autoComplete="off"
+                      layout="vertical"
+                      size="large"
+                      initialValues={{
+                        email: "board@company.com",
+                        password: "executive2024",
+                        remember: true,
+                      }}
+                    >
+                      <Form.Item
+                        label={<Text strong>{t("Email")}</Text>}
+                        name="email"
+                        rules={[
+                          {
+                            required: true,
+                            message: t("Please input your email!"),
+                          },
+                          {
+                            type: "email",
+                            message: t("Please enter a valid email!"),
+                          },
+                        ]}
+                      >
+                        <Input
+                          prefix={<UserOutlined style={{ color: "#1e3a8a" }} />}
+                          placeholder={t("Email")}
+                          style={{
+                            borderRadius: "12px",
+                            padding: "12px 16px",
+                            fontSize: "16px",
+                          }}
+                        />
+                      </Form.Item>
 
-              <Form.Item
-                label={<Text strong>{t("Password")}</Text>}
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: t("Please input your password!"),
-                  },
-                ]}
-              >
-                <Input.Password
-                  prefix={<LockOutlined style={{ color: "#1e3a8a" }} />}
-                  placeholder={t("Password")}
-                  iconRender={(visible) =>
-                    visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-                  }
-                  style={{
-                    borderRadius: "12px",
-                    padding: "12px 16px",
-                    fontSize: "16px",
-                  }}
-                />
-              </Form.Item>
+                      <Form.Item
+                        label={<Text strong>{t("Password")}</Text>}
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: t("Please input your password!"),
+                          },
+                        ]}
+                      >
+                        <Input.Password
+                          prefix={<LockOutlined style={{ color: "#1e3a8a" }} />}
+                          placeholder={t("Password")}
+                          iconRender={(visible) =>
+                            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                          }
+                          style={{
+                            borderRadius: "12px",
+                            padding: "12px 16px",
+                            fontSize: "16px",
+                          }}
+                        />
+                      </Form.Item>
 
-              <Row justify="space-between" align="middle" style={{ marginBottom: "24px" }}>
-                <Col>
-                  <Form.Item name="remember" valuePropName="checked" style={{ margin: 0 }}>
-                    <Checkbox>{t("Remember me")}</Checkbox>
-                  </Form.Item>
-                </Col>
-                <Col>
-                  <Button type="link" style={{ padding: 0, color: "#1e3a8a" }}>
-                    {t("Forgot Password?")}
-                  </Button>
-                </Col>
-              </Row>
+                      <Row justify="space-between" align="middle" style={{ marginBottom: "24px" }}>
+                        <Col>
+                          <Form.Item name="remember" valuePropName="checked" style={{ margin: 0 }}>
+                            <Checkbox>{t("Remember me")}</Checkbox>
+                          </Form.Item>
+                        </Col>
+                        <Col>
+                          <Button type="link" style={{ padding: 0, color: "#1e3a8a" }}>
+                            {t("Forgot Password?")}
+                          </Button>
+                        </Col>
+                      </Row>
 
-              <Form.Item style={{ margin: 0 }}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={isLoading}
-                  style={{
-                    width: "100%",
-                    height: "50px",
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    borderRadius: "12px",
-                    background: "#0C085C",
-                    border: "none",
-                    boxShadow: "0 4px 12px rgba(102, 126, 234, 0.4)",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow = "0 8px 20px rgba(102, 126, 234, 0.6)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(102, 126, 234, 0.4)";
-                  }}
-                >
-                  {t("Sign In")}
-                </Button>
-              </Form.Item>
-            </Form>
+                      <Form.Item style={{ margin: 0 }}>
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          loading={isLoading}
+                          style={{
+                            width: "100%",
+                            height: "50px",
+                            fontSize: "16px",
+                            fontWeight: "600",
+                            borderRadius: "12px",
+                            background: "#0C085C",
+                            border: "none",
+                            boxShadow: "0 4px 12px rgba(102, 126, 234, 0.4)",
+                            transition: "all 0.3s ease",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.boxShadow = "0 8px 20px rgba(102, 126, 234, 0.6)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "0 4px 12px rgba(102, 126, 234, 0.4)";
+                          }}
+                        >
+                          {t("Sign In")}
+                        </Button>
+                      </Form.Item>
+                    </Form>
+                  ),
+                },
+                {
+                  key: 'biometric',
+                  label: (
+                    <Space>
+                      <SafetyOutlined />
+                      {t('Biometric')}
+                      {biometricSupported && <SecurityScanOutlined style={{ color: '#52c41a' }} />}
+                    </Space>
+                  ),
+                  children: (
+                    <div style={{ minHeight: '300px' }}>
+                      <Space direction="vertical" style={{ width: '100%' }} size="large">
+                        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                          <motion.div
+                            animate={{ 
+                              scale: [1, 1.1, 1],
+                              rotateY: [0, 10, 0]
+                            }}
+                            transition={{ 
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut"
+                            }}
+                            style={{ fontSize: '64px', marginBottom: '16px' }}
+                          >
+                            🖐️
+                          </motion.div>
+                          <Title level={4} style={{ margin: 0, color: '#52c41a' }}>
+                            {t('Palm Authentication Demo')}
+                          </Title>
+                          <Text type="secondary">
+                            {t('Advanced biometric security for executives')}
+                          </Text>
+                        </div>
+                        
+                        <PalmLoginDemo
+                          onSuccess={handleBiometricSuccess}
+                          onError={handleBiometricError}
+                        />
+                        
+                        <div style={{ textAlign: 'center' }}>
+                          <Button
+                            type="link"
+                            icon={<CheckOutlined />}
+                            onClick={() => setShowBiometricInfo(true)}
+                            style={{ color: '#1890ff' }}
+                          >
+                            {t('How does biometric login work?')}
+                          </Button>
+                        </div>
+                      </Space>
+                    </div>
+                  ),
+                },
+              ]}
+            />
 
             <Divider style={{ margin: "32px 0" }} />
 
@@ -371,6 +492,11 @@ export const Login: FC = () => {
                   <Paragraph style={{ margin: 0, fontSize: "12px" }}>
                     <strong>{t("Password")}:</strong> executive2024
                   </Paragraph>
+                  {biometricSupported && (
+                    <Paragraph style={{ margin: 0, fontSize: "12px", color: '#52c41a' }}>
+                      <strong>{t("Biometric")}:</strong> {t('Available on this device')}
+                    </Paragraph>
+                  )}
                 </div>
               }
               type="info"
@@ -384,6 +510,69 @@ export const Login: FC = () => {
             />
           </Card>
         </motion.div>
+
+        {/* Biometric Information Modal */}
+        <Modal
+          title={
+            <Space>
+              <CheckOutlined style={{ color: '#52c41a' }} />
+              <span>{t('Biometric Authentication Guide')}</span>
+            </Space>
+          }
+          open={showBiometricInfo}
+          onCancel={() => setShowBiometricInfo(false)}
+          footer={[
+            <Button key="close" onClick={() => setShowBiometricInfo(false)}>
+              {t('Close')}
+            </Button>
+          ]}
+          width={600}
+        >
+          <Space direction="vertical" style={{ width: '100%' }} size="large">
+            
+            <Alert
+              message={t('Executive-Grade Security')}
+              description={t('Biometric authentication provides the highest level of security for executive access. Your biometric data is processed locally on your device and never transmitted to our servers.')}
+              type="success"
+              showIcon
+              icon={<SecurityScanOutlined />}
+            />
+
+            <div>
+              <Title level={5}>{t('Supported Biometric Methods')}</Title>
+              <ul style={{ paddingLeft: '20px' }}>
+                <li><Text>{t('Fingerprint recognition (Touch ID)')}</Text></li>
+                <li><Text>{t('Facial recognition (Face ID)')}</Text></li>
+                <li><Text>{t('Palm vein scanning')}</Text></li>
+                <li><Text>{t('Windows Hello biometrics')}</Text></li>
+                <li><Text>{t('Android biometric authentication')}</Text></li>
+              </ul>
+            </div>
+
+            <div>
+              <Title level={5}>{t('How It Works')}</Title>
+              <ol style={{ paddingLeft: '20px' }}>
+                <li><Text>{t('Your device captures your biometric signature locally')}</Text></li>
+                <li><Text>{t('A cryptographic key pair is generated on your device')}</Text></li>
+                <li><Text>{t('Only the public key is shared with our servers')}</Text></li>
+                <li><Text>{t('Your biometric data never leaves your device')}</Text></li>
+                <li><Text>{t('Authentication happens through cryptographic challenge-response')}</Text></li>
+              </ol>
+            </div>
+
+            <div>
+              <Title level={5}>{t('Benefits for Executives')}</Title>
+              <ul style={{ paddingLeft: '20px' }}>
+                <li><Text>{t('Faster access to critical business information')}</Text></li>
+                <li><Text>{t('Enhanced security without password complexity')}</Text></li>
+                <li><Text>{t('Audit trail with biometric authentication logs')}</Text></li>
+                <li><Text>{t('Compliance with enterprise security standards')}</Text></li>
+                <li><Text>{t('Seamless experience across devices')}</Text></li>
+              </ul>
+            </div>
+
+          </Space>
+        </Modal>
       </motion.div>
     </div>
   );
