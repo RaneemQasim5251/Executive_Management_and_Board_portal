@@ -6,15 +6,19 @@ import {
   SettingOutlined,
   UserOutlined,
   BellOutlined,
-
   MoonOutlined,
   SunOutlined,
+  EyeOutlined,
+  RobotOutlined,
 } from "@ant-design/icons";
 import { useLogout, useGetIdentity } from "@refinedev/core";
 import { useTranslation } from "react-i18next";
 import { ColorModeContext } from "../../contexts/color-mode";
 import { NotificationCenter } from "../NotificationCenter";
 import { LanguageSwitcher } from "../LanguageSwitcher";
+import { ThemeSettings } from "../ThemeSettings";
+import { AIAssistant } from "../AIAssistant";
+import { useTheme } from "../../contexts/theme/ThemeProvider";
 
 const { Header: AntdHeader } = Layout;
 const { Text } = Typography;
@@ -27,6 +31,8 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   const { mutate: logout } = useLogout();
   const { t, i18n } = useTranslation();
   const [notificationVisible, setNotificationVisible] = useState(false);
+  const [themeSettingsVisible, setThemeSettingsVisible] = useState(false);
+  const [aiAssistantVisible, setAiAssistantVisible] = useState(false);
   const { data: user } = useGetIdentity<{
     id: string;
     name: string;
@@ -35,6 +41,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   }>();
 
   const { mode, setMode } = useContext(ColorModeContext);
+  const { preferences, updatePreferences } = useTheme();
   const [animateLogo, setAnimateLogo] = useState(true);
 
   // Run a subtle circular movement on first mount for ~1 second
@@ -120,7 +127,20 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   ];
 
   const toggleColorMode = () => {
-    setMode(mode === "light" ? "dark" : "light");
+    const nextMode = mode === "light" ? "dark" : mode === "dark" ? "eye-comfort" : "light";
+    setMode(nextMode);
+    updatePreferences({ mode: nextMode as any });
+  };
+
+  const getThemeIcon = () => {
+    switch (preferences.mode) {
+      case 'dark':
+        return <MoonOutlined />;
+      case 'eye-comfort':
+        return <EyeOutlined />;
+      default:
+        return <SunOutlined />;
+    }
   };
 
   return (
@@ -213,15 +233,34 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
           />
         </Badge>
 
+        {/* AI Assistant */}
+        <Button
+          type="text"
+          icon={<RobotOutlined />}
+          onClick={() => setAiAssistantVisible(true)}
+          style={{ color: "#6b7280" }}
+          title={t('AI Executive Assistant')}
+        />
+
         {/* Language Switcher */}
         <LanguageSwitcher />
         
+        {/* Theme Settings */}
+        <Button
+          type="text"
+          icon={<SettingOutlined />}
+          onClick={() => setThemeSettingsVisible(true)}
+          style={{ color: "#6b7280" }}
+          title={t('Theme & Accessibility Settings')}
+        />
+
         {/* Color Mode Toggle */}
         <Button
           type="text"
-          icon={mode === "light" ? <MoonOutlined /> : <SunOutlined />}
+          icon={getThemeIcon()}
           onClick={toggleColorMode}
           style={{ color: "#6b7280" }}
+          title={t(`Switch to ${preferences.mode === 'light' ? 'Dark' : preferences.mode === 'dark' ? 'Eye Comfort' : 'Light'} Theme`)}
         />
 
         {/* User Profile */}
@@ -274,6 +313,16 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
       <NotificationCenter 
         visible={notificationVisible}
         onClose={() => setNotificationVisible(false)}
+      />
+      
+      <ThemeSettings
+        visible={themeSettingsVisible}
+        onClose={() => setThemeSettingsVisible(false)}
+      />
+      
+      <AIAssistant
+        visible={aiAssistantVisible}
+        onClose={() => setAiAssistantVisible(false)}
       />
     </>
   );

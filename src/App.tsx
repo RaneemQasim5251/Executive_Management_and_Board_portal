@@ -77,11 +77,14 @@ const createDemoDataProvider = () => {
   }
 };
 import { ColorModeContextProvider } from "./contexts/color-mode";
+import { ThemeProvider } from "./contexts/theme/ThemeProvider";
 import { AppStateProvider } from "./contexts/AppStateProvider";
 import { Header } from "./components/layout";
 import { Login } from "./pages/login";
+import { SkipNavigation } from "./components/SkipLink";
 
 import "./App.css";
+import "./styles/accessibility.css";
 
 // Route-level code splitting
 const ModernExecutiveDashboard = lazy(() => import("./pages/dashboard/modern.tsx").then(m => ({ default: m.ModernExecutiveDashboard })));
@@ -109,10 +112,12 @@ function App() {
 
   return (
     <ErrorBoundary>
+      <SkipNavigation />
       <ColorModeContextProvider>
-        <AntdApp>
-          <RefineKbarProvider>
-            <AppStateProvider>
+        <ThemeProvider>
+          <AntdApp>
+            <RefineKbarProvider>
+              <AppStateProvider>
               <Refine
             dataProvider={createDemoDataProvider() as any}
             notificationProvider={useNotificationProvider}
@@ -347,7 +352,9 @@ function App() {
                     Header={() => <Header sticky />}
                     Sider={(props) => <ThemedSiderV2 {...props} fixed />}
                   >
-                    <Outlet />
+                    <main id="main-content" role="main" tabIndex={-1}>
+                      <Outlet />
+                    </main>
                   </ThemedLayoutV2>
                 }
               >
@@ -396,10 +403,11 @@ function App() {
             <UnsavedChangesNotifier />
             <DocumentTitleHandler />
           </Refine>
-        </AppStateProvider>
-      </RefineKbarProvider>
-    </AntdApp>
-  </ColorModeContextProvider>
+              </AppStateProvider>
+            </RefineKbarProvider>
+          </AntdApp>
+        </ThemeProvider>
+      </ColorModeContextProvider>
     </ErrorBoundary>
   );
 }

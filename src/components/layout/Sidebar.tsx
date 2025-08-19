@@ -180,8 +180,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
         height: '100vh',
         position: 'relative'
       }}
-      
     >
+      <nav id="navigation" role="navigation" aria-label={t('Main Navigation')}>
       {/* Logo Section */}
       <div style={{ 
         padding: '16px', 
@@ -311,6 +311,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
           zIndex: 1001
         }}
       />
+      </nav>
     </Sider>
   );
 };
