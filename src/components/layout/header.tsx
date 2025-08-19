@@ -10,6 +10,7 @@ import {
   SunOutlined,
   EyeOutlined,
   RobotOutlined,
+  AudioOutlined,
 } from "@ant-design/icons";
 import { useLogout, useGetIdentity } from "@refinedev/core";
 import { useTranslation } from "react-i18next";
@@ -18,6 +19,9 @@ import { NotificationCenter } from "../NotificationCenter";
 import { LanguageSwitcher } from "../LanguageSwitcher";
 import { ThemeSettings } from "../ThemeSettings";
 import { AIAssistant } from "../AIAssistant";
+import { VoiceControl } from "../VoiceControl";
+import { VoiceStatusIndicator } from "../VoiceStatusIndicator";
+import { SimpleVoiceControl } from "../SimpleVoiceControl";
 import { useTheme } from "../../contexts/theme/ThemeProvider";
 
 const { Header: AntdHeader } = Layout;
@@ -33,6 +37,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   const [notificationVisible, setNotificationVisible] = useState(false);
   const [themeSettingsVisible, setThemeSettingsVisible] = useState(false);
   const [aiAssistantVisible, setAiAssistantVisible] = useState(false);
+  const [voiceControlVisible, setVoiceControlVisible] = useState(false);
   const { data: user } = useGetIdentity<{
     id: string;
     name: string;
@@ -233,6 +238,25 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
           />
         </Badge>
 
+        {/* Voice Control */}
+        <div style={{ position: 'relative' }}>
+          <Button
+            type="text"
+            icon={<AudioOutlined />}
+            onClick={() => setVoiceControlVisible(true)}
+            style={{ color: "#6b7280" }}
+            title={t('Voice Control')}
+          />
+          <VoiceStatusIndicator 
+            style={{ 
+              position: 'absolute', 
+              top: '-2px', 
+              right: '-2px' 
+            }} 
+            size="small" 
+          />
+        </div>
+
         {/* AI Assistant */}
         <Button
           type="text"
@@ -323,6 +347,16 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
       <AIAssistant
         visible={aiAssistantVisible}
         onClose={() => setAiAssistantVisible(false)}
+      />
+      
+      <VoiceControl
+        visible={voiceControlVisible}
+        onClose={() => setVoiceControlVisible(false)}
+        onOpenAI={() => setAiAssistantVisible(true)}
+        onOpenThemeSettings={() => setThemeSettingsVisible(true)}
+        onOpenNotifications={() => setNotificationVisible(true)}
+        onLanguageSwitch={toggleLanguage}
+        onThemeSwitch={toggleColorMode}
       />
     </>
   );

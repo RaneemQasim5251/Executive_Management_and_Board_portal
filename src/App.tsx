@@ -82,6 +82,7 @@ import { AppStateProvider } from "./contexts/AppStateProvider";
 import { Header } from "./components/layout";
 import { Login } from "./pages/login";
 import { SkipNavigation } from "./components/SkipLink";
+import { VoiceControlButton } from "./components/VoiceControl";
 
 import "./App.css";
 import "./styles/accessibility.css";
@@ -402,6 +403,9 @@ function App() {
             <RefineKbar />
             <UnsavedChangesNotifier />
             <DocumentTitleHandler />
+            
+            {/* Floating Voice Control Button */}
+            <VoiceControlButton onOpen={() => console.log('Voice control opened via floating button')} />
           </Refine>
               </AppStateProvider>
             </RefineKbarProvider>

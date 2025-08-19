@@ -47,6 +47,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { AchievementSystem } from "../../components/AchievementSystem";
+import { SimpleVoiceControl } from "../../components/SimpleVoiceControl";
 
 const { Title, Text } = Typography;
 
@@ -803,6 +804,22 @@ export const ModernExecutiveDashboard: FC = () => {
           </motion.div>
         </Col>
       </Row>
+
+      {/* Voice Control Widget */}
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.5, duration: 0.5 }}
+        style={{
+          position: "fixed",
+          bottom: "100px",
+          right: "24px",
+          zIndex: 999,
+          width: "280px",
+        }}
+      >
+        <SimpleVoiceControl />
+      </motion.div>
 
       {/* Floating Achievement Button */}
       <motion.div
