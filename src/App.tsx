@@ -41,6 +41,7 @@ import {
 
 import { supabaseAuthProvider } from "./providers/supabaseAuthProvider";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import PortalThemeProvider from './contexts/PortalThemeContext';
 
 // Demo data provider for development
 const createDemoDataProvider = () => {
@@ -109,6 +110,18 @@ const BoardMarkPage = lazy(() => import("./pages/board-mark/index"));
 const BoardMarkSignPage = lazy(() => import("./pages/board-mark/sign"));
 const SimplifiedPortal = lazy(() => import("./pages/SimplifiedPortal"));
 const SimplifiedLogin = lazy(() => import("./pages/login/SimplifiedLogin"));
+const MinimalistPortal = lazy(() => import("./pages/MinimalistPortal"));
+const MinimalistLogin = lazy(() => import("./pages/login/MinimalistLogin"));
+
+// Import the new pages
+import ECCPage from './pages/enterprise-systems/ECC';
+import ECPPage from './pages/enterprise-systems/ECP';
+
+// Import world-class dashboard
+const WorldClassDashboard = lazy(() => import('./pages/world-class/WorldClassDashboard'));
+
+// Import world-class login
+const WorldClassLogin = lazy(() => import('./pages/world-class/WorldClassLogin'));
 
 function App() {
   const { t } = useTranslation();
@@ -116,314 +129,334 @@ function App() {
   return (
     <ErrorBoundary>
       <SkipNavigation />
-      <ColorModeContextProvider>
-        <ThemeProvider>
-          <AntdApp>
-            <RefineKbarProvider>
-              <AppStateProvider>
-              <Refine
-            dataProvider={createDemoDataProvider() as any}
-            notificationProvider={useNotificationProvider}
-            authProvider={supabaseAuthProvider}
-            routerProvider={routerBindings}
-            resources={[
-              {
-                name: "dashboard",
-                list: "/",
-                meta: {
-                  label: t("Executive Overview"),
-                  icon: <DashboardOutlined />,
+      <PortalThemeProvider>
+        <ColorModeContextProvider>
+          <ThemeProvider>
+            <AntdApp>
+              <RefineKbarProvider>
+                <AppStateProvider>
+                <Refine
+              dataProvider={createDemoDataProvider() as any}
+              notificationProvider={useNotificationProvider}
+              authProvider={supabaseAuthProvider}
+              routerProvider={routerBindings}
+              resources={[
+                {
+                  name: "dashboard",
+                  list: "/",
+                  meta: {
+                    label: t("Executive Overview"),
+                    icon: <DashboardOutlined />,
+                  },
                 },
-              },
-              {
-                name: "executive-board",
-                list: "/executive-board",
-                meta: {
-                  label: t("Executive Board"),
-                  icon: <TrophyOutlined />,
+                {
+                  name: "executive-board",
+                  list: "/executive-board",
+                  meta: {
+                    label: t("Executive Board"),
+                    icon: <TrophyOutlined />,
+                  },
                 },
-              },
-              {
-                name: "board",
-                list: "/board",
-                create: "/board/create",
-                edit: "/board/edit/:id",
-                show: "/board/show/:id",
-                meta: {
-                  label: t("Board Management"),
-                  icon: <TeamOutlined />,
+                {
+                  name: "board",
+                  list: "/board",
+                  create: "/board/create",
+                  edit: "/board/edit/:id",
+                  show: "/board/show/:id",
+                  meta: {
+                    label: t("Board Management"),
+                    icon: <TeamOutlined />,
+                  },
                 },
-              },
-              {
-                name: "strategic-planning",
-                list: "/board/strategic-planning",
-                meta: {
-                  label: t("Strategic Planning"),
-                  icon: <AimOutlined />,
+                {
+                  name: "strategic-planning",
+                  list: "/board/strategic-planning",
+                  meta: {
+                    label: t("Strategic Planning"),
+                    icon: <AimOutlined />,
+                  },
                 },
-              },
-              {
-                name: "timeline",
-                list: "/timeline",
-                create: "/timeline/create",
-                edit: "/timeline/edit/:id",
-                show: "/timeline/show/:id",
-                meta: {
-                  label: t("Strategic Timeline"),
-                  icon: <ClockCircleOutlined />,
+                {
+                  name: "timeline",
+                  list: "/timeline",
+                  create: "/timeline/create",
+                  edit: "/timeline/edit/:id",
+                  show: "/timeline/show/:id",
+                  meta: {
+                    label: t("Strategic Timeline"),
+                    icon: <ClockCircleOutlined />,
+                  },
                 },
-              },
-              {
-                name: "reports",
-                list: "/reports",
-                meta: {
-                  label: t("Reports & Analytics"),
-                  icon: <BarChartOutlined />,
+                {
+                  name: "reports",
+                  list: "/reports",
+                  meta: {
+                    label: t("Reports & Analytics"),
+                    icon: <BarChartOutlined />,
+                  },
                 },
-              },
-              {
-                name: "executive-reports",
-                list: "/reports",
-                parentName: "reports",
-                meta: {
-                  label: t("Executive Reports"),
-                  icon: <FileTextOutlined />,
-                  parent: "reports",
+                {
+                  name: "executive-reports",
+                  list: "/reports",
+                  parentName: "reports",
+                  meta: {
+                    label: t("Executive Reports"),
+                    icon: <FileTextOutlined />,
+                    parent: "reports",
+                  },
                 },
-              },
-              {
-                name: "archive-2024",
-                list: "/archive/2024",
-                parentName: "reports",
-                meta: {
-                  label: t("2024 Archive"),
-                  icon: <FolderOutlined />,
-                  parent: "reports",
+                {
+                  name: "archive-2024",
+                  list: "/archive/2024",
+                  parentName: "reports",
+                  meta: {
+                    label: t("2024 Archive"),
+                    icon: <FolderOutlined />,
+                    parent: "reports",
+                  },
                 },
-              },
-              {
-                name: "archive-2025",
-                list: "/archive/2025",
-                parentName: "reports",
-                meta: {
-                  label: t("2025 Current"),
-                  icon: <RiseOutlined />,
-                  parent: "reports",
+                {
+                  name: "archive-2025",
+                  list: "/archive/2025",
+                  parentName: "reports",
+                  meta: {
+                    label: t("2025 Current"),
+                    icon: <RiseOutlined />,
+                    parent: "reports",
+                  },
                 },
-              },
-              // Secretary Workspace
-              {
-                name: "secretary-workspace",
-                list: "/secretary",
-                meta: {
-                  label: t("Executive-Secretary Workspace"),
-                  icon: <TeamOutlined />,
+                // Secretary Workspace
+                {
+                  name: "secretary-workspace",
+                  list: "/secretary",
+                  meta: {
+                    label: t("Executive-Secretary Workspace"),
+                    icon: <TeamOutlined />,
+                  },
                 },
-              },
-              // My Meetings
-              {
-                name: "my-meetings",
-                list: "/my-meetings",
-                meta: {
-                  label: t("My Meetings"),
-                  icon: <CalendarOutlined />,
+                // My Meetings
+                {
+                  name: "my-meetings",
+                  list: "/my-meetings",
+                  meta: {
+                    label: t("My Meetings"),
+                    icon: <CalendarOutlined />,
+                  },
                 },
-              },
-              // Investment Portfolio Management
-              {
-                name: "portfolio",
-                list: "/portfolio",
-                meta: {
-                  label: t("Investment Portfolio"),
-                  icon: <RiseOutlined />,
+                // Investment Portfolio Management
+                {
+                  name: "portfolio",
+                  list: "/portfolio",
+                  meta: {
+                    label: t("Investment Portfolio"),
+                    icon: <RiseOutlined />,
+                  },
                 },
-              },
-              {
-                name: "board-mark",
-                list: "/board-mark",
-                meta: {
-                  label: t("Board Mark"),
-                  icon: <SafetyCertificateOutlined />,
+                {
+                  name: "board-mark",
+                  list: "/board-mark",
+                  meta: {
+                    label: t("Board Mark"),
+                    icon: <SafetyCertificateOutlined />,
+                  },
                 },
-              },
-              {
-                name: "jtc",
-                list: "/companies/jtc",
-                parentName: "portfolio",
-                meta: {
-                  label: t("JTC Transport & Logistics"),
-                  icon: <TruckOutlined />,
-                  parent: "portfolio",
+                {
+                  name: "jtc",
+                  list: "/companies/jtc",
+                  parentName: "portfolio",
+                  meta: {
+                    label: t("JTC Transport & Logistics"),
+                    icon: <TruckOutlined />,
+                    parent: "portfolio",
+                  },
                 },
-              },
-              {
-                name: "joil",
-                list: "/companies/joil",
-                parentName: "portfolio",
-                meta: {
-                  label: t("J:Oil Petroleum"),
-                  icon: <FireOutlined />,
-                  parent: "portfolio",
+                {
+                  name: "joil",
+                  list: "/companies/joil",
+                  parentName: "portfolio",
+                  meta: {
+                    label: t("J:Oil Petroleum"),
+                    icon: <FireOutlined />,
+                    parent: "portfolio",
+                  },
                 },
-              },
-              {
-                name: "shaheen",
-                list: "/companies/shaheen",
-                parentName: "portfolio",
-                meta: {
-                  label: t("Shaheen Rent a Car"),
-                  icon: <CarOutlined />,
-                  parent: "portfolio",
+                {
+                  name: "shaheen",
+                  list: "/companies/shaheen",
+                  parentName: "portfolio",
+                  meta: {
+                    label: t("Shaheen Rent a Car"),
+                    icon: <CarOutlined />,
+                    parent: "portfolio",
+                  },
                 },
-              },
-              {
-                name: "45degrees",
-                list: "/companies/45degrees",
-                parentName: "portfolio",
-                meta: {
-                  label: t("45degrees Cafe"),
-                  icon: <CoffeeOutlined />,
-                  parent: "portfolio",
+                {
+                  name: "45degrees",
+                  list: "/companies/45degrees",
+                  parentName: "portfolio",
+                  meta: {
+                    label: t("45degrees Cafe"),
+                    icon: <CoffeeOutlined />,
+                    parent: "portfolio",
+                  },
                 },
-              },
-              {
-                name: "energy",
-                list: "/companies/energy",
-                parentName: "portfolio",
-                meta: {
-                  label: t("Al Jeri Energy"),
-                  icon: <ThunderboltOutlined />,
-                  parent: "portfolio",
+                {
+                  name: "energy",
+                  list: "/companies/energy",
+                  parentName: "portfolio",
+                  meta: {
+                    label: t("Al Jeri Energy"),
+                    icon: <ThunderboltOutlined />,
+                    parent: "portfolio",
+                  },
                 },
-              },
-              // Enterprise Technology Systems
-              {
-                name: "enterprise-systems",
-                list: "/systems",
-                meta: {
-                  label: t("Enterprise Systems"),
-                  icon: <SettingOutlined />,
+                // Enterprise Technology Systems
+                {
+                  name: "enterprise-systems",
+                  list: "/systems",
+                  meta: {
+                    label: t("Enterprise Systems"),
+                    icon: <SettingOutlined />,
+                  },
                 },
-              },
-              {
-                name: "ecc",
-                list: "/systems/ecc",
-                parentName: "enterprise-systems",
-                meta: {
-                  label: t("ECC"),
-                  icon: <DatabaseOutlined />,
-                  parent: "enterprise-systems",
+                {
+                  name: "ecc",
+                  list: "/enterprise-systems/ecc",
+                  parentName: "enterprise-systems",
+                  meta: {
+                    label: t("ECC"),
+                    icon: <DatabaseOutlined />,
+                    parent: "enterprise-systems",
+                  },
                 },
-              },
-              {
-                name: "ecp",
-                list: "/systems/ecp",
-                parentName: "enterprise-systems",
-                meta: {
-                  label: t("ECP"),
-                  icon: <LineChartOutlined />,
-                  parent: "enterprise-systems",
+                {
+                  name: "ecp",
+                  list: "/enterprise-systems/ecp",
+                  parentName: "enterprise-systems",
+                  meta: {
+                    label: t("ECP"),
+                    icon: <LineChartOutlined />,
+                    parent: "enterprise-systems",
+                  },
                 },
-              },
-              {
-                name: "kpi-erp",
-                list: "/systems/kpi-erp",
-                parentName: "enterprise-systems",
-                meta: {
-                  label: t("KPIs → ERP"),
-                  icon: <DatabaseOutlined />,
-                  parent: "enterprise-systems",
+                {
+                  name: "kpi-erp",
+                  list: "/systems/kpi-erp",
+                  parentName: "enterprise-systems",
+                  meta: {
+                    label: t("KPIs → ERP"),
+                    icon: <DatabaseOutlined />,
+                    parent: "enterprise-systems",
+                  },
                 },
-              },
-            ]}
-            options={{
-              syncWithLocation: true,
-              warnWhenUnsavedChanges: true,
-              useNewQueryKeys: true,
-              projectId: "executive-portal",
-              title: {
-                text: t("Executive Management Portal"),
-                icon: "🏢",
-              },
-            }}
-          >
-            <Suspense fallback={<div style={{ padding: 24 }}>Loading...</div>}>
-            <Routes>
-              <Route
-                element={
-                  <ThemedLayoutV2
-                    Header={() => <Header sticky />}
-                    Sider={(props) => <ThemedSiderV2 {...props} fixed />}
-                  >
-                    <main id="main-content" role="main" tabIndex={-1}>
-                      <Outlet />
-                    </main>
-                  </ThemedLayoutV2>
-                }
-              >
-                <Route index element={<ModernExecutiveDashboard />} />
-                <Route path="/executive-board" element={<ExecutiveDashboard />} />
-                <Route path="/board" element={<KanbanPage />} />
-                <Route path="/board/strategic-planning" element={<StrategicPlanningPage />} />
-                <Route path="/timeline" element={<HorizontalTimeline />} />
-                <Route path="/archive/2024" element={<Archive2024 />} />
-                <Route path="/archive/2025" element={<Archive2025 />} />
-                <Route path="/reports" element={<ReportsPage />} />
-                <Route path="/board-mark" element={<BoardMarkPage />} />
-                <Route path="/board-mark/:id/sign" element={<BoardMarkSignPage />} />
-                
-                {/* Al Jeri Companies */}
-                <Route path="/companies/jtc" element={<JTCPage />} />
-                <Route path="/companies/joil" element={<JOilPage />} />
-                <Route path="/companies/shaheen" element={<ShaheenPage />} />
-                <Route path="/companies/45degrees" element={<FortyFiveDegreesPage />} />
-                <Route path="/companies/energy" element={<EnergyPage />} />
-                
-                {/* Enterprise Systems */}
-                <Route path="/systems/ecc" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>{t('ECC - Coming Soon')}</h2></div>} />
-                <Route path="/systems/ecp" element={<div style={{padding: '24px', textAlign: 'center'}}><h2>{t('ECP - Coming Soon')}</h2></div>} />
-                <Route path="/systems/kpi-erp" element={<KPIsERP />} />
-                
-                {/* Secretary Workspace */}
-                <Route path="/secretary" element={<SecretaryWorkspace />} />
-                
-                {/* My Meetings */}
-                <Route path="/my-meetings" element={<MyMeetings />} />
-                
-                {/* Demo Sidebar */}
-                <Route path="/demo-sidebar" element={<DemoSidebarPage />} />
+              ]}
+              options={{
+                syncWithLocation: true,
+                warnWhenUnsavedChanges: true,
+                useNewQueryKeys: true,
+                projectId: "executive-portal",
+                title: {
+                  text: t("Executive Management Portal"),
+                  icon: "🏢",
+                },
+              }}
+            >
+              <Suspense fallback={<div style={{ padding: 24 }}>Loading...</div>}>
+              <Routes>
+                <Route
+                  element={
+                    <ThemedLayoutV2
+                      Header={() => <Header sticky />}
+                      Sider={(props) => <ThemedSiderV2 {...props} fixed />}
+                    >
+                      <main id="main-content" role="main" tabIndex={-1}>
+                        <Outlet />
+                      </main>
+                    </ThemedLayoutV2>
+                  }
+                >
+                  <Route index element={<ModernExecutiveDashboard />} />
+                  <Route path="/executive-board" element={<ExecutiveDashboard />} />
+                  <Route path="/board" element={<KanbanPage />} />
+                  <Route path="/board/strategic-planning" element={<StrategicPlanningPage />} />
+                  <Route path="/timeline" element={<HorizontalTimeline />} />
+                  <Route path="/archive/2024" element={<Archive2024 />} />
+                  <Route path="/archive/2025" element={<Archive2025 />} />
+                  <Route path="/reports" element={<ReportsPage />} />
+                  <Route path="/board-mark" element={<BoardMarkPage />} />
+                  <Route path="/board-mark/:id/sign" element={<BoardMarkSignPage />} />
+                  
+                  {/* Al Jeri Companies */}
+                  <Route path="/companies/jtc" element={<JTCPage />} />
+                  <Route path="/companies/joil" element={<JOilPage />} />
+                  <Route path="/companies/shaheen" element={<ShaheenPage />} />
+                  <Route path="/companies/45degrees" element={<FortyFiveDegreesPage />} />
+                  <Route path="/companies/energy" element={<EnergyPage />} />
+                  
+                  {/* Enterprise Systems */}
+                  <Route path="/enterprise-systems/ecc" element={<ECCPage />} />
+                  <Route path="/enterprise-systems/ecp" element={<ECPPage />} />
+                  <Route path="/systems/kpi-erp" element={<KPIsERP />} />
+                  
+                  {/* Secretary Workspace */}
+                  <Route path="/secretary" element={<SecretaryWorkspace />} />
+                  
+                  {/* My Meetings */}
+                  <Route path="/my-meetings" element={<MyMeetings />} />
+                  
+                  {/* Demo Sidebar */}
+                  <Route path="/demo-sidebar" element={<DemoSidebarPage />} />
 
-                {/* Simplified Portal Demo */}
-                <Route path="/simplified" element={<SimplifiedPortal />} />
+                  {/* Simplified Portal Demo */}
+                  <Route path="/simplified" element={<SimplifiedPortal />} />
 
-                <Route path="*" element={<ErrorComponent />} />
-              </Route>
+                  {/* Minimalist Portal Demo */}
+                  <Route path="/minimalist" element={<MinimalistPortal />} />
+
+                  {/* World-Class Dashboard */}
+                  <Route path="/world-class" element={<WorldClassDashboard />} />
+
+                  <Route path="*" element={<ErrorComponent />} />
+                </Route>
+                
+                {/* Simplified Login Route */}
+                <Route
+                  element={<SimplifiedLogin />}
+                  path="/login-simplified"
+                />
+                
+                {/* Minimalist Login Route */}
+                <Route
+                  element={<MinimalistLogin />}
+                  path="/login-minimalist"
+                />
+                
+                {/* World-Class Login Route */}
+                <Route
+                  element={<WorldClassLogin />}
+                  path="/login-world-class"
+                />
+                
+                <Route
+                  element={<Login />}
+                  path="/login"
+                />
+              </Routes>
+              </Suspense>
+
+              <RefineKbar />
+              <UnsavedChangesNotifier />
+              <DocumentTitleHandler />
               
-              {/* Simplified Login Route */}
-              <Route
-                element={<SimplifiedLogin />}
-                path="/login-simplified"
-              />
-              
-              <Route
-                element={<Login />}
-                path="/login"
-              />
-            </Routes>
-            </Suspense>
-
-            <RefineKbar />
-            <UnsavedChangesNotifier />
-            <DocumentTitleHandler />
-            
-            {/* Floating Voice Control Button */}
-            <VoiceControlButton onOpen={() => console.log('Voice control opened via floating button')} />
-          </Refine>
-              </AppStateProvider>
-            </RefineKbarProvider>
-          </AntdApp>
-        </ThemeProvider>
-      </ColorModeContextProvider>
+              {/* Floating Voice Control Button */}
+              <VoiceControlButton onOpen={() => console.log('Voice control opened via floating button')} />
+            </Refine>
+                </AppStateProvider>
+              </RefineKbarProvider>
+            </AntdApp>
+          </ThemeProvider>
+        </ColorModeContextProvider>
+      </PortalThemeProvider>
     </ErrorBoundary>
   );
 }

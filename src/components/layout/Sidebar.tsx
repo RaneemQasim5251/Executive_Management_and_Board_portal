@@ -8,7 +8,7 @@ import {
   SearchOutlined, ProjectOutlined, TeamOutlined,
   FileTextOutlined, CalendarOutlined, BarChartOutlined, GlobalOutlined,
   BankOutlined, CarOutlined, RocketOutlined, ExperimentOutlined,
-  SafetyOutlined, ToolOutlined, TrophyOutlined
+  SafetyOutlined, ToolOutlined, TrophyOutlined, SettingOutlined, DatabaseOutlined, LineChartOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -59,13 +59,25 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
     },
     {
       key: 'enterprise-systems',
-      icon: <BankOutlined />,
+      icon: <SettingOutlined />,
       label: t('Enterprise Systems'),
       children: [
         {
+          key: 'ecc',
+          label: t('ECC'),
+          icon: <DatabaseOutlined />,
+          onClick: () => navigate('/enterprise-systems/ecc')
+        },
+        {
+          key: 'ecp',
+          label: t('ECP'),
+          icon: <LineChartOutlined />,
+          onClick: () => navigate('/enterprise-systems/ecp')
+        },
+        {
           key: 'kpi-erp',
-          icon: <BarChartOutlined />,
           label: t('KPIs → ERP'),
+          icon: <DatabaseOutlined />,
           onClick: () => navigate('/systems/kpi-erp')
         }
       ]
@@ -147,6 +159,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       icon: <TeamOutlined />,
       label: t("My Meetings"),
       onClick: () => navigate('/my-meetings')
+    },
+    {
+      key: 'world-class',
+      icon: <RocketOutlined />,
+      label: t('World-Class Dashboard'),
+      onClick: () => navigate('/world-class')
+    },
+    {
+      key: 'world-class-login',
+      icon: <RocketOutlined />,
+      label: t('World-Class Login'),
+      onClick: () => navigate('/login-world-class')
     }
   ];
 

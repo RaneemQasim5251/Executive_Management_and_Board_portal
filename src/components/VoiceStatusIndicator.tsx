@@ -1,100 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { Badge, Tooltip } from 'antd';
-import { AudioOutlined, SoundOutlined } from '@ant-design/icons';
-import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
-import { voiceControlService } from '../services/voiceControlService';
+import React from 'react';
+import { Badge } from 'antd';
+import { AudioOutlined } from '@ant-design/icons';
 
 interface VoiceStatusIndicatorProps {
+  isListening?: boolean;
+  size?: 'default' | 'small';
   style?: React.CSSProperties;
-  size?: 'small' | 'default' | 'large';
 }
 
 export const VoiceStatusIndicator: React.FC<VoiceStatusIndicatorProps> = ({ 
-  style, 
-  size = 'default' 
+  isListening = false, 
+  size = 'default',
+  style 
 }) => {
-  const { t } = useTranslation();
-  const [isListening, setIsListening] = useState(false);
-  const [isSupported, setIsSupported] = useState(false);
-
-  useEffect(() => {
-    const checkSupport = () => {
-      setIsSupported(voiceControlService.isSupported());
-    };
-    
-    const checkListening = () => {
-      setIsListening(voiceControlService.isCurrentlyListening());
-    };
-
-    checkSupport();
-    
-    // Check listening status periodically
-    const interval = setInterval(checkListening, 1000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!isSupported) {
-    return null;
-  }
-
   return (
-    <div style={style}>
-      <Tooltip title={isListening ? t('Voice Control Active') : t('Voice Control Available')}>
-        <Badge 
-          dot={isListening} 
-          color={isListening ? '#52c41a' : '#1890ff'}
-        >
-          <motion.div
-            animate={isListening ? { scale: [1, 1.1, 1] } : {}}
-            transition={{ duration: 1, repeat: Infinity }}
-          >
-            {isListening ? (
-              <SoundOutlined 
-                style={{ 
-                  color: '#52c41a', 
-                  fontSize: size === 'large' ? '18px' : size === 'small' ? '12px' : '14px' 
-                }} 
-              />
-            ) : (
-              <AudioOutlined 
-                style={{ 
-                  color: '#1890ff', 
-                  fontSize: size === 'large' ? '18px' : size === 'small' ? '12px' : '14px' 
-                }} 
-              />
-            )}
-          </motion.div>
-        </Badge>
-      </Tooltip>
-      
-      <AnimatePresence>
-        {isListening && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            style={{
-              position: 'absolute',
-              top: '-24px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              background: 'rgba(82, 196, 26, 0.9)',
-              color: 'white',
-              padding: '2px 6px',
-              borderRadius: '8px',
-              fontSize: '10px',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              zIndex: 1001,
-            }}
-          >
-            🎤 {t('Listening')}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+    <Badge 
+      dot
+      status={isListening ? 'processing' : 'default'}
+      offset={[-5, 5]}
+      styles={{
+        dot: {
+          backgroundColor: isListening ? '#52c41a' : 'transparent',
+          boxShadow: isListening 
+            ? '0 0 0 2px rgba(82, 196, 26, 0.2)' 
+            : 'none'
+        }
+      }}
+    >
+      <div 
+        style={{ 
+          width: size === 'small' ? 24 : 32, 
+          height: size === 'small' ? 24 : 32,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '50%',
+          backgroundColor: isListening 
+            ? 'rgba(82, 196, 26, 0.1)' 
+            : 'transparent'
+        }}
+      >
+        <AudioOutlined 
+          style={{ 
+            color: isListening ? '#52c41a' : '#6b7280',
+            fontSize: size === 'small' ? 14 : 18 
+          }} 
+        />
+      </div>
+    </Badge>
   );
 };
 

@@ -1,0 +1,722 @@
+/* ===== ULTRA-MINIMALIST EXECUTIVE DESIGN ===== */
+/* Pure focus on essential information and actions */
+
+:root {
+  /* Minimalist Color Palette - Maximum 4 colors */
+  --color-primary: #000000;      /* Pure black for maximum contrast */
+  --color-secondary: #666666;    /* Medium gray for secondary text */
+  --color-accent: #0C085C;       /* Brand blue for actions only [[memory:5325443]] */
+  --color-background: #ffffff;   /* Pure white background */
+  
+  /* Single font family - Maximum readability */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Minimal typography scale - Only 3 sizes */
+  --font-size-large: 24px;      /* Headlines only */
+  --font-size-base: 16px;       /* Body text */
+  --font-size-small: 14px;      /* Labels and metadata */
+  
+  /* Minimal spacing - Only 3 sizes */
+  --space-small: 16px;          /* Component spacing */
+  --space-medium: 32px;         /* Section spacing */
+  --space-large: 48px;          /* Page spacing */
+  
+  /* No border radius - Pure geometric shapes */
+  --radius: 0px;
+  
+  /* No shadows - Flat design */
+  --shadow: none;
+  
+  /* Minimal transitions */
+  --transition: opacity 0.2s ease;
+}
+
+/* ===== RESET & BASE ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--color-primary);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== TYPOGRAPHY - MINIMAL HIERARCHY ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--space-small);
+  line-height: 1.2;
+}
+
+p, span, div {
+  font-size: var(--font-size-base);
+  color: var(--color-primary);
+  line-height: 1.5;
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+  font-size: var(--font-size-small);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+/* ===== MINIMALIST COMPONENTS ===== */
+
+/* Buttons - Pure and Functional */
+.minimal-button {
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  padding: var(--space-small);
+  cursor: pointer;
+  transition: var(--transition);
+  min-height: 48px;
+  min-width: 120px;
+}
+
+.minimal-button:hover {
+  background: var(--color-primary);
+  color: var(--color-background);
+}
+
+.minimal-button-primary {
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  color: var(--color-background);
+}
+
+.minimal-button-primary:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Button Styles for Minimalist Design */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: #0C085C; /* Federal Blue from theme */
+  color: white;
+  box-shadow: 0 4px 6px rgba(12, 8, 92, 0.15);
+}
+
+.btn-primary:hover {
+  background-color: #363692; /* Egyptian Blue */
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(12, 8, 92, 0.1);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: transparent;
+  color: #0C085C;
+  border: 2px solid #0C085C;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(12, 8, 92, 0.05);
+}
+
+/* Danger Button */
+.btn-danger {
+  background-color: #FF2424; /* Red */
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+/* Disabled Button */
+.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Icon Button */
+.btn-icon {
+  background: none;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.btn-icon:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+/* Notification Badge */
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: #FF2424;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* Notification Container */
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  max-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.notification-item {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+}
+
+.notification-item.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.notification-icon {
+  margin-right: 10px;
+  color: #0C085C;
+}
+
+.notification-content {
+  flex-grow: 1;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .notification-container {
+    right: 10px;
+    max-width: calc(100% - 20px);
+  }
+}
+
+/* Cards - Pure Containers */
+.minimal-card {
+  background: var(--color-background);
+  border: 1px solid #f0f0f0;
+  padding: var(--space-medium);
+  margin-bottom: var(--space-medium);
+}
+
+.minimal-card:hover {
+  border-color: var(--color-primary);
+}
+
+/* Navigation - Essential Only */
+.minimal-nav {
+  background: var(--color-background);
+  border-right: 1px solid #f0f0f0;
+  padding: var(--space-medium) 0;
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.minimal-nav-item {
+  display: block;
+  padding: var(--space-small) var(--space-medium);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  transition: var(--transition);
+  border-left: 3px solid transparent;
+}
+
+.minimal-nav-item:hover {
+  background: #f8f8f8;
+  color: var(--color-accent);
+}
+
+.minimal-nav-item.active {
+  border-left-color: var(--color-accent);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+/* Header - Essential Only */
+.minimal-header {
+  background: var(--color-background);
+  border-bottom: 1px solid #f0f0f0;
+  padding: var(--space-small) var(--space-medium);
+  margin-left: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.minimal-header-title {
+  font-size: var(--font-size-large);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.minimal-header-actions {
+  display: flex;
+  gap: var(--space-small);
+}
+
+/* Content Area */
+.minimal-content {
+  margin-left: 200px;
+  margin-top: 64px;
+  padding: var(--space-large);
+  min-height: calc(100vh - 64px);
+}
+
+/* Forms - Clean and Functional */
+.minimal-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.minimal-input {
+  width: 100%;
+  padding: var(--space-small);
+  border: 1px solid #e0e0e0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-small);
+  background: var(--color-background);
+  color: var(--color-primary);
+}
+
+.minimal-input:focus {
+  outline: 2px solid var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.minimal-label {
+  display: block;
+  font-size: var(--font-size-small);
+  color: var(--color-secondary);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+/* Tables - Pure Data */
+.minimal-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-medium) 0;
+}
+
+.minimal-table th,
+.minimal-table td {
+  padding: var(--space-small);
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: var(--font-size-base);
+}
+
+.minimal-table th {
+  font-weight: 600;
+  color: var(--color-primary);
+  background: #fafafa;
+}
+
+.minimal-table td {
+  color: var(--color-primary);
+}
+
+.minimal-table tr:hover td {
+  background: #f8f8f8;
+}
+
+/* Stats - Pure Numbers */
+.minimal-stat {
+  text-align: center;
+  padding: var(--space-medium);
+  border: 1px solid #f0f0f0;
+}
+
+.minimal-stat-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.minimal-stat-label {
+  font-size: var(--font-size-small);
+  color: var(--color-secondary);
+  font-weight: 400;
+}
+
+/* ===== MOBILE MINIMALISM ===== */
+@media (max-width: 768px) {
+  .minimal-nav {
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    z-index: 1000;
+  }
+  
+  .minimal-nav.open {
+    transform: translateX(0);
+  }
+  
+  .minimal-header,
+  .minimal-content {
+    margin-left: 0;
+  }
+  
+  .minimal-content {
+    padding: var(--space-medium);
+  }
+  
+  .minimal-stat-value {
+    font-size: 36px;
+  }
+}
+
+/* ===== ACCESSIBILITY - MINIMAL BUT COMPLETE ===== */
+*:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== ANT DESIGN OVERRIDES - MINIMALIST ===== */
+
+/* Remove all shadows and rounded corners */
+.ant-card,
+.ant-btn,
+.ant-input,
+.ant-select-selector,
+.ant-modal,
+.ant-drawer {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Minimal card styling */
+.ant-card {
+  background: var(--color-background) !important;
+  border: 1px solid #f0f0f0 !important;
+}
+
+.ant-card-head {
+  background: var(--color-background) !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding: var(--space-small) var(--space-medium) !important;
+}
+
+.ant-card-body {
+  padding: var(--space-medium) !important;
+}
+
+/* Minimal buttons */
+.ant-btn {
+  background: transparent !important;
+  border: 1px solid var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  font-weight: 500 !important;
+  height: 48px !important;
+  padding: 0 var(--space-small) !important;
+  transition: var(--transition) !important;
+}
+
+.ant-btn:hover {
+  background: var(--color-primary) !important;
+  color: var(--color-background) !important;
+}
+
+.ant-btn-primary {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-background) !important;
+}
+
+.ant-btn-primary:hover {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* Minimal inputs */
+.ant-input,
+.ant-input-password,
+.ant-select-selector {
+  background: var(--color-background) !important;
+  border: 1px solid #e0e0e0 !important;
+  color: var(--color-primary) !important;
+  font-size: var(--font-size-base) !important;
+  height: 48px !important;
+  padding: var(--space-small) !important;
+}
+
+.ant-input:focus,
+.ant-input-password:focus,
+.ant-select-focused .ant-select-selector {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 2px rgba(12, 8, 92, 0.1) !important;
+}
+
+/* Minimal navigation */
+.ant-menu {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ant-menu-item,
+.ant-menu-submenu-title {
+  height: 48px !important;
+  line-height: 48px !important;
+  padding: 0 var(--space-medium) !important;
+  margin: 0 !important;
+  font-size: var(--font-size-base) !important;
+  font-weight: 400 !important;
+  color: var(--color-primary) !important;
+  border-left: 3px solid transparent !important;
+}
+
+.ant-menu-item:hover,
+.ant-menu-submenu-title:hover {
+  background: #f8f8f8 !important;
+  color: var(--color-accent) !important;
+}
+
+.ant-menu-item-selected {
+  background: transparent !important;
+  color: var(--color-accent) !important;
+  font-weight: 500 !important;
+  border-left-color: var(--color-accent) !important;
+}
+
+.ant-menu-item-icon {
+  font-size: var(--font-size-base) !important;
+  margin-right: 8px !important;
+}
+
+/* Remove all unnecessary decorations */
+.ant-layout,
+.ant-layout-header,
+.ant-layout-content,
+.ant-layout-sider {
+  background: var(--color-background) !important;
+}
+
+/* Minimal statistics */
+.ant-statistic-title {
+  font-size: var(--font-size-small) !important;
+  color: var(--color-secondary) !important;
+  font-weight: 400 !important;
+  margin-bottom: 4px !important;
+}
+
+.ant-statistic-content {
+  font-size: 48px !important;
+  font-weight: 700 !important;
+  color: var(--color-primary) !important;
+  line-height: 1 !important;
+}
+
+/* Minimal progress bars */
+.ant-progress-bg {
+  background: var(--color-accent) !important;
+}
+
+.ant-progress-outer {
+  background: #f0f0f0 !important;
+}
+
+/* Remove all animations and transitions except opacity */
+* {
+  animation: none !important;
+  transform: none !important;
+  transition: opacity 0.2s ease !important;
+}
+
+*:hover {
+  transition: all 0.2s ease !important;
+}
+
+/* Minimal modals */
+.ant-modal {
+  background: var(--color-background) !important;
+}
+
+.ant-modal-header {
+  background: var(--color-background) !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding: var(--space-medium) !important;
+}
+
+.ant-modal-body {
+  padding: var(--space-medium) !important;
+}
+
+.ant-modal-title {
+  font-size: var(--font-size-large) !important;
+  font-weight: 600 !important;
+  color: var(--color-primary) !important;
+}
+
+/* Minimal drawers */
+.ant-drawer-header {
+  background: var(--color-background) !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding: var(--space-medium) !important;
+}
+
+.ant-drawer-body {
+  background: var(--color-background) !important;
+  padding: var(--space-medium) !important;
+}
+
+/* Minimal alerts */
+.ant-alert {
+  background: #f8f8f8 !important;
+  border: 1px solid #e0e0e0 !important;
+  color: var(--color-primary) !important;
+  padding: var(--space-small) !important;
+}
+
+/* Minimal badges */
+.ant-badge-count {
+  background: var(--color-accent) !important;
+  border: none !important;
+  color: var(--color-background) !important;
+  font-size: var(--font-size-small) !important;
+  font-weight: 500 !important;
+  min-width: 20px !important;
+  height: 20px !important;
+  line-height: 20px !important;
+}
+
+/* Minimal tags */
+.ant-tag {
+  background: #f0f0f0 !important;
+  border: 1px solid #e0e0e0 !important;
+  color: var(--color-primary) !important;
+  font-size: var(--font-size-small) !important;
+  padding: 2px 8px !important;
+  margin: 2px !important;
+}
+
+/* Minimal tables */
+.ant-table {
+  background: var(--color-background) !important;
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+  font-size: var(--font-size-base) !important;
+  padding: var(--space-small) !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f8f8f8 !important;
+  color: var(--color-primary) !important;
+  font-size: var(--font-size-base) !important;
+  padding: var(--space-small) !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #f8f8f8 !important;
+}
+
+/* Remove all icons except essential ones */
+.ant-menu-item-icon {
+  display: none !important;
+}
+
+.minimal-nav-item .anticon {
+  display: none !important;
+}
+
+/* Show icons only for critical actions */
+.critical-action .anticon {
+  display: inline !important;
+  font-size: var(--font-size-base) !important;
+  margin-right: 8px !important;
+}
+
+/* ===== PRINT OPTIMIZATION ===== */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  
+  .minimal-nav,
+  .minimal-header {
+    display: none !important;
+  }
+  
+  .minimal-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

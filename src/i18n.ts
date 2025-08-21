@@ -325,8 +325,6 @@ const resources = {
       "Voice Control Error": "خطأ في التحكم الصوتي",
       "Not Supported": "غير مدعوم",
       "Voice recognition is not supported in this browser": "التعرف على الصوت غير مدعوم في هذا المتصفح",
-      "Voice Control Active": "التحكم الصوتي نشط",
-      "Voice Control Available": "التحكم الصوتي متوفر",
       "Direct Navigation Test": "اختبار التنقل المباشر",
       "Navigation": "التنقل",
       "Voice Control Debugger": "مصحح التحكم الصوتي",
@@ -406,6 +404,32 @@ const resources = {
       "Business units": "الوحدات التجارية",
       "Secure login successful": "تم تسجيل الدخول الآمن بنجاح",
       "Login Failed": "فشل تسجيل الدخول",
+      
+      // Minimalist UI - واجهة بسيطة جداً
+      "Minimalist Executive Overview": "النظرة التنفيذية المبسطة",
+      "Today": "اليوم",
+      "Updates": "التحديثات",
+      "View Schedule": "عرض الجدول",
+      "View Reports": "عرض التقارير",
+      "Exit": "خروج",
+      "Email required": "البريد الإلكتروني مطلوب",
+      "Invalid email": "بريد إلكتروني غير صحيح",
+      "Email": "البريد الإلكتروني",
+      "Password required": "كلمة المرور مطلوبة",
+      "Signing in": "جاري تسجيل الدخول",
+      "Demo": "تجربة",
+      "Access Granted": "تم منح الوصول",
+      "Welcome to Executive Portal": "مرحباً بك في البوابة التنفيذية",
+      "Access Denied": "تم رفض الوصول",
+      "Voice control activated. Say dashboard, projects, timeline, or reports.": "تم تفعيل التحكم الصوتي. قل لوحة التحكم، المشاريع، الجدول الزمني، أو التقارير.",
+      "Minimalist Strategic Projects": "المشاريع الاستراتيجية المبسطة",
+      "active initiatives": "المبادرات النشطة",
+      "Project": "المشروع",
+      "Status": "الحالة",
+      "Progress": "التقدم",
+      "Budget": "الميزانية",
+      "Deadline": "الموعد النهائي",
+      "View Timeline": "عرض الجدول الزمني",
       
       // Additional Arabic translations for full Arabic experience
       "Overview": "نظرة عامة",
@@ -1006,6 +1030,85 @@ const resources = {
       "Perishables": "القابلة للتلف",
       "CIO": "مدير تكنولوجيا المعلومات التنفيذي",
       
+      // Add these translations in both Arabic and English sections
+
+      // Arabic section (around line 470-480)
+      "Enterprise Control Center (ECC)": "مركز التحكم المؤسسي",
+      "Enterprise Control Platform (ECP)": "منصة التحكم المؤسسية",
+      "Cloud Infrastructure": "البنية التحتية السحابية",
+      "Data Security": "أمن البيانات",
+      "System Performance": "أداء النظام",
+      "KPI Management": "إدارة مؤشرات الأداء الرئيسية",
+      "Resource Planning": "تخطيط الموارد",
+      "Business Intelligence": "الذكاء التجاري",
+      "Enterprise Integrations": "التكاملات المؤسسية",
+      "Strategic Initiatives": "المبادرات الاستراتيجية",
+
+      // English section (around line 1470-1480)
+      "Enterprise Control Center (ECC)": "Enterprise Control Center",
+      "Enterprise Control Platform (ECP)": "Enterprise Control Platform",
+      "Cloud Infrastructure": "Cloud Infrastructure",
+      "Data Security": "Data Security",
+      "System Performance": "System Performance",
+      "KPI Management": "KPI Management",
+      "Resource Planning": "Resource Planning",
+      "Business Intelligence": "Business Intelligence",
+      "Enterprise Integrations": "Enterprise Integrations",
+      "Strategic Initiatives": "Strategic Initiatives",
+
+      // Arabic section
+      "Customize Portal": "تخصيص البوابة",
+      "Upcoming Meetings": "الاجتماعات القادمة",
+      "Pending Approvals": "الموافقات المعلقة",
+      "Company Performance": "أداء الشركة",
+      "Quick Actions": "إجراءات سريعة",
+      "View Documents": "عرض المستندات",
+
+      // English section
+      "Customize Portal": "Customize Portal",
+      "Upcoming Meetings": "Upcoming Meetings",
+      "Pending Approvals": "Pending Approvals",
+      "Company Performance": "Company Performance",
+      "Quick Actions": "Quick Actions",
+      "View Documents": "View Documents",
+
+      // Add these translations in both Arabic and English sections
+
+      // Arabic section
+      "World-Class Dashboard": "لوحة القيادة عالمية المستوى",
+
+      // English section
+      "World-Class Dashboard": "World-Class Dashboard",
+
+      // Add these translations in both Arabic and English sections
+
+      // Arabic section
+      "Executive Portal": "بوابة المديرين التنفيذيين",
+      "Secure Access for Board & Executive Leadership": "وصول آمن لمجلس الإدارة والقيادة التنفيذية",
+      "Use Biometric Login": "استخدم تسجيل الدخول البيومتري",
+      "Or continue with": "أو استمر باستخدام",
+      "Authenticate with Biometrics": "المصادقة باستخدام البيومتري",
+      "Use Password Login": "استخدم تسجيل الدخول بكلمة المرور",
+      "Biometric Authentication": "المصادقة البيومترية",
+      "Touch sensor or look at camera when prompted": "المس المستشعر أو انظر إلى الكاميرا عند المطالبة",
+
+      // English section
+      "Executive Portal": "Executive Portal",
+      "Secure Access for Board & Executive Leadership": "Secure Access for Board & Executive Leadership",
+      "Use Biometric Login": "Use Biometric Login",
+      "Or continue with": "Or continue with",
+      "Authenticate with Biometrics": "Authenticate with Biometrics",
+      "Use Password Login": "Use Password Login",
+      "Biometric Authentication": "Biometric Authentication",
+      "Touch sensor or look at camera when prompted": "Touch sensor or look at camera when prompted",
+
+      // Add these translations in both Arabic and English sections
+
+      // Arabic section
+      "World-Class Login": "تسجيل الدخول عالمي المستوى",
+
+      // English section
+      "World-Class Login": "World-Class Login",
     }
   },
   en: {
@@ -1409,6 +1512,32 @@ const resources = {
       "Business units": "Business units",
       "Secure login successful": "Secure login successful",
       "Login Failed": "Login Failed",
+      
+      // Minimalist UI
+      "Minimalist Executive Overview": "Executive Overview",
+      "Today": "Today",
+      "Updates": "Updates",
+      "View Schedule": "View Schedule",
+      "View Reports": "View Reports",
+      "Exit": "Exit",
+      "Email required": "Email required",
+      "Invalid email": "Invalid email",
+      "Email": "Email",
+      "Password required": "Password required",
+      "Signing in": "Signing in",
+      "Demo": "Demo",
+      "Access Granted": "Access Granted",
+      "Welcome to Executive Portal": "Welcome to Executive Portal",
+      "Access Denied": "Access Denied",
+      "Voice control activated. Say dashboard, projects, timeline, or reports.": "Voice control activated. Say dashboard, projects, timeline, or reports.",
+      "Minimalist Strategic Projects": "Strategic Projects",
+      "active initiatives": "active initiatives",
+      "Project": "Project",
+      "Status": "Status",
+      "Progress": "Progress",
+      "Budget": "Budget",
+      "Deadline": "Deadline",
+      "View Timeline": "View Timeline",
       
       // Navigation & Menu Items - English
       "Strategic Planning": "Strategic Planning",
@@ -1937,6 +2066,31 @@ const resources = {
       "board_mark.sign.error.Missingrequiredfields": "Missing required fields",
       "loading": "Loading...",
       
+      // Add these translations in both Arabic and English sections
+
+      // Arabic section (around line 470-480)
+      "Enterprise Control Center (ECC)": "مركز التحكم المؤسسي",
+      "Enterprise Control Platform (ECP)": "منصة التحكم المؤسسية",
+      "Cloud Infrastructure": "البنية التحتية السحابية",
+      "Data Security": "أمن البيانات",
+      "System Performance": "أداء النظام",
+      "KPI Management": "إدارة مؤشرات الأداء الرئيسية",
+      "Resource Planning": "تخطيط الموارد",
+      "Business Intelligence": "الذكاء التجاري",
+      "Enterprise Integrations": "التكاملات المؤسسية",
+      "Strategic Initiatives": "المبادرات الاستراتيجية",
+
+      // English section (around line 1470-1480)
+      "Enterprise Control Center (ECC)": "Enterprise Control Center",
+      "Enterprise Control Platform (ECP)": "Enterprise Control Platform",
+      "Cloud Infrastructure": "Cloud Infrastructure",
+      "Data Security": "Data Security",
+      "System Performance": "System Performance",
+      "KPI Management": "KPI Management",
+      "Resource Planning": "Resource Planning",
+      "Business Intelligence": "Business Intelligence",
+      "Enterprise Integrations": "Enterprise Integrations",
+      "Strategic Initiatives": "Strategic Initiatives",
     }
   }
 };
