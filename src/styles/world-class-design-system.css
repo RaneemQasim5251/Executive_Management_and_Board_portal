@@ -59,6 +59,21 @@
   animation: subtle-pulse 0.5s ease;
 }
 
+@keyframes pulse-notification {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(255, 36, 36, 0.5);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 36, 36, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(255, 36, 36, 0.5);
+  }
+}
+
 /* Accessibility Enhancements */
 .high-contrast {
   filter: contrast(1.5);

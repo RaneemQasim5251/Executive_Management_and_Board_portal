@@ -46,8 +46,7 @@ import {
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { AchievementSystem } from "../../components/AchievementSystem";
-import { SimpleVoiceControl } from "../../components/SimpleVoiceControl";
+import { QuickAccessPanel } from '../../components/QuickAccessPanel';
 
 const { Title, Text } = Typography;
 
@@ -102,7 +101,6 @@ export const ModernExecutiveDashboard: FC = () => {
     { icon: <BellOutlined />, label: t("Send Update"), color: "#FF2424" },
   ];
   const [selectedMetric, setSelectedMetric] = useState("revenue");
-  const [achievementVisible, setAchievementVisible] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200);
@@ -172,11 +170,11 @@ export const ModernExecutiveDashboard: FC = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-                style={{ 
-            padding: "24px",
-            background: "#0C085C",
-            minHeight: "100vh"
-          }}
+      style={{ 
+        padding: "24px", 
+        background: "#0C085C", 
+        minHeight: "100vh"
+      }}
     >
       {/* STUNNING LOGO HERO SECTION */}
       <motion.div 
@@ -201,53 +199,6 @@ export const ModernExecutiveDashboard: FC = () => {
           styles={{ body: { padding: "80px 60px" } }}
           className="hero-card"
         >
-          {/* STUNNING Background Effects */}
-          <div style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `
-              radial-gradient(circle at 20% 30%, rgba(12, 8, 92, 0.08) 0%, transparent 40%),
-              radial-gradient(circle at 80% 20%, rgba(0, 149, 206, 0.06) 0%, transparent 40%),
-              radial-gradient(circle at 60% 80%, rgba(54, 54, 146, 0.04) 0%, transparent 40%),
-              linear-gradient(45deg, rgba(12, 8, 92, 0.02) 0%, transparent 50%),
-              conic-gradient(from 45deg at 50% 50%, rgba(0, 149, 206, 0.03) 0deg, transparent 120deg, rgba(12, 8, 92, 0.03) 240deg, transparent 360deg)
-            `,
-            zIndex: 0
-          }} />
-          
-          {/* Floating Particles */}
-          <div style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `
-              radial-gradient(2px 2px at 20% 30%, rgba(12, 8, 92, 0.3), transparent),
-              radial-gradient(2px 2px at 40% 70%, rgba(0, 149, 206, 0.4), transparent),
-              radial-gradient(1px 1px at 60% 15%, rgba(54, 54, 146, 0.3), transparent),
-              radial-gradient(1px 1px at 80% 50%, rgba(12, 8, 92, 0.2), transparent),
-              radial-gradient(2px 2px at 90% 80%, rgba(0, 149, 206, 0.3), transparent)
-            `,
-            backgroundSize: "100px 100px, 120px 120px, 80px 80px, 110px 110px, 90px 90px",
-            animation: "float-particles 20s ease-in-out infinite",
-            zIndex: 1
-          }} />
-          
-          {/* Animated Light Rays */}
-          <div style={{
-            position: "absolute",
-            top: "-50%",
-            left: "-50%",
-            right: "-50%",
-            bottom: "-50%",
-            background: "conic-gradient(from 0deg, transparent 70deg, rgba(0, 149, 206, 0.1) 110deg, transparent 180deg, rgba(12, 8, 92, 0.08) 250deg, transparent 320deg)",
-            animation: "rotate-rays 30s linear infinite",
-            zIndex: 0
-          }} />
           
           {/* Content Container */}
           <div style={{ 
@@ -316,25 +267,6 @@ export const ModernExecutiveDashboard: FC = () => {
                 position: "relative"
               }}
             >
-              {/* Logo Glow Ring */}
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "200px",
-                  height: "200px",
-                  borderRadius: "50%",
-                  background: "conic-gradient(from 0deg, rgba(12, 8, 92, 0.3), rgba(0, 149, 206, 0.4), rgba(54, 54, 146, 0.3), rgba(12, 8, 92, 0.3))",
-                  filter: "blur(20px)",
-                  animation: "rotate-glow 8s linear infinite",
-                  zIndex: -1
-                }}
-              />
               
               <img 
                 src="/aljeri-logo.png" 
@@ -805,50 +737,8 @@ export const ModernExecutiveDashboard: FC = () => {
         </Col>
       </Row>
 
-      {/* Floating Achievement Button */}
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 2, type: "spring", stiffness: 200 }}
-        style={{
-          position: "fixed",
-          bottom: "24px",
-          right: "24px",
-          zIndex: 1000,
-        }}
-      >
-                        <Badge count="3" style={{ backgroundColor: '#363692' }}>
-          <Button
-            type="primary"
-            shape="circle"
-            size="large"
-            icon={<TrophyOutlined />}
-            onClick={() => setAchievementVisible(true)}
-            style={{
-              width: "64px",
-              height: "64px",
-              background: "#0C085C",
-              border: "none",
-              boxShadow: "0 8px 20px rgba(102, 126, 234, 0.4)",
-              fontSize: "20px",
-              transition: "all 0.3s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.1)";
-              e.currentTarget.style.boxShadow = "0 12px 30px rgba(102, 126, 234, 0.6)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 8px 20px rgba(102, 126, 234, 0.4)";
-            }}
-          />
-        </Badge>
-      </motion.div>
-
-      <AchievementSystem 
-        visible={achievementVisible}
-        onClose={() => setAchievementVisible(false)}
-      />
+      {/* Quick Access Panel */}
+      <QuickAccessPanel />
     </motion.div>
   );
 };

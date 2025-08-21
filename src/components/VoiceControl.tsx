@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { VoiceStatusIndicator } from './VoiceStatusIndicator';
+import { NotificationSlider } from './NotificationSlider';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -125,90 +126,7 @@ export const VoiceControl: React.FC<VoiceControlProps> = ({
   );
 };
 
-// Keep the floating button component as a separate export
-export const VoiceControlButton: React.FC<{ onOpen?: () => void }> = ({ onOpen }) => {
-  const { t } = useTranslation();
-  const [isListening, setIsListening] = useState(false);
-
-  return (
-    <div style={{ 
-      position: 'fixed', 
-      bottom: 90, 
-      right: 20, 
-      zIndex: 1000,
-      display: 'flex',
-      alignItems: 'center',
-      gap: '12px'
-    }}>
-      <div style={{ position: 'relative' }}>
-        <Button 
-          type="primary" 
-          icon={<AudioOutlined />} 
-          onClick={() => {
-            onOpen?.();
-          }}
-          style={{
-            borderRadius: '12px',
-            width: 180,
-            height: 50,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'var(--color-primary-dark-blue)',
-            borderColor: 'var(--color-primary-dark-blue)',
-            boxShadow: '0 4px 12px rgba(12, 8, 92, 0.25)'
-          }}
-        >
-          {t('Quick Voice Control')}
-        </Button>
-        <VoiceStatusIndicator 
-          isListening={isListening}
-          style={{ 
-            position: 'absolute', 
-            top: '-4px', 
-            right: '-4px' 
-          }} 
-          size="small" 
-        />
-      </div>
-      
-      <div style={{ position: 'relative' }}>
-        <Button 
-          type="default" 
-          icon={<CustomerServiceOutlined />}
-          style={{
-            borderRadius: '50%',
-            width: 50,
-            height: 50,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '2px solid var(--color-primary-dark-blue)',
-            color: 'var(--color-primary-dark-blue)'
-          }}
-        />
-        <div 
-          style={{
-            position: 'absolute',
-            top: '-4px',
-            right: '-4px',
-            backgroundColor: '#FF2424',
-            color: 'white',
-            borderRadius: '50%',
-            width: '20px',
-            height: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '12px',
-            fontWeight: 'bold'
-          }}
-        >
-          3
-        </div>
-      </div>
-    </div>
-  );
-};
+// Remove the VoiceControlButton export if it exists
+export const VoiceControlButton: React.FC<{ onOpen?: () => void }> = () => null;
 
 export default VoiceControl;
