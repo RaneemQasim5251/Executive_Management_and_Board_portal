@@ -77,9 +77,20 @@ const WorldClassLogin: React.FC = () => {
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         setCameraActive(true);
+        
+        // Ensure video is playing
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current?.play().catch(error => {
+            console.error('Error playing video:', error);
+            message.error(t('Unable to start camera. Please try again.'));
+            setCameraActive(false);
+          });
+        };
       }
     } catch (error) {
+      console.error('Camera access error:', error);
       message.error(t('Camera access denied. Please allow camera permissions.'));
+      setCameraActive(false);
     }
   };
 
@@ -88,6 +99,11 @@ const WorldClassLogin: React.FC = () => {
       const stream = videoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach(track => track.stop());
       setCameraActive(false);
+      
+      // Clear the video source to ensure it's completely reset
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
     }
   };
 
@@ -145,17 +161,36 @@ const WorldClassLogin: React.FC = () => {
           auth_method: 'palm_biometric_demo',
         };
 
+        // Completely stop and reset camera
+        stopCamera();
+        setCameraActive(false);
+        setScanning(false);
+        setScanProgress(0);
+        setCapturedImage(null);
+
         // Navigate to dashboard after successful login
         navigate('/');
       } else {
         setScanResult('failed');
         message.error(t('Palm not recognized. Please try again.'));
+        
+        // Completely stop and reset camera
+        stopCamera();
+        setCameraActive(false);
+        setScanning(false);
+        setScanProgress(0);
+        setCapturedImage(null);
       }
     } catch (error) {
       setScanResult('failed');
       message.error(t('Palm scan failed. Please try again.'));
-    } finally {
+      
+      // Completely stop and reset camera
+      stopCamera();
+      setCameraActive(false);
       setScanning(false);
+      setScanProgress(0);
+      setCapturedImage(null);
     }
   };
 
@@ -281,14 +316,6 @@ const WorldClassLogin: React.FC = () => {
                 </Button>
               </Form.Item>
 
-              <div style={{ textAlign: 'center', marginTop: 16 }}>
-                <Link onClick={() => setLoginMethod('biometric')}>
-                  {t('Use Biometric Login')}
-                </Link>
-              </div>
-
-              <Divider>{t('Or continue with')}</Divider>
-
               <div style={{ display: 'flex', justifyContent: 'center', gap: 16 }}>
                 <Button 
                   icon={<AppleOutlined />} 
@@ -306,6 +333,25 @@ const WorldClassLogin: React.FC = () => {
                   style={{ width: 60 }}
                 />
               </div>
+
+              <Divider>{t('Or')}</Divider>
+
+              <Button 
+                block
+                className="world-class-button"
+                onClick={() => {
+                  setLoginMethod('biometric');
+                  startCamera();
+                }}
+                style={{ 
+                  marginTop: 16,
+                  backgroundColor: 'var(--color-primary-dark-blue)',
+                  borderColor: 'var(--color-primary-dark-blue)',
+                  color: 'white' // Explicitly set text color to white
+                }}
+              >
+                {t('Use Biometric Login')}
+              </Button>
             </Form>
           ) : (
             <div>
@@ -486,7 +532,10 @@ const WorldClassLogin: React.FC = () => {
               </Space>
 
               <div style={{ textAlign: 'center', marginTop: 16 }}>
-                <Link onClick={() => setLoginMethod('password')}>
+                <Link onClick={() => {
+                  stopCamera(); // Stop camera when switching back to password
+                  setLoginMethod('password');
+                }}>
                   {t('Use Password Login')}
                 </Link>
               </div>

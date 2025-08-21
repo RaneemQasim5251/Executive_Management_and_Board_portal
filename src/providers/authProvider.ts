@@ -35,7 +35,7 @@ export const authProvider: AuthBindings = {
     localStorage.removeItem("auth");
     return {
       success: true,
-      redirectTo: "/login",
+      redirectTo: "/login-world-class",
     };
   },
 
@@ -49,7 +49,7 @@ export const authProvider: AuthBindings = {
 
     return {
       authenticated: false,
-      redirectTo: "/login",
+      redirectTo: "/login-world-class",
     };
   },
 

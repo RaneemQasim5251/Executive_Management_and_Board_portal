@@ -94,10 +94,27 @@ const themes = [
   }
 ];
 
-export const ThemeSwitcher: React.FC = () => {
+interface ThemeSwitcherProps {
+  visible?: boolean;
+  onClose?: () => void;
+}
+
+export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ 
+  visible = false, 
+  onClose 
+}) => {
   const { t, i18n } = useTranslation();
   const { theme, setTheme } = usePortalTheme();
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(visible);
+
+  useEffect(() => {
+    setIsModalVisible(visible);
+  }, [visible]);
+
+  const handleClose = () => {
+    setIsModalVisible(false);
+    onClose?.();
+  };
 
   const handleThemeChange = (themeKey: string) => {
     const selectedTheme = themes.find(t => t.key === themeKey);
@@ -154,7 +171,7 @@ export const ThemeSwitcher: React.FC = () => {
       <Modal
         title={t('Theme & Accessibility Settings')}
         open={isModalVisible}
-        onCancel={() => setIsModalVisible(false)}
+        onCancel={handleClose}
         footer={null}
         width={1000}
         closeIcon={<CloseOutlined />}

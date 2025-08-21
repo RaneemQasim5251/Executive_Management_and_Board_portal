@@ -22,7 +22,7 @@ export const supabaseAuthProvider: AuthBindings = {
         localStorage.setItem("auth", JSON.stringify(demoUser));
         return {
           success: true,
-          redirectTo: "/",
+          redirectTo: "/login-world-class",
         };
       }
 
@@ -64,7 +64,7 @@ export const supabaseAuthProvider: AuthBindings = {
           localStorage.setItem("auth", JSON.stringify(data.user));
           return {
             success: true,
-            redirectTo: "/",
+            redirectTo: "/login-world-class",
           };
         }
       } catch (networkError) {
@@ -114,7 +114,7 @@ export const supabaseAuthProvider: AuthBindings = {
       localStorage.removeItem("auth");
       return {
         success: true,
-        redirectTo: "/login",
+        redirectTo: "/login-world-class",
       };
     } catch (error: any) {
       return {
@@ -151,7 +151,7 @@ export const supabaseAuthProvider: AuthBindings = {
 
       return {
         authenticated: false,
-        redirectTo: "/login",
+        redirectTo: "/login-world-class",
       };
     } catch (error: any) {
       // Check for stored demo auth on error
@@ -171,7 +171,7 @@ export const supabaseAuthProvider: AuthBindings = {
       
       return {
         authenticated: false,
-        redirectTo: "/login",
+        redirectTo: "/login-world-class",
       };
     }
   },
@@ -258,7 +258,7 @@ export const supabaseAuthProvider: AuthBindings = {
     if (error.status === 401) {
       return {
         logout: true,
-        redirectTo: "/login",
+        redirectTo: "/login-world-class",
       };
     }
 

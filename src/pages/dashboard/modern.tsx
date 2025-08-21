@@ -805,22 +805,6 @@ export const ModernExecutiveDashboard: FC = () => {
         </Col>
       </Row>
 
-      {/* Voice Control Widget */}
-      <motion.div
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-        style={{
-          position: "fixed",
-          bottom: "100px",
-          right: "24px",
-          zIndex: 999,
-          width: "280px",
-        }}
-      >
-        <SimpleVoiceControl />
-      </motion.div>
-
       {/* Floating Achievement Button */}
       <motion.div
         initial={{ scale: 0 }}
