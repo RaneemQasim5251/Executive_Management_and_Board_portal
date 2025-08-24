@@ -123,8 +123,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       key: 'secretary-workspace',
       icon: <FileTextOutlined />,
       label: (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <span>{t('Executive-Secretary Workspace')}</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '4px' }}>
+          <span style={{ flex: '1 1 auto', whiteSpace: 'normal' }}>{t('Executive-Secretary Workspace')}</span>
           <Badge count="3" size="small" style={{ backgroundColor: '#0C085C' }} />
         </div>
       ),
@@ -200,7 +200,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
         background: mode === 'dark' ? '#1f2937' : '#ffffff',
         borderRight: `1px solid ${mode === 'dark' ? '#374151' : '#e5e7eb'}`,
         transition: 'all 0.3s ease',
-        overflow: 'auto',
         height: '100vh',
         position: 'relative'
       }}
@@ -259,7 +258,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       )}
 
       {/* Menu Section */}
-      <div style={{ flex: 1, overflow: 'auto' }}>
+      <div style={{ flex: 1, overflowY: 'auto' }}>
         <Menu
           className="app-sider-menu"
           mode="inline"

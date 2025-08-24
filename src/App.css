@@ -21,6 +21,18 @@
   --text-light: #999999;
 }
 
+/* Brand Dark Theme Colors */
+:root {
+  /* Semantic Colors */
+  --primary-color: var(--federal-blue);
+  --secondary-color: var(--egyptian-blue);
+  --accent-color: var(--celestial-blue);
+  --error-color: var(--red);
+  --text-primary: var(--black);
+  --text-secondary: #666666;
+  --text-light: #999999;
+}
+
 /* Arabic RTL Styling */
 
 /* Fix sidebar visibility - Brand Dark theme */
@@ -36,8 +48,11 @@ html[dir="rtl"] .ant-layout-sider {
   box-shadow: -2px 0 8px rgba(12, 8, 92, 0.25);
 }
 
-/* Remove hard-coded sidebar width to respect JS constants */
-.ant-layout-sider.app-sider { width: auto !important; }
+/* Ensure sidebar respects JS-configured widths but scrolls internally */
+.ant-layout-sider.app-sider {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 .ant-layout-sider.app-sider .app-sider-menu .ant-menu-item,
 .ant-layout-sider.app-sider .app-sider-menu .ant-menu-submenu-title {
   height: auto;
@@ -56,6 +71,7 @@ html[dir="rtl"] .ant-layout-sider {
   text-overflow: initial !important;
   overflow: visible !important;
   display: block;
+  overflow-wrap: anywhere;
 }
 
 /* Smooth transitions for sidebar */

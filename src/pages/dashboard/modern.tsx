@@ -392,7 +392,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 direction: i18n.language === 'ar' ? "rtl" : "ltr",
                 display: "block"
               }}>
-                {t("Strategic Decision Making • Executive Intelligence • Board Governance")}
+                {t("Strategic Decision Making • Board Governance")}
               </Text>
             </motion.div>
           </div>
