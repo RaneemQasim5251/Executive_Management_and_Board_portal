@@ -473,9 +473,7 @@ export const ReportsPage: FC = () => {
                 level={1} 
                 style={{ 
                   margin: 0, 
-                  background: "#0C085C",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  color: "#ffffff",
                   fontSize: "42px",
                   fontWeight: "800"
                 }}
@@ -484,9 +482,8 @@ export const ReportsPage: FC = () => {
               </Title>
               <Text style={{ 
                 fontSize: "16px", 
-                color: "#0C085C",
-                fontWeight: "600",
-                opacity: 0.8
+                color: "rgba(255,255,255,0.9)",
+                fontWeight: "600"
               }}>
                 {i18n.language === 'ar'
                   ? 'إدارة التقارير التنفيذية وتحليل البيانات'

@@ -124,7 +124,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       icon: <FileTextOutlined />,
       label: (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '4px' }}>
-          <span style={{ flex: '1 1 auto', whiteSpace: 'normal' }}>{t('Executive-Secretary Workspace')}</span>
+          <span style={{ flex: '1 1 auto', whiteSpace: 'normal' }}>{t('Executive Secretary')}</span>
           <Badge count="3" size="small" style={{ backgroundColor: '#0C085C' }} />
         </div>
       ),

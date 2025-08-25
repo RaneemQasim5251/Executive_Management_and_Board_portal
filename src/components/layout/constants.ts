@@ -1,4 +1,4 @@
-export const SIDEBAR_EXPANDED_WIDTH = 240;
+export const SIDEBAR_EXPANDED_WIDTH = 280;
 export const SIDEBAR_COLLAPSED_WIDTH = 80;
 
 export const DESKTOP_OPEN_GAP_PX = 40;     // space between sidebar and content when open

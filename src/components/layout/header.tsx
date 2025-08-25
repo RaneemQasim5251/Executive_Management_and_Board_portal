@@ -151,6 +151,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   return (
     <>
       <AntdHeader
+        className="app-header"
         style={{
         position: sticky ? "sticky" : "relative",
         top: 0,
@@ -160,7 +161,6 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         justifyContent: "space-between",
         alignItems: "center",
         padding: "0 24px",
-        background: "#ffffff",
         boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
         borderBottom: "1px solid #e5e7eb",
       }}

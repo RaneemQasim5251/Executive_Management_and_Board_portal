@@ -42,6 +42,25 @@
   box-shadow: 2px 0 8px rgba(12, 8, 92, 0.25);
 }
 
+/* Force wider sidebar size (Refine ThemedSiderV2) */
+.ant-layout-sider:not(.ant-layout-sider-collapsed) {
+  width: 235px !important;
+  max-width: 235px !important;
+  min-width: 235px !important;
+}
+
+.ant-layout-sider.ant-layout-sider-collapsed {
+  width: 80px !important;
+  max-width: 80px !important;
+  min-width: 80px !important;
+}
+
+/* Shift content to accommodate new sidebar width */
+.ant-layout.ant-layout-has-sider > .ant-layout-content,
+.ant-layout.ant-layout-has-sider > .ant-layout {
+  margin-left: 0 !important; /* prevent Ant auto margins */
+}
+
 html[dir="rtl"] .ant-layout-sider {
   border-right: none;
   border-left: 1px solid var(--egyptian-blue);
@@ -659,8 +678,16 @@ html[dir="rtl"] .brand-text-arabic {
 
 /* Ensure proper spacing for content */
 .ant-layout-content {
-  padding: 16px; /* reduce extra white space */
+  padding: 0 24px; /* align with header padding */
   min-height: calc(100vh - 64px);
+  background: #ffffff; /* white content area */
+}
+
+/* Make header background gray and align its width with content padding */
+.ant-layout-header.app-header {
+  padding: 0 24px !important; /* match content padding */
+  background: #f5f7fa !important; /* soft gray title background */
+  box-sizing: border-box;
 }
 
 /* Responsive adjustments */

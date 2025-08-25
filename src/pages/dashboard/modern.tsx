@@ -172,7 +172,7 @@ export const ModernExecutiveDashboard: FC = () => {
       animate="visible"
       style={{ 
         padding: "24px", 
-        background: "#0C085C", 
+        background: "#ffffff", 
         minHeight: "100vh"
       }}
     >

@@ -454,21 +454,21 @@ const resources = {
       
       // Navigation & Menu Items - الملاحة وعناصر القائمة
       "Strategic Planning": "التخطيط الاستراتيجي",
-      "Strategic Timeline": "الجدول الزمني الاستراتيجي",
+      "Strategic Timeline": "الجدول الزمني",
       "Investment Portfolio": "محفظة الاستثمار",
       "Enterprise Systems": "الأنظمة المؤسسية",
       
       // Companies - الشركات
-      "JTC Transport & Logistics": "شركة الجري للنقل واللوجستيات",
+      "JTC Transport & Logistics": " الجري للنقل ",
       "J:Oil Petroleum": "جي أويل للبترول",
-      "Shaheen Rent a Car": "شاهين لتأجير السيارات",
+      "Shaheen Rent a Car": "شاهين للسيارات",
       "45degrees Cafe": "مقهى 45 درجة",
       "Al Jeri Energy": "الجري للطاقة",
       
       // Enterprise Systems - الأنظمة المؤسسية
-      "ECC": "نظام التحكم المؤسسي",
-      "ECP": "منصة التحكم المؤسسية",
-      "KPIs → ERP": "مؤشرات الأداء ← تخطيط موارد المؤسسة",
+      "ECC": "نظام التحكم ",
+      "ECP": "منصة التحكم ",
+      "KPIs → ERP": "مؤشرات الأداء",
       
       // Archive Pages - Arabic
       "Executive Reports": "التقارير التنفيذية",
@@ -606,7 +606,7 @@ const resources = {
       "Investor Relations Call": "مكالمة علاقات المستثمرين",
       
       // Secretary Workspace
-      "Executive-Secretary Workspace": "مساحة عمل السكرتير التنفيذي",
+      "Executive-Secretary Workspace": "السكرتير التنفيذي",
       "Executive-Secretary Dashboard": "لوحة تحكم السكرتير التنفيذي",
       "Create Meeting Agenda": "إنشاء جدول أعمال الاجتماع",
       "Task Board": "لوحة المهام",
@@ -1689,7 +1689,7 @@ const resources = {
       "Investor Relations Call": "Investor Relations Call",
       
       // Secretary Workspace
-      "Executive-Secretary Workspace": "Executive-Secretary Workspace",
+      "Executive-Secretary Workspace": "Executive Secretary",
       "Executive-Secretary Dashboard": "Executive-Secretary Dashboard",
       "Create Meeting Agenda": "Create Meeting Agenda",
       "Task Board": "Task Board",
