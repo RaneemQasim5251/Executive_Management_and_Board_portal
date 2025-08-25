@@ -104,6 +104,26 @@ npm run dev
 # http://localhost:5173
 ```
 
+### **المتغيرات البيئية | Environment Variables**
+قم بإنشاء ملف `.env.local` وتعبئة القيم حسب حاجتك:
+
+```bash
+VITE_APP_TITLE=Executive Management Portal
+VITE_SUPABASE_URL=your-supabase-url
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+# Power BI (اختياري)
+VITE_POWERBI_TENANT_ID=...
+VITE_POWERBI_CLIENT_ID=...
+VITE_POWERBI_WORKSPACE_ID=...
+VITE_POWERBI_REPORT_ID=...
+```
+
+### **بناء وتشغيل | Build & Preview**
+```bash
+npm run build
+npm run preview
+```
+
 ### **بيانات تسجيل الدخول التجريبية | Demo Login Credentials**
 ```
 📧 Email: board@company.com
@@ -161,6 +181,57 @@ docker run -p 80:80 executive-portal
 **📖 للحصول على دليل نشر مفصل، راجع [DEPLOYMENT.md](DEPLOYMENT.md)**
 
 ---
+
+## 🧱 **هيكل المشروع | Project Structure**
+
+```
+Executive-Management-Portal/
+├─ src/
+│  ├─ api/                  # خادم API خفيف (Express)
+│  ├─ components/           # المكونات (المصادقة، الصوت، القياسات الحيوية، التخطيطات)
+│  ├─ hooks/                # الخطافات (الصوت، PowerBI)
+│  ├─ pages/                # الصفحات (dashboard, reports, secretary workspace, login)
+│  ├─ providers/            # مزودو المصادقة (Supabase)
+│  ├─ services/             # الخدمات (PowerBI, notifications)
+│  ├─ styles/               # الأنماط (minimalist, simplified, world-class)
+│  └─ i18n.ts               # ضبط الترجمة (AR/EN)
+├─ supabase/functions/      # وظائف Edge (sign/request-signatures)
+├─ Dockerfile               # حاوية الواجهة الأمامية
+├─ Dockerfile.api           # حاوية API
+├─ README-BACKEND.md        # توثيق API الخلفية
+└─ README_ARABIC.md         # هذه الوثيقة
+```
+
+## 📦 **أوامر npm | NPM Scripts**
+
+- dev: تشغيل الخادم أثناء التطوير
+- build: إنشاء إنتاجي
+- preview: معاينة البناء محلياً
+- lint: فحص الكود
+
+## 📊 **Power BI**
+
+- الأدلة: `POWERBI_SETUP.md`, `POWERBI_WORKSPACE_SETUP.md`, `POWERBI_TOKEN_SETUP.md`, `powerbi-api-guide.md`, `POWERBI_ERROR_FIX.md`
+- خدمة الواجهة الأمامية: `src/services/powerBIService.ts` والخطاف `src/hooks/usePowerBI.ts`
+- تأكد من إعداد تطبيق Azure AD والصلاحيات والرموز المضمنة حسب الأدلة.
+
+## 🔐 **المصادقة والقياسات الحيوية | Authentication & Biometric**
+
+- مزود Supabase: `src/providers/supabaseAuthProvider.ts`
+- صفحات الدخول: `src/pages/login`
+- WebAuthn/القياسات الحيوية: المكوّن `src/components/BiometricAuth.tsx` وخدمة API في `src/api/services/webAuthnService.ts`
+- راجع: `BIOMETRIC_AUTHENTICATION_GUIDE.md`
+
+## 🌐 **التدويل | Internationalization**
+
+- الضبط في `src/i18n.ts` مع دعم العربية RTL والإنجليزية
+- وثيقة عربية موسعة: `README_ARABIC.md`
+
+## 🎨 **التخطيطات والسمات | Layouts & Theming**
+
+- التخطيطات: `MinimalistLayout`, `SimplifiedLayout`, `MainLayout` ضمن `src/components/layout`
+- أداة التبديل بين السمات والعلامة التجارية: راجع `ThemeSwitcher.tsx`, `ThemeSettings.tsx`
+- ألوان العلامة: الأزرق الفدرالي، الأسود، الأزرق المصري، الأحمر، الأزرق السماوي
 
 ## 🎨 **فلسفة التصميم | Design Philosophy**
 

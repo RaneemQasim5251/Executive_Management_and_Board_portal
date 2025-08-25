@@ -239,23 +239,13 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         </Badge>
 
         {/* Voice Control */}
-        <div style={{ position: 'relative' }}>
-          <Button
-            type="text"
-            icon={<AudioOutlined />}
-            onClick={() => setVoiceControlVisible(true)}
-            style={{ color: "#6b7280" }}
-            title={t('Voice Control')}
-          />
-          <VoiceStatusIndicator 
-            style={{ 
-              position: 'absolute', 
-              top: '-2px', 
-              right: '-2px' 
-            }} 
-            size="small" 
-          />
-        </div>
+        <Button
+          type="text"
+          icon={<AudioOutlined />}
+          onClick={() => setVoiceControlVisible(true)}
+          style={{ color: "#6b7280" }}
+          title={t('Voice Control')}
+        />
 
         {/* AI Assistant */}
         <Button
