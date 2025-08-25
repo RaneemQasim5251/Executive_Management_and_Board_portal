@@ -61,10 +61,10 @@ const StyledSider = styled(Sider)`
 `;
 
 const StyledContent = styled(Content)`
-  padding: 24px;
+  padding: 20px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-radius: 16px 0 0 0;
+  border-radius: 12px 0 0 0;
   margin-left: 0;
 `;
 
@@ -72,17 +72,17 @@ const HeaderCard = styled(Card)`
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  margin-bottom: 24px;
+  border-radius: 12px;
+  margin-bottom: 20px;
   
   .ant-card-body {
-    padding: 16px 24px;
+    padding: 12px 20px;
   }
 `;
 
 const CalendarCard = styled(Card)`
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
   
   .fc {
     font-family: inherit;
@@ -92,6 +92,9 @@ const CalendarCard = styled(Card)`
     margin-bottom: 1.5em !important;
     padding: 0 8px;
   }
+  /* Ensure spacing between toolbar groups and buttons */
+  .fc-header-toolbar .fc-toolbar-chunk { gap: 10px !important; }
+  .fc .fc-button-group { gap: 8px !important; }
   
   .fc-toolbar-title {
     font-size: 1.75em !important;
@@ -102,11 +105,11 @@ const CalendarCard = styled(Card)`
   .fc-button {
     background: #0095CE !important;
     border-color: #0095CE !important;
-    border-radius: 8px !important;
+    border-radius: 6px !important;
     font-weight: 600 !important;
-    padding: 8px 16px !important;
+    padding: 6px 12px !important;
     color: white !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
     min-width: auto !important;
     
     &:hover {
@@ -129,7 +132,7 @@ const CalendarCard = styled(Card)`
   
   .fc-prev-button,
   .fc-next-button {
-    min-width: 40px !important;
+    min-width: 34px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -252,27 +255,36 @@ const SidebarCard = styled(Card)`
 `;
 
 const ActionButton = styled(Button)`
-  border-radius: 8px;
-  height: 40px;
+  border-radius: 10px;
+  height: 36px;
   font-weight: 600;
-  
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 3px 10px rgba(12, 8, 92, 0.12);
+
   &.primary {
-    background: #0095CE;
-    border-color: #0095CE;
-    
+    background: linear-gradient(135deg, #0095CE 0%, #0C085C 90%);
+    border-color: transparent;
+    color: #fff;
+
     &:hover {
-      background: #363692;
-      border-color: #363692;
+      background: linear-gradient(135deg, #363692 0%, #0C085C 90%);
+      border-color: transparent;
+      color: #fff;
     }
   }
-  
+
   &.danger {
-    background: #FF2424;
-    border-color: #FF2424;
-    
+    background: linear-gradient(135deg, #FF4D4F 0%, #FF2424 100%);
+    border-color: transparent;
+    color: #fff;
+
     &:hover {
-      background: #CC1D1D;
-      border-color: #CC1D1D;
+      background: linear-gradient(135deg, #E23A3C 0%, #CC1D1D 100%);
+      border-color: transparent;
+      color: #fff;
     }
   }
 `;
@@ -436,7 +448,7 @@ export const SecretaryWorkspace: React.FC = () => {
 
         {/* Quick Actions */}
         <SidebarCard title={t("Quick Actions")} size="small">
-          <Space direction="vertical" style={{ width: '100%' }} size={8}>
+          <Space direction="vertical" style={{ width: '100%' }} size={12}>
             <ActionButton 
               type="primary" 
               icon={<PlusOutlined />} 
@@ -483,7 +495,7 @@ export const SecretaryWorkspace: React.FC = () => {
 
         {/* Recent Activity */}
         <SidebarCard title={t("Recent Activity")} size="small">
-          <Space direction="vertical" style={{ width: '100%' }} size={8}>
+          <Space direction="vertical" style={{ width: '100%' }} size={10}>
             <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>
               <Avatar size={24} style={{ marginRight: 8 }} />
               <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>
