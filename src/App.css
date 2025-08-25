@@ -1,3 +1,55 @@
+.board-mark-page .ant-table-container,
+.board-mark-page .ant-table,
+.board-mark-page .ant-table-thead,
+.board-mark-page .ant-table-tbody,
+.board-mark-page .ant-table-thead > tr,
+.board-mark-page .ant-table-thead > tr > th,
+.board-mark-page .ant-table-tbody > tr > td {
+  box-shadow: none !important;
+  border-color: #e5e7eb !important;
+}
+
+.board-mark-page .ant-table-bordered .ant-table-container,
+.board-mark-page .ant-table-container::before,
+.board-mark-page .ant-table-container::after {
+  display: none !important;
+}
+
+/* Kill fixed-column split shadow/lines if Ant adds them */
+.board-mark-page .ant-table-cell-fix-right-first,
+.board-mark-page .ant-table-cell-fix-left-last {
+  box-shadow: none !important;
+}
+
+.board-mark-page .ant-table-container .ant-table-content::before,
+.board-mark-page .ant-table-container .ant-table-content::after {
+  display: none !important;
+}
+
+.board-mark-page .ant-table-row .ant-table-cell-row-hover {
+  background: #fafcff !important;
+}
+.executive-card .resolutions-table .ant-table-container {
+  box-shadow: none !important; /* remove any blue line effects */
+  background: transparent !important;
+}
+
+.executive-card .resolutions-table .ant-table-thead > tr > th,
+.executive-card .resolutions-table .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #eaeaea !important; /* thin gray row dividers */
+}
+
+.executive-card .resolutions-table .ant-table-tbody > tr > td:first-child {
+  border-inline-start: none !important;
+}
+
+.executive-card .resolutions-table .ant-table-tbody > tr > td:last-child {
+  border-inline-end: none !important;
+}
+
+.executive-card .resolutions-table .ant-table-tbody > tr:hover > td {
+  background: #fafcff !important;
+}
 /* Brand Color Palette */
 :root {
   --federal-blue: #0C085C;
@@ -431,6 +483,48 @@ a:hover {
   background: var(--primary-color) !important;
 }
 
+/* Board Mark Resolutions table - stronger scoped overrides */
+.executive-card .ant-table-wrapper .ant-table-thead > tr > th {
+  background: #f8fafc !important;
+  color: #0c085c !important;
+  border-bottom: 1px solid #e5e7eb !important; /* enforce thin line */
+  padding: 12px 12px !important;
+  box-shadow: none !important; /* kill any theme underline */
+}
+
+.executive-card .ant-table-wrapper .ant-table-thead {
+  border-bottom: 1px solid #e5e7eb !important; /* fallback container border */
+}
+
+.executive-card .ant-table-wrapper .ant-table-tbody > tr > td {
+  padding: 12px 12px !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.executive-card .ant-table-wrapper .ant-table-tbody > tr:hover > td {
+  background: #f7fbff !important;
+}
+
+/* Remove any heavy custom divider under header (fallback) */
+.executive-card .ant-table-wrapper .ant-table-container::after,
+.executive-card .ant-table-wrapper .ant-table-container::before {
+  display: none !important;
+}
+
+/* Extra safeguards: neutralize header underline from other themes */
+.executive-card .ant-table-wrapper .ant-table-container table > thead > tr > th::before,
+.executive-card .ant-table-wrapper .ant-table-container table > thead > tr > th::after,
+.executive-card .ant-table-wrapper .ant-table-thead::after,
+.executive-card .ant-table-wrapper .ant-table-header::after {
+  display: none !important;
+  content: none !important;
+}
+
+.executive-card .ant-table-wrapper .ant-table-container table > thead > tr {
+  box-shadow: none !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
 /* Chart Container Styling */
 .recharts-wrapper {
   filter: drop-shadow(0 4px 12px rgba(12, 8, 92, 0.15));
@@ -491,13 +585,18 @@ a:hover {
   background: #f8fafc !important;
   font-weight: 600 !important;
   font-size: 14px !important;
-  padding: 16px 12px !important;
-  border-bottom: 2px solid var(--egyptian-blue) !important;
-  color: var(--primary-color) !important;
+  padding: 12px 12px !important; /* slightly tighter */
+  border-bottom: 1px solid #e5e7eb !important; /* soften the heavy blue line */
+  color: #0c085c !important; /* ensure legible header text */
+}
+
+.ant-table-tbody > tr > td {
+  padding: 12px 12px !important; /* reduce row height */
+  border-bottom: 1px solid #f0f0f0 !important;
 }
 
 .ant-table-tbody > tr:hover > td {
-  background: #f0f9ff !important;
+  background: #f7fbff !important;
 }
 
 /* Fix RTL Timeline Issues */

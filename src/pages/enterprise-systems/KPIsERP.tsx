@@ -699,7 +699,7 @@ const KPIsERP: React.FC = () => {
             <Statistic
               title={<span style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Data Sync')}</span>}
               value={filters.autoRefresh ? "ON" : "OFF"}
-              valueStyle={{ color: 'white', fontSize: '18px' }}
+              valueStyle={{ color: 'white', fontSize: '28px' }}
               prefix={<SyncOutlined spin={filters.autoRefresh} />}
             />
           </Card>
@@ -739,7 +739,7 @@ const KPIsERP: React.FC = () => {
           <Col xs={24} md={12}>
             <div style={{ color: 'white' }}>
               <Title level={1} style={{ margin: 0, color: 'white', fontSize: '36px', fontWeight: 'bold' }}>
-                <ProjectOutlined style={{ marginRight: 16 }} />
+                <ProjectOutlined style={{ marginRight: 16, color: 'white' }} />
                 {t("Enterprise System")}
               </Title>
               <Paragraph style={{ color: 'rgba(255,255,255,0.9)', fontSize: '16px', margin: '8px 0 0 0' }}>

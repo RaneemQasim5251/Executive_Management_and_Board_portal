@@ -160,7 +160,7 @@ export const BoardMarkPage: FC = () => {
   };
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="board-mark-page" style={{ padding: 24 }}>
       <Row gutter={[24, 24]}>
         <Col xs={24}>
           <Card className="executive-card">
@@ -214,6 +214,8 @@ export const BoardMarkPage: FC = () => {
               rowKey="id"
               columns={columns as any}
               pagination={{ pageSize: 10 }}
+              size="middle"
+              className="resolutions-table"
             />
           </Card>
         </Col>
