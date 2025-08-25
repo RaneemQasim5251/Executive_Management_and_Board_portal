@@ -1924,7 +1924,7 @@ const resources = {
       "myMeetings.upcomingCount": "{{count}} upcoming meeting",
       
       // My Meetings
-      "My Meetings": "My Meetings",
+      "myMeetings.title": "My Meetings",
       "myMeetings.noMeetings": "No upcoming meetings",
       "myMeetings.declineReason": "Reason for declining",
       "myMeetings.reasonPlaceholder": "Please provide a reason for not attending",
