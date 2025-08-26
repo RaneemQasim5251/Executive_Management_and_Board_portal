@@ -16,6 +16,10 @@ const resources = {
       "Qarar Executive Portal": "بوابة قرار التنفيذية",
       "Board & C-Suite Command Center": "مركز قيادة مجلس الإدارة والإدارة العليا",
       "My Meetings": "جدول الأعمال",
+            "Bookcase": "مكتبة المجالس",
+      "Agenda Planner": "مخطط جدول الأعمال",
+      "Pack Reader": "قارئ الحزم",
+      "Security & Compliance": "الأمان والامتثال",
       
       // Theme & Accessibility - الثيم وإمكانية الوصول
       "Theme & Accessibility Settings": "إعدادات الثيم وإمكانية الوصول",
@@ -1122,6 +1126,10 @@ const resources = {
       "Qarar Executive Portal": "Qarar Executive Portal",
       "Board & C-Suite Command Center": "Board & C-Suite Command Center",
       "My Meetings": "My Meetings",
+      "Bookcase": "Bookcase",
+      "Agenda Planner": "Agenda Planner",
+      "Pack Reader": "Pack Reader",
+      "Security & Compliance": "Security & Compliance",
       
       // Theme & Accessibility
       "Theme & Accessibility Settings": "Theme & Accessibility Settings",

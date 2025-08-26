@@ -1,0 +1,163 @@
+/* dotted arcs background used in bookcase & stats pages */
+.bi-bg {
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(11,30,107,.06) 0 2px, transparent 2px),
+    radial-gradient(circle at 80% 90%, rgba(11,30,107,.06) 0 2px, transparent 2px);
+  background-size: 40px 40px, 60px 60px;
+}
+
+.shelf-bar {
+  background: linear-gradient(180deg,#D7B56D,#B48A3A);
+  height: 10px; 
+  border-radius: 8px;
+}
+
+.pack-ribbon {
+  position: absolute; 
+  left: 0; 
+  top: 0; 
+  padding: .25rem .5rem;
+  color: white; 
+  font-size: 11px; 
+  border-bottom-right-radius: 8px;
+}
+
+.pack-ribbon.new { 
+  background: #2563EB; 
+}
+
+.pack-ribbon.updated { 
+  background: #7C3AED; 
+}
+
+/* Realistic bookshelf styles */
+.wood-shelf-wrap {
+  position: relative;
+  padding-bottom: 56px; /* space for shelf thickness */
+}
+
+.wood-shelf-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0) 18px),
+    linear-gradient(180deg,#cfa96a,#b9893f);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -8px 16px rgba(0,0,0,0.25), 0 12px 20px rgba(0,0,0,0.12);
+}
+
+.wood-grain {
+  position: absolute;
+  inset: 0;
+  opacity: .18;
+  background:
+    repeating-linear-gradient(90deg, rgba(90,60,20,.25) 0 2px, rgba(0,0,0,0) 2px 6px),
+    radial-gradient(120px 40px at 20% 40%, rgba(90,60,20,.25), transparent),
+    radial-gradient(160px 48px at 70% 60%, rgba(90,60,20,.2), transparent);
+  pointer-events: none;
+  border-radius: 10px;
+}
+
+.shelf-label {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: rgba(0,0,0,0.55);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+  font-size: 12px;
+}
+
+/* Book card look */
+.pack-card-dark {
+  background: linear-gradient(180deg,#1e293b,#0f172a);
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* Subtle spine highlight */
+.pack-card-spine::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  bottom: 10px;
+  width: 6px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));
+  opacity: .25;
+}
+
+/* Diagonal corner banner on book cards */
+.book-diagonal {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 120px solid transparent; /* controls triangle width */
+  border-bottom: 80px solid #2563EB;     /* default blue */
+  opacity: .95;
+}
+.book-diagonal.updated { border-bottom-color: #2563EB; }
+.book-diagonal.new { border-bottom-color: #16a34a; }
+.book-diagonal-label {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .08em;
+  font-size: 11px;
+}
+
+/* Small round count badge like screenshots */
+.book-badge {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 12px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+
+/* Vertical groove separators to mimic book spacing */
+.pack-card-dark {
+  background: linear-gradient(180deg,#111827,#0f172a);
+  border-radius: 16px;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.28);
+  position: relative;
+}
+.pack-card-dark::after {
+  content: "";
+  position: absolute;
+  top: 8px; bottom: 8px; left: 0;
+  width: 14px;
+  background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,0));
+  border-top-left-radius: 16px; border-bottom-left-radius: 16px;
+  opacity: .35;
+}
+
+/* Strengthen shelf depth */
+.wood-shelf-bar {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 62px;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0) 18px),
+    linear-gradient(180deg,#d8b26e,#b6853b);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -10px 18px rgba(0,0,0,0.28), 0 16px 26px rgba(0,0,0,0.18);
+}
+.shelf-label { bottom: 10px; font-size: 13px; }

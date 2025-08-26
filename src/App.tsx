@@ -13,7 +13,7 @@ import routerBindings, {
 } from "@refinedev/react-router-v6";
 import dataProvider from "@refinedev/simple-rest";
 import { App as AntdApp } from "antd";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
 import { 
@@ -116,6 +116,11 @@ const MinimalistLogin = lazy(() => import("./pages/login/MinimalistLogin"));
 // Import the new pages
 import ECCPage from './pages/enterprise-systems/ECC';
 import ECPPage from './pages/enterprise-systems/ECP';
+import BookcasesPage from './pages/bookcases/BookcasesPage';
+import AgendaPage from './pages/agenda/AgendaPage';
+import PackReaderPage from './pages/pack/PackReaderPage';
+import CompliancePage from './pages/compliance/CompliancePage';
+import TestPage from './pages/TestPage';
 
 // Import world-class dashboard
 const WorldClassDashboard = lazy(() => import('./pages/world-class/WorldClassDashboard'));
@@ -349,6 +354,46 @@ function App() {
                     parent: "enterprise-systems",
                   },
                 },
+                {
+                  name: "bookcases",
+                  list: BookcasesPage,
+                  meta: {
+                    label: "Bookcase",
+                    icon: <FolderOutlined />,
+                  },
+                },
+                {
+                  name: "agenda",
+                  list: AgendaPage,
+                  meta: {
+                    label: "Agenda Planner",
+                    icon: <CalendarOutlined />,
+                  },
+                },
+                {
+                  name: "pack",
+                  list: PackReaderPage,
+                  meta: {
+                    label: "Pack Reader",
+                    icon: <FileTextOutlined />,
+                  },
+                },
+                {
+                  name: "compliance",
+                  list: CompliancePage,
+                  meta: {
+                    label: "Security",
+                    icon: <SafetyCertificateOutlined />,
+                  },
+                },
+                {
+                  name: "test",
+                  list: "/test",
+                  meta: {
+                    label: "Test Page",
+                    icon: <FileTextOutlined />,
+                  },
+                },
               ]}
               options={{
                 syncWithLocation: true,
@@ -367,7 +412,7 @@ function App() {
                   element={
                     <ThemedLayoutV2
                       Header={() => <Header sticky />}
-                      Sider={(props) => <ThemedSiderV2 {...props} fixed />}
+                      Sider={(props) => <ThemedSiderV2 {...props} fixed width={600} collapsedWidth={80} />}
                     >
                       <main id="main-content" role="main" tabIndex={-1}>
                         <Outlet />
@@ -415,6 +460,16 @@ function App() {
 
                   {/* World-Class Dashboard */}
                   <Route path="/world-class" element={<WorldClassDashboard />} />
+
+                  {/* Explicit demo routes to guarantee visibility */}
+                  <Route path="/bookcases" element={<BookcasesPage />} />
+                  <Route path="/agenda/:meetingId" element={<AgendaPage />} />
+                  <Route path="/agenda" element={<Navigate to="/agenda/1" replace />} />
+                  <Route path="/pack/:packId" element={<PackReaderPage />} />
+                  <Route path="/pack" element={<Navigate to="/pack/1" replace />} />
+                  <Route path="/compliance" element={<CompliancePage />} />
+
+                  <Route path="/test" element={<TestPage />} />
 
                   <Route path="*" element={<ErrorComponent />} />
                 </Route>

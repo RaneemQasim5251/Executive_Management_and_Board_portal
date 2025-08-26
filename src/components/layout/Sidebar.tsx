@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Layout, Menu, Avatar, Typography, Badge, Button } from 'antd';
 import { SIDEBAR_EXPANDED_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from './constants';
-import type { MenuProps } from 'antd';
 import {
   HomeOutlined, DashboardOutlined,
   LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined,
   SearchOutlined, ProjectOutlined, TeamOutlined,
   FileTextOutlined, CalendarOutlined, BarChartOutlined, GlobalOutlined,
-  BankOutlined, CarOutlined, RocketOutlined, ExperimentOutlined,
-  SafetyOutlined, ToolOutlined, TrophyOutlined, SettingOutlined, DatabaseOutlined, LineChartOutlined
+  CarOutlined, RocketOutlined, ExperimentOutlined,
+  SafetyOutlined, ToolOutlined, TrophyOutlined, SettingOutlined, DatabaseOutlined, LineChartOutlined,
+  BookOutlined, ScheduleOutlined, ReadOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -22,6 +22,16 @@ interface SidebarProps {
   onCollapse?: (collapsed: boolean) => void;
 }
 
+// Extend AntD Menu item type to allow 'path' property
+interface MenuItemType {
+  key: string;
+  icon?: React.ReactNode;
+  label: React.ReactNode;
+  onClick?: () => void;
+  path?: string;
+  children?: MenuItemType[];
+}
+
 export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -32,18 +42,42 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   // Hover expansion removed to prevent overlaying content; use explicit collapse toggle only
 
+  // Helper: Find the best matching menu item trail for a given path
+  function findTrail(items: MenuItemType[], path: string, trail: string[] = []): string[] {
+    for (const it of items) {
+      const key = String(it.key);
+      const itemPath = it.path;
+      const children = it.children;
+      // Support dynamic segments
+      if (itemPath && matchPath(itemPath, path)) return [...trail, key];
+      if (children) {
+        const found = findTrail(children, path, [...trail, key]);
+        if (found.length) return found;
+      }
+    }
+    return [];
+  }
+  // Simple path matcher supporting dynamic segments like /agenda/:meetingId
+  function matchPath(pattern: string, pathname: string): boolean {
+    const patternParts = pattern.split('/').filter(Boolean);
+    const pathParts = pathname.split('/').filter(Boolean);
+    if (patternParts.length !== pathParts.length) return false;
+    return patternParts.every((part, i) => part.startsWith(':') || part === pathParts[i]);
+  }
+
   useEffect(() => {
-    const pathname = location.pathname;
-    const currentKey = pathname.split('/').filter(Boolean)[0] || 'home';
-    setSelectedKeys([currentKey]);
+    const trail = findTrail(menuItems, location.pathname);
+    setSelectedKeys(trail.slice(-1));
+    setExpandedKeys(trail.slice(0, -1));
   }, [location.pathname]);
 
-  const menuItems: MenuProps['items'] = [
+  const menuItems: MenuItemType[] = [
     {
       key: 'home',
       icon: <HomeOutlined />,
       label: t('Executive Overview'),
-      onClick: () => navigate('/')
+      onClick: () => navigate('/'),
+      path: '/',
     },
     {
       key: 'dashboard',
@@ -171,18 +205,36 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       icon: <RocketOutlined />,
       label: t('World-Class Login'),
       onClick: () => navigate('/login-world-class')
-    }
+    },
+    {
+      key: 'bookcases',
+      icon: <BookOutlined />,
+      label: t('Bookcase'),
+      onClick: () => navigate('/bookcases'),
+      path: '/bookcases',
+    },
+    {
+      key: 'agenda',
+      icon: <ScheduleOutlined />,
+      label: t('Agenda Planner'),
+      onClick: () => navigate('/agenda/1'), // default meetingId for navigation
+      path: '/agenda/:meetingId',
+    },
+    {
+      key: 'pack',
+      icon: <ReadOutlined />,
+      label: t('Pack Reader'),
+      onClick: () => navigate('/pack/1'), // default packId for navigation
+      path: '/pack/:packId',
+    },
+    {
+      key: 'compliance',
+      icon: <SafetyOutlined />,
+      label: t('Security & Compliance'),
+      onClick: () => navigate('/compliance'),
+      path: '/compliance',
+    },
   ];
-
-  const handleMenuClick: MenuProps['onClick'] = ({ key, keyPath }) => {
-    setSelectedKeys([key]);
-    if (keyPath.length > 1) {
-      setExpandedKeys(prev => {
-        const parentKey = keyPath[keyPath.length - 2];
-        return prev.includes(parentKey) ? prev : [...prev, parentKey];
-      });
-    }
-  };
 
   const toggleCollapsed = () => {
     onCollapse?.(!collapsed);
@@ -263,16 +315,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
           className="app-sider-menu"
           mode="inline"
           selectedKeys={selectedKeys}
-          defaultOpenKeys={expandedKeys}
-          items={menuItems}
-          onClick={handleMenuClick}
-          onOpenChange={setExpandedKeys}
+          openKeys={expandedKeys}
+          onOpenChange={(keys) => setExpandedKeys(keys as string[])}
+          items={menuItems as any}
           style={{
             background: 'transparent',
             border: 'none',
             fontSize: '14px'
           }}
-          theme="dark"
+          theme={mode === 'dark' ? 'dark' : 'light'}
         />
       </div>
 
