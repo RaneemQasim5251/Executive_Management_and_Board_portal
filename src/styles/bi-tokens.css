@@ -1,0 +1,19 @@
+:root{
+    --bi-blue:#0B1E6B;            /* Federal Blue */
+    --bi-blue-2:#12246f;
+    --bi-ink:#0f172a;             /* deep navy for “books” */
+    --bi-ink-2:#111827;
+    --bi-ink-3:#1f2937;
+    --bi-gold-1:#d8b26e;          /* shelf */
+    --bi-gold-2:#b6853b;          /* shelf */
+    --bi-gold-3:#6b4a17;          /* bevel */
+    --bi-shadow: 0 14px 30px rgba(8,15,35,.28);
+    --bi-radius:16px;
+    --bi-ease:cubic-bezier(.2,.8,.2,1);
+  }
+  .dark {
+    --bi-ink:#0b1020;
+    --bi-ink-2:#0e1423;
+    --bi-ink-3:#131a2b;
+  }
+  

@@ -1,18 +1,19 @@
-import { Space, Input, Select, Button } from 'antd';
+import { Input, Button, Space, Segmented } from 'antd';
+import { PlusOutlined, SearchOutlined, AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 
-export function ShelfToolbar({ onSearch, onNew }:{
-  onSearch:(q:string)=>void; onNew:()=>void;
-}) {
+export function ShelfToolbar({ onSearch, onNew }:{ onSearch:(q:string)=>void; onNew:()=>void; }) {
   return (
-    <Space style={{marginBottom:16}} wrap>
-      <Input.Search allowClear placeholder="Search packs" onSearch={onSearch} style={{width:280}}/>
-      <Select defaultValue="all" style={{width:200}} options={[
-        {value:'all',label:'All Committees'},
-        {value:'Board',label:'Main Board'},
-        {value:'Exec',label:'Exec Committee'},
-        {value:'Audit',label:'Audit Committee'},
-      ]}/>
-      <Button type="primary" onClick={onNew}>New Pack</Button>
-    </Space>
+    <div style={{display:'flex', flexWrap:'wrap', gap:12, alignItems:'center', justifyContent:'space-between'}}>
+      <Space.Compact style={{ width: 380, maxWidth:'100%' }}>
+        <Input allowClear prefix={<SearchOutlined/>} placeholder="Search packs, entities, committees…" onChange={(e)=>onSearch(e.target.value)}/>
+      </Space.Compact>
+      <Space wrap>
+        <Segmented options={[
+          { label:<><AppstoreOutlined/> Grid</>, value:'grid' },
+          { label:<><UnorderedListOutlined/> List</>, value:'list' },
+        ]} defaultValue="grid"/>
+        <Button type="primary" icon={<PlusOutlined/>} onClick={onNew}>New pack</Button>
+      </Space>
+    </div>
   );
 }

@@ -214,3 +214,54 @@ for all using (exists (select 1 from packs p
   join meetings mt on mt.id = p.meeting_id
   join memberships m on m.committee_id = mt.committee_id
   where sign_requests.pack_id = p.id and m.user_id = auth.uid()));
+
+-- Helpful indexes
+create index if not exists idx_memberships_by_user on memberships(user_id);
+create index if not exists idx_meetings_by_committee on meetings(committee_id, starts_at);
+create index if not exists idx_packs_by_meeting on packs(meeting_id, status, is_published);
+create index if not exists idx_pack_docs_by_pack on pack_documents(pack_id, idx);
+create index if not exists idx_audit_subject on audit_logs(subject_type, subject_id, at desc);
+create index if not exists idx_sign_requests_pack on sign_requests(pack_id, created_at desc);
+
+-- Hash chain for audit logs (tamper-evident)
+create extension if not exists pgcrypto;
+create or replace function audit_hash_chain()
+returns trigger language plpgsql as $$
+declare
+  prev text;
+begin
+  select this_hash into prev from audit_logs 
+  where subject_type = new.subject_type and subject_id = new.subject_id
+  order by at desc limit 1;
+  new.prev_hash := prev;
+  new.this_hash := encode(digest(coalesce(prev,'') || new.at || new.actor_id || new.action || new.subject_type || new.subject_id || coalesce(new.meta::text,''), 'sha256'),'hex');
+  return new;
+end $$;
+
+drop trigger if exists trg_audit_hash on audit_logs;
+create trigger trg_audit_hash before insert on audit_logs
+for each row execute function audit_hash_chain();
+
+-- View: pack latest published
+create or replace view v_latest_published_packs as
+  select distinct on (meeting_id) *
+  from packs
+  where is_published = true
+  order by meeting_id, published_at desc;
+
+-- Minimal insert policies for authors/compilers (example)
+create policy "insert_agenda_by_compiler" on agenda_items
+for insert with check (exists (
+  select 1 from meetings mt
+  join memberships m on m.committee_id = mt.committee_id
+  join roles r on r.id = m.role_id
+  where mt.id = meeting_id and m.user_id = auth.uid() and r.name='PackCompiler'
+));
+
+create policy "update_agenda_by_compiler" on agenda_items
+for update using (exists (
+  select 1 from meetings mt
+  join memberships m on m.committee_id = mt.committee_id
+  join roles r on r.id = m.role_id
+  where mt.id = agenda_items.meeting_id and m.user_id = auth.uid() and r.name='PackCompiler'
+));

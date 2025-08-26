@@ -388,4 +388,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed = false, onCollapse 
       </nav>
     </Sider>
   );
+  
 };
+

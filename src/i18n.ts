@@ -1113,6 +1113,25 @@ const resources = {
 
       // English section
       "World-Class Login": "World-Class Login",
+
+      "VIEW PLANNER":"VIEW PLANNER",
+      "You have {{n}} unpublished agendas":"You have {{n}} unpublished agendas",
+      "Open":"Open",
+      "Get pack":"Get pack",
+      "Join meeting":"Join meeting",
+      "Edit":"Edit",
+      "Move":"Move",
+      "Clone pack":"Clone pack",
+      "Permissions":"Permissions",
+      "Export files":"Export files",
+      "Open timeline":"Open timeline",
+      "Delete":"Delete",
+      "Restricted":"Restricted",
+      "Meeting link available":"Meeting link available",
+      "Recording available":"Recording available",
+      "UPDATED":"UPDATED",
+      "NEW PACK":"NEW PACK",
+      "MEETING SOON":"MEETING SOON"
     }
   },
   en: {
@@ -2073,32 +2092,26 @@ const resources = {
       "board_mark.sign.error.Signatorynotfound": "Signatory not found",
       "board_mark.sign.error.Missingrequiredfields": "Missing required fields",
       "loading": "Loading...",
-      
-      // Add these translations in both Arabic and English sections
 
-      // Arabic section (around line 470-480)
-      "Enterprise Control Center (ECC)": "مركز التحكم المؤسسي",
-      "Enterprise Control Platform (ECP)": "منصة التحكم المؤسسية",
-      "Cloud Infrastructure": "البنية التحتية السحابية",
-      "Data Security": "أمن البيانات",
-      "System Performance": "أداء النظام",
-      "KPI Management": "إدارة مؤشرات الأداء الرئيسية",
-      "Resource Planning": "تخطيط الموارد",
-      "Business Intelligence": "الذكاء التجاري",
-      "Enterprise Integrations": "التكاملات المؤسسية",
-      "Strategic Initiatives": "المبادرات الاستراتيجية",
-
-      // English section (around line 1470-1480)
-      "Enterprise Control Center (ECC)": "Enterprise Control Center",
-      "Enterprise Control Platform (ECP)": "Enterprise Control Platform",
-      "Cloud Infrastructure": "Cloud Infrastructure",
-      "Data Security": "Data Security",
-      "System Performance": "System Performance",
-      "KPI Management": "KPI Management",
-      "Resource Planning": "Resource Planning",
-      "Business Intelligence": "Business Intelligence",
-      "Enterprise Integrations": "Enterprise Integrations",
-      "Strategic Initiatives": "Strategic Initiatives",
+          // en namespace additions
+      "VIEW PLANNER":"VIEW PLANNER",
+      "You have {{n}} unpublished agendas":"You have {{n}} unpublished agendas",
+      "Open":"Open",
+      "Get pack":"Get pack",
+      "Join meeting":"Join meeting",
+      "Edit":"Edit",
+      "Move":"Move",
+      "Clone pack":"Clone pack",
+      "Permissions":"Permissions",
+      "Export files":"Export files",
+      "Open timeline":"Open timeline",
+      "Delete":"Delete",
+      "Restricted":"Restricted",
+      "Meeting link available":"Meeting link available",
+      "Recording available":"Recording available",
+      "UPDATED":"UPDATED",
+      "NEW PACK":"NEW PACK",
+      "MEETING SOON":"MEETING SOON"
     }
   }
 };

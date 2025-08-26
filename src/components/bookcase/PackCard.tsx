@@ -1,45 +1,97 @@
-import { Card, Button, Space, Tag } from 'antd';
-import { EyeOutlined, ClockCircleOutlined } from '@ant-design/icons';
+// src/components/bookcase/PackCard.tsx
+import { Button, Dropdown, MenuProps, Tooltip } from 'antd';
+import {
+  MoreOutlined, VideoCameraOutlined, PlayCircleOutlined, LockOutlined
+} from '@ant-design/icons';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import type { PackCardModel } from './types';
+import '../../styles/bookcase.css';
 
-export type PackCardModel = {
-  id: string;
-  committeeName: string;
-  monthLabel: string;  // e.g., "August"
-  year: number;
-  version: number;
-  status: 'new'|'updated'|'draft'|'published';
-  count?: number;
-};
-
-export function PackCard({ pack, onOpen, onTimeline }:{
+export function PackCard({
+  pack, onOpen, onTimeline
+}:{
   pack: PackCardModel;
-  onOpen: (id:string)=>void;
+  onOpen:(id:string)=>void;
   onTimeline:(id:string)=>void;
 }) {
-  const diagonalClass = pack.status === 'updated' ? 'updated' : (pack.status === 'new' ? 'new' : undefined);
+  const { t } = useTranslation();
+
+  const menuItems = useMemo<MenuProps['items']>(()=>[
+    { key:'get',    label:t('Get pack') },
+    { key:'join',   label:t('Join meeting'), disabled:!pack.hasMeetingLink },
+    { type:'divider' },
+    { key:'edit',   label:t('Edit') },
+    { key:'move',   label:t('Move') },
+    { key:'clone',  label:t('Clone pack') },
+    { key:'perm',   label:t('Permissions') },
+    { key:'export', label:t('Export files') },
+    { type:'divider' },
+    { key:'timeline', label:t('Open timeline') },
+    { key:'delete', label:t('Delete'), danger:true },
+  ],[pack, t]);
+
+  function onMenuClick({key}:{key:string}){
+    if (key==='get') onOpen(pack.id);
+    else if (key==='timeline') onTimeline(pack.id);
+    // other actions are placeholders; wire as needed
+  }
+
+  const statusLabel =
+    pack.status==='updated' ? t('UPDATED') :
+    pack.status==='new'     ? t('NEW PACK') :
+    pack.status==='meeting' ? t('MEETING SOON') : '';
 
   return (
-    <Card hoverable className="relative rounded-2xl overflow-hidden pack-card-dark">
-      {pack.count ? <div className="book-badge">{pack.count}</div> : null}
-      {diagonalClass && (
+    <div className="bi-pack" role="button" aria-label={`${pack.monthLabel} ${pack.committeeName}`} onDoubleClick={()=>onOpen(pack.id)}>
+      {/* tiny feature icons */}
+      <div className="bi-pack-icons">
+        {pack.locked && (
+          <Tooltip title={t('Restricted')}>
+            <div className="bi-pack-icon"><LockOutlined /></div>
+          </Tooltip>
+        )}
+        {pack.hasMeetingLink && (
+          <Tooltip title={t('Meeting link available')}>
+            <div className="bi-pack-icon"><VideoCameraOutlined /></div>
+          </Tooltip>
+        )}
+        {pack.hasRecording && (
+          <Tooltip title={t('Recording available')}>
+            <div className="bi-pack-icon"><PlayCircleOutlined /></div>
+          </Tooltip>
+        )}
+      </div>
+
+      {/* title */}
+      <div className="bi-pack-title">
+        {pack.monthLabel} {pack.committeeName}
+      </div>
+
+      {/* unread bubble */}
+      {!!pack.unread && <div className="bi-pack-badge">{pack.unread>99?'99+':pack.unread}</div>}
+
+      {/* hover CTA */}
+      <div className="bi-pack-cta">
+        <Button block type="primary" onClick={()=>onOpen(pack.id)}>{t('Get pack')}</Button>
+      </div>
+
+      {/* status wedge */}
+      {statusLabel && (
         <>
-          <div className={`book-diagonal ${diagonalClass}`}></div>
-          <div className="book-diagonal-label">{diagonalClass.toUpperCase()}</div>
+          <div className={`bi-pack-wedge ${pack.status}`}/>
+          <div className="bi-pack-wedge-label">{statusLabel}</div>
         </>
       )}
-      <div style={{height:140, background:'linear-gradient(135deg,#0b1e6b,#172554)'}}/>
-      <div style={{padding:12}}>
-        <div style={{color:'#e5e7eb', fontSize:14, fontWeight:600}}>{pack.monthLabel} {pack.year}</div>
-        <div style={{color:'#9ca3af', fontSize:12}}>{pack.committeeName}</div>
-      </div>
-      <div className="absolute inset-x-0 bottom-0 p-2 bg-white/90 backdrop-blur hidden group-hover:flex justify-between"
-           style={{display:'flex', alignItems:'center'}}>
-        <Space>
-          <Button size="small" icon={<EyeOutlined />} onClick={()=>onOpen(pack.id)}>Open</Button>
-          <Button size="small" icon={<ClockCircleOutlined />} onClick={()=>onTimeline(pack.id)}>Timeline</Button>
-        </Space>
-        <Tag color="gold">v{pack.version}</Tag>
-      </div>
-    </Card>
+
+      {/* 3-dots dropdown */}
+      <Dropdown
+        trigger={['click']}
+        menu={{ items:menuItems, onClick:onMenuClick }}
+        placement="bottomRight"
+      >
+        <div className="bi-pack-dots" aria-label={t('Open menu')}><MoreOutlined /></div>
+      </Dropdown>
+    </div>
   );
 }

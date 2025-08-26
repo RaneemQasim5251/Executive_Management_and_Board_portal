@@ -1,25 +1,31 @@
-import { Row, Col, Typography } from 'antd';
-import { PackCard, PackCardModel } from './PackCard';
+// src/components/bookcase/BookcaseShelf.tsx
+import { PlannerCard } from './PlannerCard';
+import { PackCard } from './PackCard';
+import type { PackCardModel } from './types';
+import '../../styles/bookcase.css';
 
-export function BookcaseShelf({ title, packs, onOpen, onTimeline }:{
-  title: string; packs: PackCardModel[];
-  onOpen:(id:string)=>void; onTimeline:(id:string)=>void;
+export function BookcaseShelf({
+  title, packs, onOpen, onTimeline, showPlanner=true, plannerCount=0
+}:{
+  title:string;
+  packs: PackCardModel[];
+  onOpen:(id:string)=>void;
+  onTimeline:(id:string)=>void;
+  showPlanner?: boolean;
+  plannerCount?: number;
 }) {
   return (
-    <div className="wood-shelf-wrap" style={{marginBottom:36, position:'relative'}}>
-      <Row gutter={[16,16]} className="group" style={{paddingBottom:16}}>
-        {packs.map(p=>(
-          <Col key={p.id} xs={24} sm={12} md={8} lg={6} xl={4}>
-            <div className="pack-card-spine">
-              <PackCard pack={p} onOpen={onOpen} onTimeline={onTimeline}/>
-            </div>
-          </Col>
+    <section className="bi-shelf">
+      <div className="bi-shelf-grid">
+        {showPlanner && <PlannerCard onClick={()=>onTimeline?.('planner')} unpublishedCount={plannerCount} />}
+
+        {packs.map(p => (
+          <PackCard key={p.id} pack={p} onOpen={onOpen} onTimeline={onTimeline} />
         ))}
-      </Row>
-      <div className="wood-shelf-bar">
-        <div className="wood-grain"/>
-        <div className="shelf-label">{title}</div>
       </div>
-    </div>
+
+      <div className="bi-shelf-bar" aria-hidden="true"/>
+      <div className="bi-shelf-label">{title.toUpperCase()}</div>
+    </section>
   );
 }

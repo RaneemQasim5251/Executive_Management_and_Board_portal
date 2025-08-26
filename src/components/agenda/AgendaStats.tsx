@@ -1,10 +1,9 @@
-import { Card, Statistic, Row, Col } from 'antd';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Card, Statistic } from 'antd';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
 import { computeAgendaStats, AgendaItem } from '../../services/agendaStats';
 
 export function AgendaStats({ items }: { items: AgendaItem[] }) {
   const stats = computeAgendaStats(items);
-  
   return (
     <div style={{display:'grid', gap:12}}>
       <Card>
@@ -16,9 +15,11 @@ export function AgendaStats({ items }: { items: AgendaItem[] }) {
           <ResponsiveContainer>
             <BarChart data={stats.perspective}>
               <XAxis dataKey="name" />
-              <YAxis unit="%" />
+              <YAxis unit="%" domain={[0, 100]}/>
               <Tooltip />
-              <Bar dataKey="pct" />
+              <Bar dataKey="pct">
+                <LabelList dataKey="pct" position="top" formatter={(v:number)=>`${v}%`} />
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>

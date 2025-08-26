@@ -24,7 +24,7 @@ export function PackTimelineDrawer({ packId, open, onClose }:{
       <List dataSource={items} renderItem={(it:any)=>(
         <List.Item>
           <List.Item.Meta
-            title={<>{new Date(it.at).toLocaleString()} {it.type==='sign' && <Tag color="blue">signature</Tag>}</>}
+            title={<>{new Date(it.at).toLocaleString()} {it.type==='sign' && <Tag color="blue">Signature</Tag>}</>}
             description={<pre style={{whiteSpace:'pre-wrap'}}>{JSON.stringify(it.meta,null,2)}</pre>}
           />
         </List.Item>
