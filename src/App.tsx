@@ -116,7 +116,7 @@ const MinimalistLogin = lazy(() => import("./pages/login/MinimalistLogin"));
 // Import the new pages
 import ECCPage from './pages/enterprise-systems/ECC';
 import ECPPage from './pages/enterprise-systems/ECP';
-import BookcasesPage from './pages/bookcases/BookcasesPage';
+import BookcasesPage from './pages/bookcases/BookcasesPage.tsx';
 import AgendaPage from './pages/agenda/AgendaPage';
 import PackReaderPage from './pages/pack/PackReaderPage';
 import CompliancePage from './pages/compliance/CompliancePage';
@@ -358,7 +358,7 @@ function App() {
                   name: "bookcases",
                   list: BookcasesPage,
                   meta: {
-                    label: "Bookcase",
+                    label: t("Bookcase"),
                     icon: <FolderOutlined />,
                   },
                 },
@@ -366,7 +366,7 @@ function App() {
                   name: "agenda",
                   list: AgendaPage,
                   meta: {
-                    label: "Agenda Planner",
+                    label: t("Agenda Planner"),
                     icon: <CalendarOutlined />,
                   },
                 },
@@ -374,7 +374,7 @@ function App() {
                   name: "pack",
                   list: PackReaderPage,
                   meta: {
-                    label: "Pack Reader",
+                    label: t("Pack Reader"),
                     icon: <FileTextOutlined />,
                   },
                 },
@@ -382,7 +382,7 @@ function App() {
                   name: "compliance",
                   list: CompliancePage,
                   meta: {
-                    label: "Security",
+                    label: t("Security & Compliance"),
                     icon: <SafetyCertificateOutlined />,
                   },
                 },
@@ -390,7 +390,7 @@ function App() {
                   name: "test",
                   list: "/test",
                   meta: {
-                    label: "Test Page",
+                    label: t("Test Page"),
                     icon: <FileTextOutlined />,
                   },
                 },
