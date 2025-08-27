@@ -1085,7 +1085,6 @@ const resources = {
       "World-Class Dashboard": "World-Class Dashboard",
 
       // Add these translations in both Arabic and English sections
-
       // Arabic section
       "Executive Portal": "بوابة المديرين التنفيذيين",
       "Secure Access for Board & Executive Leadership": "وصول آمن لمجلس الإدارة والقيادة التنفيذية",
@@ -1095,6 +1094,7 @@ const resources = {
       "Use Password Login": "استخدم تسجيل الدخول بكلمة المرور",
       "Biometric Authentication": "المصادقة البيومترية",
       "Touch sensor or look at camera when prompted": "المس المستشعر أو انظر إلى الكاميرا عند المطالبة",
+
 
       // English section
       "Executive Portal": "Executive Portal",
@@ -1131,7 +1131,15 @@ const resources = {
       "Recording available":"Recording available",
       "UPDATED":"UPDATED",
       "NEW PACK":"NEW PACK",
-      "MEETING SOON":"MEETING SOON"
+      "MEETING SOON":"MEETING SOON",
+
+
+      "Bookcase": "المكتبة",
+      "MAIN BOARD": "الْمَجْلِس الرَّئيسي",
+      "EXEC COMMITTEE": "اللَّجْنَة التَّنْفيذية",
+      "AUDIT COMMITTEE": "لَجْنَة المُراجَعة",
+      "Search packs": "ابحث في الحِزَم",
+      "Create agenda": "إنشاء أجندة",
     }
   },
   en: {
@@ -2111,7 +2119,15 @@ const resources = {
       "Recording available":"Recording available",
       "UPDATED":"UPDATED",
       "NEW PACK":"NEW PACK",
-      "MEETING SOON":"MEETING SOON"
+      "MEETING SOON":"MEETING SOON",
+
+      "Bookcase": "Bookcase",
+      "MAIN BOARD": "MAIN BOARD",
+      "EXEC COMMITTEE": "EXEC COMMITTEE",
+      "AUDIT COMMITTEE": "AUDIT COMMITTEE",
+      "Search packs": "Search packs",
+      "Create agenda": "Create agenda",
+      "View": "View"
     }
   }
 };

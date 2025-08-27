@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'development') {
       'v7_relativeSplatPath',
       'Please use `items` instead'
     ];
-    
+
     if (suppressedWarnings.some(warning => message.includes(warning))) {
       return; // Skip these warnings
     }

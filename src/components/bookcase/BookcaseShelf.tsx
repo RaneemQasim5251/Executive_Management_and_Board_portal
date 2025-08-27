@@ -1,31 +1,32 @@
-// src/components/bookcase/BookcaseShelf.tsx
-import { PlannerCard } from './PlannerCard';
-import { PackCard } from './PackCard';
-import type { PackCardModel } from './types';
-import '../../styles/bookcase.css';
+import React from 'react';
+import { PackCard, PackCardModel } from './PackCard';
 
 export function BookcaseShelf({
-  title, packs, onOpen, onTimeline, showPlanner=true, plannerCount=0
+  title, packs, onOpen, onTimeline, rtl=false
 }:{
-  title:string;
+  title: string;
   packs: PackCardModel[];
   onOpen:(id:string)=>void;
   onTimeline:(id:string)=>void;
-  showPlanner?: boolean;
-  plannerCount?: number;
+  rtl?: boolean;
 }) {
   return (
-    <section className="bi-shelf">
-      <div className="bi-shelf-grid">
-        {showPlanner && <PlannerCard onClick={()=>onTimeline?.('planner')} unpublishedCount={plannerCount} />}
-
-        {packs.map(p => (
-          <PackCard key={p.id} pack={p} onOpen={onOpen} onTimeline={onTimeline} />
-        ))}
+    <section className={rtl ? 'wood-shelf rtl' : 'wood-shelf'}>
+      {/* شريط الخشب السفلي */}
+      <div className="wood-shelf__bar">
+        <div className="wood-shelf__grain" />
+        <div className="wood-shelf__lip" />
+        <div className="wood-shelf__label">{title}</div>
       </div>
 
-      <div className="bi-shelf-bar" aria-hidden="true"/>
-      <div className="bi-shelf-label">{title.toUpperCase()}</div>
+      {/* الشبكة */}
+      <div className="wood-shelf__grid">
+        {packs.map(p => (
+          <div key={p.id} className="wood-shelf__cell">
+            <PackCard pack={p} onOpen={onOpen} onTimeline={onTimeline} rtl={rtl} />
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

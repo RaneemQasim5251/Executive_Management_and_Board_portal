@@ -60,3 +60,145 @@
 .agenda-summary { position: sticky; bottom: 0; background: #fff; border-top: 1px solid rgba(2,6,23,.08); padding: 10px 12px; }
 
 .rtl .pack-meta, .rtl .shelf-label { direction: rtl; text-align: right; }
+
+/* ===== Bookcase toolbar ===== */
+.shelf-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.shelf-toolbar.rtl { direction: rtl; }
+
+.toolbar-search { display:flex; align-items:center; min-width: 380px; flex: 1 1 420px; }
+.search-icon-box{
+  width: 44px; height: 44px; display:grid; place-items:center;
+  border: 1px solid #d9d9d9; border-right: none; border-radius: 12px 0 0 12px;
+  background: #fff;
+}
+.shelf-toolbar.rtl .search-icon-box{ border-radius: 0 12px 12px 0; border-left:none; border-right:1px solid #d9d9d9; }
+.search-input{
+  height: 44px;
+  border-radius: 0 12px 12px 0 !important;
+  border: 1px solid #d9d9d9 !important;
+}
+.shelf-toolbar.rtl .search-input{ border-radius: 12px 0 0 12px !important; }
+
+/* ===== Wood shelf (more realistic) ===== */
+.wood-shelf { position: relative; padding-bottom: 74px; margin-bottom: 34px; }
+.wood-shelf__row { position: relative; z-index: 2; }
+
+.wood-shelf__bar{
+  position:absolute; inset-inline: 0; bottom:0; height:72px; z-index:1; border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.14), rgba(0,0,0,0) 18px),
+    linear-gradient(180deg, #d7b570, #b7853b);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -12px 18px rgba(0,0,0,.25),
+    0 16px 28px rgba(0,0,0,.2);
+}
+.wood-shelf__grain{
+  position:absolute; inset:0; border-radius:12px; opacity:.22; mix-blend-mode:multiply;
+  background:
+    repeating-linear-gradient(90deg, rgba(90,60,20,.25) 0 2px, rgba(0,0,0,0) 2px 8px),
+    radial-gradient(180px 50px at 22% 40%, rgba(90,60,20,.28), transparent 70%),
+    radial-gradient(220px 60px at 70% 60%, rgba(90,60,20,.22), transparent 70%);
+  pointer-events:none;
+}
+.wood-shelf__lip{
+  position:absolute; left:0; right:0; bottom:0; height:18px; border-radius: 0 0 12px 12px;
+  background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.3));
+  box-shadow: inset 0 6px 10px rgba(255,255,255,.22);
+}
+.wood-shelf__label{
+  position:absolute; left:50%; transform:translateX(-50%);
+  bottom:10px; font-weight:800; letter-spacing:.18em; font-size: 12px;
+  color: rgba(0,0,0,.6); text-shadow: 0 1px 0 rgba(255,255,255,.55);
+}
+.wood-shelf.rtl .wood-shelf__label{ letter-spacing: .08em; }
+
+/* ===== Book card (3D look) ===== */
+.book-card{
+  --w: 168px; --h: 238px; --radius: 16px;
+  position: relative; width: var(--w); height: var(--h); margin: 0 auto;
+  background: linear-gradient(180deg,#1c2431,#0f172a);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 22px rgba(0,0,0,.28);
+  cursor: pointer; transition: transform .18s ease, box-shadow .18s ease;
+  outline: none;
+}
+.book-card:hover{ transform: translateY(-2px) rotateX(.5deg); box-shadow: 0 16px 28px rgba(0,0,0,.32); }
+
+/* spine gleam */
+.book-spine{
+  position:absolute; top:10px; bottom:10px; left:10px; width:10px;
+  background: linear-gradient(90deg, rgba(255,255,255,.14), rgba(255,255,255,0));
+  border-radius: 6px; opacity:.4;
+}
+.book-card.rtl .book-spine{ left:auto; right:10px; transform: scaleX(-1); }
+
+/* top bevel */
+.book-bevel{
+  position:absolute; left:0; right:0; top:0; height:14px; border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0));
+}
+
+/* glossy highlight */
+.book-gloss{
+  position:absolute; left:8%; top:10%; width:40%; height:70%;
+  background: radial-gradient(ellipse at left top, rgba(255,255,255,.12), transparent 55%);
+  filter: blur(1px); pointer-events:none;
+}
+
+/* page edges to simulate thickness */
+.book-pages{
+  position:absolute; top:10px; bottom:10px; right:-6px; width:6px; border-radius: 0 10px 10px 0;
+  background:
+    repeating-linear-gradient(180deg, rgba(255,255,255,.85) 0 2px, rgba(255,255,255,.7) 2px 4px);
+  box-shadow: inset 0 0 3px rgba(0,0,0,.2);
+}
+.book-card.rtl .book-pages{
+  right:auto; left:-6px; border-radius: 10px 0 0 10px;
+}
+
+/* title */
+.book-title{
+  position:absolute; inset: 22px 16px auto 22px; color:#e5eefc;
+}
+.book-card.rtl .book-title{ inset: 22px 22px auto 16px; text-align: right; }
+.book-title__main{ font-weight: 700; font-size: 15px; line-height:1.2; }
+.book-title__sub{ font-size: 12px; opacity:.7; }
+
+/* badge */
+.book-badge{
+  position:absolute; top:10px; right:10px; width:24px; height:24px; border-radius:9999px;
+  background:#ef4444; color:#fff; font-size:12px; display:grid; place-items:center;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+.book-card.rtl .book-badge{ right:auto; left:10px; }
+
+/* ribbon (diagonal corner) */
+.book-ribbon{
+  position:absolute; right:0; bottom:0; width:0; height:0; opacity:.98;
+  border-left: 140px solid transparent; border-bottom: 92px solid #2563EB;
+  border-bottom-right-radius: 12px;
+}
+.book-ribbon.updated{ border-bottom-color:#2563EB; }
+.book-ribbon.new{ border-bottom-color:#16a34a; }
+.book-ribbon.draft{ border-bottom-color:#7c3aed; }
+
+.book-card.rtl .book-ribbon{
+  right:auto; left:0; transform: scaleX(-1);
+}
+
+.book-ribbon-label{
+  position:absolute; right:14px; bottom:12px; color:#fff; font-weight:800; letter-spacing:.1em; font-size:11px;
+}
+.book-card.rtl .book-ribbon-label{ right:auto; left:14px; }
+
+/* actions */
+.book-menu{
+  position:absolute; bottom:12px; left:12px;
+  color:#e5e7eb; background:transparent; border:none; padding:6px; border-radius:8px;
+}
+.book-menu:hover{ background:rgba(255,255,255,.06); }
+.book-card.rtl .book-menu{ left:auto; right:12px; }
