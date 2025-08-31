@@ -206,46 +206,7 @@ export const ModernExecutiveDashboard: FC = () => {
             zIndex: 1, 
             textAlign: "center",
             direction: i18n.language === 'ar' ? "rtl" : "ltr" 
-          }}>
-            
-            {/* Alerts Section - Positioned with Logo */}
-            <div style={{ 
-              position: "absolute", 
-              top: "20px", 
-              right: i18n.language === 'ar' ? "auto" : "20px",
-              left: i18n.language === 'ar' ? "20px" : "auto",
-              zIndex: 10 
-            }}>
-              <Space size="middle">
-                <Button 
-                  type="default" 
-                  icon={<BellOutlined />}
-                  style={{ 
-                    borderRadius: "12px",
-                    borderColor: "#0C085C",
-                    color: "#0C085C",
-                    background: "rgba(255, 255, 255, 0.9)",
-                    backdropFilter: "blur(10px)",
-                    boxShadow: "0 4px 12px rgba(12, 8, 92, 0.15)"
-                  }}
-                >
-                  {t("3 Alerts")}
-                </Button>
-                <Dropdown menu={{ items: headerMenuItems }} placement="bottomRight">
-                  <Button 
-                    type="primary" 
-                    icon={<MoreOutlined />}
-                    style={{ 
-                      borderRadius: "12px",
-                      background: "#0C085C",
-                      border: "none",
-                      boxShadow: "0 4px 12px rgba(12, 8, 92, 0.25)"
-                    }}
-                  />
-                </Dropdown>
-              </Space>
-            </div>
-            {/* SPECTACULAR Animated Logo */}
+          }}>            {/* SPECTACULAR Animated Logo */}
             <motion.div
               initial={{ scale: 0, rotate: -360, opacity: 0 }}
               animate={{ scale: 1, rotate: 0, opacity: 1 }}

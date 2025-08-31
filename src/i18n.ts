@@ -16,7 +16,7 @@ const resources = {
       "Qarar Executive Portal": "بوابة قرار التنفيذية",
       "Board & C-Suite Command Center": "مركز قيادة مجلس الإدارة والإدارة العليا",
       "My Meetings": "جدول الأعمال",
-            "Bookcase": "مكتبة المجالس",
+      "Executive Library": "مكتبة المجلس",
       "Agenda Planner": "مخطط جدول الأعمال",
       "Pack Reader": "قارئ الحزم",
       "Security & Compliance": "الأمان والامتثال",
@@ -1134,7 +1134,7 @@ const resources = {
       "MEETING SOON":"MEETING SOON",
 
 
-      "Bookcase": "المكتبة",
+      "Bookcase": "مكتبة التنفيذيين",
       "MAIN BOARD": "الْمَجْلِس الرَّئيسي",
       "EXEC COMMITTEE": "اللَّجْنَة التَّنْفيذية",
       "AUDIT COMMITTEE": "لَجْنَة المُراجَعة",
@@ -1153,7 +1153,7 @@ const resources = {
       "Qarar Executive Portal": "Qarar Executive Portal",
       "Board & C-Suite Command Center": "Board & C-Suite Command Center",
       "My Meetings": "My Meetings",
-      "Bookcase": "Bookcase",
+      "Bookcase": "Executive Library",
       "Agenda Planner": "Agenda Planner",
       "Pack Reader": "Pack Reader",
       "Security & Compliance": "Security & Compliance",
@@ -2121,7 +2121,7 @@ const resources = {
       "NEW PACK":"NEW PACK",
       "MEETING SOON":"MEETING SOON",
 
-      "Bookcase": "Bookcase",
+      "Bookcase": "Executive Library",
       "MAIN BOARD": "MAIN BOARD",
       "EXEC COMMITTEE": "EXEC COMMITTEE",
       "AUDIT COMMITTEE": "AUDIT COMMITTEE",

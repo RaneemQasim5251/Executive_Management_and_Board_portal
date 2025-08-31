@@ -3,22 +3,37 @@ import React, { useMemo, useState } from 'react';
 import { AgendaGrid } from '../../components/agenda/AgendaGrid';
 import { AgendaStats } from '../../components/agenda/AgendaStats';
 import type { AgendaItem } from '../../services/agendaStats';
+import { useTranslation } from 'react-i18next';
 
 export default function AgendaPage() {
-  const initial: AgendaItem[] = useMemo(()=>[
-    { id:'a1', idx:1, title:'Welcome & Apologies', minutes:10, tag:'Governance' },
-    { id:'a2', idx:2, title:'Strategy Update', minutes:30, tag:'Strategy', stakeholders:['Shareholder'] },
-    { id:'a3', idx:3, title:'Performance Review', minutes:20, tag:'Performance', stakeholders:['Employee','Customer'] },
-    { id:'a4', idx:4, title:'Governance', minutes:15, tag:'Governance', stakeholders:['Community'] },
-  ],[]);
+  const { i18n } = useTranslation();
+  const rtl = i18n.language === 'ar';
+
+  const initial: AgendaItem[] = useMemo(() => {
+    if (!rtl) {
+      return [
+        { id:'a1', idx:1, title:'Welcome & Apologies', minutes:10, tag:'Governance' },
+        { id:'a2', idx:2, title:'Strategy Update', minutes:30, tag:'Strategy', stakeholders:['Shareholder'] },
+        { id:'a3', idx:3, title:'Performance Review', minutes:20, tag:'Performance', stakeholders:['Employee','Customer'] },
+        { id:'a4', idx:4, title:'Governance', minutes:15, tag:'Governance', stakeholders:['Community'] },
+      ];
+    }
+    return [
+      { id:'a1', idx:1, title:'الترحيب والاعتذارات', minutes:10, tag:'الحوكمة' },
+      { id:'a2', idx:2, title:'تحديث الإستراتيجية', minutes:30, tag:'الإستراتيجية', stakeholders:['المساهم'] },
+      { id:'a3', idx:3, title:'مراجعة الأداء', minutes:20, tag:'الأداء', stakeholders:['الموظف','العميل'] },
+      { id:'a4', idx:4, title:'الحوكمة', minutes:15, tag:'الحوكمة', stakeholders:['المجتمع'] },
+    ];
+  }, [rtl]);
+
   const [items, setItems] = useState<AgendaItem[]>(initial);
 
   return (
     <div className="bi-bg" style={{padding: 24}}>
-      <Typography.Title level={2}>Agenda Planner</Typography.Title>
+      <Typography.Title level={2}>{rtl ? 'مخطط جدول الأعمال' : 'Agenda Planner'}</Typography.Title>
       <Row gutter={24}>
         <Col flex="1 1 640px">
-          <Card title="Agenda" extra={<Button type="primary">Save Agenda</Button>}>
+          <Card title={rtl ? 'الجدول' : 'Agenda'} extra={<Button type="primary">{rtl ? 'حفظ الجدول' : 'Save Agenda'}</Button>}>
             <AgendaGrid items={items} setItems={setItems}/>
           </Card>
         </Col>

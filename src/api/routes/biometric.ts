@@ -270,6 +270,8 @@ router.post('/authenticate/complete', asyncHandler(async (req: Request, res: Res
         expires_in: 86400, // 24 hours
         token_type: 'Bearer',
         auth_method: 'biometric',
+        expires_in: 86400, 
+        session_token: sessionToken 
       },
     },
     message: 'Biometric authentication successful',
