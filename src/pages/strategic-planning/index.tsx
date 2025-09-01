@@ -23,25 +23,25 @@ export const StrategicPlanningPage: React.FC = () => {
   const planningPhases = [
     {
       title: t("Strategic Analysis"),
-      description: t("تحليل الوضع الحالي والفرص المتاحة"),
+      description: t("Analysis of current situation and available opportunities"),
       status: "completed",
       date: "Q1 2024"
     },
     {
       title: t("Vision Development"),
-      description: t("تطوير الرؤية والرسالة الاستراتيجية"),
+      description: t("Development of strategic vision and mission"),
       status: "completed", 
       date: "Q2 2024"
     },
     {
       title: t("Goal Setting"),
-      description: t("تحديد الأهداف الاستراتيجية والمؤشرات"),
+      description: t("Setting strategic goals and indicators"),
       status: "in-progress",
       date: "Q3 2024"
     },
     {
       title: t("Implementation Planning"),
-      description: t("وضع خطط التنفيذ التفصيلية"),
+      description: t("Developing detailed implementation plans"),
       status: "pending",
       date: "Q4 2024"
     }
@@ -60,7 +60,9 @@ export const StrategicPlanningPage: React.FC = () => {
       background: "#0C085C",
       minHeight: "100vh",
       direction: isRTL ? 'rtl' : 'ltr',
-      fontFamily: isRTL ? 'Cairo, Arial, sans-serif' : 'Inter, Arial, sans-serif'
+      fontFamily: isRTL 
+        ? "'Noto Sans Arabic', 'Cairo', 'Amiri', system-ui, -apple-system, sans-serif"
+        : "'Inter', system-ui, -apple-system, sans-serif"
     }}>
       {/* Executive Header */}
       <Card 
@@ -137,7 +139,7 @@ export const StrategicPlanningPage: React.FC = () => {
             
             <div style={{ marginTop: '16px' }}>
               <Text strong>{t('Quick Overview')}:</Text>
-              <ul style={{ marginTop: '8px', paddingLeft: isRTL ? '0' : '20px', paddingRight: isRTL ? '20px' : '0' }}>
+              <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
                 <li>{t('Q1 2025: Strategic Review & Planning')}</li>
                 <li>{t('Q2 2025: Digital Transformation Phase 2')}</li>
                 <li>{t('Q3 2025: Market Expansion Initiative')}</li>
@@ -197,7 +199,7 @@ export const StrategicPlanningPage: React.FC = () => {
               <Statistic
                 title={t('Completed Initiatives')}
                 value={8}
-                suffix="/ 12"
+                suffix={"/ 12"}
                 valueStyle={{ color: '#52c41a' }}
               />
             </Card>
@@ -207,7 +209,7 @@ export const StrategicPlanningPage: React.FC = () => {
               <Statistic
                 title={t('In Progress')}
                 value={3}
-                suffix={t("initiatives")}
+                suffix={t('initiatives')}
                 valueStyle={{ color: '#0095CE' }}
               />
             </Card>
@@ -217,7 +219,7 @@ export const StrategicPlanningPage: React.FC = () => {
               <Statistic
                 title={t('Planned')}
                 value={1}
-                suffix={t("upcoming")}
+                suffix={t('upcoming')}
                 valueStyle={{ color: '#fa8c16' }}
               />
             </Card>

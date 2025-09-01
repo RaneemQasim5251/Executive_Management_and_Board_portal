@@ -148,10 +148,91 @@ const itemVariants = {
 };
 
 export const TimelinePage: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [commentModalVisible, setCommentModalVisible] = useState(false);
   const [newComment, setNewComment] = useState("");
+  const isRTL = i18n.language === 'ar';
+
+  // Timeline data with translation
+  const timelineData = [
+    {
+      id: 1,
+      title: t("Digital Transformation Initiative Launch"),
+      description: t("Board-approved company-wide digital transformation program with focus on AI integration and process automation. Strategic investment of $2.5M approved."),
+      date: t("Q1 2024"),
+      status: "completed",
+      type: t("strategic-initiative"),
+      stakeholders: [t("CEO"), t("CTO"), t("Board of Directors")],
+      comments: 12,
+      attachments: 5,
+      priority: t("critical"),
+      boardApproval: true,
+      budget: "$2.5M"
+    },
+    {
+      id: 2,
+      title: t("Q1 Board Meeting - Strategic Review"),
+      description: t("Quarterly board meeting: 23% revenue growth approved, strategic initiatives reviewed, and market expansion strategy finalized for APAC region."),
+      date: t("Q1 2024"),
+      status: "completed",
+      type: t("board-meeting"),
+      stakeholders: [t("Board of Directors"), t("C-Suite Leadership")],
+      comments: 8,
+      attachments: 15,
+      priority: t("critical"),
+      boardApproval: true,
+      outcomes: [t("Revenue targets exceeded"), t("APAC expansion approved"), t("Digital roadmap confirmed")]
+    },
+    {
+      id: 3,
+      title: t("Market Expansion - APAC Region"),
+      description: t("Official launch of operations in Asia-Pacific region with new offices in Singapore and Tokyo."),
+      date: t("Q2 2024"),
+      status: "in-progress",
+      type: t("project"),
+      stakeholders: [t("CEO"), t("COO"), t("Regional VPs")],
+      comments: 24,
+      attachments: 8,
+      priority: t("high")
+    },
+    {
+      id: 4,
+      title: t("AI-Powered Product Suite Release"),
+      description: t("Launch of next-generation AI-powered products targeting enterprise customers."),
+      date: t("Q3 2024"),
+      status: "upcoming",
+      type: t("product"),
+      stakeholders: [t("CTO"), t("CPO"), t("Engineering")],
+      comments: 6,
+      attachments: 12,
+      priority: t("high")
+    },
+    {
+      id: 5,
+      title: t("Sustainability Goals Milestone"),
+      description: t("Achievement of 50% carbon footprint reduction and implementation of green technology initiatives."),
+      date: t("Q3 2024"),
+      status: "upcoming",
+      type: t("milestone"),
+      stakeholders: [t("CEO"), t("CSO"), t("Operations")],
+      comments: 3,
+      attachments: 4,
+      priority: t("medium")
+    },
+    {
+      id: 6,
+      title: t("Annual Strategic Planning Session"),
+      description: t("Executive retreat for 2025 strategic planning, budget allocation, and long-term vision setting."),
+      date: t("Q4 2024"),
+      status: "upcoming",
+      type: t("planning"),
+      stakeholders: [t("All C-Suite"), t("Board")],
+      comments: 0,
+      attachments: 2,
+      priority: t("critical")
+    }
+  ];
 
   const handleAddComment = () => {
     // In real app, this would save to backend
@@ -165,7 +246,7 @@ export const TimelinePage: FC = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      style={{ padding: "24px", background: "#f8fafc", minHeight: "100vh" }}
+      style={{ padding: "24px", background: "#f8fafc", minHeight: "100vh", direction: isRTL ? 'rtl' : 'ltr', fontFamily: isRTL ? "'Noto Sans Arabic', 'Cairo', 'Amiri', system-ui, -apple-system, sans-serif" : "'Inter', system-ui, -apple-system, sans-serif" }}
     >
       {/* Beautiful Header with Gradient */}
       <motion.div variants={itemVariants} className="executive-header">
@@ -238,7 +319,7 @@ export const TimelinePage: FC = () => {
               style={{
                 [index % 2 === 0 ? "marginRight" : "marginLeft"]: "50%",
                 [index % 2 === 0 ? "paddingRight" : "paddingLeft"]: "40px",
-                [index % 2 === 0 ? "textAlign" : "textAlign"]: index % 2 === 0 ? "right" : "left",
+                [index % 2 === 0 ? "textAlign" : "textAlign"]: index % 2 === 0 ? (isRTL ? "left" : "right") : (isRTL ? "right" : "left"),
               }}
             >
               <Card
@@ -257,31 +338,30 @@ export const TimelinePage: FC = () => {
                 <div style={{ marginBottom: "16px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
                     <Tag color={getPriorityColor(item.priority)} style={{ textTransform: "uppercase", fontWeight: 600 }}>
-                      {t(item.priority)}
+                      {item.priority}
                     </Tag>
                     <Text type="secondary" style={{ fontSize: "12px" }}>
                       <CalendarOutlined style={{ marginRight: "4px" }} />
-                      {dayjs(item.date).format("MMM DD, YYYY")}
+                      {item.date}
                     </Text>
                   </div>
-                  
                   <Title level={4} style={{ margin: 0, color: "#1e3a8a" }}>
-                    {t(item.title)}
+                    {item.title}
                   </Title>
                 </div>
 
                 {/* Card Body */}
                 <Paragraph style={{ color: "#6b7280", marginBottom: "16px" }}>
-                  {t(item.description)}
+                  {item.description}
                 </Paragraph>
 
                 {/* Status and Type */}
                 <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
                   <Tag color={getStatusColor(item.status)} icon={getStatusIcon(item.status)}>
-                    {item.status.replace("-", " ").toUpperCase()}
+                    {t(item.status.replace("-", " ").toLowerCase())}
                   </Tag>
                   <Tag color="blue">
-                    {item.type.toUpperCase()}
+                    {item.type}
                   </Tag>
                 </div>
 
@@ -289,7 +369,7 @@ export const TimelinePage: FC = () => {
                 <div style={{ marginBottom: "16px" }}>
                   <Text type="secondary" style={{ fontSize: "12px", display: "block", marginBottom: "8px" }}>
                     <TeamOutlined style={{ marginRight: "4px" }} />
-                    STAKEHOLDERS
+                    {t("STAKEHOLDERS")}
                   </Text>
                   <Avatar.Group max={{ count: 3 }} size="small">
                     {item.stakeholders.map((stakeholder, idx) => (
@@ -331,7 +411,6 @@ export const TimelinePage: FC = () => {
                       {item.attachments}
                     </Button>
                   </Space>
-                  
                   <Button 
                     type="primary" 
                     size="small"
@@ -340,7 +419,7 @@ export const TimelinePage: FC = () => {
                       border: "none"
                     }}
                   >
-                    View Details
+                    {t("View Details")}
                   </Button>
                 </div>
               </Card>
@@ -373,11 +452,10 @@ export const TimelinePage: FC = () => {
             <Text strong>{selectedItem.title}</Text>
             <br />
             <Text type="secondary" style={{ fontSize: "12px" }}>
-              {dayjs(selectedItem.date).format("MMMM DD, YYYY")}
+              {selectedItem.date}
             </Text>
           </div>
         )}
-        
         <TextArea
           rows={4}
           placeholder={t("Add your executive comment or strategic insight...")}
@@ -385,7 +463,6 @@ export const TimelinePage: FC = () => {
           onChange={(e) => setNewComment(e.target.value)}
           style={{ marginBottom: "16px" }}
         />
-        
         <Upload
           multiple
           showUploadList={true}
