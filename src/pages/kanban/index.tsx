@@ -29,23 +29,23 @@ const getBoardData = (t: any) => ({
         id: "sp-1",
         title: t("2025 Vision & Strategy Document"),
         description: t("Develop comprehensive strategic vision and roadmap for 2025-2027"),
-        priority: "critical",
-        assignees: ["CEO", "Strategy Team"],
+        priority: t("critical"),
+        assignees: [t("CEO"), t("Strategy Team")],
         dueDate: "2024-08-15",
         comments: 8,
         attachments: 12,
-        tags: ["Vision", "Strategy", "Planning"]
+        tags: [t("Vision"), t("Strategy"), t("Planning")]
       },
       {
         id: "sp-2", 
         title: t("Market Analysis - Emerging Technologies"),
-        description: "Deep dive analysis of AI, IoT, and blockchain market opportunities",
-        priority: "high",
-        assignees: ["CTO", "Research Team"],
+        description: t("Deep dive analysis of AI, IoT, and blockchain market opportunities"),
+        priority: t("high"),
+        assignees: [t("CTO"), t("Research Team")],
         dueDate: "2024-07-30",
         comments: 5,
         attachments: 7,
-        tags: ["Research", "Technology", "Market"]
+        tags: [t("Research"), t("Technology"), t("Market")]
       }
     ]
   },
@@ -56,35 +56,35 @@ const getBoardData = (t: any) => ({
       {
         id: "ie-1",
         title: t("Digital Transformation Phase 2"),
-        description: "Implementation of AI-driven automation across core business processes",
-        priority: "critical",
-        assignees: ["CTO", "COO", "IT Team"],
+        description: t("Implementation of AI-driven automation across core business processes"),
+        priority: t("critical"),
+        assignees: [t("CTO"), t("COO"), t("IT Team")],
         dueDate: "2024-09-30",
         comments: 24,
         attachments: 18,
-        tags: ["Digital", "Automation", "AI"]
+        tags: [t("Digital"), t("Automation"), t("AI")]
       },
       {
         id: "ie-2",
         title: t("APAC Market Expansion"),
-        description: "Establish operations in Singapore, Tokyo, and Sydney markets",
-        priority: "high",
-        assignees: ["CEO", "Regional VP"],
+        description: t("Establish operations in Singapore, Tokyo, and Sydney markets"),
+        priority: t("high"),
+        assignees: [t("CEO"), t("Regional VP")],
         dueDate: "2024-08-20",
         comments: 15,
         attachments: 9,
-        tags: ["Expansion", "APAC", "Operations"]
+        tags: [t("Expansion"), t("APAC"), t("Operations")]
       },
       {
         id: "ie-3",
         title: t("Sustainability Initiative Rollout"), 
-        description: "Company-wide carbon neutrality program implementation",
-        priority: "medium",
-        assignees: ["CSO", "Operations"],
+        description: t("Company-wide carbon neutrality program implementation"),
+        priority: t("medium"),
+        assignees: [t("CSO"), t("Operations")],
         dueDate: "2024-10-15",
         comments: 6,
         attachments: 4,
-        tags: ["Sustainability", "Green", "CSR"]
+        tags: [t("Sustainability"), t("Green"), t("CSR")]
       }
     ]
   },
@@ -94,25 +94,25 @@ const getBoardData = (t: any) => ({
     tasks: [
       {
         id: "ra-1",
-        title: "Q3 Financial Performance Review",
-        description: "Comprehensive quarterly financial analysis and board presentation",
-        priority: "critical",
-        assignees: ["CFO", "Finance Team"],
+        title: t("Q3 Financial Performance Review"),
+        description: t("Comprehensive quarterly financial analysis and board presentation"),
+        priority: t("critical"),
+        assignees: [t("CFO"), t("Finance Team")],
         dueDate: "2024-07-25",
         comments: 12,
         attachments: 25,
-        tags: ["Finance", "Quarterly", "Board"]
+        tags: [t("Finance"), t("Quarterly"), t("Board")]
       },
       {
         id: "ra-2",
-        title: "Risk Management Framework Update",
-        description: "Updated enterprise risk assessment and mitigation strategies",
-        priority: "high", 
-        assignees: ["CRO", "Legal Team"],
+        title: t("Risk Management Framework Update"),
+        description: t("Updated enterprise risk assessment and mitigation strategies"),
+        priority: t("high"), 
+        assignees: [t("CRO"), t("Legal Team")],
         dueDate: "2024-08-10",
         comments: 7,
         attachments: 14,
-        tags: ["Risk", "Compliance", "Legal"]
+        tags: [t("Risk"), t("Compliance"), t("Legal")]
       }
     ]
   },
@@ -122,32 +122,38 @@ const getBoardData = (t: any) => ({
     tasks: [
       {
         id: "c-1",
-        title: "Q2 Board Meeting Execution",
-        description: "Successful quarterly board meeting with strategic updates",
-        priority: "critical",
-        assignees: ["CEO", "All C-Suite"],
+        title: t("Q2 Board Meeting Execution"),
+        description: t("Successful quarterly board meeting with strategic updates"),
+        priority: t("critical"),
+        assignees: [t("CEO"), t("All C-Suite")],
         dueDate: "2024-06-20",
         comments: 18,
         attachments: 22,
-        tags: ["Board", "Meeting", "Strategic"]
+        tags: [t("Board"), t("Meeting"), t("Strategic")]
       },
       {
         id: "c-2",
-        title: "Product Launch - AI Suite v2.0",
-        description: "Successfully launched next-generation AI product suite",
-        priority: "high",
-        assignees: ["CPO", "Engineering"],
+        title: t("Product Launch - AI Suite v2.0"),
+        description: t("Successfully launched next-generation AI product suite"),
+        priority: t("high"),
+        assignees: [t("CPO"), t("Engineering")],
         dueDate: "2024-06-15",
         comments: 31,
         attachments: 16,
-        tags: ["Product", "AI", "Launch"]
+        tags: [t("Product"), t("AI"), t("Launch")]
       }
     ]
   }
 });
 
-const getPriorityColor = (priority: string) => {
-  switch (priority) {
+const getPriorityColor = (priority: string, t: any) => {
+  // Handle both English and translated priorities
+  const priorityKey = priority === t("critical") ? "critical" :
+                     priority === t("high") ? "high" :
+                     priority === t("medium") ? "medium" :
+                     priority === t("low") ? "low" : priority;
+                     
+  switch (priorityKey) {
     case "critical": return "#ef4444";
     case "high": return "#f59e0b";
     case "medium": return "#3b82f6";
@@ -192,10 +198,13 @@ const taskVariants = {
 };
 
 export const KanbanPage: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedTask, setSelectedTask] = useState<any>(null);
   const [commentModalVisible, setCommentModalVisible] = useState(false);
   const [newComment, setNewComment] = useState("");
+  
+  // RTL support
+  const isRTL = i18n.language === 'ar';
 
   // Get kanban data with translations
   const kanbanData = getBoardData(t);
@@ -218,8 +227,12 @@ export const KanbanPage: FC = () => {
       animate="visible"
       style={{ 
         padding: "24px",
-                    background: "#0C085C",
-        minHeight: "100vh"
+        background: "#0C085C",
+        minHeight: "100vh",
+        direction: isRTL ? 'rtl' : 'ltr',
+        fontFamily: isRTL 
+          ? "'Noto Sans Arabic', 'Cairo', 'Amiri', system-ui, -apple-system, sans-serif"
+          : "'Inter', system-ui, -apple-system, sans-serif"
       }}
     >
       {/* Executive Header */}
@@ -247,10 +260,10 @@ export const KanbanPage: FC = () => {
                 fontWeight: "800"
               }}
             >
-              Board Management
+              {t("Board Management")}
             </Title>
             <Text style={{ fontSize: "16px", color: "#666" }}>
-              Executive initiatives and board-level strategic tracking
+              {t("Executive initiatives and board-level strategic tracking")}
             </Text>
           </Space>
         </Card>
@@ -262,7 +275,9 @@ export const KanbanPage: FC = () => {
         gap: "24px", 
         overflowX: "auto", 
         paddingBottom: "24px",
-        minHeight: "600px" 
+        minHeight: "600px",
+        direction: isRTL ? 'rtl' : 'ltr',
+        flexDirection: isRTL ? 'row-reverse' : 'row'
       }}>
         {Object.entries(kanbanData).map(([columnId, column]) => (
           <motion.div
@@ -276,6 +291,7 @@ export const KanbanPage: FC = () => {
               padding: "20px",
               border: "1px solid #e5e7eb",
               boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              direction: isRTL ? 'rtl' : 'ltr',
             }}
           >
             {/* Column Header */}
@@ -296,12 +312,12 @@ export const KanbanPage: FC = () => {
                 {column.title}
               </Title>
               <Text style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "12px" }}>
-                {column.tasks.length} {column.tasks.length === 1 ? 'task' : 'tasks'}
+                {column.tasks.length} {column.tasks.length === 1 ? t('task') : t('tasks')}
               </Text>
             </div>
 
             {/* Timeline Access - Only show in Strategic Planning column */}
-            {column.title === "Strategic Planning" && (
+            {column.title === t("Strategic Planning") && (
               <div style={{ marginBottom: "16px" }}>
                 <TimelineAccess />
               </div>
@@ -325,6 +341,8 @@ export const KanbanPage: FC = () => {
                       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
                       cursor: "pointer",
                       transition: "all 0.3s ease",
+                      direction: isRTL ? 'rtl' : 'ltr',
+                      textAlign: isRTL ? 'right' : 'left',
                     }}
                     hoverable
                     onClick={() => handleTaskClick(task)}
@@ -333,7 +351,7 @@ export const KanbanPage: FC = () => {
                     <div style={{ marginBottom: "12px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
                         <Tag 
-                          color={getPriorityColor(task.priority)} 
+                          color={getPriorityColor(task.priority, t)} 
                           icon={<FlagOutlined />}
                           style={{ textTransform: "uppercase", fontWeight: 600, fontSize: "10px" }}
                         >
@@ -378,7 +396,7 @@ export const KanbanPage: FC = () => {
                     <div style={{ marginBottom: "12px" }}>
                       <Text type="secondary" style={{ fontSize: "10px", display: "block", marginBottom: "6px" }}>
                         <TeamOutlined style={{ marginRight: "4px" }} />
-                        ASSIGNED TO
+                        {t("ASSIGNED TO")}
                       </Text>
                       <Avatar.Group max={{ count: 2 }} size="small">
                         {task.assignees.map((assignee, idx) => (
@@ -391,7 +409,7 @@ export const KanbanPage: FC = () => {
                                 fontWeight: 600
                               }}
                             >
-                              {assignee.split(' ').map(n => n[0]).join('')}
+                              {assignee.split(' ').map((n: string) => n[0]).join('')}
                             </Avatar>
                           </Tooltip>
                         ))}
@@ -434,7 +452,7 @@ export const KanbanPage: FC = () => {
                           fontWeight: 600
                         }}
                       >
-                        View
+                        {t("View")}
                       </Button>
                     </div>
                   </Card>
@@ -455,7 +473,7 @@ export const KanbanPage: FC = () => {
                   }}
                   block
                 >
-                  {t("Add Strategic Initiative")}
+                  {t("kanban.addStrategicInitiative")}
                 </Button>
               </motion.div>
             </div>
@@ -466,16 +484,23 @@ export const KanbanPage: FC = () => {
       {/* Executive Comment Modal */}
       <Modal
         title={
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <div style={{ 
+            display: "flex", 
+            alignItems: "center", 
+            gap: "8px",
+            direction: isRTL ? 'rtl' : 'ltr',
+            justifyContent: isRTL ? 'flex-end' : 'flex-start'
+          }}>
             <CommentOutlined style={{ color: "#0C085C" }} />
-            <span>{t("Executive Commentary")}</span>
+            <span>{t("kanban.executiveCommentary")}</span>
           </div>
         }
         open={commentModalVisible}
         onOk={handleAddComment}
         onCancel={() => setCommentModalVisible(false)}
-        okText={t("Add Executive Comment")}
+        okText={t("kanban.addExecutiveComment")}
         width={600}
+        style={{ direction: isRTL ? 'rtl' : 'ltr' }}
         okButtonProps={{
           style: {
             background: "#0C085C",
@@ -490,8 +515,8 @@ export const KanbanPage: FC = () => {
               {selectedTask.title}
             </Title>
             <Text type="secondary" style={{ fontSize: "12px" }}>
-              Due: {dayjs(selectedTask.dueDate).format("MMMM DD, YYYY")} • 
-              Priority: <Tag color={getPriorityColor(selectedTask.priority)} style={{ margin: "0 0 0 4px" }}>
+              {t("Due")}: {dayjs(selectedTask.dueDate).format("MMMM DD, YYYY")} • 
+              {t("Priority")}: <Tag color={getPriorityColor(selectedTask.priority, t)} style={{ margin: "0 0 0 4px" }}>
                 {selectedTask.priority.toUpperCase()}
               </Tag>
             </Text>
@@ -503,11 +528,11 @@ export const KanbanPage: FC = () => {
         
         <div style={{ marginBottom: "16px" }}>
           <Text strong style={{ display: "block", marginBottom: "8px" }}>
-            Executive Comment or Strategic Direction:
+            {t("Executive Comment or Strategic Direction:")}
           </Text>
           <TextArea
             rows={4}
-            placeholder="Add your executive insight, strategic direction, or board-level commentary..."
+            placeholder={t("Add your executive insight, strategic direction, or board-level commentary...")}
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             style={{ borderRadius: "8px" }}
@@ -516,12 +541,12 @@ export const KanbanPage: FC = () => {
 
         <div style={{ marginBottom: "16px" }}>
           <Text strong style={{ display: "block", marginBottom: "8px" }}>
-            Visibility Level:
+            {t("Visibility Level:")}
           </Text>
           <Select defaultValue="c-level" style={{ width: "100%" }}>
-            <Option value="c-level">C-Level Only</Option>
-            <Option value="board">Board Members</Option>
-            <Option value="senior-management">Senior Management</Option>
+            <Option value="c-level">{t("C-Level Only")}</Option>
+            <Option value="board">{t("Board Members")}</Option>
+            <Option value="senior-management">{t("Senior Management")}</Option>
           </Select>
         </div>
         
@@ -531,7 +556,7 @@ export const KanbanPage: FC = () => {
           beforeUpload={() => false}
         >
           <Button icon={<PaperClipOutlined />} type="dashed" block style={{ borderRadius: "8px" }}>
-            Attach Executive Documents
+            {t("Attach Executive Documents")}
           </Button>
         </Upload>
       </Modal>

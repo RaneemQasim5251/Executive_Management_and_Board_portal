@@ -14,48 +14,53 @@ import { useNavigate } from 'react-router-dom';
 const { Title, Text, Paragraph } = Typography;
 
 export const StrategicPlanningPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  
+  // RTL support
+  const isRTL = i18n.language === 'ar';
 
   const planningPhases = [
     {
       title: t("Strategic Analysis"),
-      description: "تحليل الوضع الحالي والفرص المتاحة",
+      description: t("تحليل الوضع الحالي والفرص المتاحة"),
       status: "completed",
       date: "Q1 2024"
     },
     {
       title: t("Vision Development"),
-      description: "تطوير الرؤية والرسالة الاستراتيجية",
+      description: t("تطوير الرؤية والرسالة الاستراتيجية"),
       status: "completed", 
       date: "Q2 2024"
     },
     {
       title: t("Goal Setting"),
-      description: "تحديد الأهداف الاستراتيجية والمؤشرات",
+      description: t("تحديد الأهداف الاستراتيجية والمؤشرات"),
       status: "in-progress",
       date: "Q3 2024"
     },
     {
       title: t("Implementation Planning"),
-      description: "وضع خطط التنفيذ التفصيلية",
+      description: t("وضع خطط التنفيذ التفصيلية"),
       status: "pending",
       date: "Q4 2024"
     }
   ];
 
   const strategicMetrics = [
-    { title: "Strategic Initiatives", value: 12, suffix: "projects" },
-    { title: "Implementation Rate", value: 85, suffix: "%" },
-    { title: "Budget Allocation", value: 2.5, prefix: "$", suffix: "M" },
-    { title: "Team Involvement", value: 156, suffix: "members" }
+    { title: t("Strategic Initiatives"), value: 12, suffix: t("projects") },
+    { title: t("Implementation Rate"), value: 85, suffix: "%" },
+    { title: t("Budget Allocation"), value: 2.5, prefix: "$", suffix: "M" },
+    { title: t("Team Involvement"), value: 156, suffix: t("members") }
   ];
 
   return (
     <div style={{ 
       padding: "24px",
-              background: "#0C085C",
-      minHeight: "100vh"
+      background: "#0C085C",
+      minHeight: "100vh",
+      direction: isRTL ? 'rtl' : 'ltr',
+      fontFamily: isRTL ? 'Cairo, Arial, sans-serif' : 'Inter, Arial, sans-serif'
     }}>
       {/* Executive Header */}
       <Card 
@@ -74,7 +79,7 @@ export const StrategicPlanningPage: React.FC = () => {
             level={1} 
             style={{ 
               margin: 0, 
-                              background: "#0C085C",
+              background: "#0C085C",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               fontSize: "42px",
@@ -131,8 +136,8 @@ export const StrategicPlanningPage: React.FC = () => {
             </Paragraph>
             
             <div style={{ marginTop: '16px' }}>
-          <Text strong>{t('Quick Overview')}:</Text>
-              <ul style={{ marginTop: '8px', paddingLeft: '20px' }}>
+              <Text strong>{t('Quick Overview')}:</Text>
+              <ul style={{ marginTop: '8px', paddingLeft: isRTL ? '0' : '20px', paddingRight: isRTL ? '20px' : '0' }}>
                 <li>{t('Q1 2025: Strategic Review & Planning')}</li>
                 <li>{t('Q2 2025: Digital Transformation Phase 2')}</li>
                 <li>{t('Q3 2025: Market Expansion Initiative')}</li>
@@ -148,7 +153,7 @@ export const StrategicPlanningPage: React.FC = () => {
             title={
               <Space>
                 <RocketOutlined style={{ color: '#52c41a' }} />
-                Planning Phases
+                {t("Planning Phases")}
               </Space>
             }
           >
@@ -183,7 +188,7 @@ export const StrategicPlanningPage: React.FC = () => {
 
       {/* Strategic Initiatives Overview */}
       <Card 
-            title={t('Strategic Initiatives Overview')} 
+        title={t('Strategic Initiatives Overview')} 
         style={{ marginTop: '24px' }}
       >
         <Row gutter={[24, 24]}>
@@ -202,7 +207,7 @@ export const StrategicPlanningPage: React.FC = () => {
               <Statistic
                 title={t('In Progress')}
                 value={3}
-                suffix="initiatives"
+                suffix={t("initiatives")}
                 valueStyle={{ color: '#0095CE' }}
               />
             </Card>
@@ -212,7 +217,7 @@ export const StrategicPlanningPage: React.FC = () => {
               <Statistic
                 title={t('Planned')}
                 value={1}
-                suffix="upcoming"
+                suffix={t("upcoming")}
                 valueStyle={{ color: '#fa8c16' }}
               />
             </Card>
