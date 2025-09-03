@@ -164,7 +164,7 @@ export const ExecutiveMetricsWidget: React.FC = () => {
             tooltip="Strategic projects currently in execution"
           />
         </Col>
-        
+
         <Col xs={24} sm={12} md={6}>
           <BoardMembersCard
             value={metrics.teamMembers}

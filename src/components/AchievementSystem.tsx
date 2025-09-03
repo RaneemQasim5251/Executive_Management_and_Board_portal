@@ -329,6 +329,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
               border: 'none',
               borderRadius: '8px'
             }}
+          
           >
             Awesome! 🎉
           </Button>

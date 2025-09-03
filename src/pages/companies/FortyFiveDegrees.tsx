@@ -140,6 +140,9 @@ export const FortyFiveDegreesPage = () => {
                 45degrees is poised to operate over <Text strong style={{ color: '#8B4513' }}>100 drive-thru cafes</Text> in 
                 Saudi Arabia by 2025.
               </Paragraph>
+
+              <Paragraph style={{ fontSize: '15px', lineHeight: '1.6' }}>
+                we're so sure of the quality of our coffee that we offer a <Text strong style={{ color: '#8B4513' }}>97% satisfaction guarantee</Text>             </Paragraph>
               
               <Divider />
               
