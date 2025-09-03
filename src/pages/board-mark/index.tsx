@@ -44,7 +44,7 @@ export const BoardMarkPage: FC = () => {
 
   const columns = useMemo(() => [
     {
-      title: isAr ? 'المعرف' : 'ID',
+      title: isAr ? 'المرجع' : 'Reference',
       dataIndex: 'id',
       key: 'id'
     },
