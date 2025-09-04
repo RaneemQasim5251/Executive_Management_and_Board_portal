@@ -52,6 +52,9 @@ export const QuickAccessPanel: React.FC = () => {
   const [isNotificationExpanded, setIsNotificationExpanded] = useState(false);
   const [isAchievementsVisible, setIsAchievementsVisible] = useState(false);
 
+  // Detect RTL to avoid covering content in Arabic layout
+  const isRTL = typeof document !== 'undefined' && document?.documentElement?.dir === 'rtl';
+
   const NotificationMenu = (
     <Menu 
       style={{ 
@@ -83,8 +86,10 @@ export const QuickAccessPanel: React.FC = () => {
       <div 
         style={{ 
           position: 'fixed', 
-          bottom: 24, 
-          right: 24, 
+          bottom: 'calc(24px + env(safe-area-inset-bottom, 0px))',
+          // Place on the start side for RTL to avoid covering key UI
+          right: isRTL ? 'auto' : 24,
+          left: isRTL ? 24 : 'auto',
           display: 'flex', 
           alignItems: 'center', 
           gap: 12,
@@ -93,7 +98,10 @@ export const QuickAccessPanel: React.FC = () => {
           borderRadius: '32px',
           padding: '8px 16px',
           backdropFilter: 'blur(10px)',
-          boxShadow: '0 8px 24px rgba(12, 8, 92, 0.25)'
+          boxShadow: '0 8px 24px rgba(12, 8, 92, 0.25)',
+          // Prevent the bar from stretching too wide and covering content
+          maxWidth: 'min(90vw, 560px)',
+          flexWrap: 'wrap'
         }}
       >
         {/* Performance Metrics */}
