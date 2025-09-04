@@ -126,12 +126,46 @@ const getAchievements = (t: any): Achievement[] => [
 ];
 
 export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const achievements = getAchievements(t);
   const [userAchievements] = useState<Achievement[]>(achievements);
   const [showCelebration, setShowCelebration] = useState(false);
   const [newAchievement] = useState<Achievement | null>(null);
   const [, contextHolder] = notification.useNotification();
+  const isArabic = i18n.language === 'ar';
+
+  // Arabic display mappings for titles, descriptions, categories, and rarity
+  const arTitles: Record<string, string> = {
+    'Revenue Master': 'سيد الإيرادات',
+    'Team Builder': 'باني الفريق',
+    'Innovation Champion': 'بطل الابتكار',
+    'Meeting Master': 'سيد الاجتماعات',
+    'Efficiency Expert': 'خبير الكفاءة',
+    'Strategic Visionary': 'صاحب الرؤية الاستراتيجية'
+  };
+
+  const arDescriptions: Record<string, string> = {
+    'Achieve 100% of quarterly revenue target': 'تحقيق 100% من هدف الإيرادات الربعي',
+    'Successfully onboard 5 new team members': 'نجاح في ضم 5 أعضاء جدد للفريق',
+    'Launch 3 successful innovation projects': 'إطلاق 3 مشاريع ابتكار ناجحة',
+    'Conduct 50 productive meetings': 'عقد 50 اجتماعاً مثمراً',
+    'Maintain 95%+ team efficiency for 3 months': 'الحفاظ على كفاءة الفريق بنسبة 95%+ لمدة 3 أشهر',
+    'Complete strategic planning for next 5 years': 'إكمال التخطيط الاستراتيجي للخمس سنوات القادمة'
+  };
+
+  const arCategory: Record<Achievement['category'], string> = {
+    productivity: 'الإنتاجية',
+    leadership: 'القيادة',
+    innovation: 'الابتكار',
+    collaboration: 'التعاون'
+  };
+
+  const arRarity: Record<Achievement['rarity'], string> = {
+    common: 'شائع',
+    rare: 'نادر',
+    epic: 'ملحمي',
+    legendary: 'أسطوري'
+  };
 
   // Removed auto-simulation for cleaner executive experience
   // useEffect(() => {
@@ -179,7 +213,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
         title={
           <Space>
             <TrophyOutlined style={{ color: '#F59E0B' }} />
-            <span>{t('Your Achievements')}</span>
+            <span>{i18n.language === 'ar' ? 'إنجازاتك' : t('Your Achievements')}</span>
             <Badge count={completedCount} style={{ backgroundColor: '#0C085C' }} />
           </Space>
         }
@@ -197,19 +231,32 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
           borderRadius: '16px',
           padding: '24px',
           marginBottom: '24px',
-          color: 'white'
+          color: 'white',
+          direction: i18n.language === 'ar' ? 'rtl' : 'ltr',
+          textAlign: i18n.language === 'ar' ? 'right' : 'left'
         }}>
+          <div style={{ marginBottom: '12px', textAlign: 'center' }}>
+            <Text style={{ color: 'rgba(255,255,255,0.95)', fontSize: '14px', fontWeight: 600 }}>
+              {isArabic 
+                ? 'نشكركم على جهودكم لقد أنجزتم ما يلي:' 
+                : 'Thank you for your efforts. You have accomplished the following:'}
+            </Text>
+          </div>
           <Row gutter={[24, 24]} align="middle">
             <Col span={8}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '32px', fontWeight: 'bold' }}>{totalPoints}</div>
-                <Text style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Total Points')}</Text>
+                <Text style={{ color: 'rgba(255,255,255,0.8)' }}>
+                  {isArabic ? 'الأهداف' : 'Achivements'}
+                </Text>
               </div>
             </Col>
             <Col span={8}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '32px', fontWeight: 'bold' }}>{completedCount}</div>
-                <Text style={{ color: 'rgba(255,255,255,0.8)' }}>{t('Completed')}</Text>
+                <Text style={{ color: 'rgba(255,255,255,0.8)' }}>
+                  {isArabic ? 'مكتمل' : 'Completed'}
+                </Text>
               </div>
             </Col>
             <Col span={8}>
@@ -218,12 +265,13 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                   type="circle"
                   percent={completionRate}
                   size={60}
-                  strokeColor="white"
-                  trailColor="rgba(255,255,255,0.3)"
+                  strokeColor="#10B981"
+                  trailColor="rgba(255,255,255,0.2)"
+                  format={(p) => <span style={{ color: 'white', fontWeight: 700 }}>{p}%</span>}
                 />
                 <br />
                 <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: '12px' }}>
-                  {t('Progress')}
+                  {isArabic ? 'التقدم' : 'Progress'}
                 </Text>
               </div>
             </Col>
@@ -250,7 +298,7 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                   }}
                   hoverable
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}>
                     <div style={{
                       width: '48px',
                       height: '48px',
@@ -268,10 +316,10 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
                         <Text strong style={{ fontSize: '14px' }}>
-                          {achievement.title}
+                          {isArabic ? (arTitles[achievement.title] || achievement.title) : achievement.title}
                         </Text>
                         <Tag color={getRarityColor(achievement.rarity)}>
-                          {achievement.rarity}
+                          {isArabic ? arRarity[achievement.rarity] : achievement.rarity}
                         </Tag>
                         {achievement.completed && (
                           <Badge dot style={{ backgroundColor: '#10B981' }} />
@@ -279,14 +327,14 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                       </div>
                       
                       <Text style={{ fontSize: '12px', color: '#6B7280', display: 'block', marginBottom: '8px' }}>
-                        {achievement.description}
+                        {isArabic ? (arDescriptions[achievement.description] || achievement.description) : achievement.description}
                       </Text>
                       
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <Progress 
                           percent={(achievement.progress / achievement.maxProgress) * 100}
                           size="small"
-                          strokeColor={getRarityColor(achievement.rarity)}
+                          strokeColor="#10B981"
                           trailColor="#f0f0f0"
                           showInfo={false}
                           style={{ flex: 1 }}
@@ -297,14 +345,14 @@ export const AchievementSystem: FC<AchievementSystemProps> = ({ visible, onClose
                       </div>
                       
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
-                        <Space size="small">
+                        <Space size="small" style={{ direction: isArabic ? 'rtl' : 'ltr' }}>
                           {getCategoryIcon(achievement.category)}
                           <Text style={{ fontSize: '11px', color: '#6B7280' }}>
-                            {achievement.category}
+                            {isArabic ? arCategory[achievement.category] : achievement.category}
                           </Text>
                         </Space>
                         <Text style={{ fontSize: '11px', fontWeight: 'bold', color: getRarityColor(achievement.rarity) }}>
-                          +{achievement.reward.points} pts
+                          +{achievement.reward.points} {isArabic ? 'نقطة' : 'pts'}
                         </Text>
                       </div>
                     </div>
