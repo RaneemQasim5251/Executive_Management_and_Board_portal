@@ -1184,13 +1184,13 @@ const resources = {
       "Quick Actions": "إجراءات سريعة",
       "View Documents": "عرض المستندات",
 
-      // English section
-      "Customize Portal": "Customize Portal",
-      "Upcoming Meetings": "Upcoming Meetings",
-      "Pending Approvals": "Pending Approvals",
-      "Company Performance": "Company Performance",
-      "Quick Actions": "Quick Actions",
-      "View Documents": "View Documents",
+      // (Incorrectly placed English entries removed/overridden for Arabic locale)
+      "Customize Portal": "تخصيص البوابة",
+      "Upcoming Meetings": "الاجتماعات القادمة",
+      "Pending Approvals": "الموافقات المعلقة",
+      "Company Performance": "أداء الشركة",
+      "Quick Actions": "إجراءات سريعة",
+      "View Documents": "عرض المستندات",
 
       // Add these translations in both Arabic and English sections
 
@@ -2087,12 +2087,20 @@ const resources = {
       "buttons.viewRegister": "View & Register",
       
       // Common Phrases in Dashboard
-      "+12.5% vs last year": "+12.5% vs last year",
-      "+3 new this quarter": "+3 new this quarter",
-      "+8.2% growth rate": "+8.2% growth rate",
-      "+2.1% improvement": "+2.1% improvement",
-      "Upcoming Events": "Upcoming Events",
-      "Need help? Check our Executive Guide": "Need help? Check our Executive Guide",
+      "+12.5% vs last year": "+١٢٫٥٪ مقارنة بالعام الماضي",
+      "+3 new this quarter": "+٣ عناصر جديدة هذا الربع",
+      "+8.2% growth rate": "+٨٫٢٪ معدل النمو",
+      "+2.1% improvement": "+٢٫١٪ تحسّن",
+      "Upcoming Events": "الفعاليات القادمة",
+      "Need help? Check our Executive Guide": "هل تحتاج مساعدة؟ اطّلع على دليل التنفيذيين لدينا",
+      "Recent Notifications": "الإشعارات الأخيرة",
+      "Board Meeting Q2 Review": "اجتماع مجلس الإدارة – مراجعة الربع الثاني",
+      "New Project Milestone": "معلَم جديد للمشروع",
+      "Q2 Revenue Target Exceeded": "تجاوز هدف إيرادات الربع الثاني",
+      "2:30 PM": "٢:٣٠ م",
+      "12:45 PM": "١٢:٤٥ م",
+      "10:15 AM": "١٠:١٥ ص",
+      "Start Listening": "ابدأ الاستماع",
       "Export Report": "Export Report",
       "Share Dashboard": "Share Dashboard",
       "Full Screen": "Full Screen",

@@ -78,7 +78,21 @@ const itemVariants = {
 
 export const ExecutiveDashboard: FC = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      '+12.5% vs last year': '‎+١٢٫٥٪ مقارنة بالعام الماضي',
+      '+3 new this quarter': '‎+٣ عناصر جديدة هذا الربع',
+      '+8.2% growth rate': '‎+٨٫٢٪ معدل النمو',
+      '+2.1% improvement': '‎+٢٫١٪ تحسّن',
+      'Strategic Initiatives': 'المبادرات الاستراتيجية',
+      'Digital Transformation': 'التحول الرقمي',
+      'Market Expansion': 'التوسع في السوق',
+      'Innovation Projects': 'مشاريع الابتكار',
+    };
+    return isArabic && map[key] ? map[key] : t(key);
+  };
   
   return (
     <motion.div
@@ -113,7 +127,7 @@ export const ExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+12.5% vs last year')}</Text>
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+12.5% vs last year')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -145,7 +159,7 @@ export const ExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+3 new this quarter')}</Text>
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+3 new this quarter')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -177,7 +191,7 @@ export const ExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+8.2% growth rate')}</Text>
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+8.2% growth rate')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -211,7 +225,7 @@ export const ExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+2.1% improvement')}</Text>
+                  <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+2.1% improvement')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -293,7 +307,7 @@ export const ExecutiveDashboard: FC = () => {
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
-                    data={projectData}
+                    data={projectData.map(p => ({ ...p, name: T(p.name) }))}
                     cx="50%"
                     cy="50%"
                     innerRadius={60}

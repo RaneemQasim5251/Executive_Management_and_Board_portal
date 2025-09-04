@@ -127,6 +127,42 @@ const StatusTag = styled(Tag)<{ status: string }>`
 
 export const MyMeetings: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      'upcoming_meetings': 'اجتماعات قادمة',
+      'Agenda': 'جدول الأعمال',
+      'items': 'بنود',
+      'more_items': 'بنود إضافية',
+      'Attendees': 'الحضور',
+      'accepted': 'مقبول',
+      'declined': 'مرفوض',
+      'pending': 'في الانتظار',
+    };
+    return isArabic && map[key] ? map[key] : key;
+  };
+  const translateText = (text: string) => {
+    if (!isArabic) return text;
+    const map: Record<string, string> = {
+      'Q4 2024 Board Review - Al Jeri Investment': 'مراجعة مجلس الإدارة للربع الرابع 2024 - شركة الجِري للاستثمار',
+      '2025 Strategic Planning & Digital Transformation': 'التخطيط الاستراتيجي 2025 والتحول الرقمي',
+      'Emergency Board Meeting - Market Response Strategy': 'اجتماع طارئ لمجلس الإدارة - استراتيجية الاستجابة للسوق',
+      'Financial Performance Review Q4': 'مراجعة الأداء المالي للربع الرابع',
+      'JTC Transport Performance Update': 'تحديث أداء نقل JTC',
+      'J:Oil Expansion Strategy Discussion': 'مناقشة استراتيجية توسع J:Oil',
+      '45 Degrees Cafe Growth Plan 2025': 'خطة نمو مقهى 45 درجات 2025',
+      'Digital Transformation Roadmap': 'خارطة طريق التحول الرقمي',
+      'Market Expansion Strategy - UAE & Jordan': 'استراتيجية التوسع في السوق - الإمارات والأردن',
+      'Sustainability & Green Energy Initiatives': 'مبادرات الاستدامة والطاقة الخضراء',
+      'Market Volatility Response Plan': 'خطة الاستجابة لتقلبات السوق',
+      'Risk Management Assessment': 'تقييم إدارة المخاطر',
+      'Comprehensive quarterly review covering all business units: JTC Transport (1250+ trucks), J:Oil (207 stations), Shaheen Rent-a-Car, 45 Degrees Cafe, and Energy Division. Key focus on Q4 performance, 2025 strategic planning, and digital transformation initiatives.': 'مراجعة ربع سنوية شاملة لجميع الوحدات: نقل JTC (أكثر من 1250 شاحنة)، J:Oil (207 محطة)، شاهين لتأجير السيارات، مقهى 45 درجات، وقسم الطاقة. التركيز على أداء الربع الرابع، التخطيط الاستراتيجي لعام 2025، ومبادرات التحول الرقمي.',
+      'Strategic planning session for 2025 focusing on digital transformation across all business units, market expansion into UAE and Jordan, and sustainability initiatives. Discussion on TMS implementation for JTC, CRM systems for J:Oil, and renewable energy projects.': 'جلسة تخطيط استراتيجي لعام 2025 تركز على التحول الرقمي عبر جميع الوحدات، والتوسع في السوق إلى الإمارات والأردن، ومبادرات الاستدامة. مناقشة تطبيق نظام إدارة النقل لـ JTC، وأنظمة علاقات العملاء لـ J:Oil، ومشاريع الطاقة المتجددة.',
+      'Urgent board meeting to address recent market developments and their impact on Al Jeri Investment portfolio. Focus on immediate response strategies and risk mitigation across all business units.': 'اجتماع طارئ لمجلس الإدارة لمناقشة التطورات الأخيرة في السوق وتأثيرها على محفظة الجِري للاستثمار. التركيز على استراتيجيات الاستجابة الفورية وتخفيف المخاطر عبر جميع الوحدات.'
+    };
+    return map[text] || text;
+  };
+  const formatNum = (n: number) => new Intl.NumberFormat(isArabic ? 'ar-SA' : 'en-US').format(n);
   const queryClient = useQueryClient();
   const [declineModalVisible, setDeclineModalVisible] = useState(false);
   const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
@@ -532,7 +568,9 @@ export const MyMeetings: React.FC = () => {
           {t('myMeetings.title')}
         </Title>
         <Text type="secondary" style={{ fontSize: 16 }}>
-          {userMeetings.length} upcoming meeting{userMeetings.length !== 1 ? 's' : ''}
+          {isArabic 
+            ? `${formatNum(userMeetings.length)} ${T('upcoming_meetings')}`
+            : `${userMeetings.length} upcoming meeting${userMeetings.length !== 1 ? 's' : ''}`}
         </Text>
       </div>
 
@@ -552,7 +590,7 @@ export const MyMeetings: React.FC = () => {
             return (
               <Col xs={24} lg={12} xl={8} key={meeting.id}>
                 <MeetingCard
-                  title={meeting.title}
+                  title={translateText(meeting.title)}
                   extra={
                     <StatusTag status={status} className={status}>
                       {getStatusText(status)}
@@ -595,7 +633,7 @@ export const MyMeetings: React.FC = () => {
                     {meeting.location && (
                       <Space>
                         <EnvironmentOutlined style={{ color: '#52c41a' }} />
-                        <Text>{meeting.location}</Text>
+                        <Text>{isArabic ? translateText(meeting.location) : meeting.location}</Text>
                       </Space>
                     )}
 
@@ -605,7 +643,7 @@ export const MyMeetings: React.FC = () => {
                         ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
                         style={{ margin: 0, color: '#666' }}
                       >
-                        {meeting.description}
+                        {translateText(meeting.description)}
                       </Paragraph>
                     )}
 
@@ -614,19 +652,25 @@ export const MyMeetings: React.FC = () => {
                       <div>
                         <Space style={{ marginBottom: 8 }}>
                           <FileTextOutlined style={{ color: '#fa8c16' }} />
-                          <Text strong>Agenda ({meeting.agenda.length} items)</Text>
+                          <Text strong>
+                            {isArabic 
+                              ? `${T('Agenda')} (${formatNum(meeting.agenda.length)} ${T('items')})`
+                              : `Agenda (${meeting.agenda.length} items)`}
+                          </Text>
                         </Space>
                         <div style={{ paddingLeft: 20 }}>
                           {meeting.agenda.slice(0, 2).map((item, index) => (
                             <div key={item.id} style={{ marginBottom: 4 }}>
                               <Text style={{ fontSize: 12, color: '#666' }}>
-                                {index + 1}. {item.title}
+                                {index + 1}. {translateText(item.title)}
                               </Text>
                             </div>
                           ))}
                           {meeting.agenda.length > 2 && (
                             <Text style={{ fontSize: 12, color: '#999' }}>
-                              +{meeting.agenda.length - 2} more items
+                              {isArabic 
+                                ? `+${formatNum(meeting.agenda.length - 2)} ${T('more_items')}`
+                                : `+${meeting.agenda.length - 2} more items`}
                             </Text>
                           )}
                         </div>
@@ -636,12 +680,14 @@ export const MyMeetings: React.FC = () => {
                     {/* Attendees */}
                     <div>
                       <Text strong style={{ fontSize: 12, color: '#666' }}>
-                        Attendees ({meeting.attendees.length})
+                        {isArabic 
+                          ? `${T('Attendees')} (${formatNum(meeting.attendees.length)})`
+                          : `Attendees (${meeting.attendees.length})`}
                       </Text>
                       <div style={{ marginTop: 8 }}>
                         <Avatar.Group maxCount={4} size="small">
                           {meeting.attendees.map(attendee => (
-                            <Tooltip key={attendee.id} title={`${attendee.name} (${attendee.status})`}>
+                            <Tooltip key={attendee.id} title={`${attendee.name} (${isArabic ? (attendee.status === 'accepted' ? T('accepted') : attendee.status === 'declined' ? T('declined') : T('pending')) : attendee.status})`}>
                               <Avatar 
                                 icon={<UserOutlined />}
                                 style={{ 

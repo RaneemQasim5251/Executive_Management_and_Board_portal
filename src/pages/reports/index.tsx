@@ -318,8 +318,23 @@ export const ReportsPage: FC = () => {
           project: '#faad14',
           performance: '#722ed1',
           strategic: '#ff4d4f',
+        } as const;
+        const arLabels: Record<string, string> = {
+          meeting: 'اجتماع',
+          financial: 'مالي',
+          project: 'مشروع',
+          performance: 'أداء',
+          strategic: 'استراتيجي',
         };
-        return <Tag color={typeColors[type as keyof typeof typeColors]}>{type}</Tag>;
+        const enLabels: Record<string, string> = {
+          meeting: 'Meeting',
+          financial: 'Financial',
+          project: 'Project',
+          performance: 'Performance',
+          strategic: 'Strategic',
+        };
+        const label = i18n.language === 'ar' ? (arLabels[type] || type) : (enLabels[type] || type);
+        return <Tag color={typeColors[type as keyof typeof typeColors]}>{label}</Tag>;
       },
     },
     {

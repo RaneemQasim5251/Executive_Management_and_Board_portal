@@ -292,6 +292,33 @@ const ActionButton = styled(Button)`
 export const SecretaryWorkspace: React.FC = () => {
   const t = useTranslate();
   const { i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      'Executive-Secretary Workspace': 'منصة السكرتير التنفيذي',
+      'Al Jeri Executive Board Platform': 'منصّة مجلس الإدارة التنفيذية لشركة الجِري',
+      'Executive-Secretary Dashboard': 'لوحة تحكم السكرتير التنفيذي',
+      'Quick Actions': 'إجراءات سريعة',
+      'Create Meeting Agenda': 'إنشاء جدول اجتماع',
+      'Task Board': 'لوحة المهام',
+      'Board Resolutions': 'قرارات المجلس',
+      'Recent Activity': 'النشاط الأخير',
+      'Attend': 'حضور',
+      'Decline': 'اعتذار',
+      'Quarter': 'الربع',
+      'Q3': 'الربع الثالث',
+      'Q2': 'الربع الثاني',
+      'Q1': 'الربع الأول',
+      'Closed': 'مغلق',
+      'Pending': 'قيد الانتظار',
+      'Previous Rating': 'التقييم السابق',
+      'Pending Directives': 'التوجيهات المعلقة',
+      'April 2024': 'أبريل 2024',
+      'March 2024': 'مارس 2024',
+      'May 2024': 'مايو 2024',
+    };
+    return isArabic && map[key] ? map[key] : key;
+  };
   const [state, setState] = useState<SecretaryWorkspaceState>({
     selectedDate: new Date(),
     selectedQuarter: {
@@ -436,18 +463,18 @@ export const SecretaryWorkspace: React.FC = () => {
             />
           </div>
           <Title level={4} style={{ color: 'white', margin: '0 0 8px 0', fontSize: 16 }}>
-            Executive-Secretary Workspace
+            {isArabic ? T('Executive-Secretary Workspace') : 'Executive-Secretary Workspace'}
           </Title>
           <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12, textAlign: 'center', display: 'block' }}>
             منصَّة مجلس الإدارة التنفيذية لشركة الجِري
           </Text>
           <Text style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, textAlign: 'center', display: 'block' }}>
-            Al Jeri Executive Board Platform
+            {isArabic ? T('Al Jeri Executive Board Platform') : 'Al Jeri Executive Board Platform'}
           </Text>
         </div>
 
         {/* Quick Actions */}
-        <SidebarCard title={t("Quick Actions")} size="small">
+        <SidebarCard title={isArabic ? T("Quick Actions") : t("Quick Actions")} size="small">
           <Space direction="vertical" style={{ width: '100%' }} size={12}>
             <ActionButton 
               type="primary" 
@@ -461,7 +488,7 @@ export const SecretaryWorkspace: React.FC = () => {
                 border: 'none'
               }}
             >
-              {t("Create Meeting Agenda")}
+              {isArabic ? T("Create Meeting Agenda") : t("Create Meeting Agenda")}
             </ActionButton>
             <ActionButton 
               type="default" 
@@ -474,7 +501,7 @@ export const SecretaryWorkspace: React.FC = () => {
                 fontWeight: '500'
               }}
             >
-              {t("Task Board")}
+              {isArabic ? T("Task Board") : t("Task Board")}
             </ActionButton>
             <ActionButton 
               type="default" 
@@ -488,25 +515,25 @@ export const SecretaryWorkspace: React.FC = () => {
               }}
               onClick={() => setIsChatVisible(true)}
             >
-              {t("Board Resolutions")}
+              {isArabic ? T("Board Resolutions") : t("Board Resolutions")}
             </ActionButton>
           </Space>
         </SidebarCard>
 
         {/* Recent Activity */}
-        <SidebarCard title={t("Recent Activity")} size="small">
+        <SidebarCard title={isArabic ? T("Recent Activity") : t("Recent Activity")} size="small">
           <Space direction="vertical" style={{ width: '100%' }} size={10}>
             <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>
               <Avatar size={24} style={{ marginRight: 8 }} />
               <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>
-                Nuka Ming - Rolling Thatmade (Conf)
+                {isArabic ? 'نوكا مينغ - رولينغ ذاتميد (مؤكد)' : 'Nuka Ming - Rolling Thatmade (Conf)'}
               </Text>
               <div style={{ fontSize: 10, opacity: 0.6 }}>11:28</div>
             </div>
             <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>
               <Avatar size={24} style={{ marginRight: 8, background: '#1890ff' }} />
               <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12 }}>
-                Zrd WarFornio - Frdsetcoaanmexcosrpagamal
+                {isArabic ? 'زرد وارفورنو - (نص نموذجي)' : 'Zrd WarFornio - Frdsetcoaanmexcosrpagamal'}
               </Text>
               <div style={{ fontSize: 10, opacity: 0.6 }}>10:58</div>
             </div>
@@ -521,7 +548,7 @@ export const SecretaryWorkspace: React.FC = () => {
             <Col>
               <Space align="center">
                 <Title level={3} style={{ margin: 0, color: '#0C085C', fontWeight: '700' }}>
-                  {t("Executive-Secretary Dashboard")}
+                  {isArabic ? T("Executive-Secretary Dashboard") : t("Executive-Secretary Dashboard")}
                 </Title>
                 <Badge count={pendingDirectivesCount} style={{ backgroundColor: '#FF2424' }}>
                   <BellOutlined style={{ fontSize: 20, color: '#0C085C' }} />
@@ -556,21 +583,21 @@ export const SecretaryWorkspace: React.FC = () => {
                       className="primary"
                       onClick={() => setIsMeetingModalVisible(true)}
                     >
-                      Attend
+                      {isArabic ? T('Attend') : 'Attend'}
                     </ActionButton>
                     <ActionButton 
                       type="default" 
                       className="danger"
                     >
-                      Decline
+                      {isArabic ? T('Decline') : 'Decline'}
                     </ActionButton>
                   </Space>
                 </Col>
                 <Col>
-                  <Select defaultValue="april-2024" style={{ minWidth: 120 }}>
-                    <Option value="april-2024">April 2024</Option>
-                    <Option value="march-2024">March 2024</Option>
-                    <Option value="may-2024">May 2024</Option>
+                  <Select defaultValue={isArabic ? 'april-2024' : 'april-2024'} style={{ minWidth: 120 }}>
+                    <Option value="april-2024">{isArabic ? T('April 2024') : 'April 2024'}</Option>
+                    <Option value="march-2024">{isArabic ? T('March 2024') : 'March 2024'}</Option>
+                    <Option value="may-2024">{isArabic ? T('May 2024') : 'May 2024'}</Option>
                   </Select>
                 </Col>
               </Row>
@@ -620,25 +647,25 @@ export const SecretaryWorkspace: React.FC = () => {
 
           {/* Quarterly Overview */}
           <Col xs={24} lg={8}>
-            <Card title={t("Quarter")} extra={<Select defaultValue="q3" style={{ minWidth: 80 }}>
-              <Option value="q3">Q3</Option>
-              <Option value="q2">Q2</Option>
-              <Option value="q1">Q1</Option>
+            <Card title={isArabic ? T("Quarter") : t("Quarter")} extra={<Select defaultValue="q3" style={{ minWidth: 80 }}>
+              <Option value="q3">{isArabic ? T('Q3') : 'Q3'}</Option>
+              <Option value="q2">{isArabic ? T('Q2') : 'Q2'}</Option>
+              <Option value="q1">{isArabic ? T('Q1') : 'Q1'}</Option>
             </Select>}>
               <Space direction="vertical" style={{ width: '100%' }} size={16}>
                 <div>
                   <Row justify="space-between">
-                    <Text>Q3</Text>
-                    <Text>Closed</Text>
+                    <Text>{isArabic ? T('Q3') : 'Q3'}</Text>
+                    <Text>{isArabic ? T('Closed') : 'Closed'}</Text>
                   </Row>
                   <Row justify="space-between" style={{ marginTop: 8 }}>
-                    <Text type="secondary">Previous Rating</Text>
+                    <Text type="secondary">{isArabic ? T('Previous Rating') : 'Previous Rating'}</Text>
                     <Text>3.7</Text>
                   </Row>
                   <Row justify="space-between" align="middle" style={{ marginTop: 8 }}>
                     <Text>
                       <ExclamationCircleOutlined style={{ color: '#FF2424', marginRight: 4 }} />
-                      Pending Directives
+                      {isArabic ? T('Pending Directives') : 'Pending Directives'}
                     </Text>
                     <Text strong>4.0</Text>
                   </Row>
@@ -646,17 +673,17 @@ export const SecretaryWorkspace: React.FC = () => {
 
                 <div>
                   <Row justify="space-between">
-                    <Text>Q2</Text>
-                    <Text style={{ color: '#FF2424' }}>Pending</Text>
+                    <Text>{isArabic ? T('Q2') : 'Q2'}</Text>
+                    <Text style={{ color: '#FF2424' }}>{isArabic ? T('Pending') : 'Pending'}</Text>
                   </Row>
                   <Row justify="space-between" style={{ marginTop: 8 }}>
-                    <Text type="secondary">Previous Rating</Text>
+                    <Text type="secondary">{isArabic ? T('Previous Rating') : 'Previous Rating'}</Text>
                     <Text>4.0</Text>
                   </Row>
                   <Row justify="space-between" align="middle" style={{ marginTop: 8 }}>
                     <Text>
                       <ExclamationCircleOutlined style={{ color: '#FF2424', marginRight: 4 }} />
-                      Pending Directives
+                      {isArabic ? T('Pending Directives') : 'Pending Directives'}
                     </Text>
                     <Text strong>4.0</Text>
                   </Row>
@@ -664,17 +691,17 @@ export const SecretaryWorkspace: React.FC = () => {
 
                 <div>
                   <Row justify="space-between">
-                    <Text>Q1</Text>
-                    <Text>Closed</Text>
+                    <Text>{isArabic ? T('Q1') : 'Q1'}</Text>
+                    <Text>{isArabic ? T('Closed') : 'Closed'}</Text>
                   </Row>
                   <Row justify="space-between" style={{ marginTop: 8 }}>
-                    <Text type="secondary">Previous Rating</Text>
+                    <Text type="secondary">{isArabic ? T('Previous Rating') : 'Previous Rating'}</Text>
                     <Text>3.5</Text>
                   </Row>
                   <Row justify="space-between" align="middle" style={{ marginTop: 8 }}>
                     <Text>
                       <ExclamationCircleOutlined style={{ color: '#FF2424', marginRight: 4 }} />
-                      Pending Directives
+                      {isArabic ? T('Pending Directives') : 'Pending Directives'}
                     </Text>
                     <Text strong>4.0</Text>
                   </Row>

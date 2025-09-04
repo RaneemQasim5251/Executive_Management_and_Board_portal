@@ -139,7 +139,31 @@ const getTimelineEvents = (t: any): TimelineEvent[] => [
 ];
 
 export const HorizontalTimeline: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      'Strategic Timeline': 'الجدول الزمني الاستراتيجي',
+      'Board-level milestones': 'محطات على مستوى مجلس الإدارة',
+      'Strategic initiatives roadmap': 'خارطة طريق المبادرات الاستراتيجية',
+      'Completed': 'مكتمل',
+      'Active': 'نشِط',
+      'Upcoming': 'قادمة',
+      'strategic': 'استراتيجي',
+      'operational': 'تشغيلي',
+      'innovation': 'ابتكار',
+      'partnership': 'شراكة',
+      'Key Outcomes:': 'النتائج الرئيسية:',
+      'Timeline': 'الجدول الزمني',
+      'Budget': 'الميزانية',
+      'Priority': 'الأولوية',
+      'Team Members:': 'أعضاء الفريق:',
+      'HIGH': 'عالٍ',
+      'MEDIUM': 'متوسط',
+      'LOW': 'منخفض',
+    };
+    return isArabic && map[key] ? map[key] : t(key);
+  };
   const [selectedEvent, setSelectedEvent] = useState<TimelineEvent | null>(null);
   const [activeIndex, setActiveIndex] = useState(2); // Current active phase
   
@@ -234,10 +258,10 @@ export const HorizontalTimeline: FC = () => {
                     fontWeight: "800"
                   }}
                 >
-                  {t("Strategic Timeline")}
+                  {T("Strategic Timeline")}
                 </Title>
                 <Text style={{ fontSize: "16px", color: "#666" }}>
-                  {t("Board-level milestones")} {t("Strategic initiatives roadmap")}
+                  {T("Board-level milestones")} {T("Strategic initiatives roadmap")}
                 </Text>
               </Space>
             </Col>
@@ -247,19 +271,19 @@ export const HorizontalTimeline: FC = () => {
                   <div style={{ fontSize: "24px", fontWeight: "bold", color: "#10B981" }}>
                     {timelineEvents.filter(e => e.status === 'completed').length}
                   </div>
-                  <Text style={{ fontSize: "12px", color: "#666" }}>Completed</Text>
+                  <Text style={{ fontSize: "12px", color: "#666" }}>{T('Completed')}</Text>
                 </div>
                 <div style={{ textAlign: "center" }}>
                   <div style={{ fontSize: "24px", fontWeight: "bold", color: "#F59E0B" }}>
                     {timelineEvents.filter(e => e.status === 'active').length}
                   </div>
-                  <Text style={{ fontSize: "12px", color: "#666" }}>Active</Text>
+                  <Text style={{ fontSize: "12px", color: "#666" }}>{T('Active')}</Text>
                 </div>
                 <div style={{ textAlign: "center" }}>
                   <div style={{ fontSize: "24px", fontWeight: "bold", color: "#6B7280" }}>
                     {timelineEvents.filter(e => e.status === 'upcoming').length}
                   </div>
-                  <Text style={{ fontSize: "12px", color: "#666" }}>Upcoming</Text>
+                  <Text style={{ fontSize: "12px", color: "#666" }}>{T('Upcoming')}</Text>
                 </div>
               </Space>
             </Col>
@@ -492,7 +516,7 @@ export const HorizontalTimeline: FC = () => {
                         textAlign: "center"
                       }}
                     >
-                      {t(event.category)}
+                      {T(event.category)}
                     </Tag>
                   </div>
                 </motion.div>
@@ -522,7 +546,12 @@ export const HorizontalTimeline: FC = () => {
                   </div>
                   <span>{selectedEvent.title}</span>
                   <Tag color={getStatusColor(selectedEvent.status)}>
-                    {selectedEvent.status.toUpperCase()}
+                    {isArabic
+                      ? (selectedEvent.status === 'completed' ? 'مكتمل'
+                        : selectedEvent.status === 'active' ? 'نشِط'
+                        : selectedEvent.status === 'upcoming' ? 'قادمة'
+                        : 'متأخر')
+                      : selectedEvent.status.toUpperCase()}
                   </Tag>
                 </Space>
               }
@@ -554,7 +583,7 @@ export const HorizontalTimeline: FC = () => {
                     {selectedEvent.status === 'active' && (
                       <div>
                         <Text strong style={{ display: "block", marginBottom: "8px" }}>
-                          Progress: {selectedEvent.progress}%
+                          {isArabic ? 'التقدم: ' : 'Progress: '} {selectedEvent.progress}%
                         </Text>
                         <Progress 
                           percent={selectedEvent.progress}
@@ -568,7 +597,7 @@ export const HorizontalTimeline: FC = () => {
                     {selectedEvent.outcomes && (
                       <div>
                         <Text strong style={{ display: "block", marginBottom: "12px" }}>
-                          Key Outcomes:
+                          {T('Key Outcomes:')}
                         </Text>
                         <Space direction="vertical" size="small">
                           {selectedEvent.outcomes.map((outcome, index) => (
@@ -588,23 +617,23 @@ export const HorizontalTimeline: FC = () => {
                     <Card size="small" style={{ background: "#f8fafc" }}>
                       <Space direction="vertical" size="middle" style={{ width: "100%" }}>
                         <div>
-                          <Text type="secondary" style={{ fontSize: "12px" }}>Timeline</Text>
+                          <Text type="secondary" style={{ fontSize: "12px" }}>{T('Timeline')}</Text>
                           <div style={{ fontSize: "16px", fontWeight: "bold" }}>
                             {selectedEvent.date}
                           </div>
                         </div>
 
                         <div>
-                          <Text type="secondary" style={{ fontSize: "12px" }}>Budget</Text>
+                          <Text type="secondary" style={{ fontSize: "12px" }}>{T('Budget')}</Text>
                           <div style={{ fontSize: "16px", fontWeight: "bold", color: "#10B981" }}>
                             {selectedEvent.budget}
                           </div>
                         </div>
 
                         <div>
-                          <Text type="secondary" style={{ fontSize: "12px" }}>Priority</Text>
+                          <Text type="secondary" style={{ fontSize: "12px" }}>{T('Priority')}</Text>
                           <Tag color={selectedEvent.priority === 'high' ? 'red' : selectedEvent.priority === 'medium' ? 'orange' : 'green'}>
-                            {selectedEvent.priority.toUpperCase()}
+                            {isArabic ? (selectedEvent.priority === 'high' ? 'عالٍ' : selectedEvent.priority === 'medium' ? 'متوسط' : 'منخفض') : selectedEvent.priority.toUpperCase()}
                           </Tag>
                         </div>
                       </Space>
@@ -612,7 +641,7 @@ export const HorizontalTimeline: FC = () => {
 
                     <div>
                       <Text strong style={{ display: "block", marginBottom: "12px" }}>
-                        Team Members:
+                        {T('Team Members:')}
                       </Text>
                       <Avatar.Group max={{ count: 4 }} size="large">
                         {selectedEvent.team?.map((member, index) => (

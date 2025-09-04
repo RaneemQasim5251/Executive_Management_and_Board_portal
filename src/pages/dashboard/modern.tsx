@@ -73,6 +73,19 @@ const revenueData = [
 
 export const ModernExecutiveDashboard: FC = () => {
   const { t, i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      '+12.5% vs last year': '‎+١٢٫٥٪ مقارنة بالعام الماضي',
+      '+3 new this quarter': '‎+٣ عناصر جديدة هذا الربع',
+      '+8.2% growth rate': '‎+٨٫٢٪ معدل النمو',
+      '+2.1% improvement': '‎+٢٫١٪ تحسّن',
+      'Upcoming Events': 'الفعاليات القادمة',
+      'Quick Actions': 'إجراءات سريعة',
+      'Need help? Check our Executive Guide': 'هل تحتاج مساعدة؟ اطّلع على دليل التنفيذيين لدينا',
+    };
+    return isArabic && map[key] ? map[key] : t(key);
+  };
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [animateLogoOnce, setAnimateLogoOnce] = useState(true);
@@ -378,7 +391,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+12.5% vs last year')}</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+12.5% vs last year')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -410,7 +423,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+3 new this quarter')}</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+3 new this quarter')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -442,7 +455,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+8.2% growth rate')}</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+8.2% growth rate')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -476,7 +489,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{t('+2.1% improvement')}</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+2.1% improvement')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -603,7 +616,7 @@ export const ModernExecutiveDashboard: FC = () => {
               title={
                 <Space>
                   <CalendarOutlined style={{ color: "#363692" }} />
-                  <span>{t('Upcoming Events')}</span>
+                  <span>{T('Upcoming Events')}</span>
                 </Space>
               }
               style={cardStyle}
@@ -654,7 +667,7 @@ export const ModernExecutiveDashboard: FC = () => {
               title={
                 <Space>
                   <ThunderboltOutlined style={{ color: "#0C085C" }} />
-                  <span>{t('Quick Actions')}</span>
+                  <span>{T('Quick Actions')}</span>
                 </Space>
               }
               style={cardStyle}
@@ -690,7 +703,7 @@ export const ModernExecutiveDashboard: FC = () => {
 
               <div style={{ textAlign: "center" }}>
                 <Text type="secondary" style={{ fontSize: "12px" }}>
-                  {t('Need help? Check our Executive Guide')}
+                  {T('Need help? Check our Executive Guide')}
                 </Text>
               </div>
             </Card>

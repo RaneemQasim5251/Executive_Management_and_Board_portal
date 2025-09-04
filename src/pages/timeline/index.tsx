@@ -152,85 +152,165 @@ export const TimelinePage: FC = () => {
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [commentModalVisible, setCommentModalVisible] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const isRTL = i18n.language === 'ar';
+  const isRTL = i18n.language?.toLowerCase().startsWith('ar');
 
-  // Timeline data with translation
+  const isArabic = isRTL;
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      // Titles
+      'Digital Transformation Initiative Launch': 'إطلاق مبادرة التحول الرقمي',
+      'Q1 Board Meeting - Strategic Review': 'اجتماع مجلس الإدارة للربع الأول – مراجعة استراتيجية',
+      'Market Expansion - APAC Region': 'التوسع في السوق – منطقة آسيا والمحيط الهادئ',
+      'AI-Powered Product Suite Release': 'إطلاق حزمة منتجات مدعومة بالذكاء الاصطناعي',
+      'Sustainability Goals Milestone': 'إنجاز أهداف الاستدامة',
+      'Annual Strategic Planning Session': 'جلسة التخطيط الاستراتيجي السنوية',
+
+      // Descriptions
+      'Board-approved company-wide digital transformation program with focus on AI integration and process automation. Strategic investment of $2.5M approved.': 'برنامج تحول رقمي على مستوى الشركة مع التركيز على دمج الذكاء الاصطناعي وأتمتة العمليات. تمت الموافقة على استثمار استراتيجي بقيمة 2.5 مليون دولار.',
+      'Quarterly board meeting: 23% revenue growth approved, strategic initiatives reviewed, and market expansion strategy finalized for APAC region.': 'اجتماع مجلس الإدارة ربع السنوي: تمت الموافقة على نمو الإيرادات بنسبة 23%، ومراجعة المبادرات الاستراتيجية، واعتماد استراتيجية التوسع في منطقة آسيا والمحيط الهادئ.',
+      'Official launch of operations in Asia-Pacific region with new offices in Singapore and Tokyo.': 'الإطلاق الرسمي للعمليات في منطقة آسيا والمحيط الهادئ مع افتتاح مكاتب جديدة في سنغافورة وطوكيو.',
+      'Launch of next-generation AI-powered products targeting enterprise customers.': 'إطلاق الجيل الجديد من المنتجات المدعومة بالذكاء الاصطناعي والموجهة لعملاء المؤسسات.',
+      'Achievement of 50% carbon footprint reduction and implementation of green technology initiatives.': 'تحقيق خفض بنسبة 50% في البصمة الكربونية وتنفيذ مبادرات التكنولوجيا الخضراء.',
+      'Executive retreat for 2025 strategic planning, budget allocation, and long-term vision setting.': 'ملتقى تنفيذي للتخطيط الاستراتيجي لعام 2025 وتخصيص الميزانية ووضع الرؤية طويلة المدى.',
+
+      // Dates
+      'Q1 2024': 'الربع الأول 2024',
+      'Q2 2024': 'الربع الثاني 2024',
+      'Q3 2024': 'الربع الثالث 2024',
+      'Q4 2024': 'الربع الرابع 2024',
+
+      // Types
+      'strategic-initiative': 'مبادرة استراتيجية',
+      'board-meeting': 'اجتماع مجلس الإدارة',
+      'project': 'مشروع',
+      'product': 'منتج',
+      'milestone': 'معلَم',
+      'planning': 'تخطيط',
+
+      // Stakeholders & Labels
+      'CEO': 'المدير التنفيذي',
+      'CTO': 'المدير التقني',
+      'CPO': 'مدير المنتج',
+      'COO': 'المدير التشغيلي',
+      'CSO': 'مسؤول الاستدامة',
+      'Engineering': 'الهندسة',
+      'Board of Directors': 'مجلس الإدارة',
+      'C-Suite Leadership': 'القيادة التنفيذية',
+      'Regional VPs': 'نواب الرؤساء الإقليميون',
+      'All C-Suite': 'جميع أعضاء الإدارة التنفيذية',
+      'STAKEHOLDERS': 'أصحاب المصلحة',
+
+      // Header
+      'Strategic Timeline': 'الجدول الزمني الاستراتيجي',
+      'Board-level milestones and strategic initiatives roadmap': 'محطات على مستوى مجلس الإدارة وخارطة طريق المبادرات الاستراتيجية',
+
+      // Summary chips and counts
+      'Completed': 'مكتمل',
+      'Active': 'نشِط',
+      'Upcoming': 'قادمة',
+
+      // Categories/labels
+      'strategic': 'استراتيجي',
+      'operational': 'تشغيلي',
+      'innovation': 'ابتكار',
+      'partnership': 'شراكة',
+      'UPCOMING': 'قادمة',
+      'Key Outcomes:': 'النتائج الرئيسية:',
+
+      // Meta sections
+      'Timeline': 'الجدول الزمني',
+      'Budget': 'الميزانية',
+      'Priority': 'الأولوية',
+      'HIGH': 'عالٍ',
+      'MEDIUM': 'متوسط',
+      'LOW': 'منخفض',
+
+      // Team
+      'Team Members:': 'أعضاء الفريق:',
+      'meeting': 'اجتماع',
+      'financial': 'مالي',
+      'project': 'مشروع',
+    };
+    return isArabic && map[key] ? map[key] : t(key);
+  };
+
+  // Timeline data with translation and Arabic fallbacks
   const timelineData = [
     {
       id: 1,
-      title: t("Digital Transformation Initiative Launch"),
-      description: t("Board-approved company-wide digital transformation program with focus on AI integration and process automation. Strategic investment of $2.5M approved."),
-      date: t("Q1 2024"),
+      title: T("Digital Transformation Initiative Launch"),
+      description: T("Board-approved company-wide digital transformation program with focus on AI integration and process automation. Strategic investment of $2.5M approved."),
+      date: T("Q1 2024"),
       status: "completed",
-      type: t("strategic-initiative"),
-      stakeholders: [t("CEO"), t("CTO"), t("Board of Directors")],
+      type: T("strategic-initiative"),
+      stakeholders: [T("CEO"), T("CTO"), T("Board of Directors")],
       comments: 12,
       attachments: 5,
-      priority: t("critical"),
+      priority: isArabic ? 'حرِج' : 'critical',
       boardApproval: true,
       budget: "$2.5M"
     },
     {
       id: 2,
-      title: t("Q1 Board Meeting - Strategic Review"),
-      description: t("Quarterly board meeting: 23% revenue growth approved, strategic initiatives reviewed, and market expansion strategy finalized for APAC region."),
-      date: t("Q1 2024"),
+      title: T("Q1 Board Meeting - Strategic Review"),
+      description: T("Quarterly board meeting: 23% revenue growth approved, strategic initiatives reviewed, and market expansion strategy finalized for APAC region."),
+      date: T("Q1 2024"),
       status: "completed",
-      type: t("board-meeting"),
-      stakeholders: [t("Board of Directors"), t("C-Suite Leadership")],
+      type: T("board-meeting"),
+      stakeholders: [T("Board of Directors"), T("C-Suite Leadership")],
       comments: 8,
       attachments: 15,
-      priority: t("critical"),
+      priority: isArabic ? 'حرِج' : 'critical',
       boardApproval: true,
       outcomes: [t("Revenue targets exceeded"), t("APAC expansion approved"), t("Digital roadmap confirmed")]
     },
     {
       id: 3,
-      title: t("Market Expansion - APAC Region"),
-      description: t("Official launch of operations in Asia-Pacific region with new offices in Singapore and Tokyo."),
-      date: t("Q2 2024"),
+      title: T("Market Expansion - APAC Region"),
+      description: T("Official launch of operations in Asia-Pacific region with new offices in Singapore and Tokyo."),
+      date: T("Q2 2024"),
       status: "in-progress",
-      type: t("project"),
-      stakeholders: [t("CEO"), t("COO"), t("Regional VPs")],
+      type: T("project"),
+      stakeholders: [T("CEO"), T("COO"), T("Regional VPs")],
       comments: 24,
       attachments: 8,
-      priority: t("high")
+      priority: isArabic ? 'عالٍ' : 'high'
     },
     {
       id: 4,
-      title: t("AI-Powered Product Suite Release"),
-      description: t("Launch of next-generation AI-powered products targeting enterprise customers."),
-      date: t("Q3 2024"),
+      title: T("AI-Powered Product Suite Release"),
+      description: T("Launch of next-generation AI-powered products targeting enterprise customers."),
+      date: T("Q3 2024"),
       status: "upcoming",
-      type: t("product"),
-      stakeholders: [t("CTO"), t("CPO"), t("Engineering")],
+      type: T("product"),
+      stakeholders: [T("CTO"), T("CPO"), T("Engineering")],
       comments: 6,
       attachments: 12,
-      priority: t("high")
+      priority: isArabic ? 'عالٍ' : 'high'
     },
     {
       id: 5,
-      title: t("Sustainability Goals Milestone"),
-      description: t("Achievement of 50% carbon footprint reduction and implementation of green technology initiatives."),
-      date: t("Q3 2024"),
+      title: T("Sustainability Goals Milestone"),
+      description: T("Achievement of 50% carbon footprint reduction and implementation of green technology initiatives."),
+      date: T("Q3 2024"),
       status: "upcoming",
-      type: t("milestone"),
-      stakeholders: [t("CEO"), t("CSO"), t("Operations")],
+      type: T("milestone"),
+      stakeholders: [T("CEO"), T("CSO"), T("Operations")],
       comments: 3,
       attachments: 4,
-      priority: t("medium")
+      priority: isArabic ? 'متوسط' : 'medium'
     },
     {
       id: 6,
-      title: t("Annual Strategic Planning Session"),
-      description: t("Executive retreat for 2025 strategic planning, budget allocation, and long-term vision setting."),
-      date: t("Q4 2024"),
+      title: T("Annual Strategic Planning Session"),
+      description: T("Executive retreat for 2025 strategic planning, budget allocation, and long-term vision setting."),
+      date: T("Q4 2024"),
       status: "upcoming",
-      type: t("planning"),
-      stakeholders: [t("All C-Suite"), t("Board")],
+      type: T("planning"),
+      stakeholders: [T("All C-Suite"), T("Board")],
       comments: 0,
       attachments: 2,
-      priority: t("critical")
+      priority: isArabic ? 'حرِج' : 'critical'
     }
   ];
 
@@ -358,10 +438,10 @@ export const TimelinePage: FC = () => {
                 {/* Status and Type */}
                 <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
                   <Tag color={getStatusColor(item.status)} icon={getStatusIcon(item.status)}>
-                    {t(item.status.replace("-", " ").toLowerCase())}
+                    {isArabic ? (item.status === 'completed' ? 'مكتمل' : item.status === 'in-progress' ? 'قيد التنفيذ' : 'قادمة') : t(item.status.replace("-", " ").toLowerCase())}
                   </Tag>
                   <Tag color="blue">
-                    {item.type}
+                    {isArabic ? T(String(item.type)) : String(item.type)}
                   </Tag>
                 </div>
 

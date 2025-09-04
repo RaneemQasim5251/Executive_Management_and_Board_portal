@@ -11,6 +11,7 @@ import {
 import { Typography, Badge, Dropdown, Menu, Tooltip } from 'antd';
 import { VoiceControl } from './VoiceControl';
 import { AchievementSystem } from './AchievementSystem';
+import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
 
@@ -51,6 +52,7 @@ export const QuickAccessPanel: React.FC = () => {
   const [isVoiceControlActive, setIsVoiceControlActive] = useState(false);
   const [isNotificationExpanded, setIsNotificationExpanded] = useState(false);
   const [isAchievementsVisible, setIsAchievementsVisible] = useState(false);
+  const { t } = useTranslation();
 
   // Detect RTL to avoid covering content in Arabic layout
   const isRTL = typeof document !== 'undefined' && document?.documentElement?.dir === 'rtl';
@@ -63,16 +65,16 @@ export const QuickAccessPanel: React.FC = () => {
         boxShadow: '0 8px 24px rgba(0,0,0,0.15)' 
       }}
     >
-      <Menu.ItemGroup title="Recent Notifications">
+      <Menu.ItemGroup title={t('Recent Notifications')}>
         {notifications.map(notification => (
           <Menu.Item key={notification.id}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 {notification.icon}
-                <Text>{notification.message}</Text>
+                <Text>{t(notification.message)}</Text>
               </div>
               <Text type="secondary" style={{ fontSize: 12 }}>
-                {notification.time}
+                {t(notification.time)}
               </Text>
             </div>
           </Menu.Item>
@@ -105,7 +107,7 @@ export const QuickAccessPanel: React.FC = () => {
         }}
       >
         {/* Performance Metrics */}
-        <Tooltip title="Success Rate">
+        <Tooltip title={t('Success Rate')}>
           <div 
             style={{ 
               display: 'flex', 
@@ -119,13 +121,13 @@ export const QuickAccessPanel: React.FC = () => {
               94.2%
             </Text>
             <Text type="secondary" style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12 }}>
-              +2.1% improvement
+              {t('+2.1% improvement')}
             </Text>
           </div>
         </Tooltip>
 
         {/* Voice Control Button */}
-        <Tooltip title="Quick Voice Control">
+        <Tooltip title={t('Quick Voice Control')}>
           <motion.button
             onClick={() => setIsVoiceControlActive(true)}
             style={{

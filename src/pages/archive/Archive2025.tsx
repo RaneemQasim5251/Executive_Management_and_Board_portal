@@ -6,40 +6,71 @@ import { useTranslation } from 'react-i18next';
 const { Title, Text } = Typography;
 
 export const Archive2025: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      '2025 Current': 'الحالية 2025',
+      'Current Projects': 'المشاريع الحالية',
+      'YTD Revenue': 'إيرادات العام حتى التاريخ',
+      'Goals Progress': 'تقدم الأهداف',
+      'Current Quarter': 'الربع الحالي',
+      'Q2 2025': 'الربع الثاني 2025',
+      'Active Initiatives': 'المبادرات النشطة',
+      'APAC Market Expansion': 'التوسع في أسواق آسيا والمحيط الهادئ',
+      'Establishing new regional headquarters and distribution channels in Southeast Asia.': 'تأسيس مقرات إقليمية جديدة وقنوات توزيع في جنوب شرق آسيا.',
+      'Sustainability Initiative Rollout': 'إطلاق مبادرة الاستدامة',
+      'Implementing phase 2 of the sustainability program focusing on renewable energy sources.': 'تنفيذ المرحلة الثانية من برنامج الاستدامة مع التركيز على مصادر الطاقة المتجددة.',
+      'AI Integration in Customer Service': 'دمج الذكاء الاصطناعي في خدمة العملاء',
+      'Deploying AI-powered chatbots and virtual assistants to enhance customer support efficiency.': 'نشر روبوتات محادثة ومساعدين افتراضيين مدعومين بالذكاء الاصطناعي لتعزيز كفاءة دعم العملاء.',
+      'Market': 'السوق',
+      'Growth': 'النمو',
+      'ESG': 'الاستدامة',
+      'Operations': 'العمليات',
+      'Technology': 'التقنية',
+      'Customer Experience': 'تجربة العميل',
+      'CEO': 'المدير التنفيذي',
+      'Business Dev': 'تطوير الأعمال',
+      'COO': 'المدير التشغيلي',
+      'Sustainability Team': 'فريق الاستدامة',
+      'CTO': 'المدير التقني',
+      'Customer Service': 'خدمة العملاء',
+    };
+    return isArabic && map[key] ? map[key] : t(key);
+  };
 
   const data = {
     currentProjects: 35,
     ytdRevenue: 45.8, // in millions USD
     goalsProgress: 68, // percentage
-    currentQuarter: t("Q2 2025"),
+    currentQuarter: T("Q2 2025"),
     activeInitiatives: [
       {
         id: 1,
-        title: t("APAC Market Expansion"),
-        description: t("Establishing new regional headquarters and distribution channels in Southeast Asia."),
+        title: T("APAC Market Expansion"),
+        description: T("Establishing new regional headquarters and distribution channels in Southeast Asia."),
         progress: 75,
         date: "2025-09-30",
-        tags: ["Market", "Growth"],
-        assignees: ["CEO", "Business Dev"]
+        tags: [T("Market"), T("Growth")],
+        assignees: [T("CEO"), T("Business Dev")]
       },
       {
         id: 2,
-        title: t("Sustainability Initiative Rollout"),
-        description: t("Implementing phase 2 of the sustainability program focusing on renewable energy sources."),
+        title: T("Sustainability Initiative Rollout"),
+        description: T("Implementing phase 2 of the sustainability program focusing on renewable energy sources."),
         progress: 40,
         date: "2025-12-31",
-        tags: ["ESG", "Operations"],
-        assignees: ["COO", "Sustainability Team"]
+        tags: [T("ESG"), T("Operations")],
+        assignees: [T("COO"), T("Sustainability Team")]
       },
       {
         id: 3,
-        title: "AI Integration in Customer Service",
-        description: "Deploying AI-powered chatbots and virtual assistants to enhance customer support efficiency.",
+        title: T("AI Integration in Customer Service"),
+        description: T("Deploying AI-powered chatbots and virtual assistants to enhance customer support efficiency."),
         progress: 60,
         date: "2025-08-15",
-        tags: ["Technology", "Customer Experience"],
-        assignees: ["CTO", "Customer Service"]
+        tags: [T("Technology"), T("Customer Experience")],
+        assignees: [T("CTO"), T("Customer Service")]
       }
     ]
   };
@@ -60,14 +91,14 @@ export const Archive2025: React.FC = () => {
             marginBottom: "32px"
           }}
         >
-          {t("2025 Current")}
+          {T("2025 Current")}
         </Title>
         
         <Row gutter={[24, 24]} style={{ marginBottom: '32px' }}>
           <Col xs={24} sm={12} lg={6}>
             <Card>
               <Statistic
-                title={t("Current Projects")}
+                title={T("Current Projects")}
                 value={data.currentProjects}
                 prefix={<RocketOutlined />}
                 valueStyle={{ color: '#1e3a8a' }}
@@ -77,9 +108,9 @@ export const Archive2025: React.FC = () => {
           <Col xs={24} sm={12} lg={6}>
             <Card>
               <Statistic
-                title={t("YTD Revenue")}
+                title={T("YTD Revenue")}
                 value={data.ytdRevenue}
-                suffix="M USD"
+                suffix={isArabic ? "مليون دولار" : "M USD"}
                 prefix={<RiseOutlined />}
                 valueStyle={{ color: '#10b981' }}
               />
@@ -88,7 +119,7 @@ export const Archive2025: React.FC = () => {
           <Col xs={24} sm={12} lg={6}>
             <Card>
               <Statistic
-                title={t("Goals Progress")}
+                title={T("Goals Progress")}
                 value={data.goalsProgress}
                 suffix="%"
                 prefix={<AimOutlined />}
@@ -99,8 +130,8 @@ export const Archive2025: React.FC = () => {
           <Col xs={24} sm={12} lg={6}>
             <Card>
               <Statistic
-                title={t("Current Quarter")}
-                value="Q2 2025"
+                title={T("Current Quarter")}
+                value={T("Q2 2025")}
                 prefix={<CalendarOutlined />}
                 valueStyle={{ color: '#1e3a8a' }}
               />
@@ -109,7 +140,7 @@ export const Archive2025: React.FC = () => {
         </Row>
 
         <Card 
-          title={<Title level={4} style={{ margin: 0 }}>{t("Active Initiatives")}</Title>}
+          title={<Title level={4} style={{ margin: 0 }}>{T("Active Initiatives")}</Title>}
           style={{ marginBottom: '24px' }}
         >
           <List

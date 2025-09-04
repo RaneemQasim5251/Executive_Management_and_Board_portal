@@ -27,6 +27,7 @@ import { z } from 'zod';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { Meeting, Company, Attendee } from '../../types/secretary';
+import { useTranslation } from 'react-i18next';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -128,6 +129,44 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
   companies,
   selectedDate
 }) => {
+  const { i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      'Create New Meeting': 'إنشاء اجتماع جديد',
+      'Edit Meeting': 'تعديل الاجتماع',
+      'Update Meeting': 'تحديث الاجتماع',
+      'Create Meeting': 'إنشاء الاجتماع',
+      'Cancel': 'إلغاء',
+      'Meeting Title': 'عنوان الاجتماع',
+      'Enter meeting title': 'أدخل عنوان الاجتماع',
+      'Company': 'الشركة',
+      'Select company': 'اختر الشركة',
+      'Date': 'التاريخ',
+      'Time': 'الوقت',
+      'Location': 'الموقع',
+      'Meeting location (optional)': 'موقع الاجتماع (اختياري)',
+      'Description': 'الوصف',
+      'Meeting description (optional)': 'وصف الاجتماع (اختياري)',
+      'Attendees': 'الحضور',
+      'Add Attendee': 'إضافة حاضر',
+      'Name': 'الاسم',
+      'Email': 'البريد الإلكتروني',
+      'Secretary': 'سكرتير',
+      'Executive': 'تنفيذي',
+      'Viewer': 'مشاهد',
+      'Agenda Items': 'بنود جدول الأعمال',
+      'Add Item': 'إضافة بند',
+      'Agenda item title': 'عنوان بند الجدول',
+      'Minutes': 'الدقائق',
+      'Owner': 'المسؤول',
+      'Presentation Materials': 'مواد العرض',
+      'Upload Files': 'رفع الملفات',
+      'Supported formats: PDF, PPT, PPTX, DOC, DOCX (Max 10MB each)': 'الصيغ المدعومة: PDF, PPT, PPTX, DOC, DOCX (الحد الأقصى 10MB لكل ملف)',
+      'Executive Secretary': 'السكرتير التنفيذي',
+    };
+    return isArabic && map[key] ? map[key] : key;
+  };
   const [form] = Form.useForm();
   const {
     control,
@@ -256,13 +295,13 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
 
   return (
     <StyledModal
-      title={meeting ? 'Edit Meeting' : 'Create New Meeting'}
+      title={meeting ? T('Edit Meeting') : T('Create New Meeting')}
       open={visible}
       onCancel={onCancel}
       width={800}
       footer={[
         <Button key="cancel" onClick={onCancel}>
-          Cancel
+          {T('Cancel')}
         </Button>,
         <Button 
           key="submit" 
@@ -270,7 +309,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
           onClick={handleSubmit(onFormSubmit)}
           style={{ background: '#0095CE', borderColor: '#0095CE' }}
         >
-          {meeting ? 'Update Meeting' : 'Create Meeting'}
+          {meeting ? T('Update Meeting') : T('Create Meeting')}
         </Button>
       ]}
     >
@@ -278,7 +317,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
         <Row gutter={16}>
           <Col span={16}>
             <Form.Item 
-              label="Meeting Title" 
+              label={T('Meeting Title')} 
               validateStatus={errors.title ? 'error' : ''}
               help={errors.title?.message}
             >
@@ -288,7 +327,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
                 render={({ field }) => (
                   <Input 
                     {...field} 
-                    placeholder="Enter meeting title"
+                    placeholder={T('Enter meeting title')}
                     size="large"
                   />
                 )}
@@ -297,7 +336,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
           </Col>
           <Col span={8}>
             <Form.Item 
-              label="Company"
+              label={T('Company')}
               validateStatus={errors.companyId ? 'error' : ''}
               help={errors.companyId?.message}
             >
@@ -307,7 +346,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
                 render={({ field }) => (
                   <Select 
                     {...field} 
-                    placeholder="Select company"
+                    placeholder={T('Select company')}
                     size="large"
                   >
                     {companies.map(company => (
@@ -325,7 +364,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item 
-              label="Date"
+              label={T('Date')}
               validateStatus={errors.date ? 'error' : ''}
               help={errors.date?.message}
             >
@@ -346,7 +385,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
           </Col>
           <Col span={12}>
             <Form.Item 
-              label="Time"
+              label={T('Time')}
               validateStatus={errors.time ? 'error' : ''}
               help={errors.time?.message}
             >
@@ -368,28 +407,28 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
           </Col>
         </Row>
 
-        <Form.Item label="Location">
+        <Form.Item label={T('Location')}>
           <Controller
             name="location"
             control={control}
             render={({ field }) => (
               <Input 
                 {...field} 
-                placeholder="Meeting location (optional)"
+                placeholder={T('Meeting location (optional)')}
                 size="large"
               />
             )}
           />
         </Form.Item>
 
-        <Form.Item label="Description">
+        <Form.Item label={T('Description')}>
           <Controller
             name="description"
             control={control}
             render={({ field }) => (
               <TextArea 
                 {...field} 
-                placeholder="Meeting description (optional)"
+                placeholder={T('Meeting description (optional)')}
                 rows={3}
               />
             )}
@@ -401,14 +440,14 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
         {/* Attendees Section */}
         <div style={{ marginBottom: 24 }}>
           <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
-            <Title level={5} style={{ margin: 0 }}>Attendees</Title>
+            <Title level={5} style={{ margin: 0 }}>{T('Attendees')}</Title>
             <Button 
               type="dashed" 
               icon={<UserAddOutlined />} 
               onClick={addAttendee}
               size="small"
             >
-              Add Attendee
+              {T('Add Attendee')}
             </Button>
           </Row>
 
@@ -421,7 +460,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
                   render={({ field }) => (
                     <Input 
                       {...field} 
-                      placeholder="Name"
+                      placeholder={T('Name')}
                       size="small"
                     />
                   )}
@@ -434,7 +473,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
                   render={({ field }) => (
                     <Input 
                       {...field} 
-                      placeholder="Email"
+                      placeholder={T('Email')}
                       size="small"
                     />
                   )}
@@ -450,9 +489,9 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
                       size="small"
                       style={{ width: '100%' }}
                     >
-                      <Option value="secretary">Secretary</Option>
-                      <Option value="executive">Executive</Option>
-                      <Option value="viewer">Viewer</Option>
+                      <Option value="secretary">{T('Secretary')}</Option>
+                      <Option value="executive">{T('Executive')}</Option>
+                      <Option value="viewer">{T('Viewer')}</Option>
                     </Select>
                   )}
                 />
@@ -477,14 +516,14 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
         {/* Agenda Section */}
         <div>
           <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
-            <Title level={5} style={{ margin: 0 }}>Agenda Items</Title>
+            <Title level={5} style={{ margin: 0 }}>{T('Agenda Items')}</Title>
             <Button 
               type="dashed" 
               icon={<PlusOutlined />} 
               onClick={addAgendaItem}
               size="small"
             >
-              Add Item
+              {T('Add Item')}
             </Button>
           </Row>
 
@@ -498,7 +537,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
                     render={({ field }) => (
                       <Input 
                         {...field} 
-                        placeholder="Agenda item title"
+                        placeholder={T('Agenda item title')}
                         size="small"
                       />
                     )}
@@ -512,7 +551,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
                       <Input 
                         {...field} 
                         type="number"
-                        placeholder="Minutes"
+                        placeholder={T('Minutes')}
                         size="small"
                         addonAfter="min"
                       />
@@ -526,7 +565,7 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
                     render={({ field }) => (
                       <Input 
                         {...field} 
-                        placeholder="Owner"
+                        placeholder={T('Owner')}
                         size="small"
                       />
                     )}
@@ -548,16 +587,16 @@ export const MeetingModal: React.FC<MeetingModalProps> = ({
 
         {/* Presentation Upload */}
         <Divider />
-        <Form.Item label="Presentation Materials">
+        <Form.Item label={T('Presentation Materials')}>
           <Upload
             multiple
             listType="text"
             beforeUpload={() => false} // Prevent auto upload
           >
-            <Button icon={<UploadOutlined />}>Upload Files</Button>
+            <Button icon={<UploadOutlined />}>{T('Upload Files')}</Button>
           </Upload>
           <Text type="secondary" style={{ fontSize: 12, marginTop: 8, display: 'block' }}>
-            Supported formats: PDF, PPT, PPTX, DOC, DOCX (Max 10MB each)
+            {T('Supported formats: PDF, PPT, PPTX, DOC, DOCX (Max 10MB each)')}
           </Text>
         </Form.Item>
       </Form>

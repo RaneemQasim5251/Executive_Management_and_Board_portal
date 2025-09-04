@@ -21,6 +21,7 @@ import {
 import styled from 'styled-components';
 import { io, Socket } from 'socket.io-client';
 import { ChatMessage, Directive } from '../../types/secretary';
+import { useTranslation } from 'react-i18next';
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
@@ -152,6 +153,23 @@ export const LiveChat: React.FC<LiveChatProps> = ({
   onClose,
   meetingId = 'meeting-1'
 }) => {
+  const { i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
+  const T = (key: string) => {
+    const map: Record<string, string> = {
+      'Live Meeting Chat': 'محادثة الاجتماع المباشر',
+      'Participants': 'المشاركون',
+      'online': 'متصل',
+      'Meeting Directives': 'توجيهات الاجتماع',
+      'Mark Resolved': 'وضع علامة كمحلولة',
+      'By': 'بواسطة',
+      'Resolved': 'تم الحل',
+      'Directive:': 'توجيه:',
+      "Type a message... Use '/directive' to create a directive": "اكتب رسالة... استخدم '/directive' لإنشاء توجيه",
+      'Tip: Start your message with "/directive" to create a meeting directive': '💡 نصيحة: ابدأ رسالتك بــ "/directive" لإنشاء توجيه اجتماع',
+    };
+    return isArabic && map[key] ? map[key] : key;
+  };
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [directives, setDirectives] = useState<Directive[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -210,7 +228,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
         meetingId,
         userId: 'user-2',
         userName: 'CEO',
-        message: 'Good morning everyone, shall we begin the quarterly review?',
+        message: isArabic ? 'صباح الخير جميعاً، هل نبدأ المراجعة الفصلية؟' : 'Good morning everyone, shall we begin the quarterly review?',
         timestamp: new Date(Date.now() - 300000),
         type: 'message'
       },
@@ -219,7 +237,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
         meetingId,
         userId: 'user-1',
         userName: 'Executive Secretary',
-        message: '/directive Review Q3 financial performance metrics by next Friday',
+        message: isArabic ? '/directive مراجعة مؤشرات الأداء المالي للربع الثالث قبل يوم الجمعة القادم' : '/directive Review Q3 financial performance metrics by next Friday',
         timestamp: new Date(Date.now() - 240000),
         type: 'directive'
       },
@@ -228,7 +246,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
         meetingId,
         userId: 'user-3',
         userName: 'CFO',
-        message: 'The revenue numbers look promising this quarter.',
+        message: isArabic ? 'أرقام الإيرادات تبدو واعدة هذا الربع.' : 'The revenue numbers look promising this quarter.',
         timestamp: new Date(Date.now() - 180000),
         type: 'message'
       }
@@ -238,7 +256,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
       {
         id: 'dir-1',
         meetingId,
-        text: 'Review Q3 financial performance metrics by next Friday',
+        text: isArabic ? 'مراجعة مؤشرات الأداء المالي للربع الثالث قبل يوم الجمعة القادم' : 'Review Q3 financial performance metrics by next Friday',
         createdBy: 'Executive Secretary',
         resolved: false,
         createdAt: new Date(Date.now() - 240000)
@@ -246,7 +264,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
       {
         id: 'dir-2',
         meetingId,
-        text: 'Prepare market analysis report for board presentation',
+        text: isArabic ? 'إعداد تقرير تحليل السوق لعرضه على المجلس' : 'Prepare market analysis report for board presentation',
         createdBy: 'CEO',
         resolved: true,
         createdAt: new Date(Date.now() - 86400000),
@@ -321,9 +339,10 @@ export const LiveChat: React.FC<LiveChatProps> = ({
   };
 
   const formatTime = (date: Date) => {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat(isArabic ? 'ar-SA' : 'en-US', {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
+      hour12: true
     }).format(date);
   };
 
@@ -332,7 +351,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
       title={
         <Space>
           <MessageOutlined />
-          Live Meeting Chat
+          {T('Live Meeting Chat')}
           <Badge count={messages.length} style={{ backgroundColor: '#0095CE' }} />
         </Space>
       }
@@ -345,7 +364,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
         {/* Participants */}
         <ParticipantsList>
           <Title level={5} style={{ margin: '0 0 8px 0', fontSize: 14 }}>
-            Participants ({participants.filter(p => p.online).length} online)
+            {T('Participants')} ({participants.filter(p => p.online).length} {T('online')})
           </Title>
           <Space wrap>
             {participants.map(participant => (
@@ -373,7 +392,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
         {directives.length > 0 && (
           <div style={{ marginBottom: 16 }}>
             <Title level={5} style={{ margin: '0 0 12px 0', fontSize: 14 }}>
-              Meeting Directives
+              {T('Meeting Directives')}
             </Title>
             {directives.map(directive => (
               <DirectiveCard 
@@ -388,7 +407,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
                       onClick={() => resolveDirective(directive.id)}
                       style={{ padding: 0 }}
                     >
-                      Mark Resolved
+                      {T('Mark Resolved')}
                     </Button>
                   ) : (
                     <CheckCircleOutlined style={{ color: '#52c41a' }} />
@@ -397,9 +416,9 @@ export const LiveChat: React.FC<LiveChatProps> = ({
               >
                 <Text style={{ fontSize: 12 }}>{directive.text}</Text>
                 <div style={{ marginTop: 4, fontSize: 10, opacity: 0.7 }}>
-                  By {directive.createdBy} • {formatTime(directive.createdAt)}
+                  {T('By')} {directive.createdBy} • {formatTime(directive.createdAt)}
                   {directive.resolved && directive.resolvedAt && (
-                    <span> • Resolved {formatTime(directive.resolvedAt)}</span>
+                    <span> • {T('Resolved')} {formatTime(directive.resolvedAt)}</span>
                   )}
                 </div>
               </DirectiveCard>
@@ -425,7 +444,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
                   {message.type === 'directive' ? (
                     <div>
                       <ExclamationCircleOutlined style={{ marginRight: 4 }} />
-                      <strong>Directive:</strong> {message.message.substring(11)}
+                      <strong>{T('Directive:')}</strong> {message.message.substring(11)}
                     </div>
                   ) : (
                     message.message
@@ -446,7 +465,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
             <TextArea
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Type a message... Use '/directive' to create a directive"
+              placeholder={T("Type a message... Use '/directive' to create a directive")}
               autoSize={{ minRows: 1, maxRows: 3 }}
               onPressEnter={(e) => {
                 if (!e.shiftKey) {
@@ -469,7 +488,7 @@ export const LiveChat: React.FC<LiveChatProps> = ({
           </Space.Compact>
           <div style={{ marginTop: 8, fontSize: 11, color: '#666' }}>
             <Text type="secondary">
-              💡 Tip: Start your message with "/directive" to create a meeting directive
+              {T('Tip: Start your message with "/directive" to create a meeting directive')}
             </Text>
           </div>
         </InputContainer>
