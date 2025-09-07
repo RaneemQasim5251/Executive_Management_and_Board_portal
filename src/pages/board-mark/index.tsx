@@ -1,8 +1,11 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Card, Form, Input, DatePicker, Button, Space, Typography, Row, Col, Table, Tag, Modal, message, Select, Alert } from 'antd';
+import arEG from 'antd/es/date-picker/locale/ar_EG';
 import { ClockCircleOutlined, FilePdfOutlined, SendOutlined, SafetyCertificateOutlined, BarcodeOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ar';
+import updateLocale from 'dayjs/plugin/updateLocale';
 import { boardMarkService } from '../../services/boardMarkService';
 import { BoardResolution, CreateResolutionInput } from '../../types/boardMark';
 import { generateResolutionPDF } from '../../utils/pdf';
@@ -41,6 +44,20 @@ export const BoardMarkPage: FC = () => {
   useEffect(() => {
     load();
   }, []);
+
+  // Ensure Dayjs uses proper locale and short weekday labels in Arabic to avoid header overlap
+  useEffect(() => {
+    dayjs.extend(updateLocale);
+    if (isAr) {
+      dayjs.updateLocale('ar', {
+        // Short two/three-letter labels prevent overlap in DatePicker header
+        weekdaysMin: ['أح', 'إث', 'ثل', 'أر', 'خ', 'جم', 'سب']
+      });
+      dayjs.locale('ar');
+    } else {
+      dayjs.locale('en');
+    }
+  }, [isAr]);
 
   const columns = useMemo(() => [
     {
@@ -159,8 +176,22 @@ export const BoardMarkPage: FC = () => {
     setPreviewResolution(r);
   };
 
+  const arPickerLocale = useMemo(() => (
+    isAr ? { ...arEG, shortWeekDays: ['أح','إث','ثل','أر','خ','جم','سب'] } : undefined
+  ), [isAr]);
+
   return (
     <div className="board-mark-page" style={{ padding: 24 }}>
+      {isAr && (
+        <style>
+          {`
+            /* Prevent weekday header overlap in Arabic DatePicker */
+            .ar-datepicker-fix .ant-picker-content table { table-layout: fixed; width: 100%; }
+            .ar-datepicker-fix .ant-picker-content th { font-size: 12px; padding: 0 4px; white-space: nowrap; text-align: center; }
+            .ar-datepicker-fix .ant-picker-content th span { display: inline-block; }
+          `}
+        </style>
+      )}
       <Row gutter={[24, 24]}>
         <Col xs={24}>
           <Card className="executive-card">
@@ -191,7 +222,11 @@ export const BoardMarkPage: FC = () => {
             />
             <Form form={form} layout="vertical" disabled={loading} initialValues={{ meetingDate: dayjs(), deadlineDays: 7 }}>
               <Form.Item name="meetingDate" label={isAr ? 'تاريخ الاجتماع' : 'Meeting Date'} rules={[{ required: true }]}> 
-                <DatePicker style={{ width: '100%' }} />
+                <DatePicker 
+                  style={{ width: '100%' }} 
+                  locale={arPickerLocale}
+                  popupClassName={isAr ? 'ar-datepicker-fix' : undefined}
+                />
               </Form.Item>
               <Form.Item name="agreementDetails" label={isAr ? 'التفاصيل المتفق عليها' : 'Agreement Details'} rules={[{ required: true, min: 5 }]}> 
                 <TextArea rows={6} placeholder={isAr ? 'اكتب تفاصيل القرار هنا' : 'Write resolution details here'} />
