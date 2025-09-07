@@ -378,22 +378,6 @@ function App() {
                     icon: <FileTextOutlined />,
                   },
                 },
-                {
-                  name: "compliance",
-                  list: CompliancePage,
-                  meta: {
-                    label: t("Security & Compliance"),
-                    icon: <SafetyCertificateOutlined />,
-                  },
-                },
-                {
-                  name: "test",
-                  list: "/test",
-                  meta: {
-                    label: t("Test Page"),
-                    icon: <FileTextOutlined />,
-                  },
-                },
               ]}
               options={{
                 syncWithLocation: true,

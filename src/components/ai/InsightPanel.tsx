@@ -2,10 +2,28 @@ import { useState } from 'react';
 import { Card, Tabs, Button, message, Space, Typography } from 'antd';
 import { askAI } from '../../services/ai';
 import ReactMarkdown from 'react-markdown';
+import { useTranslation } from 'react-i18next';
 
 export function InsightPanel({ packId }: { packId: string }) {
+  const { i18n } = useTranslation();
+  const isArabic = i18n.language?.toLowerCase().startsWith('ar');
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState<string>('');
+
+  const translateText = (text: string) => {
+    if (!isArabic) return text;
+    const map: Record<string, string> = {
+      'Insight Driver': 'محرك الرؤى',
+      'Minute Writer': 'كاتب المحاضر',
+      'Summarise & flag risks': 'تلخيص وتحديد المخاطر',
+      'Draft minutes': 'مسودة المحاضر',
+      'Copy': 'نسخ',
+      'Download': 'تحميل',
+      'No output yet.': 'لا يوجد مخرجات بعد.',
+      'No draft yet.': 'لا توجد مسودة بعد.'
+    };
+    return map[text] || text;
+  };
 
   async function run(kind:'insight'|'minutes'){
     setLoading(true);
@@ -20,27 +38,27 @@ export function InsightPanel({ packId }: { packId: string }) {
     <Card style={{height:'100%'}}>
       <Tabs
         items={[
-          { key:'insight', label:'Insight Driver', children:(
+          { key:'insight', label: translateText('Insight Driver'), children:(
             <>
               <Space>
-                <Button type="primary" loading={loading} onClick={()=>run('insight')}>Summarise & flag risks</Button>
-                <Button disabled={!text} onClick={() => navigator.clipboard.writeText(text)}>Copy</Button>
-                <Button disabled={!text} onClick={() => downloadMd(text, `insights-${packId}.md`)}>Download</Button>
+                <Button type="primary" loading={loading} onClick={()=>run('insight')}>{translateText('Summarise & flag risks')}</Button>
+                <Button disabled={!text} onClick={() => navigator.clipboard.writeText(text)}>{translateText('Copy')}</Button>
+                <Button disabled={!text} onClick={() => downloadMd(text, `insights-${packId}.md`)}>{translateText('Download')}</Button>
               </Space>
               <div style={{marginTop:12, minHeight:140, border:'1px solid rgba(2,6,23,.08)', borderRadius:8, padding:12}}>
-                {text ? <ReactMarkdown>{text}</ReactMarkdown> : <Typography.Text type="secondary">No output yet.</Typography.Text>}
+                {text ? <ReactMarkdown>{text}</ReactMarkdown> : <Typography.Text type="secondary">{translateText('No output yet.')}</Typography.Text>}
               </div>
             </>
           )},
-          { key:'minutes', label:'Minute Writer', children:(
+          { key:'minutes', label: translateText('Minute Writer'), children:(
             <>
               <Space>
-                <Button loading={loading} onClick={()=>run('minutes')}>Draft minutes</Button>
-                <Button disabled={!text} onClick={() => navigator.clipboard.writeText(text)}>Copy</Button>
-                <Button disabled={!text} onClick={() => downloadMd(text, `minutes-${packId}.md`)}>Download</Button>
+                <Button loading={loading} onClick={()=>run('minutes')}>{translateText('Draft minutes')}</Button>
+                <Button disabled={!text} onClick={() => navigator.clipboard.writeText(text)}>{translateText('Copy')}</Button>
+                <Button disabled={!text} onClick={() => downloadMd(text, `minutes-${packId}.md`)}>{translateText('Download')}</Button>
               </Space>
               <div style={{marginTop:12, minHeight:140, border:'1px solid rgba(2,6,23,.08)', borderRadius:8, padding:12}}>
-                {text ? <ReactMarkdown>{text}</ReactMarkdown> : <Typography.Text type="secondary">No draft yet.</Typography.Text>}
+                {text ? <ReactMarkdown>{text}</ReactMarkdown> : <Typography.Text type="secondary">{translateText('No draft yet.')}</Typography.Text>}
               </div>
             </>
           )}

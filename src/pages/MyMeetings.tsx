@@ -156,6 +156,12 @@ export const MyMeetings: React.FC = () => {
       'Sustainability & Green Energy Initiatives': 'مبادرات الاستدامة والطاقة الخضراء',
       'Market Volatility Response Plan': 'خطة الاستجابة لتقلبات السوق',
       'Risk Management Assessment': 'تقييم إدارة المخاطر',
+      'Al Jeri Executive Board Room - 42nd Floor': 'قاعة مجلس الإدارة التنفيذي للجِري - الطابق 42',
+      'Al Jeri Innovation Center - Conference Hall': 'مركز الجِري للابتكار - قاعة المؤتمرات',
+      'Virtual Meeting - Microsoft Teams': 'اجتماع افتراضي - Microsoft Teams',
+      'اجتماع: Q4 2024 Board Review - Al Jeri Investment': 'اجتماع: مراجعة مجلس الإدارة للربع الرابع 2024 - شركة الجِري للاستثمار',
+      'اجتماع: 2025 Strategic Planning & Digital Transformation': 'اجتماع: التخطيط الاستراتيجي 2025 والتحول الرقمي',
+      'اجتماع: Emergency Board Meeting - Market Response Strategy': 'اجتماع: اجتماع طارئ لمجلس الإدارة - استراتيجية الاستجابة للسوق',
       'Comprehensive quarterly review covering all business units: JTC Transport (1250+ trucks), J:Oil (207 stations), Shaheen Rent-a-Car, 45 Degrees Cafe, and Energy Division. Key focus on Q4 performance, 2025 strategic planning, and digital transformation initiatives.': 'مراجعة ربع سنوية شاملة لجميع الوحدات: نقل JTC (أكثر من 1250 شاحنة)، J:Oil (207 محطة)، شاهين لتأجير السيارات، مقهى 45 درجات، وقسم الطاقة. التركيز على أداء الربع الرابع، التخطيط الاستراتيجي لعام 2025، ومبادرات التحول الرقمي.',
       'Strategic planning session for 2025 focusing on digital transformation across all business units, market expansion into UAE and Jordan, and sustainability initiatives. Discussion on TMS implementation for JTC, CRM systems for J:Oil, and renewable energy projects.': 'جلسة تخطيط استراتيجي لعام 2025 تركز على التحول الرقمي عبر جميع الوحدات، والتوسع في السوق إلى الإمارات والأردن، ومبادرات الاستدامة. مناقشة تطبيق نظام إدارة النقل لـ JTC، وأنظمة علاقات العملاء لـ J:Oil، ومشاريع الطاقة المتجددة.',
       'Urgent board meeting to address recent market developments and their impact on Al Jeri Investment portfolio. Focus on immediate response strategies and risk mitigation across all business units.': 'اجتماع طارئ لمجلس الإدارة لمناقشة التطورات الأخيرة في السوق وتأثيرها على محفظة الجِري للاستثمار. التركيز على استراتيجيات الاستجابة الفورية وتخفيف المخاطر عبر جميع الوحدات.'
@@ -721,7 +727,7 @@ export const MyMeetings: React.FC = () => {
       >
         <div style={{ marginBottom: 16 }}>
           <Text>
-            {t('Meeting')}: <strong>{selectedMeeting?.title}</strong>
+            {t('Meeting')}: <strong>{selectedMeeting ? translateText(selectedMeeting.title) : ''}</strong>
           </Text>
         </div>
         <TextArea

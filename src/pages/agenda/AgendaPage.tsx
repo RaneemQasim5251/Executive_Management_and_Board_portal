@@ -6,8 +6,18 @@ import type { AgendaItem } from '../../services/agendaStats';
 import { useTranslation } from 'react-i18next';
 
 export default function AgendaPage() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const rtl = i18n.language === 'ar';
+
+  const translateText = (text: string) => {
+    if (!rtl) return text;
+    const map: Record<string, string> = {
+      'Agenda Planner': 'مخطط جدول الأعمال',
+      'Agenda': 'الجدول',
+      'Save Agenda': 'حفظ الجدول'
+    };
+    return map[text] || text;
+  };
 
   const initial: AgendaItem[] = useMemo(() => {
     if (!rtl) {
@@ -30,10 +40,10 @@ export default function AgendaPage() {
 
   return (
     <div className="bi-bg" style={{padding: 24}}>
-      <Typography.Title level={2}>{rtl ? 'مخطط جدول الأعمال' : 'Agenda Planner'}</Typography.Title>
+      <Typography.Title level={2}>{translateText('Agenda Planner')}</Typography.Title>
       <Row gutter={24}>
         <Col flex="1 1 640px">
-          <Card title={rtl ? 'الجدول' : 'Agenda'} extra={<Button type="primary">{rtl ? 'حفظ الجدول' : 'Save Agenda'}</Button>}>
+          <Card title={translateText('Agenda')} extra={<Button type="primary">{translateText('Save Agenda')}</Button>}>
             <AgendaGrid items={items} setItems={setItems}/>
           </Card>
         </Col>
