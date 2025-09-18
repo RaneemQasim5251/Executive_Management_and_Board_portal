@@ -80,6 +80,9 @@ const AppHeader: React.FC = () => {
           />
         </Badge>
 
+        <LanguageSwitcher /> 
+        
+
         <div 
           onClick={toggleLanguage} 
           style={{ 

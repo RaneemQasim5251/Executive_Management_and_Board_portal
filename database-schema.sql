@@ -193,7 +193,12 @@ INSERT INTO public.users (id, email, name, role, department) VALUES
   (uuid_generate_v4(), 'ceo@company.com', 'Chief Executive Officer', 'ceo', 'Executive'),
   (uuid_generate_v4(), 'cfo@company.com', 'Chief Financial Officer', 'cfo', 'Finance'),
   (uuid_generate_v4(), 'cto@company.com', 'Chief Technology Officer', 'cto', 'Technology');
-
+  (uuid_generate_v4(), 'executive@company.com', 'Executive'); 
+  (uuid_generate_v4(), 'board_member@company.com', 'Board Member'); 
+  (uuid_generate_v4(), 'admin@company.com', 'Admin'); 
+  (uuid_generate_v4(), 'viewer@company.com', 'Viewer'); 
+  (uuid_generate_v4(), 'secretary@company.com', 'Secretary'); 
+  (uuid_generate_v4_v4, 'user@company.com', 'User'); 
 -- Insert sample projects
 WITH user_ids AS (
   SELECT id, email FROM public.users WHERE email = 'ceo@company.com'

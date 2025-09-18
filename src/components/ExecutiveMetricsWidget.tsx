@@ -218,6 +218,8 @@ export const ExecutiveMetricsWidget: React.FC = () => {
               <span style={{ fontSize: 12, color: '#8c8c8c' }}>
                 Current: ${metrics.totalRevenue.toLocaleString()}
               </span>
+              <Divider type="vertical" /> 
+              
               <span style={{ fontSize: 12, color: '#8c8c8c' }}>
                 Target: ${metrics.revenueTarget.toLocaleString()}
               </span>

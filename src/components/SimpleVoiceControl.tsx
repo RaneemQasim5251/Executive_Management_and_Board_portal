@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Space, Typography, Alert, Tag, Progress } from 'antd';
+import { Button, Card, Space, Typography } from 'antd';
 import { AudioOutlined, AudioMutedOutlined, SoundOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useNotification } from '@refinedev/core';
 import { motion } from 'framer-motion';
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 interface SimpleVoiceControlProps {
   style?: React.CSSProperties;
@@ -108,7 +108,6 @@ export const SimpleVoiceControl: React.FC<SimpleVoiceControlProps> = ({ style })
           type: 'success',
           message: t('Voice Navigation'),
           description: `${transcript} → ${config.description}`,
-          duration: 3,
         });
         
         // Speak confirmation
@@ -128,10 +127,9 @@ export const SimpleVoiceControl: React.FC<SimpleVoiceControlProps> = ({ style })
     
     console.log(`❌ No simple command matched for: "${transcript}"`);
     notification?.({
-      type: 'warning',
+      type: 'error',
       message: t('Command Not Recognized'),
       description: t('Try: "dashboard", "projects", "timeline", "reports"'),
-      duration: 4,
     });
   };
 

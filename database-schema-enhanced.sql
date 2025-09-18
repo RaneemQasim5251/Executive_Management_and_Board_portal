@@ -178,33 +178,6 @@ CREATE TABLE public.comments (
   entity_id UUID NOT NULL,
   author_id UUID REFERENCES public.users(id) NOT NULL,
   parent_id UUID REFERENCES public.comments(id) ON DELETE CASCADE,
-
-CREATE TABLE private.comments (
-  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY, 
-  content TEXT NOT NULL, 
-  entity_type TEXT NOT NULL CHECK (entity_type IN ('task', 'project', 'timeline_event', 'kpi', 'user')), 
-  entity_id UUID NOT NULL, 
-  author_id UUID REFERENCES public.users(id) NOT NULL, 
-  parent_id(UUID REFERENCES private.comments(id) ON DELETE CASCADE)
-  attachments JSONB DEFAULT '[]' ::jsonb, 
-  mentions JSONB DEFAULT '[]', 
-  reactions JSONB DEFAULT '{}'::jsonb, 
-  is_private BOOLEAN DEFAULT TRUE,
-  is resolved BOOLEAN DEFAULT FALSE, 
-  resolved_by UUID REFERENCES public.users(id),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(), 
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(), 
-  search_vector tsvector,
-  visibility INTEGER DEFAULT 1, 
-  PRIMARY KEY (id, is private), 
-  UNIQUE (entity_type, entity_id, author_id, parent_id), 
-  CONSTRAINT CHECK (is_private = TRUE), 
-  CONSTRAINT CHECK (visibility >= 1 AND visibility <= 4), 
-  CONSTRAINT CHECK (entity_type IN ('task', 'project', 'timeline_event', 'kpi', 'user'))
-  CONSTRAINT CHECK (is_resolved = FALSE), 
-  UNIQUE (entity_type, entity_id), 
-  created_by UUID REFERENCES public.users(id)
-)
   
   -- Enhanced comment features
   attachments JSONB DEFAULT '[]'::jsonb,
