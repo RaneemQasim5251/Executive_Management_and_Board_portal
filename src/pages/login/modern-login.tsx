@@ -1,5 +1,5 @@
 // صفحة تسجيل الدخول الحديثة / Modern Login Page
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import {
   Card,
   Form,
@@ -28,6 +28,8 @@ import {
 import { useLogin } from '@refinedev/core';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import WelcomeOverlay from '../../components/WelcomeOverlay';
+import { findExecutiveByEmailOrPhone, getPoliteTitle } from '../../utils/executives';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -37,9 +39,20 @@ export const ModernLogin: FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [showDemoCredentials, setShowDemoCredentials] = useState(true);
 
+  // matched executive (by email or phone)
+  const [matched, setMatched] = useState<{ FullName: string; Title?: string } | null>(null);
+
   // تسجيل الدخول / Login handler
   const onFinish = (values: any) => {
-    console.log('🔐 Attempting login with:', values);
+    const maybe = findExecutiveByEmailOrPhone(values?.email || values?.phone);
+    if (maybe) {
+      setMatched({ FullName: maybe.FullName, Title: maybe.Title });
+      // defer real login until overlay continues/auto-redirect
+      setTimeout(() => {
+        login({ ...values, remember: rememberMe });
+      }, 2600);
+      return;
+    }
     login({ ...values, remember: rememberMe });
   };
 
@@ -493,6 +506,17 @@ export const ModernLogin: FC = () => {
           </Text>
         </motion.div>
       </motion.div>
+
+      {matched && (
+        <WelcomeOverlay
+          FullName={matched.FullName}
+          Title={getPoliteTitle(matched.Title)}
+          onContinue={() => {
+            setMatched(null);
+            // let the scheduled login proceed; if needed we could call login here directly
+          }}
+        />
+      )}
 
       {/* CSS للحركة المتحركة / CSS for animations */}
       <style>

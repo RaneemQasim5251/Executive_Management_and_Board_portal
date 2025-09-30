@@ -19,19 +19,18 @@ import {
   AppleOutlined, 
   GoogleOutlined, 
   WindowsOutlined,
-  UnlockOutlined,
   CameraOutlined,
   ScanOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
-  ReloadOutlined,
-  SafetyOutlined,
-  EyeOutlined
+  ReloadOutlined
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import ThemeSwitcher from '../../components/ThemeSwitcher';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import WelcomeOverlay from '../../components/WelcomeOverlay';
+import { findExecutiveByEmailOrPhone, getPoliteTitle } from '../../utils/executives';
 
 import '../../styles/world-class-design-system.css';
 
@@ -43,6 +42,7 @@ const WorldClassLogin: React.FC = () => {
   const { t } = useTranslation();
   const [themeSwitcherVisible, setThemeSwitcherVisible] = useState(false);
   const [loginMethod, setLoginMethod] = useState<'password' | 'biometric'>('password');
+  const [idMode, setIdMode] = useState<'email' | 'phone'>('email');
 
   // Palm Login Demo State
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -200,8 +200,18 @@ const WorldClassLogin: React.FC = () => {
     setCapturedImage(null);
   };
 
+  const [matched, setMatched] = useState<{ FullName: string; Title?: string } | null>(null);
+
   const handleLogin = async (values: any) => {
     try {
+      // Phone/email recognition route
+      const maybe = findExecutiveByEmailOrPhone(values?.email || values?.phone);
+      if (maybe) {
+        setMatched({ FullName: maybe.FullName, Title: maybe.Title });
+        setTimeout(() => navigate('/'), 2500);
+        return;
+      }
+
       // Demo credentials
       const demoEmail = 'ceo@aljeri.com';
       const demoPassword = 'AlJeri2023!';
@@ -272,6 +282,16 @@ const WorldClassLogin: React.FC = () => {
                 password: 'AlJeri2023!'
               }}
             >
+              <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                <Button type={idMode === 'email' ? 'primary' : 'default'} onClick={() => setIdMode('email')}>
+                  {t('Email')}
+                </Button>
+                <Button type={idMode === 'phone' ? 'primary' : 'default'} onClick={() => setIdMode('phone')}>
+                  {t('Phone')}
+                </Button>
+              </div>
+
+              {idMode === 'email' ? (
               <Form.Item
                 name="email"
                 rules={[{ 
@@ -286,6 +306,17 @@ const WorldClassLogin: React.FC = () => {
                   className="world-class-input"
                 />
               </Form.Item>
+              ) : (
+              <Form.Item
+                name="phone"
+                rules={[{ required: true, message: t('Please input your phone!') }]}
+              >
+                <Input 
+                  placeholder={t('Saudi phone e.g. 050 569 7669')}
+                  className="world-class-input"
+                />
+              </Form.Item>
+              )}
 
               <Form.Item
                 name="password"
@@ -557,6 +588,13 @@ const WorldClassLogin: React.FC = () => {
         visible={themeSwitcherVisible} 
         onClose={() => setThemeSwitcherVisible(false)} 
       />
+      {matched && (
+        <WelcomeOverlay
+          FullName={matched.FullName}
+          Title={getPoliteTitle(matched.Title)}
+          onContinue={() => navigate('/')}
+        />
+      )}
     </Layout>
   );
 };

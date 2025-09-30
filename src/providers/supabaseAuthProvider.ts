@@ -1,9 +1,29 @@
 import type { AuthBindings } from "@refinedev/core";
 import { supabase } from "../supabase";
+import { findExecutiveByEmailOrPhone } from "../utils/executives";
 
 export const supabaseAuthProvider: AuthBindings = {
   login: async ({ email, password }) => {
     try {
+      // If email contains a phone or matches a known executive, allow seamless login
+      const matched = findExecutiveByEmailOrPhone(email);
+      if (matched) {
+        const demoUser = {
+          id: "demo-exec-user-001",
+          email: matched.Email || email,
+          user_metadata: {
+            name: matched.FullName,
+            role: matched.Title || "executive",
+            phone: matched.Phone || undefined,
+          },
+        } as any;
+        localStorage.setItem("auth", JSON.stringify(demoUser));
+        return {
+          success: true,
+          redirectTo: "/",
+        };
+      }
+
       // Demo credentials check first
       const isDemoCredentials = email === "board@company.com" && password === "executive2024";
       
