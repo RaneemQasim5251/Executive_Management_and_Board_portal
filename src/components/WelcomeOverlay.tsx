@@ -10,8 +10,8 @@ type WelcomeOverlayProps = {
 export const renderWelcome = ({ FullName, Title }: { FullName: string; Title: string; }) => {
 	const politeTitle = Title && Title.trim().length > 0 ? Title : 'الأستاذ';
 	return {
-		heading: `مرحباً بكم يا ${politeTitle} ${FullName}`,
-		sub: 'يسرّنا حضوركم. هذه منصّتكم، وكل ما فيها مُهيّأ لخدمتكم.',
+		heading: `أهلًا وسهلًا بالـ ${politeTitle} ${FullName}`,
+		sub: 'يسرّنا حضوركم. نورتم منصتكم، وكل ما فيها مُهيأ لخدمتكم.',
 		cta: 'الانتقال إلى الصفحة الرئيسة',
 	};
 };

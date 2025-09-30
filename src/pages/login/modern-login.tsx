@@ -507,7 +507,7 @@ export const ModernLogin: FC = () => {
       {matched && (
         <WelcomeOverlay
           FullName={matched.FullName}
-          Title={getPoliteTitle(matched.Title)}
+          Title={(matched.Title as string) || ''}
           onContinue={() => {
             setMatched(null);
             // Proceed to login after CTA

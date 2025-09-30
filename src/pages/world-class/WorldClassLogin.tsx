@@ -591,7 +591,7 @@ const WorldClassLogin: React.FC = () => {
       {matched && (
         <WelcomeOverlay
           FullName={matched.FullName}
-          Title={getPoliteTitle(matched.Title)}
+          Title={matched.Title || ''}
           onContinue={() => navigate('/')}
           // omit autoDismissMs to require manual CTA; set to a number to enable auto
         />
