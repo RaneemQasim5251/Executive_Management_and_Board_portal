@@ -47,6 +47,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { QuickAccessPanel } from '../../components/QuickAccessPanel';
+import HeroVideo from "../../components/HeroVideo";
 
 const { Title, Text } = Typography;
 
@@ -212,7 +213,9 @@ export const ModernExecutiveDashboard: FC = () => {
           styles={{ body: { padding: "80px 60px" } }}
           className="hero-card"
         >
-          
+          {/* Full-bleed background video */}
+          <HeroVideo fillParent />
+
           {/* Content Container */}
           <div style={{ 
             position: "relative", 
@@ -299,9 +302,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 level={1} 
                 style={{ 
                   margin: "0 0 8px 0", 
-                  background: "#0C085C",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  color: "#ffffff",
                   fontSize: "32px",
                   fontWeight: "900",
                   letterSpacing: i18n.language === 'ar' ? "1px" : "0.5px",
@@ -347,7 +348,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 level={2} 
                 style={{ 
                   margin: "16px 0 8px 0", 
-                  color: "#0C085C",
+                  color: "#ffffff",
                   fontSize: "24px",
                   fontWeight: "700",
                   textAlign: "center",
@@ -359,7 +360,7 @@ export const ModernExecutiveDashboard: FC = () => {
               
               <Text style={{ 
                 fontSize: "18px", 
-                color: "#666", 
+                color: "#e5e7eb", 
                 fontWeight: "500",
                 lineHeight: "1.6",
                 textAlign: "center",
@@ -369,6 +370,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 {t("Strategic Decision Making • Board Governance")}
               </Text>
             </motion.div>
+
           </div>
         </Card>
       </motion.div>
