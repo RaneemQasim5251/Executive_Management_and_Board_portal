@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 
 type WelcomeOverlayProps = {
-	FullName: string;
+	FullName: string; // Arabic preferred
 	Title: string;
 	onContinue: () => void;
+	autoDismissMs?: number; // if provided, also auto-redirect after this period
 };
 
 export const renderWelcome = ({ FullName, Title }: { FullName: string; Title: string; }) => {
@@ -15,13 +16,16 @@ export const renderWelcome = ({ FullName, Title }: { FullName: string; Title: st
 	};
 };
 
-const WelcomeOverlay: React.FC<WelcomeOverlayProps> = ({ FullName, Title, onContinue }) => {
+const WelcomeOverlay: React.FC<WelcomeOverlayProps> = ({ FullName, Title, onContinue, autoDismissMs }) => {
 	const tpl = renderWelcome({ FullName, Title });
 
 	useEffect(() => {
-		const t = setTimeout(() => onContinue(), 2500);
-		return () => clearTimeout(t);
-	}, [onContinue]);
+		if (typeof autoDismissMs === 'number' && autoDismissMs > 0) {
+			const t = setTimeout(() => onContinue(), autoDismissMs);
+			return () => clearTimeout(t);
+		}
+		return;
+	}, [onContinue, autoDismissMs]);
 
 	return (
 		<div

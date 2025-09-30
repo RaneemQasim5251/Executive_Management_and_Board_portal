@@ -1,5 +1,6 @@
 export type ExecutiveRecord = {
-	FullName: string;
+	FullName: string; // English/full
+	FullArabicName: string; // Arabic display name
 	Title?: string;
 	Email?: string;
 	Phone?: string;
@@ -16,11 +17,11 @@ const normalizePhone = (input?: string): string => {
 };
 
 export const EXECUTIVES: ExecutiveRecord[] = [
-	{ FullName: "Hezam Z. Al-Qahtani", Title: undefined, Email: "Hezam@aljeri.com", Phone: "+966 50 569 7669" },
-	{ FullName: "Khalid Hezam Al-Qahtani", Title: undefined, Email: "kqahtani@aljeri.com", Phone: "+966 55 555 5064" },
-	{ FullName: "Nader Al-Nasser", Title: undefined, Email: "nalnasser@aljeri.com", Phone: "+966 50 000 3522" },
-	{ FullName: "Saadi Alami", Title: undefined, Email: "Saadi.Alami@aljeri.com", Phone: "+966 50 421 9934" },
-	{ FullName: "Ali Al-Najjar", Title: undefined, Email: "anajjar@aljeri.com" },
+	{ FullName: "Hezam Z. Al-Qahtani", FullArabicName: "حزام القحطاني", Title: undefined, Email: "Hezam@aljeri.com", Phone: "+966 50 569 7669" },
+	{ FullName: "Khalid Hezam Al-Qahtani", FullArabicName: "خالد القحطاني", Title: undefined, Email: "kqahtani@aljeri.com", Phone: "+966 55 555 5064" },
+	{ FullName: "Nader Al-Nasser", FullArabicName: "نادر الناصر", Title: undefined, Email: "nalnasser@aljeri.com", Phone: "+966 50 000 3522" },
+	{ FullName: "Saadi Alami", FullArabicName: "صعدي علامي", Title: undefined, Email: "Saadi.Alami@aljeri.com", Phone: "+966 50 421 9934" },
+	{ FullName: "Ali Al-Najjar", FullArabicName: "علي النجار", Title: undefined, Email: "anajjar@aljeri.com" },
 ];
 
 export const findExecutiveByEmailOrPhone = (identifier: string): ExecutiveRecord | undefined => {

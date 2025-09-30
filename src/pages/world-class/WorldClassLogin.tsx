@@ -207,8 +207,8 @@ const WorldClassLogin: React.FC = () => {
       // Phone/email recognition route
       const maybe = findExecutiveByEmailOrPhone(values?.email || values?.phone);
       if (maybe) {
-        setMatched({ FullName: maybe.FullName, Title: maybe.Title });
-        setTimeout(() => navigate('/'), 2500);
+        setMatched({ FullName: maybe.FullArabicName || maybe.FullName, Title: maybe.Title });
+        // do not auto-dismiss; proceed only on CTA
         return;
       }
 
@@ -593,6 +593,7 @@ const WorldClassLogin: React.FC = () => {
           FullName={matched.FullName}
           Title={getPoliteTitle(matched.Title)}
           onContinue={() => navigate('/')}
+          // omit autoDismissMs to require manual CTA; set to a number to enable auto
         />
       )}
     </Layout>

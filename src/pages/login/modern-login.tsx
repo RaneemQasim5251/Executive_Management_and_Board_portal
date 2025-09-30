@@ -46,11 +46,8 @@ export const ModernLogin: FC = () => {
   const onFinish = (values: any) => {
     const maybe = findExecutiveByEmailOrPhone(values?.email || values?.phone);
     if (maybe) {
-      setMatched({ FullName: maybe.FullName, Title: maybe.Title });
-      // defer real login until overlay continues/auto-redirect
-      setTimeout(() => {
-        login({ ...values, remember: rememberMe });
-      }, 2600);
+      setMatched({ FullName: (maybe as any).FullArabicName || maybe.FullName, Title: maybe.Title });
+      // Wait for CTA, not auto-dismiss
       return;
     }
     login({ ...values, remember: rememberMe });
@@ -513,7 +510,9 @@ export const ModernLogin: FC = () => {
           Title={getPoliteTitle(matched.Title)}
           onContinue={() => {
             setMatched(null);
-            // let the scheduled login proceed; if needed we could call login here directly
+            // Proceed to login after CTA
+            const values = { email: '' } as any;
+            login({ ...values, remember: rememberMe });
           }}
         />
       )}
