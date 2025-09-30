@@ -23,6 +23,8 @@ import { VoiceControl } from "../VoiceControl";
 import { VoiceStatusIndicator } from "../VoiceStatusIndicator";
 import { SimpleVoiceControl } from "../SimpleVoiceControl";
 import { useTheme } from "../../contexts/theme/ThemeProvider";
+import ProfileEditor from "../ProfileEditor";
+import { getProfileByEmail } from "../../utils/profileStore";
 
 const { Header: AntdHeader } = Layout;
 const { Text } = Typography;
@@ -48,6 +50,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   const { mode, setMode } = useContext(ColorModeContext);
   const { preferences, updatePreferences } = useTheme();
   const [animateLogo, setAnimateLogo] = useState(true);
+  const [profileEditorOpen, setProfileEditorOpen] = useState(false);
 
   // Run a subtle circular movement on first mount for ~1 second
   useEffect(() => {
@@ -110,6 +113,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
       key: "profile",
       icon: <UserOutlined />,
       label: t("Board Profile"),
+      onClick: () => setProfileEditorOpen(true),
     },
     {
       key: "settings",
@@ -309,11 +313,15 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
                 fontSize: "16px",
               }}
             >
-              {user?.avatar || "👤"}
+              {getProfileByEmail(user?.email || "")?.avatarUrl ? (
+                <img src={getProfileByEmail(user?.email || "")!.avatarUrl} alt="avatar" style={{ width: 24, height: 24, borderRadius: '50%' }} />
+              ) : (
+                user?.avatar || "👤"
+              )}
             </Avatar>
             <div style={{ textAlign: i18n.language === 'ar' ? 'left' : 'right', lineHeight: "1.3" }}>
               <Text strong style={{ fontSize: "13px", color: "#1f2937", display: "block" }}>
-                {user?.name || (i18n.language === 'ar' ? 'المدير التنفيذي' : 'Executive')}
+                {getProfileByEmail(user?.email || "")?.name || user?.name || (i18n.language === 'ar' ? 'المدير التنفيذي' : 'Executive')}
               </Text>
               <Text type="secondary" style={{ fontSize: "11px", marginTop: "1px", display: "block" }}>
                 {user?.email || "executive@company.com"}
@@ -347,6 +355,13 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         onOpenNotifications={() => setNotificationVisible(true)}
         onLanguageSwitch={toggleLanguage}
         onThemeSwitch={toggleColorMode}
+      />
+
+      <ProfileEditor
+        visible={profileEditorOpen}
+        onClose={() => setProfileEditorOpen(false)}
+        currentEmail={user?.email}
+        currentName={getProfileByEmail(user?.email || "")?.name || user?.name}
       />
     </>
   );
