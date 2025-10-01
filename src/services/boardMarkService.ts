@@ -7,10 +7,10 @@ const RAW_API: string | undefined = (import.meta as any).env?.VITE_API_BASE_URL;
 const API_BASE = RAW_API || "/api";
 // Force mock mode to eliminate 404s immediately. Set to false when backend is ready.
 const IS_MOCK = false;
-const SUPABASE_URL: string = (import.meta as any).env?.VITE_SUPABASE_URL || "https://demo.supabase.co";
-const SUPABASE_KEY: string = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY || "demo-anon-key";
-//const USE_SUPABASE = SUPABASE_URL !== "https://demo.supabase.co" && SUPABASE_KEY !== "demo-anon-key" && SUPABASE_URL.includes("supabase.co");
-const USE_SUPABASE = true;
+const SUPABASE_URL: string | undefined = (import.meta as any).env?.VITE_SUPABASE_URL;
+const SUPABASE_KEY: string | undefined = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY;
+// Enable Supabase only when real credentials are provided
+const USE_SUPABASE = !!SUPABASE_URL && !!SUPABASE_KEY && SUPABASE_URL.includes("supabase.co") && SUPABASE_KEY !== "demo-anon-key";
 export class BoardMarkService {
   private static instance: BoardMarkService;
   private readonly STORAGE_KEY = "board_mark_resolutions";
@@ -26,6 +26,7 @@ export class BoardMarkService {
 
   public async createResolution(input: CreateResolutionInput): Promise<BoardResolution> {
     if (USE_SUPABASE) {
+      try {
       // Create in Supabase (real mode)
       const now = new Date();
       const id = `RES-${now.getTime()}`;
@@ -85,6 +86,9 @@ export class BoardMarkService {
         false,
       );
       return resolution;
+      } catch {
+        // Fallback to local storage when Supabase is unreachable
+      }
     }
     try {
       const response = await axios.post(`${API_BASE}/board-mark/resolutions`, input);
@@ -134,27 +138,52 @@ export class BoardMarkService {
 
   public async listResolutions(): Promise<BoardResolution[]> {
     if (USE_SUPABASE) {
-      const { data, error } = await supabase
-        .from("board_resolutions")
-        .select("*")
-        .order("created_at", { ascending: false });
-      if (error) return [];
-      const rows = (data || []) as any[];
-      return rows.map((r) => ({
-        id: r.id,
-        createdAt: r.created_at,
-        updatedAt: r.updated_at,
-        meetingDate: r.meeting_date,
-        agreementDetails: r.agreement_details,
-        status: r.status,
-        deadlineAt: r.deadline_at,
-        dabajaTextAr: r.dabaja_text_ar,
-        dabajaTextEn: r.dabaja_text_en,
-        preambleAr: r.preamble_ar,
-        preambleEn: r.preamble_en,
-        signatories: [],
-        barcodeData: r.barcode_data,
-      }));
+      try {
+        const { data, error } = await supabase
+          .from("board_resolutions")
+          .select("*")
+          .order("created_at", { ascending: false });
+        if (error) throw error;
+        const rows = (data || []) as any[];
+        // Also fetch signatories to enrich preview/PDF
+        const resolutions: BoardResolution[] = [];
+        for (const r of rows) {
+          let signatories: Signatory[] = [];
+          try {
+            const { data: sigs } = await supabase
+              .from("board_signatories")
+              .select("*")
+              .eq("resolution_id", r.id);
+            signatories = (sigs || []).map((s: any) => ({
+              id: s.id,
+              name: s.name,
+              email: s.email,
+              jobTitle: s.job_title,
+              nationalIdLast3: s.national_id_last3,
+              signedAt: s.signed_at || undefined,
+              signatureHash: s.signature_hash || undefined,
+            }));
+          } catch { /* ignore */ }
+          resolutions.push({
+            id: r.id,
+            createdAt: r.created_at,
+            updatedAt: r.updated_at,
+            meetingDate: r.meeting_date,
+            agreementDetails: r.agreement_details,
+            status: r.status,
+            deadlineAt: r.deadline_at,
+            dabajaTextAr: r.dabaja_text_ar,
+            dabajaTextEn: r.dabaja_text_en,
+            preambleAr: r.preamble_ar,
+            preambleEn: r.preamble_en,
+            signatories,
+            barcodeData: r.barcode_data,
+          });
+        }
+        return resolutions;
+      } catch {
+        // fallback below
+      }
     }
     if (IS_MOCK) {
       return this.readLocal();
@@ -170,40 +199,44 @@ export class BoardMarkService {
 
   public async getResolution(id: string): Promise<BoardResolution> {
     if (USE_SUPABASE) {
-      const { data, error } = await supabase
-        .from("board_resolutions")
-        .select("*")
-        .eq("id", id)
-        .single();
-      if (error || !data) throw error || new Error("Resolution not found");
-      const { data: sigs } = await supabase
-        .from("board_signatories")
-        .select("*")
-        .eq("resolution_id", id);
-      const signatories: Signatory[] = (sigs || []).map((s: any) => ({
-        id: s.id,
-        name: s.name,
-        email: s.email,
-        jobTitle: s.job_title,
-        nationalIdLast3: s.national_id_last3,
-        signedAt: s.signed_at || undefined,
-        signatureHash: s.signature_hash || undefined,
-      }));
-      return {
-        id: data.id,
-        createdAt: data.created_at,
-        updatedAt: data.updated_at,
-        meetingDate: data.meeting_date,
-        agreementDetails: data.agreement_details,
-        status: data.status,
-        deadlineAt: data.deadline_at,
-        dabajaTextAr: data.dabaja_text_ar,
-        dabajaTextEn: data.dabaja_text_en,
-        preambleAr: data.preamble_ar,
-        preambleEn: data.preamble_en,
-        signatories,
-        barcodeData: data.barcode_data,
-      };
+      try {
+        const { data, error } = await supabase
+          .from("board_resolutions")
+          .select("*")
+          .eq("id", id)
+          .single();
+        if (error || !data) throw error || new Error("Resolution not found");
+        const { data: sigs } = await supabase
+          .from("board_signatories")
+          .select("*")
+          .eq("resolution_id", id);
+        const signatories: Signatory[] = (sigs || []).map((s: any) => ({
+          id: s.id,
+          name: s.name,
+          email: s.email,
+          jobTitle: s.job_title,
+          nationalIdLast3: s.national_id_last3,
+          signedAt: s.signed_at || undefined,
+          signatureHash: s.signature_hash || undefined,
+        }));
+        return {
+          id: data.id,
+          createdAt: data.created_at,
+          updatedAt: data.updated_at,
+          meetingDate: data.meeting_date,
+          agreementDetails: data.agreement_details,
+          status: data.status,
+          deadlineAt: data.deadline_at,
+          dabajaTextAr: data.dabaja_text_ar,
+          dabajaTextEn: data.dabaja_text_en,
+          preambleAr: data.preamble_ar,
+          preambleEn: data.preamble_en,
+          signatories,
+          barcodeData: data.barcode_data,
+        };
+      } catch {
+        // fallback below
+      }
     }
     if (IS_MOCK) {
       const found = this.readLocal().find(r => r.id === id);
@@ -234,14 +267,18 @@ export class BoardMarkService {
 
   public async sign(request: SignRequest): Promise<BoardResolution> {
     if (USE_SUPABASE) {
-      const signedAt = new Date().toISOString();
-      const signatureHash = cryptoRandom();
-      await supabase
-        .from("board_signatories")
-        .update({ signed_at: signedAt, signature_hash: signatureHash })
-        .eq("resolution_id", request.resolutionId)
-        .eq("id", request.signatoryId);
-      return this.getResolution(request.resolutionId);
+      try {
+        const signedAt = new Date().toISOString();
+        const signatureHash = cryptoRandom();
+        await supabase
+          .from("board_signatories")
+          .update({ signed_at: signedAt, signature_hash: signatureHash })
+          .eq("resolution_id", request.resolutionId)
+          .eq("id", request.signatoryId);
+        return this.getResolution(request.resolutionId);
+      } catch {
+        // fallback below
+      }
     }
     if (IS_MOCK) {
       const list = this.readLocal();
@@ -272,17 +309,21 @@ export class BoardMarkService {
 
   public async finalize(id: string): Promise<BoardResolution> {
     if (USE_SUPABASE) {
-      await supabase
-        .from("board_resolutions")
-        .update({ status: "finalized" as ResolutionStatus, updated_at: new Date().toISOString() })
-        .eq("id", id);
-      const resolution = await this.getResolution(id);
-      notificationService.notifyExecutive(
-        `Resolution ${resolution.id} finalized and archived`,
-        'success',
-        false
-      );
-      return resolution;
+      try {
+        await supabase
+          .from("board_resolutions")
+          .update({ status: "finalized" as ResolutionStatus, updated_at: new Date().toISOString() })
+          .eq("id", id);
+        const resolution = await this.getResolution(id);
+        notificationService.notifyExecutive(
+          `Resolution ${resolution.id} finalized and archived`,
+          'success',
+          false
+        );
+        return resolution;
+      } catch {
+        // fallback below
+      }
     }
     if (IS_MOCK) {
       const list = this.readLocal();
