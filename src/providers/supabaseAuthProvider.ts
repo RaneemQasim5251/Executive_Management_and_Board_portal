@@ -1,6 +1,7 @@
 import type { AuthBindings } from "@refinedev/core";
 import { supabase } from "../supabase";
 import { findExecutiveByEmailOrPhone } from "../utils/executives";
+import { getProfileByEmail } from "../utils/profileStore";
 
 export const supabaseAuthProvider: AuthBindings = {
   login: async ({ email, password }) => {
@@ -12,7 +13,7 @@ export const supabaseAuthProvider: AuthBindings = {
           id: "demo-exec-user-001",
           email: matched.Email || email,
           user_metadata: {
-            name: matched.FullName,
+            name: matched.FullArabicName || matched.FullName,
             role: matched.Title || "executive",
             phone: matched.Phone || undefined,
           },
@@ -225,6 +226,17 @@ export const supabaseAuthProvider: AuthBindings = {
       if (storedAuth) {
         const userData = JSON.parse(storedAuth);
         if (userData.id === "demo-exec-user-001") {
+          // Check for custom profile first
+          const customProfile = getProfileByEmail(userData.email);
+          if (customProfile) {
+            return {
+              id: userData.id,
+              name: customProfile.name,
+              email: userData.email || 'board@company.com',
+              avatar: customProfile.avatarUrl || userData.user_metadata?.avatar_url || '',
+              role: userData.user_metadata?.role || 'Board Member',
+            };
+          }
           return {
             id: userData.id,
             name: userData.user_metadata?.name || 'Executive Demo User',
@@ -239,6 +251,17 @@ export const supabaseAuthProvider: AuthBindings = {
       const { data: { user } } = await supabase.auth.getUser();
       
       if (user) {
+        // Check for custom profile first
+        const customProfile = getProfileByEmail(user.email);
+        if (customProfile) {
+          return {
+            id: user.id,
+            name: customProfile.name,
+            email: user.email || '',
+            avatar: customProfile.avatarUrl || user.user_metadata?.avatar_url || '',
+            role: user.user_metadata?.role || 'Board Member',
+          };
+        }
         return {
           id: user.id,
           name: user.user_metadata?.name || user.email?.split('@')[0] || 'Executive User',
@@ -256,6 +279,17 @@ export const supabaseAuthProvider: AuthBindings = {
         try {
           const userData = JSON.parse(storedAuth);
           if (userData.id === "demo-exec-user-001") {
+            // Check for custom profile first
+            const customProfile = getProfileByEmail(userData.email);
+            if (customProfile) {
+              return {
+                id: userData.id,
+                name: customProfile.name,
+                email: userData.email || 'board@company.com',
+                avatar: customProfile.avatarUrl || userData.user_metadata?.avatar_url || '',
+                role: userData.user_metadata?.role || 'Board Member',
+              };
+            }
             return {
               id: userData.id,
               name: userData.user_metadata?.name || 'Executive Demo User',

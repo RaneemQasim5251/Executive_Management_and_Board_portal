@@ -8,9 +8,10 @@ type ProfileEditorProps = {
 	onClose: () => void;
 	currentEmail?: string;
 	currentName?: string;
+	onSave?: () => void;
 };
 
-const ProfileEditor: React.FC<ProfileEditorProps> = ({ visible, onClose, currentEmail, currentName }) => {
+const ProfileEditor: React.FC<ProfileEditorProps> = ({ visible, onClose, currentEmail, currentName, onSave }) => {
 	const [form] = Form.useForm<UserProfile>();
 	const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
@@ -33,6 +34,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ visible, onClose, current
 			avatarUrl: avatarUrl,
 		};
 		upsertProfile(profile);
+		onSave?.();
 		onClose();
 	};
 

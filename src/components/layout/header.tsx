@@ -51,12 +51,21 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   const { preferences, updatePreferences } = useTheme();
   const [animateLogo, setAnimateLogo] = useState(true);
   const [profileEditorOpen, setProfileEditorOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // Run a subtle circular movement on first mount for ~1 second
   useEffect(() => {
     const timeout = setTimeout(() => setAnimateLogo(false), 1000);
     return () => clearTimeout(timeout);
   }, []);
+
+  // Force refresh when profile changes
+  useEffect(() => {
+    if (refreshKey > 0) {
+      // Force a re-render by updating the component
+      setRefreshKey(0);
+    }
+  }, [refreshKey]);
 
   const toggleLanguage = () => {
     const currentLng = i18n.language;
@@ -360,6 +369,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
       <ProfileEditor
         visible={profileEditorOpen}
         onClose={() => setProfileEditorOpen(false)}
+        onSave={() => setRefreshKey(prev => prev + 1)}
         currentEmail={user?.email}
         currentName={getProfileByEmail(user?.email || "")?.name || user?.name}
       />
