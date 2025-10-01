@@ -9,9 +9,7 @@ import {
   message, 
   Card,
   Space,
-  Progress,
-  Alert,
-  Modal
+  Progress
 } from 'antd';
 import { 
   LockOutlined, 
@@ -29,8 +27,9 @@ import { useTranslation } from 'react-i18next';
 import ThemeSwitcher from '../../components/ThemeSwitcher';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useLogin } from '@refinedev/core';
 import WelcomeOverlay from '../../components/WelcomeOverlay';
-import { findExecutiveByEmailOrPhone, getPoliteTitle } from '../../utils/executives';
+import { findExecutiveByEmailOrPhone } from '../../utils/executives';
 
 import '../../styles/world-class-design-system.css';
 
@@ -40,6 +39,7 @@ const { Title, Text, Link } = Typography;
 const WorldClassLogin: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { mutate: login } = useLogin();
   const [themeSwitcherVisible, setThemeSwitcherVisible] = useState(false);
   const [loginMethod, setLoginMethod] = useState<'password' | 'biometric'>('password');
   const [idMode, setIdMode] = useState<'email' | 'phone'>('email');
@@ -51,8 +51,6 @@ const WorldClassLogin: React.FC = () => {
   const [scanning, setScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
   const [scanResult, setScanResult] = useState<'success' | 'failed' | null>(null);
-  const [capturedImage, setCapturedImage] = useState<string | null>(null);
-  const [showInstructions, setShowInstructions] = useState(false);
 
   // Cleanup camera stream when component unmounts
   useEffect(() => {
@@ -141,7 +139,6 @@ const WorldClassLogin: React.FC = () => {
       }
 
       const capturedFrame = captureFrame();
-      setCapturedImage(capturedFrame);
 
       await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -152,21 +149,12 @@ const WorldClassLogin: React.FC = () => {
         message.success(t('Palm Authentication Successful'));
         
         // Simulate successful login with demo user data
-        const demoUserData = {
-          id: 'demo-exec-001',
-          name: 'CEO Al Jeri',
-          email: 'ceo@aljeri.com',
-          role: 'ceo',
-          department: 'Executive Leadership',
-          auth_method: 'palm_biometric_demo',
-        };
 
         // Completely stop and reset camera
         stopCamera();
         setCameraActive(false);
         setScanning(false);
         setScanProgress(0);
-        setCapturedImage(null);
 
         // Navigate to dashboard after successful login
         navigate('/');
@@ -179,7 +167,6 @@ const WorldClassLogin: React.FC = () => {
         setCameraActive(false);
         setScanning(false);
         setScanProgress(0);
-        setCapturedImage(null);
       }
     } catch (error) {
       setScanResult('failed');
@@ -190,17 +177,16 @@ const WorldClassLogin: React.FC = () => {
       setCameraActive(false);
       setScanning(false);
       setScanProgress(0);
-      setCapturedImage(null);
     }
   };
 
   const resetScan = () => {
     setScanResult(null);
     setScanProgress(0);
-    setCapturedImage(null);
   };
 
   const [matched, setMatched] = useState<{ FullName: string; Title?: string } | null>(null);
+  const [matchedExecutive, setMatchedExecutive] = useState<any>(null);
 
   const handleLogin = async (values: any) => {
     try {
@@ -208,7 +194,8 @@ const WorldClassLogin: React.FC = () => {
       const maybe = findExecutiveByEmailOrPhone(values?.email || values?.phone);
       if (maybe) {
         setMatched({ FullName: maybe.FullArabicName || maybe.FullName, Title: maybe.Title });
-        // do not auto-dismiss; proceed only on CTA
+        // Store the matched executive data for login after welcome
+        setMatchedExecutive(maybe);
         return;
       }
 
@@ -220,14 +207,6 @@ const WorldClassLogin: React.FC = () => {
         message.success(t('Login Successful'));
         
         // Simulate successful login with demo user data
-        const demoUserData = {
-          id: 'demo-exec-001',
-          name: 'CEO Al Jeri',
-          email: 'ceo@aljeri.com',
-          role: 'ceo',
-          department: 'Executive Leadership',
-          auth_method: 'password_demo',
-        };
 
         // Navigate to dashboard after successful login
         navigate('/');
@@ -237,6 +216,18 @@ const WorldClassLogin: React.FC = () => {
     } catch (error) {
       message.error(t('Login Failed'));
     }
+  };
+
+  const handleWelcomeContinue = () => {
+    if (matchedExecutive) {
+      // Actually log the user in with the matched executive data
+      login({
+        email: matchedExecutive.Email,
+        password: "executive_login", // This will be handled by the auth provider
+      });
+    }
+    setMatched(null);
+    setMatchedExecutive(null);
   };
 
   return (
@@ -592,7 +583,7 @@ const WorldClassLogin: React.FC = () => {
         <WelcomeOverlay
           FullName={matched.FullName}
           Title={matched.Title || ''}
-          onContinue={() => navigate('/')}
+          onContinue={handleWelcomeContinue}
           // omit autoDismissMs to require manual CTA; set to a number to enable auto
         />
       )}
