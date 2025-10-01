@@ -18,20 +18,26 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ visible, onClose, current
 	useEffect(() => {
 		if (visible) {
 			const existing = getProfileByEmail(currentEmail);
+			const avatarUrlValue = existing?.avatarUrl;
 			form.setFieldsValue({
 				email: currentEmail || existing?.email,
 				name: existing?.name || currentName,
-				avatarUrl: existing?.avatarUrl,
+				avatarUrl: avatarUrlValue,
 			} as any);
-			setAvatarUrl(existing?.avatarUrl);
+			setAvatarUrl(avatarUrlValue);
 		}
 	}, [visible, currentEmail, currentName]);
 
 	const onFinish = (values: any) => {
+		const finalAvatarUrl = avatarUrl || values.avatarUrl;
+		console.log('Form values:', values);
+		console.log('Current avatarUrl state:', avatarUrl);
+		console.log('Final avatarUrl:', finalAvatarUrl);
+		
 		const profile: UserProfile = {
 			email: (values.email || '').toLowerCase(),
 			name: values.name,
-			avatarUrl: avatarUrl,
+			avatarUrl: finalAvatarUrl,
 		};
 		console.log('Saving profile:', profile);
 		upsertProfile(profile);
@@ -50,18 +56,52 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ visible, onClose, current
 				<Form.Item label="الاسم" name="name" rules={[{ required: true, message: 'أدخل الاسم' }]}> 
 					<Input />
 				</Form.Item>
+				<Form.Item name="avatarUrl" style={{ display: 'none' }}>
+					<Input />
+				</Form.Item>
 				<Form.Item label="الصورة الرمزية">
-					<Space>
-						<Input placeholder="رابط الصورة (اختياري)" value={avatarUrl} onChange={(e) => setAvatarUrl(e.target.value)} />
-						<Upload beforeUpload={() => false} maxCount={1} onChange={async (info) => {
-							const file = info.file.originFileObj as File | undefined;
-							if (!file) return;
-							const reader = new FileReader();
-							reader.onload = () => setAvatarUrl(reader.result as string);
-							reader.readAsDataURL(file);
-						}}>
-							<Button icon={<UploadOutlined />}>رفع صورة</Button>
-						</Upload>
+					<Space direction="vertical" style={{ width: '100%' }}>
+						<Space>
+							<Input 
+								placeholder="رابط الصورة (اختياري)" 
+								value={avatarUrl} 
+								onChange={(e) => {
+									setAvatarUrl(e.target.value);
+									form.setFieldValue('avatarUrl', e.target.value);
+								}} 
+							/>
+							<Upload beforeUpload={() => false} maxCount={1} onChange={async (info) => {
+								const file = info.file.originFileObj as File | undefined;
+								if (!file) return;
+								const reader = new FileReader();
+								reader.onload = () => {
+									const dataUrl = reader.result as string;
+									setAvatarUrl(dataUrl);
+									form.setFieldValue('avatarUrl', dataUrl);
+								};
+								reader.readAsDataURL(file);
+							}}>
+								<Button icon={<UploadOutlined />}>رفع صورة</Button>
+							</Upload>
+						</Space>
+						{avatarUrl && (
+							<div style={{ textAlign: 'center', marginTop: 8 }}>
+								<img 
+									src={avatarUrl} 
+									alt="Avatar Preview" 
+									style={{ 
+										width: 80, 
+										height: 80, 
+										borderRadius: '50%', 
+										objectFit: 'cover',
+										border: '2px solid #e5e7eb'
+									}} 
+								/>
+								<div style={{ fontSize: '12px', color: '#6b7280', marginTop: 4 }}>
+									معاينة الصورة
+								</div>
+							</div>
+						)}
 					</Space>
 				</Form.Item>
 			</Form>
