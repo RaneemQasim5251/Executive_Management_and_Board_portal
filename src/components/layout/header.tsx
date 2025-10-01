@@ -52,12 +52,22 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
   const [animateLogo, setAnimateLogo] = useState(true);
   const [profileEditorOpen, setProfileEditorOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [profileData, setProfileData] = useState<any>(null);
 
   // Run a subtle circular movement on first mount for ~1 second
   useEffect(() => {
     const timeout = setTimeout(() => setAnimateLogo(false), 1000);
     return () => clearTimeout(timeout);
   }, []);
+
+  // Load profile data when user changes
+  useEffect(() => {
+    if (user?.email) {
+      const profile = getProfileByEmail(user.email);
+      console.log('Loading profile for:', user.email, profile);
+      setProfileData(profile);
+    }
+  }, [user?.email, refreshKey]);
 
   // Force refresh when profile changes
   useEffect(() => {
@@ -322,15 +332,15 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
                 fontSize: "16px",
               }}
             >
-              {getProfileByEmail(user?.email || "")?.avatarUrl ? (
-                <img src={getProfileByEmail(user?.email || "")!.avatarUrl} alt="avatar" style={{ width: 24, height: 24, borderRadius: '50%' }} />
+              {profileData?.avatarUrl ? (
+                <img src={profileData.avatarUrl} alt="avatar" style={{ width: 24, height: 24, borderRadius: '50%' }} />
               ) : (
                 user?.avatar || "👤"
               )}
             </Avatar>
             <div style={{ textAlign: i18n.language === 'ar' ? 'left' : 'right', lineHeight: "1.3" }}>
               <Text strong style={{ fontSize: "13px", color: "#1f2937", display: "block" }}>
-                {getProfileByEmail(user?.email || "")?.name || user?.name || (i18n.language === 'ar' ? 'المدير التنفيذي' : 'Executive')}
+                {profileData?.name || user?.name || (i18n.language === 'ar' ? 'المدير التنفيذي' : 'Executive')}
               </Text>
               <Text type="secondary" style={{ fontSize: "11px", marginTop: "1px", display: "block" }}>
                 {user?.email || "executive@company.com"}
@@ -371,7 +381,7 @@ export const Header: FC<HeaderProps> = ({ sticky = true }) => {
         onClose={() => setProfileEditorOpen(false)}
         onSave={() => setRefreshKey(prev => prev + 1)}
         currentEmail={user?.email}
-        currentName={getProfileByEmail(user?.email || "")?.name || user?.name}
+        currentName={profileData?.name || user?.name}
       />
     </>
   );

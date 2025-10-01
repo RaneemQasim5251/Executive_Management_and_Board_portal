@@ -33,7 +33,9 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ visible, onClose, current
 			name: values.name,
 			avatarUrl: avatarUrl,
 		};
+		console.log('Saving profile:', profile);
 		upsertProfile(profile);
+		console.log('Profile saved, triggering refresh');
 		onSave?.();
 		onClose();
 	};
