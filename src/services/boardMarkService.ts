@@ -186,14 +186,94 @@ export class BoardMarkService {
       }
     }
     if (IS_MOCK) {
-      return this.readLocal();
+      const list = this.readLocal();
+      if (list.length > 0) return list;
+      // seed a demo resolution when empty
+      const now = new Date();
+      const id = `RES-${now.getTime()}`;
+      const seed: BoardResolution = {
+        id,
+        createdAt: now.toISOString(),
+        updatedAt: now.toISOString(),
+        meetingDate: now.toISOString(),
+        agreementDetails: 'Demo: Approval of Q4 Financial Report and 2025 Strategy.',
+        status: 'awaiting_signatures',
+        deadlineAt: new Date(now.getTime() + 7*24*60*60*1000).toISOString(),
+        dabajaTextAr: 'محضر مجلس الإدارة: ...',
+        dabajaTextEn: 'Board Minutes: ...',
+        preambleAr: 'تمت مناقشة الموضوع واتخاذ القرار التالي:',
+        preambleEn: 'The matter was discussed and the Board resolved as follows:',
+        signatories: [
+          { id: `${id}-bm-1`, name: 'Board Chairman', email: 'board@company.com', jobTitle: 'Chairman' },
+          { id: `${id}-bm-2`, name: 'Chief Executive Officer', email: 'ceo@company.com', jobTitle: 'CEO' },
+        ],
+        barcodeData: id,
+      };
+      const seeded = [seed, ...list];
+      this.writeLocal(seeded);
+      return seeded;
     }
     try {
       const response = await axios.get(`${API_BASE}/board-mark/resolutions`);
       const data = response.data;
-      return Array.isArray(data) ? (data as BoardResolution[]) : [];
+      let list = Array.isArray(data) ? (data as BoardResolution[]) : [];
+      // if API empty, fallback to local
+      if (!list.length) {
+        const local = this.readLocal();
+        if (local.length) return local;
+        // seed when totally empty
+        const now = new Date();
+        const id = `RES-${now.getTime()}`;
+        const seed: BoardResolution = {
+          id,
+          createdAt: now.toISOString(),
+          updatedAt: now.toISOString(),
+          meetingDate: now.toISOString(),
+          agreementDetails: 'Demo: Approval of Q4 Financial Report and 2025 Strategy.',
+          status: 'awaiting_signatures',
+          deadlineAt: new Date(now.getTime() + 7*24*60*60*1000).toISOString(),
+          dabajaTextAr: 'محضر مجلس الإدارة: ...',
+          dabajaTextEn: 'Board Minutes: ...',
+          preambleAr: 'تمت مناقشة الموضوع واتخاذ القرار التالي:',
+          preambleEn: 'The matter was discussed and the Board resolved as follows:',
+          signatories: [
+            { id: `${id}-bm-1`, name: 'Board Chairman', email: 'board@company.com', jobTitle: 'Chairman' },
+            { id: `${id}-bm-2`, name: 'Chief Executive Officer', email: 'ceo@company.com', jobTitle: 'CEO' },
+          ],
+          barcodeData: id,
+        };
+        const seeded = [seed];
+        this.writeLocal(seeded);
+        return seeded;
+      }
+      return list;
     } catch {
-      return [];
+      const local = this.readLocal();
+      if (local.length) return local;
+      // seed when totally empty
+      const now = new Date();
+      const id = `RES-${now.getTime()}`;
+      const seed: BoardResolution = {
+        id,
+        createdAt: now.toISOString(),
+        updatedAt: now.toISOString(),
+        meetingDate: now.toISOString(),
+        agreementDetails: 'Demo: Approval of Q4 Financial Report and 2025 Strategy.',
+        status: 'awaiting_signatures',
+        deadlineAt: new Date(now.getTime() + 7*24*60*60*1000).toISOString(),
+        dabajaTextAr: 'محضر مجلس الإدارة: ...',
+        dabajaTextEn: 'Board Minutes: ...',
+        preambleAr: 'تمت مناقشة الموضوع واتخاذ القرار التالي:',
+        preambleEn: 'The matter was discussed and the Board resolved as follows:',
+        signatories: [
+          { id: `${id}-bm-1`, name: 'Board Chairman', email: 'board@company.com', jobTitle: 'Chairman' },
+          { id: `${id}-bm-2`, name: 'Chief Executive Officer', email: 'ceo@company.com', jobTitle: 'CEO' },
+        ],
+        barcodeData: id,
+      };
+      const seeded = [seed];
+      this.writeLocal(seeded);
+      return seeded;
     }
   }
 
