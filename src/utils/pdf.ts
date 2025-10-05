@@ -53,12 +53,16 @@ export async function generateResolutionPDF(resolution: BoardResolution, locale:
       <div style="font-size:12px;color:#333;margin-bottom:8px">تاريخ الاجتماع: ${new Date(resolution.meetingDate).toLocaleDateString('ar-SA')}</div>
       <div style="font-size:14px;color:#0C085C;font-weight:700;margin:16px 0 8px">قرار المجلس</div>
       <div style="font-size:14px;line-height:1.9;color:#111;margin-bottom:16px;white-space:pre-wrap">${resolution.agreementDetails || ''}</div>
-      <div style="font-size:14px;color:#0C085C;font-weight:700;margin:16px 0 8px">التواقيع</div>
+      <div style="font-size:14px;color:#0C085C;font-weight:700;margin:16px 0 8px">التوقيع:</div>
       ${resolution.signatories.map(s => `
-        <div style=\"display:flex;justify-content:space-between;border:1px solid #eee;border-radius:8px;padding:10px 12px;margin-bottom:8px\">
-          <div>الاسم: ${s.name || ''}</div>
-          <div>المنصب: ${s.jobTitle || ''}</div>
-          <div>${s.signedAt ? 'تاريخ التوقيع: ' + new Date(s.signedAt).toLocaleString('ar-SA') : 'بانتظار التوقيع'}</div>
+        <div style=\"margin-bottom:24px;border:1px solid #ddd;border-radius:8px;padding:16px;\">
+          <div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;\">
+            <div style=\"font-size:14px;font-weight:700;color:#0C085C;\">${s.name || ''}</div>
+            <div style=\"font-size:12px;color:#666;\">مرجع: ${s.id || ''}</div>
+          </div>
+          <div style=\"height:60px;border:1px dashed #ccc;border-radius:4px;display:flex;align-items:center;justify-content:center;background:#f9f9f9;\">
+            ${s.signedAt ? '<span style=\\"font-size:12px;color:#16a34a;font-weight:700;\\">موقّع إلكترونياً - ' + new Date(s.signedAt).toLocaleString('ar-SA') + '</span>' : '<span style=\\"font-size:12px;color:#9ca3af;\\">لم يُوقّع بعد</span>'}
+          </div>
         </div>
       `).join('')}
     `;
@@ -136,27 +140,59 @@ export async function generateResolutionPDF(resolution: BoardResolution, locale:
 
   doc.setFontSize(12);
   doc.setTextColor(12, 8, 92);
-  doc.text('Signatures', padding, y);
-  y += 16;
+  doc.text('Signatures:', padding, y);
+  y += 20;
   doc.setTextColor(0, 0, 0);
-  const colWidth = (pageWidth - padding * 2) / 2;
-  let colX = padding;
-  let rowY = y;
-  resolution.signatories.forEach((s, idx) => {
-    const block = [
-      `Name: ${s.name || ''}`,
-      `Title: ${s.jobTitle || ''}`,
-      `Signed At: ${s.signedAt ? new Date(s.signedAt).toLocaleString('en-US') : 'Pending'}`,
-    ];
-    doc.text(block, colX, rowY);
-    if ((idx + 1) % 2 === 0) {
-      rowY += 80;
-      colX = padding;
+  
+  for (let idx = 0; idx < resolution.signatories.length; idx++) {
+    const s = resolution.signatories[idx];
+    
+    // Signature box
+    const boxWidth = pageWidth - padding * 2;
+    const boxHeight = 60;
+    const boxX = padding;
+    const boxY = y;
+    
+    // Draw signature box border
+    doc.setDrawColor(200, 200, 200);
+    doc.setLineWidth(0.5);
+    doc.rect(boxX, boxY, boxWidth, boxHeight);
+    
+    // Name and reference
+    doc.setFontSize(12);
+    doc.setTextColor(12, 8, 92);
+    doc.text(`${s.name || ''}`, boxX + 10, boxY + 15);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`Reference: ${s.id || ''}`, boxX + boxWidth - 10, boxY + 15, { align: 'right' });
+    
+    // Signature status
+    doc.setFontSize(10);
+    if (s.signedAt) {
+      doc.setTextColor(22, 163, 74);
+      doc.text(`Signed electronically - ${new Date(s.signedAt).toLocaleString('en-US')}`, boxX + 10, boxY + 35);
+      
+      // If signature image is available, embed it
+      if (s.signatureImageDataUrl || s.signatureImageUrl) {
+        try {
+          const imgData = s.signatureImageDataUrl || s.signatureImageUrl!;
+          const sigW = 100;
+          const sigH = 30;
+          const imgX = boxX + boxWidth - sigW - 10;
+          const imgY = boxY + 25;
+          doc.addImage(imgData, 'PNG', imgX, imgY, sigW, sigH);
+        } catch {
+          // ignore image errors
+        }
+      }
     } else {
-      colX = padding + colWidth;
+      doc.setTextColor(150, 150, 150);
+      doc.text('Not signed yet', boxX + 10, boxY + 35);
     }
-  });
-  y = rowY + 100;
+    
+    y += boxHeight + 20; // Move to next signature box
+  }
+  y += 20;
   const barcodePayload = resolution.barcodeData || `${resolution.id}`;
   const barcodeUrl = generateBarcodeDataUrl(barcodePayload);
   doc.addImage(barcodeUrl, 'PNG', pageWidth - padding - 180, y - 20, 160, 40);

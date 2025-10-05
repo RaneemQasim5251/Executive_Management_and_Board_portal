@@ -40,9 +40,31 @@ export class BoardMarkService {
         agreement_details: input.agreementDetails,
         status: "awaiting_signatures" as ResolutionStatus,
         deadline_at: deadline.toISOString(),
-        dabaja_text_ar: "محضر مجلس الإدارة: بناءً على الصلاحيات المخولة للمجلس ووفقاً للأنظمة واللوائح المعمول بها، تم اتخاذ القرار التالي:",
+        dabaja_text_ar: `محضر اجتماع مجلس الإدارة رقم [رقم الجلسة]/[السنة المالية]
+
+انعقد، بعون الله وتوفيقه، مجلسُ إدارة شركة الجري للاستثمار في يوم [اليوم] [التاريخ الميلادي] الموافق [التاريخ الهجري]، في تمام الساعة [الوقت]، بمقر الشركة الكائن في [المكان/المدينة]، برئاسة [اسم الرئيس]، وحضور السادة أعضاء المجلس: [الأسماء]، واعتذار/غياب [الأسماء إن وُجدت].
+
+وقد تَحقق النصابُ النظامي للاجتماع وفق اللوائح المعتمدة، فافتتح الرئيسُ الجلسةَ مُثنيًا على ما أُسند إلى المجلس من مسؤولية الإدارة والإشراف على شؤون الشركة، مؤكِّدًا أن المصلحة العامة للشركة واستدامة نموِّها هي البوصلة التي لا تحيد.
+
+ثم تلي محضرُ الجلسة السابقة رقم [رقم الجلسة السابقة] المؤرخ في [تاريخه]، وبعد المداولة أُقِرَّ [بالإجماع/بالأغلبية] [مع/دون] ملاحظات، على أن تُدرج الملاحظة التالية في السجل: [إن وُجدت].
+
+بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`,
         dabaja_text_en: "Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:",
-        preamble_ar: "تمت مناقشة الموضوع واتخاذ القرار التالي:",
+        preamble_ar: `[البند الأول]،
+
+[البند الثاني]،
+
+…،
+
+وشرع في مناقشة كل بندٍ على حدة، مُستنيرًا بالبيانات والتقارير، ومستحضرًا موجبات الحوكمة الرشيدة والالتزام بالقوانين واللوائح ذات الصلة.
+
+وبعد استيفاء النقاش في سائر البنود، توصل المجلس إلى القرارات والتوصيات المبيّنة أعلاه، وكُلِّفت [الإدارة/اللجنة] بما يأتي: [المهام والمسؤوليات، مع تحديد الجهة والمسؤول والمدة الزمنية ومؤشرات الأداء]، على أن تُرفع تقاريرُ المتابعة في موعد أقصاه [التاريخ].
+
+وتُدوَّن هذه القرارات في سجل قرارات المجلس، وتُبلَّغ الجهاتُ المختصة للتنفيذ، مع التأكيد على التقيد التام بالأنظمة والتعليمات ذات الصلة.
+
+اعتمد الحاضرون محتوى هذا المحضر ووقَّعوا عليه توقيعًا إلكترونيًا موثَّقًا عبر بوابة مجلس الإدارة بتاريخ [التاريخ]، الساعة [الوقت]،
+
+وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`,
         preamble_en: "The matter was discussed and the Board resolved as follows:",
         barcode_data: id,
       } as any;
@@ -118,9 +140,31 @@ export class BoardMarkService {
         agreementDetails: input.agreementDetails,
         status: "awaiting_signatures" as ResolutionStatus,
         deadlineAt: deadline.toISOString(),
-        dabajaTextAr: "محضر مجلس الإدارة: بناءً على الصلاحيات المخولة للمجلس ووفقاً للأنظمة واللوائح المعمول بها، تم اتخاذ القرار التالي:",
+        dabajaTextAr: `محضر اجتماع مجلس الإدارة رقم [رقم الجلسة]/[السنة المالية]
+
+انعقد، بعون الله وتوفيقه، مجلسُ إدارة شركة الجري للاستثمار في يوم [اليوم] [التاريخ الميلادي] الموافق [التاريخ الهجري]، في تمام الساعة [الوقت]، بمقر الشركة الكائن في [المكان/المدينة]، برئاسة [اسم الرئيس]، وحضور السادة أعضاء المجلس: [الأسماء]، واعتذار/غياب [الأسماء إن وُجدت].
+
+وقد تَحقق النصابُ النظامي للاجتماع وفق اللوائح المعتمدة، فافتتح الرئيسُ الجلسةَ مُثنيًا على ما أُسند إلى المجلس من مسؤولية الإدارة والإشراف على شؤون الشركة، مؤكِّدًا أن المصلحة العامة للشركة واستدامة نموِّها هي البوصلة التي لا تحيد.
+
+ثم تلي محضرُ الجلسة السابقة رقم [رقم الجلسة السابقة] المؤرخ في [تاريخه]، وبعد المداولة أُقِرَّ [بالإجماع/بالأغلبية] [مع/دون] ملاحظات، على أن تُدرج الملاحظة التالية في السجل: [إن وُجدت].
+
+بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`,
         dabajaTextEn: "Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:",
-        preambleAr: "تمت مناقشة الموضوع واتخاذ القرار التالي:",
+        preambleAr: `[البند الأول]،
+
+[البند الثاني]،
+
+…،
+
+وشرع في مناقشة كل بندٍ على حدة، مُستنيرًا بالبيانات والتقارير، ومستحضرًا موجبات الحوكمة الرشيدة والالتزام بالقوانين واللوائح ذات الصلة.
+
+وبعد استيفاء النقاش في سائر البنود، توصل المجلس إلى القرارات والتوصيات المبيّنة أعلاه، وكُلِّفت [الإدارة/اللجنة] بما يأتي: [المهام والمسؤوليات، مع تحديد الجهة والمسؤول والمدة الزمنية ومؤشرات الأداء]، على أن تُرفع تقاريرُ المتابعة في موعد أقصاه [التاريخ].
+
+وتُدوَّن هذه القرارات في سجل قرارات المجلس، وتُبلَّغ الجهاتُ المختصة للتنفيذ، مع التأكيد على التقيد التام بالأنظمة والتعليمات ذات الصلة.
+
+اعتمد الحاضرون محتوى هذا المحضر ووقَّعوا عليه توقيعًا إلكترونيًا موثَّقًا عبر بوابة مجلس الإدارة بتاريخ [التاريخ]، الساعة [الوقت]،
+
+وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`,
         preambleEn: "The matter was discussed and the Board resolved as follows:",
         signatories,
         barcodeData: id,
@@ -139,12 +183,12 @@ export class BoardMarkService {
   public async listResolutions(): Promise<BoardResolution[]> {
     if (USE_SUPABASE) {
       try {
-        const { data, error } = await supabase
-          .from("board_resolutions")
-          .select("*")
-          .order("created_at", { ascending: false });
+      const { data, error } = await supabase
+        .from("board_resolutions")
+        .select("*")
+        .order("created_at", { ascending: false });
         if (error) throw error;
-        const rows = (data || []) as any[];
+      const rows = (data || []) as any[];
         // Also fetch signatories to enrich preview/PDF
         const resolutions: BoardResolution[] = [];
         for (const r of rows) {
@@ -165,19 +209,19 @@ export class BoardMarkService {
             }));
           } catch { /* ignore */ }
           resolutions.push({
-            id: r.id,
-            createdAt: r.created_at,
-            updatedAt: r.updated_at,
-            meetingDate: r.meeting_date,
-            agreementDetails: r.agreement_details,
-            status: r.status,
-            deadlineAt: r.deadline_at,
-            dabajaTextAr: r.dabaja_text_ar,
-            dabajaTextEn: r.dabaja_text_en,
-            preambleAr: r.preamble_ar,
-            preambleEn: r.preamble_en,
+        id: r.id,
+        createdAt: r.created_at,
+        updatedAt: r.updated_at,
+        meetingDate: r.meeting_date,
+        agreementDetails: r.agreement_details,
+        status: r.status,
+        deadlineAt: r.deadline_at,
+        dabajaTextAr: r.dabaja_text_ar,
+        dabajaTextEn: r.dabaja_text_en,
+        preambleAr: r.preamble_ar,
+        preambleEn: r.preamble_en,
             signatories,
-            barcodeData: r.barcode_data,
+        barcodeData: r.barcode_data,
           });
         }
         return resolutions;
@@ -280,40 +324,40 @@ export class BoardMarkService {
   public async getResolution(id: string): Promise<BoardResolution> {
     if (USE_SUPABASE) {
       try {
-        const { data, error } = await supabase
-          .from("board_resolutions")
-          .select("*")
-          .eq("id", id)
-          .single();
-        if (error || !data) throw error || new Error("Resolution not found");
-        const { data: sigs } = await supabase
-          .from("board_signatories")
-          .select("*")
-          .eq("resolution_id", id);
-        const signatories: Signatory[] = (sigs || []).map((s: any) => ({
-          id: s.id,
-          name: s.name,
-          email: s.email,
-          jobTitle: s.job_title,
-          nationalIdLast3: s.national_id_last3,
-          signedAt: s.signed_at || undefined,
-          signatureHash: s.signature_hash || undefined,
-        }));
-        return {
-          id: data.id,
-          createdAt: data.created_at,
-          updatedAt: data.updated_at,
-          meetingDate: data.meeting_date,
-          agreementDetails: data.agreement_details,
-          status: data.status,
-          deadlineAt: data.deadline_at,
-          dabajaTextAr: data.dabaja_text_ar,
-          dabajaTextEn: data.dabaja_text_en,
-          preambleAr: data.preamble_ar,
-          preambleEn: data.preamble_en,
-          signatories,
-          barcodeData: data.barcode_data,
-        };
+      const { data, error } = await supabase
+        .from("board_resolutions")
+        .select("*")
+        .eq("id", id)
+        .single();
+      if (error || !data) throw error || new Error("Resolution not found");
+      const { data: sigs } = await supabase
+        .from("board_signatories")
+        .select("*")
+        .eq("resolution_id", id);
+      const signatories: Signatory[] = (sigs || []).map((s: any) => ({
+        id: s.id,
+        name: s.name,
+        email: s.email,
+        jobTitle: s.job_title,
+        nationalIdLast3: s.national_id_last3,
+        signedAt: s.signed_at || undefined,
+        signatureHash: s.signature_hash || undefined,
+      }));
+      return {
+        id: data.id,
+        createdAt: data.created_at,
+        updatedAt: data.updated_at,
+        meetingDate: data.meeting_date,
+        agreementDetails: data.agreement_details,
+        status: data.status,
+        deadlineAt: data.deadline_at,
+        dabajaTextAr: data.dabaja_text_ar,
+        dabajaTextEn: data.dabaja_text_en,
+        preambleAr: data.preamble_ar,
+        preambleEn: data.preamble_en,
+        signatories,
+        barcodeData: data.barcode_data,
+      };
       } catch {
         // fallback below
       }
@@ -348,14 +392,14 @@ export class BoardMarkService {
   public async sign(request: SignRequest): Promise<BoardResolution> {
     if (USE_SUPABASE) {
       try {
-        const signedAt = new Date().toISOString();
-        const signatureHash = cryptoRandom();
-        await supabase
-          .from("board_signatories")
-          .update({ signed_at: signedAt, signature_hash: signatureHash })
-          .eq("resolution_id", request.resolutionId)
-          .eq("id", request.signatoryId);
-        return this.getResolution(request.resolutionId);
+      const signedAt = new Date().toISOString();
+      const signatureHash = cryptoRandom();
+      await supabase
+        .from("board_signatories")
+        .update({ signed_at: signedAt, signature_hash: signatureHash })
+        .eq("resolution_id", request.resolutionId)
+        .eq("id", request.signatoryId);
+      return this.getResolution(request.resolutionId);
       } catch {
         // fallback below
       }
@@ -390,17 +434,17 @@ export class BoardMarkService {
   public async finalize(id: string): Promise<BoardResolution> {
     if (USE_SUPABASE) {
       try {
-        await supabase
-          .from("board_resolutions")
-          .update({ status: "finalized" as ResolutionStatus, updated_at: new Date().toISOString() })
-          .eq("id", id);
-        const resolution = await this.getResolution(id);
-        notificationService.notifyExecutive(
-          `Resolution ${resolution.id} finalized and archived`,
-          'success',
-          false
-        );
-        return resolution;
+      await supabase
+        .from("board_resolutions")
+        .update({ status: "finalized" as ResolutionStatus, updated_at: new Date().toISOString() })
+        .eq("id", id);
+      const resolution = await this.getResolution(id);
+      notificationService.notifyExecutive(
+        `Resolution ${resolution.id} finalized and archived`,
+        'success',
+        false
+      );
+      return resolution;
       } catch {
         // fallback below
       }
