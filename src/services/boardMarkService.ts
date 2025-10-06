@@ -7,8 +7,8 @@ const RAW_API: string | undefined = (import.meta as any).env?.VITE_API_BASE_URL;
 const API_BASE = RAW_API || "/api";
 // Force mock mode to eliminate 404s immediately. Set to false when backend is ready.
 const IS_MOCK = false;
-const SUPABASE_URL: string | undefined = (import.meta as any).env?.VITE_SUPABASE_URL;
-const SUPABASE_KEY: string | undefined = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY;
+// const SUPABASE_URL: string | undefined = (import.meta as any).env?.VITE_SUPABASE_URL;
+// const SUPABASE_KEY: string | undefined = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY;
 // Temporarily disable Supabase to avoid DNS errors and force local fallback
 const USE_SUPABASE = false;
 export class BoardMarkService {
@@ -112,15 +112,20 @@ export class BoardMarkService {
         // Fallback to local storage when Supabase is unreachable
       }
     }
-    try {
-      const response = await axios.post(`${API_BASE}/board-mark/resolutions`, input);
-      const resolution = response.data as BoardResolution;
-      notificationService.notifyBoardMeeting(
-        `New board resolution awaiting signatures (deadline: ${new Date(resolution.deadlineAt).toLocaleDateString()})`,
-        false,
-      );
-      return resolution;
-    } catch {
+    if (RAW_API) {
+      try {
+        const response = await axios.post(`${API_BASE}/board-mark/resolutions`, input);
+        const resolution = response.data as BoardResolution;
+        notificationService.notifyBoardMeeting(
+          `New board resolution awaiting signatures (deadline: ${new Date(resolution.deadlineAt).toLocaleDateString()})`,
+          false,
+        );
+        return resolution;
+      } catch {
+        // fall through to local storage
+      }
+    }
+    {
       // Fallback to localStorage mock
       const now = new Date();
       const id = `RES-${now.getTime()}`;
