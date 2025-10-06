@@ -9,8 +9,9 @@ import updateLocale from 'dayjs/plugin/updateLocale';
 import { boardMarkService } from '../../services/boardMarkService';
 import { BoardResolution, CreateResolutionInput } from '../../types/boardMark';
 import { generateResolutionPDF } from '../../utils/pdf';
-import { supabase } from '../../supabase'; // Import supabase client
-import { notificationService } from '../../services/notificationService';
+// Supabase invokes are disabled during local fallback to avoid 404s
+// import { supabase } from '../../supabase';
+// import { notificationService } from '../../services/notificationService';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -140,17 +141,6 @@ export const BoardMarkPage: FC = () => {
       setLoading(true);
       const newResolution = await boardMarkService.createResolution(payload);
 
-      // Trigger the Supabase Edge Function to send signature requests
-      if (supabase) {
-        await supabase.functions.invoke('request-signatures', { body: { resolutionId: newResolution.id } });
-        notificationService.open({
-          key: newResolution.id,
-          message: t('board_mark.messages.signatureRequestSent'),
-          description: t('board_mark.messages.signatureRequestSentDescription', { resolutionId: newResolution.id }),
-          type: 'success',
-        });
-      }
-
       message.success(t('board_mark.messages.createSuccess'));
       form.resetFields();
       await load();
@@ -171,7 +161,8 @@ export const BoardMarkPage: FC = () => {
   };
 
   const handlePreview = async (r: BoardResolution) => {
-    const url = await generateResolutionPDF(r, isAr ? 'ar' : 'en');
+    // Force Arabic rasterization to ensure Arabic text renders reliably
+    const url = await generateResolutionPDF(r, 'ar');
     setPreviewPdf(url);
     setPreviewResolution(r);
   };
