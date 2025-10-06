@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Card, Form, Input, DatePicker, Button, Space, Typography, Row, Col, Table, Tag, Modal, message, Select, Alert } from 'antd';
 import arEG from 'antd/es/date-picker/locale/ar_EG';
-import { ClockCircleOutlined, FilePdfOutlined, SendOutlined, SafetyCertificateOutlined, BarcodeOutlined } from '@ant-design/icons';
+import { FilePdfOutlined, SendOutlined, SafetyCertificateOutlined, BarcodeOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ar';
@@ -18,8 +18,8 @@ const { TextArea } = Input;
 
 const DABAJA_AR = 'محضر مجلس الإدارة: بناءً على الصلاحيات المخولة للمجلس ووفقاً للأنظمة واللوائح المعمول بها، تم اتخاذ القرار التالي:';
 const DABAJA_EN = 'Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:';
-const PREAMBLE_AR = 'تمت مناقشة الموضوع واتخاذ القرار التالي:';
-const PREAMBLE_EN = 'The matter was discussed and the Board resolved as follows:';
+// const PREAMBLE_AR = 'تمت مناقشة الموضوع واتخاذ القرار التالي:';
+// const PREAMBLE_EN = 'The matter was discussed and the Board resolved as follows:';
 
 export const BoardMarkPage: FC = () => {
   const { i18n, t } = useTranslation();
@@ -95,7 +95,7 @@ export const BoardMarkPage: FC = () => {
         <div>
           {signatories?.map((s: any) => (
             <div key={s.id} style={{ marginBottom: 4 }}>
-              <Tag color={s.signedAt ? (s.decision === 'approved' ? 'green' : 'red') : 'default'} size="small">
+              <Tag color={s.signedAt ? (s.decision === 'approved' ? 'green' : 'red') : 'default'}>
                 {s.name}: {s.signedAt ? (s.decision === 'approved' ? '✅' : '❌') : '⏳'}
               </Tag>
             </div>
@@ -133,13 +133,15 @@ export const BoardMarkPage: FC = () => {
   const handleCreate = async () => {
     try {
       const values = await form.validateFields();
+      const md = values.meetingDate;
+      const meetingDateIso = (md && (dayjs as any).isDayjs?.(md)) ? (md as any).toDate().toISOString() : new Date(md).toISOString();
       const payload: CreateResolutionInput = {
-        meetingDate: values.meetingDate.toISOString(),
+        meetingDate: meetingDateIso,
         agreementDetails: values.agreementDetails,
         deadlineDays: values.deadlineDays,
       };
       setLoading(true);
-      const newResolution = await boardMarkService.createResolution(payload);
+      await boardMarkService.createResolution(payload);
 
       message.success(t('board_mark.messages.createSuccess'));
       form.resetFields();
@@ -255,7 +257,13 @@ export const BoardMarkPage: FC = () => {
         footer={null}
       >
         {previewPdf && (
-          <iframe title="pdf-preview" src={previewPdf} style={{ width: '100%', height: 700, border: 'none' }} />
+          <>
+            <iframe title="pdf-preview" src={previewPdf} style={{ width: '100%', height: 700, border: 'none' }} />
+            <div style={{ marginTop: 12, display: 'flex', justifyContent: 'space-between' }}>
+              <Text type="secondary">{isAr ? 'إذا لم يظهر ملف PDF أعلاه، افتحه في نافذة جديدة.' : 'If the PDF does not appear above, open it in a new tab.'}</Text>
+              <Button type="primary" onClick={() => window.open(previewPdf, '_blank')}>{isAr ? 'فتح في نافذة جديدة' : 'Open in new tab'}</Button>
+            </div>
+          </>
         )}
         {previewResolution && previewResolution.status !== 'finalized' && (
           <Alert style={{ marginTop: 12 }} type="warning" showIcon message={isAr ? 'هذه نسخة أولية قبل التوقيع النهائي' : 'This is a preliminary copy before final signatures'} />
