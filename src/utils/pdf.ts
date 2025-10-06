@@ -104,7 +104,9 @@ export async function generateResolutionPDF(resolution: BoardResolution, locale:
     const x = (pageWidth - imgWidth) / 2;
     const y = (pageHeight - imgHeight) / 2;
     doc.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
-    return doc.output('dataurlstring');
+    const blob = doc.output('blob');
+    const url = URL.createObjectURL(blob);
+    return url as unknown as string;
   }
 
   // English: keep vector text rendering
@@ -202,7 +204,9 @@ export async function generateResolutionPDF(resolution: BoardResolution, locale:
   doc.setTextColor(120);
   doc.setFontSize(9);
   doc.text('Digitally signed document - official archival copy', pageWidth / 2, doc.internal.pageSize.getHeight() - 36, { align: 'center' });
-  return doc.output('dataurlstring');
+  const blob = doc.output('blob');
+  const url = URL.createObjectURL(blob);
+  return url as unknown as string;
 }
 
 
