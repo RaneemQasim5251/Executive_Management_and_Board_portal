@@ -9,8 +9,8 @@ const API_BASE = RAW_API || "/api";
 const IS_MOCK = false;
 const SUPABASE_URL: string | undefined = (import.meta as any).env?.VITE_SUPABASE_URL;
 const SUPABASE_KEY: string | undefined = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY;
-// Enable Supabase only when real credentials are provided
-const USE_SUPABASE = !!SUPABASE_URL && !!SUPABASE_KEY && SUPABASE_URL.includes("supabase.co") && SUPABASE_KEY !== "demo-anon-key";
+// Temporarily disable Supabase to avoid DNS errors and force local fallback
+const USE_SUPABASE = false;
 export class BoardMarkService {
   private static instance: BoardMarkService;
   private readonly STORAGE_KEY = "board_mark_resolutions";
