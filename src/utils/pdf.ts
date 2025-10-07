@@ -78,32 +78,90 @@ export async function generateResolutionPDF(resolution: BoardResolution, locale:
 
     document.body.appendChild(container);
     await new Promise(requestAnimationFrame);
+    
+    // Wait for fonts to load
     if ((document as any).fonts && (document as any).fonts.ready) {
-      try { await (document as any).fonts.ready; } catch {}
+      try { 
+        await (document as any).fonts.ready; 
+        console.log('Fonts loaded');
+      } catch (e) {
+        console.log('Font loading error:', e);
+      }
     }
+    
+    // Wait for barcode image
     await new Promise<void>((resolve) => {
       if (barcode.complete) return resolve();
       barcode.onload = () => resolve();
       barcode.onerror = () => resolve();
     });
+    
+    console.log('Generating PDF with html2canvas...');
     const canvas = await html2canvas(container, {
       scale: 2,
       backgroundColor: '#ffffff',
       useCORS: true,
       removeContainer: true,
       foreignObjectRendering: true,
+      allowTaint: true,
+      logging: true,
     });
+    console.log('Canvas generated:', canvas.width, 'x', canvas.height);
     document.body.removeChild(container);
-    const imgData = canvas.toDataURL('image/png');
-    const margin = 32;
-    const contentWidth = pageWidth - margin * 2;
-    const contentHeight = pageHeight - margin * 2;
-    const ratio = Math.min(contentWidth / canvas.width, contentHeight / canvas.height);
-    const imgWidth = canvas.width * ratio;
-    const imgHeight = canvas.height * ratio;
-    const x = (pageWidth - imgWidth) / 2;
-    const y = (pageHeight - imgHeight) / 2;
-    doc.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+    
+    // Check if canvas has content
+    if (canvas.width === 0 || canvas.height === 0) {
+      console.error('Canvas is empty, falling back to text rendering');
+      // Fallback to direct text rendering
+      doc.setFontSize(16);
+      doc.setTextColor(12, 8, 92);
+      doc.text('محضر اجتماع مجلس الإدارة', pageWidth / 2, 64, { align: 'center' });
+      
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+      let y = 96;
+      const writeParagraph = (text: string, yStart: number) => {
+        const lines = doc.splitTextToSize(text, pageWidth - 96);
+        doc.text(lines, 48, yStart);
+        return yStart + lines.length * 16 + 8;
+      };
+      
+      y = writeParagraph(resolution.dabajaTextAr, y);
+      y = writeParagraph(resolution.preambleAr, y);
+      y = writeParagraph(resolution.agreementDetails || '', y);
+      
+      // Add signatures
+      doc.setFontSize(12);
+      doc.setTextColor(12, 8, 92);
+      doc.text('التوقيع:', 48, y + 20);
+      y += 40;
+      
+      resolution.signatories.forEach((s, idx) => {
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text(`${s.name || ''} - ${s.jobTitle || ''}`, 48, y);
+        if (s.signedAt) {
+          doc.setTextColor(22, 163, 74);
+          doc.text(`موقّع إلكترونياً - ${new Date(s.signedAt).toLocaleString('ar-SA')}`, 48, y + 15);
+        } else {
+          doc.setTextColor(150, 150, 150);
+          doc.text('لم يُوقّع بعد', 48, y + 15);
+        }
+        y += 40;
+      });
+    } else {
+      const imgData = canvas.toDataURL('image/png');
+      const margin = 32;
+      const contentWidth = pageWidth - margin * 2;
+      const contentHeight = pageHeight - margin * 2;
+      const ratio = Math.min(contentWidth / canvas.width, contentHeight / canvas.height);
+      const imgWidth = canvas.width * ratio;
+      const imgHeight = canvas.height * ratio;
+      const x = (pageWidth - imgWidth) / 2;
+      const y = (pageHeight - imgHeight) / 2;
+      doc.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+    }
+    
     const blob = doc.output('blob');
     const url = URL.createObjectURL(blob);
     return url as unknown as string;
