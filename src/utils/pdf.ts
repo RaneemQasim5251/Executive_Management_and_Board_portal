@@ -28,143 +28,103 @@ export async function generateResolutionPDF(resolution: BoardResolution, locale:
     ...resolution.signatories.map(s => `${s.name || ''} ${s.jobTitle || ''}`),
   ].join(' ');
   const isAr = locale === 'ar' || containsArabic(dynamicText);
+  
+  console.log('PDF Generation Debug:', {
+    locale,
+    isAr,
+    dynamicText: dynamicText.substring(0, 100),
+    agreementDetails: resolution.agreementDetails?.substring(0, 50),
+    signatoriesCount: resolution.signatories.length
+  });
+  
   const doc = new jsPDF({ orientation: "p", unit: "pt" });
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
 
   if (isAr) {
-    // Reliable raster path for Arabic or mixed Arabic content
-    const container = document.createElement('div');
-    container.style.position = 'fixed';
-    container.style.left = '0';
-    container.style.top = '0';
-    container.style.opacity = '0';
-    container.style.zIndex = '-1';
-    container.style.pointerEvents = 'none';
-    container.style.width = `${pageWidth - 64}px`;
-    container.style.padding = '32px';
-    container.style.background = '#fff';
-    container.style.direction = 'rtl';
-    container.style.fontFamily = "'Noto Sans Arabic','Cairo','Amiri',sans-serif";
-    container.innerHTML = `
-      <div style="color:#0C085C;font-size:20px;font-weight:800;text-align:center;margin-bottom:16px">محضر قرار مجلس الإدارة</div>
-      <div style="font-size:14px;line-height:1.9;color:#111;margin-bottom:12px">${resolution.dabajaTextAr}</div>
-      <div style="font-size:14px;line-height:1.9;color:#111;margin-bottom:12px">${resolution.preambleAr}</div>
-      <div style="font-size:12px;color:#333;margin-bottom:8px">تاريخ الاجتماع: ${new Date(resolution.meetingDate).toLocaleDateString('ar-SA')}</div>
-      <div style="font-size:14px;color:#0C085C;font-weight:700;margin:16px 0 8px">قرار المجلس</div>
-      <div style="font-size:14px;line-height:1.9;color:#111;margin-bottom:16px;white-space:pre-wrap">${resolution.agreementDetails || ''}</div>
-      <div style="font-size:14px;color:#0C085C;font-weight:700;margin:16px 0 8px">التوقيع:</div>
-      ${resolution.signatories.map(s => `
-        <div style=\"margin-bottom:24px;border:1px solid #ddd;border-radius:8px;padding:16px;\">
-          <div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;\">
-            <div style=\"font-size:14px;font-weight:700;color:#0C085C;\">${s.name || ''}</div>
-            <div style=\"font-size:12px;color:#666;\">مرجع: ${s.id || ''}</div>
-          </div>
-          <div style=\"height:60px;border:1px dashed #ccc;border-radius:4px;display:flex;align-items:center;justify-content:center;background:#f9f9f9;\">
-            ${s.signedAt ? '<span style=\\"font-size:12px;color:#16a34a;font-weight:700;\\">موقّع إلكترونياً - ' + new Date(s.signedAt).toLocaleString('ar-SA') + '</span>' : '<span style=\\"font-size:12px;color:#9ca3af;\\">لم يُوقّع بعد</span>'}
-          </div>
-        </div>
-      `).join('')}
-    `;
-
+    console.log('Using Arabic text rendering (simplified)');
+    
+    // Direct text rendering for Arabic - no html2canvas
+    doc.setFontSize(16);
+    doc.setTextColor(12, 8, 92);
+    doc.text('محضر اجتماع مجلس الإدارة', pageWidth / 2, 64, { align: 'center' });
+    
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    let y = 96;
+    
+    const writeParagraph = (text: string, yStart: number) => {
+      const lines = doc.splitTextToSize(text, pageWidth - 96);
+      doc.text(lines, 48, yStart);
+      return yStart + lines.length * 16 + 8;
+    };
+    
+    // Add content
+    y = writeParagraph(resolution.dabajaTextAr, y);
+    y = writeParagraph(resolution.preambleAr, y);
+    
+    // Meeting date
+    doc.setFontSize(11);
+    doc.text(`تاريخ الاجتماع: ${new Date(resolution.meetingDate).toLocaleDateString('ar-SA')}`, 48, y);
+    y += 20;
+    
+    // Resolution title
+    doc.setFontSize(12);
+    doc.setTextColor(12, 8, 92);
+    doc.text('قرار المجلس:', 48, y);
+    y += 18;
+    
+    // Resolution content
+    doc.setTextColor(0, 0, 0);
+    y = writeParagraph(resolution.agreementDetails || '', y);
+    
+    // Signatures section
+    doc.setFontSize(12);
+    doc.setTextColor(12, 8, 92);
+    doc.text('التوقيع:', 48, y + 20);
+    y += 40;
+    
+    resolution.signatories.forEach((s, idx) => {
+      // Signature box
+      const boxWidth = pageWidth - 96;
+      const boxHeight = 60;
+      const boxX = 48;
+      const boxY = y;
+      
+      // Draw signature box border
+      doc.setDrawColor(200, 200, 200);
+      doc.setLineWidth(0.5);
+      doc.rect(boxX, boxY, boxWidth, boxHeight);
+      
+      // Name and reference
+      doc.setFontSize(12);
+      doc.setTextColor(12, 8, 92);
+      doc.text(`${s.name || ''}`, boxX + 10, boxY + 15);
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text(`مرجع: ${s.id || ''}`, boxX + boxWidth - 10, boxY + 15, { align: 'right' });
+      
+      // Signature status
+      doc.setFontSize(10);
+      if (s.signedAt) {
+        doc.setTextColor(22, 163, 74);
+        doc.text(`موقّع إلكترونياً - ${new Date(s.signedAt).toLocaleString('ar-SA')}`, boxX + 10, boxY + 35);
+      } else {
+        doc.setTextColor(150, 150, 150);
+        doc.text('لم يُوقّع بعد', boxX + 10, boxY + 35);
+      }
+      
+      y += boxHeight + 20;
+    });
+    
+    // Add barcode
     const barcodePayload = resolution.barcodeData || `${resolution.id}`;
     const barcodeUrl = generateBarcodeDataUrl(barcodePayload);
-    const barcode = document.createElement('img');
-    barcode.src = barcodeUrl;
-    barcode.alt = 'barcode';
-    barcode.style.width = '260px';
-    barcode.style.marginTop = '16px';
-    container.appendChild(barcode);
-
-    document.body.appendChild(container);
-    await new Promise(requestAnimationFrame);
-    
-    // Wait for fonts to load
-    if ((document as any).fonts && (document as any).fonts.ready) {
-      try { 
-        await (document as any).fonts.ready; 
-        console.log('Fonts loaded');
-      } catch (e) {
-        console.log('Font loading error:', e);
-      }
-    }
-    
-    // Wait for barcode image
-    await new Promise<void>((resolve) => {
-      if (barcode.complete) return resolve();
-      barcode.onload = () => resolve();
-      barcode.onerror = () => resolve();
-    });
-    
-    console.log('Generating PDF with html2canvas...');
-    const canvas = await html2canvas(container, {
-      scale: 2,
-      backgroundColor: '#ffffff',
-      useCORS: true,
-      removeContainer: true,
-      foreignObjectRendering: true,
-      allowTaint: true,
-      logging: true,
-    });
-    console.log('Canvas generated:', canvas.width, 'x', canvas.height);
-    document.body.removeChild(container);
-    
-    // Check if canvas has content
-    if (canvas.width === 0 || canvas.height === 0) {
-      console.error('Canvas is empty, falling back to text rendering');
-      // Fallback to direct text rendering
-      doc.setFontSize(16);
-      doc.setTextColor(12, 8, 92);
-      doc.text('محضر اجتماع مجلس الإدارة', pageWidth / 2, 64, { align: 'center' });
-      
-      doc.setFontSize(12);
-      doc.setTextColor(0, 0, 0);
-      let y = 96;
-      const writeParagraph = (text: string, yStart: number) => {
-        const lines = doc.splitTextToSize(text, pageWidth - 96);
-        doc.text(lines, 48, yStart);
-        return yStart + lines.length * 16 + 8;
-      };
-      
-      y = writeParagraph(resolution.dabajaTextAr, y);
-      y = writeParagraph(resolution.preambleAr, y);
-      y = writeParagraph(resolution.agreementDetails || '', y);
-      
-      // Add signatures
-      doc.setFontSize(12);
-      doc.setTextColor(12, 8, 92);
-      doc.text('التوقيع:', 48, y + 20);
-      y += 40;
-      
-      resolution.signatories.forEach((s, idx) => {
-        doc.setFontSize(10);
-        doc.setTextColor(0, 0, 0);
-        doc.text(`${s.name || ''} - ${s.jobTitle || ''}`, 48, y);
-        if (s.signedAt) {
-          doc.setTextColor(22, 163, 74);
-          doc.text(`موقّع إلكترونياً - ${new Date(s.signedAt).toLocaleString('ar-SA')}`, 48, y + 15);
-        } else {
-          doc.setTextColor(150, 150, 150);
-          doc.text('لم يُوقّع بعد', 48, y + 15);
-        }
-        y += 40;
-      });
-    } else {
-      const imgData = canvas.toDataURL('image/png');
-      const margin = 32;
-      const contentWidth = pageWidth - margin * 2;
-      const contentHeight = pageHeight - margin * 2;
-      const ratio = Math.min(contentWidth / canvas.width, contentHeight / canvas.height);
-      const imgWidth = canvas.width * ratio;
-      const imgHeight = canvas.height * ratio;
-      const x = (pageWidth - imgWidth) / 2;
-      const y = (pageHeight - imgHeight) / 2;
-      doc.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
-    }
+    doc.addImage(barcodeUrl, 'PNG', pageWidth - 48 - 180, y, 160, 40);
     
     const blob = doc.output('blob');
     const url = URL.createObjectURL(blob);
-    return url as unknown as string;
+    return url;
   }
 
   // English: keep vector text rendering
