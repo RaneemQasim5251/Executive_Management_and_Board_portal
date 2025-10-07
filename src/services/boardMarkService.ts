@@ -14,6 +14,7 @@ const USE_SUPABASE = false;
 export class BoardMarkService {
   private static instance: BoardMarkService;
   private readonly STORAGE_KEY = "board_mark_resolutions";
+  private readonly SESSION_SEQ_KEY = "board_mark_session_seq";
 
   private constructor() {}
 
@@ -25,6 +26,47 @@ export class BoardMarkService {
   }
 
   public async createResolution(input: CreateResolutionInput): Promise<BoardResolution> {
+    // Helpers for auto placeholders
+    const formatTwo = (n: number) => (n < 10 ? `0${n}` : `${n}`);
+    const getNextSessionNumber = (): string => {
+      try {
+        const raw = localStorage.getItem(this.SESSION_SEQ_KEY);
+        const next = (raw ? parseInt(raw, 10) : 0) + 1;
+        localStorage.setItem(this.SESSION_SEQ_KEY, `${next}`);
+        return `${next}`;
+      } catch {
+        return `${Math.floor(Date.now() / 1000)}`; // fallback
+      }
+    };
+    const buildAutoContext = (meetingDateIso: string) => {
+      const d = new Date(meetingDateIso);
+      const fiscalYear = d.getFullYear().toString();
+      const dayName = new Intl.DateTimeFormat('ar-SA', { weekday: 'long' }).format(d);
+      const gregDate = new Intl.DateTimeFormat('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+      const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+      const time = `${formatTwo(d.getHours())}:${formatTwo(d.getMinutes())}`;
+      const sessionNumber = getNextSessionNumber();
+      return { fiscalYear, dayName, gregDate, hijriDate, time, sessionNumber };
+    };
+    const applyAutoPlaceholders = (template: string, meetingDateIso: string): string => {
+      const ctx = buildAutoContext(meetingDateIso);
+      return template
+        .replaceAll('[رقم الجلسة]', ctx.sessionNumber)
+        .replaceAll('[السنة المالية]', ctx.fiscalYear)
+        .replaceAll('[اليوم]', ctx.dayName)
+        .replaceAll('[التاريخ الميلادي]', ctx.gregDate)
+        .replaceAll('[التاريخ الهجري]', ctx.hijriDate)
+        .replaceAll('[الوقت]', ctx.time)
+        .replaceAll('[التاريخ]', ctx.gregDate);
+      // Intentionally leave placeholders like [المكان/المدينة], [اسم الرئيس], [الأسماء] for secretary input
+    };
+
+    // Default demo signatories (meeting attendees)
+    const demoSignatories: Signatory[] = [
+      { id: `SIG-${Date.now()}-1`, name: "Nader Al-Nasser", email: "gceo@aljeri.com", jobTitle: "GCEO" },
+      { id: `SIG-${Date.now()}-2", name: "Khalid Hezam Al-Qahtani", email: "vicechair@aljeri.com", jobTitle: "Vice Chairman" },
+      { id: `SIG-${Date.now()}-3", name: "Hezam Z. Al-Qahtani", email: "chairman@aljeri.com", jobTitle: "Chairman" },
+    ];
     if (USE_SUPABASE) {
       try {
       // Create in Supabase (real mode)
@@ -40,7 +82,7 @@ export class BoardMarkService {
         agreement_details: input.agreementDetails,
         status: "awaiting_signatures" as ResolutionStatus,
         deadline_at: deadline.toISOString(),
-        dabaja_text_ar: `محضر اجتماع مجلس الإدارة رقم [رقم الجلسة]/[السنة المالية]
+        dabaja_text_ar: applyAutoPlaceholders(`محضر اجتماع مجلس الإدارة رقم [رقم الجلسة]/[السنة المالية]
 
 انعقد، بعون الله وتوفيقه، مجلسُ إدارة شركة الجري للاستثمار في يوم [اليوم] [التاريخ الميلادي] الموافق [التاريخ الهجري]، في تمام الساعة [الوقت]، بمقر الشركة الكائن في [المكان/المدينة]، برئاسة [اسم الرئيس]، وحضور السادة أعضاء المجلس: [الأسماء]، واعتذار/غياب [الأسماء إن وُجدت].
 
@@ -48,9 +90,9 @@ export class BoardMarkService {
 
 ثم تلي محضرُ الجلسة السابقة رقم [رقم الجلسة السابقة] المؤرخ في [تاريخه]، وبعد المداولة أُقِرَّ [بالإجماع/بالأغلبية] [مع/دون] ملاحظات، على أن تُدرج الملاحظة التالية في السجل: [إن وُجدت].
 
-بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`,
+بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate),
         dabaja_text_en: "Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:",
-        preamble_ar: `[البند الأول]،
+        preamble_ar: applyAutoPlaceholders(`[البند الأول]،
 
 [البند الثاني]،
 
@@ -64,18 +106,14 @@ export class BoardMarkService {
 
 اعتمد الحاضرون محتوى هذا المحضر ووقَّعوا عليه توقيعًا إلكترونيًا موثَّقًا عبر بوابة مجلس الإدارة بتاريخ [التاريخ]، الساعة [الوقت]،
 
-وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`,
+وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate),
         preamble_en: "The matter was discussed and the Board resolved as follows:",
         barcode_data: id,
       } as any;
       const { error } = await supabase.from("board_resolutions").insert(baseRow);
       if (error) throw error;
 
-      const signatories: Signatory[] = [
-        { id: `${id}-bm-1`, name: "Board Chairman", email: "board@company.com", jobTitle: "Chairman", nationalIdLast3: "123" },
-        { id: `${id}-bm-2`, name: "Chief Executive Officer", email: "ceo@company.com", jobTitle: "CEO", nationalIdLast3: "456" },
-        { id: `${id}-bm-3`, name: "Chief Financial Officer", email: "cfo@company.com", jobTitle: "CFO", nationalIdLast3: "789" },
-      ];
+      const signatories: Signatory[] = demoSignatories.map((s, idx) => ({ ...s, id: `${id}-bm-${idx+1}` }));
       const { error: sErr } = await supabase.from("board_signatories").insert(
         signatories.map((s) => ({
           id: s.id,
@@ -129,11 +167,7 @@ export class BoardMarkService {
       // Fallback to localStorage mock
       const now = new Date();
       const id = `RES-${now.getTime()}`;
-      const signatories: Signatory[] = [
-        { id: `${id}-bm-1`, name: "Board Chairman", email: "board@company.com", jobTitle: "Chairman", nationalIdLast3: "123" },
-        { id: `${id}-bm-2`, name: "Chief Executive Officer", email: "ceo@company.com", jobTitle: "CEO", nationalIdLast3: "456" },
-        { id: `${id}-bm-3`, name: "Chief Financial Officer", email: "cfo@company.com", jobTitle: "CFO", nationalIdLast3: "789" },
-      ];
+      const signatories: Signatory[] = demoSignatories.map((s, idx) => ({ ...s, id: `${id}-bm-${idx+1}` }));
       const deadline = new Date(input.meetingDate);
       const addDays = input.deadlineDays ?? 7;
       deadline.setDate(deadline.getDate() + addDays);
@@ -145,7 +179,7 @@ export class BoardMarkService {
         agreementDetails: input.agreementDetails,
         status: "awaiting_signatures" as ResolutionStatus,
         deadlineAt: deadline.toISOString(),
-        dabajaTextAr: `محضر اجتماع مجلس الإدارة رقم [رقم الجلسة]/[السنة المالية]
+        dabajaTextAr: applyAutoPlaceholders(`محضر اجتماع مجلس الإدارة رقم [رقم الجلسة]/[السنة المالية]
 
 انعقد، بعون الله وتوفيقه، مجلسُ إدارة شركة الجري للاستثمار في يوم [اليوم] [التاريخ الميلادي] الموافق [التاريخ الهجري]، في تمام الساعة [الوقت]، بمقر الشركة الكائن في [المكان/المدينة]، برئاسة [اسم الرئيس]، وحضور السادة أعضاء المجلس: [الأسماء]، واعتذار/غياب [الأسماء إن وُجدت].
 
@@ -153,9 +187,9 @@ export class BoardMarkService {
 
 ثم تلي محضرُ الجلسة السابقة رقم [رقم الجلسة السابقة] المؤرخ في [تاريخه]، وبعد المداولة أُقِرَّ [بالإجماع/بالأغلبية] [مع/دون] ملاحظات، على أن تُدرج الملاحظة التالية في السجل: [إن وُجدت].
 
-بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`,
+بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate),
         dabajaTextEn: "Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:",
-        preambleAr: `[البند الأول]،
+        preambleAr: applyAutoPlaceholders(`[البند الأول]،
 
 [البند الثاني]،
 
@@ -169,7 +203,7 @@ export class BoardMarkService {
 
 اعتمد الحاضرون محتوى هذا المحضر ووقَّعوا عليه توقيعًا إلكترونيًا موثَّقًا عبر بوابة مجلس الإدارة بتاريخ [التاريخ]، الساعة [الوقت]،
 
-وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`,
+وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate),
         preambleEn: "The matter was discussed and the Board resolved as follows:",
         signatories,
         barcodeData: id,
