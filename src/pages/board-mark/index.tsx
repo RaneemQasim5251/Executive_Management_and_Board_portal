@@ -146,6 +146,9 @@ export const BoardMarkPage: FC = () => {
         attendees: values.attendees,
         absentees: values.absentees,
         agendaItemsList: values.agendaItemsList,
+        voteOutcome: values.voteOutcome,
+        notesChoice: values.notesChoice,
+        notesText: values.notesText,
         sessionNumberOverride: values.sessionNumberOverride,
         fiscalYearOverride: values.fiscalYearOverride,
         gregOverride: values.gregOverride,
@@ -312,6 +315,26 @@ export const BoardMarkPage: FC = () => {
               </Form.Item>
               <Form.Item name="agreementDetails" label={isAr ? 'التفاصيل المتفق عليها' : 'Agreement Details'} rules={[{ required: true, min: 5 }]}> 
                 <TextArea rows={6} placeholder={isAr ? 'اكتب تفاصيل القرار هنا' : 'Write resolution details here'} />
+              </Form.Item>
+              {/* Voting and notes */}
+              <Form.Item name="voteOutcome" label={isAr ? 'نتيجة التصويت' : 'Vote Outcome'}>
+                <Select
+                  options={[
+                    { value: 'بالإجماع', label: 'بالإجماع' },
+                    { value: 'بالأغلبية', label: 'بالأغلبية' },
+                  ]}
+                />
+              </Form.Item>
+              <Form.Item name="notesChoice" label={isAr ? 'ملاحظات' : 'Notes Presence'}>
+                <Select
+                  options={[
+                    { value: 'مع', label: 'مع' },
+                    { value: 'دون', label: 'دون' },
+                  ]}
+                />
+              </Form.Item>
+              <Form.Item name="notesText" label={isAr ? 'نص الملاحظات (اختياري)' : 'Notes Text (optional)'}>
+                <TextArea rows={3} placeholder={isAr ? 'إن وُجدت ملاحظات اكتبها هنا' : 'Write notes if any'} />
               </Form.Item>
               <Form.Item name="deadlineDays" label={isAr ? 'المهلة (أيام)' : 'Deadline (days)'}>
                 <Select options={[7, 10, 14].map(v => ({ value: v, label: v }))} />

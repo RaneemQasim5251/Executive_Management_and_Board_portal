@@ -85,6 +85,16 @@ export class BoardMarkService {
           `وكُلِّفت ${manual?.committee || '[الإدارة/اللجنة]'} بما يأتي: ${manual?.tasksResponsibilities || '[المهام والمسؤوليات، مع تحديد الجهة والمسؤول والمدة الزمنية ومؤشرات الأداء]'}`
         );
       }
+      // Voting outcome and notes
+      const vote = manual?.voteOutcome || 'بالإجماع';
+      const notesPresence = (manual?.notesText && manual.notesText.trim().length > 0) ? 'مع' : (manual?.notesChoice || 'دون');
+      out = out.replaceAll('[بالإجماع/بالأغلبية]', vote);
+      out = out.replaceAll('[بالإجماع/بالأغلبية] ', `${vote} `);
+      out = out.replaceAll('[مع/دون]', notesPresence);
+      // If notes text exists, append it right after the placeholder phrase
+      if (notesPresence === 'مع' && manual?.notesText) {
+        out = out.replace('ملاحظات،', `ملاحظات: ${manual.notesText}،`);
+      }
       return out;
     };
 

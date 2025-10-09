@@ -58,6 +58,10 @@ export interface CreateResolutionInput {
   tasksResponsibilities?: string; // replaces long placeholder text for tasks
   // Dynamic agenda items list
   agendaItemsList?: string[];
+  // Voting and notes placeholders
+  voteOutcome?: 'بالإجماع' | 'بالأغلبية'; // [بالإجماع/بالأغلبية]
+  notesChoice?: 'مع' | 'دون';              // [مع/دون] ملاحظات
+  notesText?: string;                       // optional actual notes text
 }
 
 export interface SignRequest {
