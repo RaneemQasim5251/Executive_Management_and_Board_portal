@@ -33,9 +33,11 @@ export class BoardMarkService {
         const raw = localStorage.getItem(this.SESSION_SEQ_KEY);
         const next = (raw ? parseInt(raw, 10) : 0) + 1;
         localStorage.setItem(this.SESSION_SEQ_KEY, `${next}`);
-        return `${next}`;
+        // Zero-pad to at least 2 digits: 01, 02, ... 10, 11, ...
+        return `${next}`.padStart(2, '0');
       } catch {
-        return `${Math.floor(Date.now() / 1000)}`; // fallback
+        // Fallback: start from 01 when storage not available
+        return '01';
       }
     };
     const buildAutoContext = (meetingDateIso: string, overrides?: Partial<CreateResolutionInput>) => {
