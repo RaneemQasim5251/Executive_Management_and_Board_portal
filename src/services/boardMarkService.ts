@@ -48,7 +48,20 @@ export class BoardMarkService {
       const hijriDate = overrides?.hijriOverride || new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
       const time = overrides?.timeOverride || `${formatTwo(d.getHours())}:${formatTwo(d.getMinutes())}`;
       const sessionNumber = overrides?.sessionNumberOverride || getNextSessionNumber();
-      return { fiscalYear, dayName, gregDate, hijriDate, time, sessionNumber };
+      // Derive previous session number and date if not provided
+      let prevSessionNumber: string | undefined = overrides?.previousSessionNumber;
+      if (!prevSessionNumber) {
+        const n = parseInt(sessionNumber, 10);
+        const prev = Math.max(1, isNaN(n) ? 1 : n - 1);
+        prevSessionNumber = `${prev}`.padStart(2, '0');
+      }
+      let prevGregDate: string | undefined = overrides?.previousSessionDate;
+      if (!prevGregDate) {
+        const prevDate = new Date(d.getTime());
+        prevDate.setDate(prevDate.getDate() - 7);
+        prevGregDate = new Intl.DateTimeFormat('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' }).format(prevDate);
+      }
+      return { fiscalYear, dayName, gregDate, hijriDate, time, sessionNumber, prevSessionNumber, prevGregDate };
     };
     const applyAutoPlaceholders = (template: string, meetingDateIso: string, manual?: Partial<CreateResolutionInput>): string => {
       const ctx = buildAutoContext(meetingDateIso, manual);
@@ -65,8 +78,8 @@ export class BoardMarkService {
       if (manual?.presidentName) out = out.replaceAll('[اسم الرئيس]', manual.presidentName);
       if (manual?.attendees) out = out.replaceAll('[الأسماء]', manual.attendees);
       if (manual?.absentees) out = out.replaceAll('[الأسماء إن وُجدت]', manual.absentees);
-      if (manual?.previousSessionNumber) out = out.replaceAll('[رقم الجلسة السابقة]', manual.previousSessionNumber);
-      if (manual?.previousSessionDate) out = out.replaceAll('[تاريخه]', manual.previousSessionDate);
+      out = out.replaceAll('[رقم الجلسة السابقة]', manual?.previousSessionNumber || ctx.prevSessionNumber || '[رقم الجلسة السابقة]');
+      out = out.replaceAll('[تاريخه]', manual?.previousSessionDate || ctx.prevGregDate || '[تاريخه]');
       if (manual?.agendaItems) out = out.replaceAll('بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:', manual.agendaItems);
       if (Array.isArray(manual?.agendaItemsList) && manual!.agendaItemsList!.length > 0) {
         const items = manual!.agendaItemsList!.map((it, idx) => `• ${it}`).join('\n');
