@@ -80,15 +80,20 @@ export class BoardMarkService {
       if (manual?.absentees) out = out.replaceAll('[الأسماء إن وُجدت]', manual.absentees);
       out = out.replaceAll('[رقم الجلسة السابقة]', manual?.previousSessionNumber || ctx.prevSessionNumber || '[رقم الجلسة السابقة]');
       out = out.replaceAll('[تاريخه]', manual?.previousSessionDate || ctx.prevGregDate || '[تاريخه]');
-      if (manual?.agendaItems) out = out.replaceAll('بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:', manual.agendaItems);
+      if (manual?.agendaItems) {
+        out = out.replaceAll('بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:', manual.agendaItems);
+      }
       if (Array.isArray(manual?.agendaItemsList) && manual!.agendaItemsList!.length > 0) {
-        const items = manual!.agendaItemsList!.map((it, idx) => `• ${it}`).join('\n');
-        // Replace numbered placeholders if present
-        out = out
-          .replaceAll('[البند الأول]', manual!.agendaItemsList![0] || '[البند الأول]')
-          .replaceAll('[البند الثاني]', manual!.agendaItemsList![1] || '[البند الثاني]');
-        // Append remaining items after the agenda line if more than two
-        if (manual!.agendaItemsList!.length > 2) {
+        const list = manual!.agendaItemsList!;
+        const hasFirst = out.includes('[البند الأول]');
+        const hasSecond = out.includes('[البند الثاني]');
+        if (hasFirst || hasSecond) {
+          // Replace placeholders only; do NOT append extra list
+          if (hasFirst) out = out.replaceAll('[البند الأول]', list[0] || '[البند الأول]');
+          if (hasSecond) out = out.replaceAll('[البند الثاني]', list[1] || '[البند الثاني]');
+        } else {
+          // No placeholders: inject a single bulleted list after the agenda intro line
+          const items = list.map((it) => `• ${it}`).join('\n');
           out = out.replace('بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:', `بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:\n${items}`);
         }
       }
@@ -117,6 +122,20 @@ export class BoardMarkService {
       { id: `SIG-${Date.now()}-2`, name: "Khalid Hezam Al-Qahtani", email: "vicechair@aljeri.com", jobTitle: "Vice Chairman" },
       { id: `SIG-${Date.now()}-3`, name: "Hezam Z. Al-Qahtani", email: "chairman@aljeri.com", jobTitle: "Chairman" },
     ];
+    // Generate a single fixed session number per resolution to avoid mismatch across sections
+    const fixedSessionNumber = ((): string => {
+      if (input.sessionNumberOverride) return input.sessionNumberOverride;
+      try {
+        const raw = localStorage.getItem(this.SESSION_SEQ_KEY);
+        const next = (raw ? parseInt(raw, 10) : 0) + 1;
+        localStorage.setItem(this.SESSION_SEQ_KEY, `${next}`);
+        return `${next}`.padStart(2, '0');
+      } catch {
+        return '01';
+      }
+    })();
+    const manualOverride: Partial<CreateResolutionInput> = { ...input, sessionNumberOverride: fixedSessionNumber };
+
     if (USE_SUPABASE) {
       try {
       // Create in Supabase (real mode)
@@ -140,7 +159,7 @@ export class BoardMarkService {
 
 ثم تلي محضرُ الجلسة السابقة رقم [رقم الجلسة السابقة] المؤرخ في [تاريخه]، وبعد المداولة أُقِرَّ [بالإجماع/بالأغلبية] [مع/دون] ملاحظات.
 
-بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate, input),
+بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate, manualOverride),
         dabaja_text_en: "Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:",
         preamble_ar: applyAutoPlaceholders(`[البند الأول]،
 
@@ -156,7 +175,7 @@ export class BoardMarkService {
 
 اعتمد الحاضرون محتوى هذا المحضر ووقَّعوا عليه توقيعًا إلكترونيًا موثَّقًا عبر بوابة مجلس الإدارة بتاريخ [التاريخ]، الساعة [الوقت]،
 
-وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate, input),
+وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate, manualOverride),
         preamble_en: "The matter was discussed and the Board resolved as follows:",
         barcode_data: id,
       } as any;
@@ -237,7 +256,7 @@ export class BoardMarkService {
 
 ثم تلي محضرُ الجلسة السابقة رقم [رقم الجلسة السابقة] المؤرخ في [تاريخه]، وبعد المداولة أُقِرَّ [بالإجماع/بالأغلبية] [مع/دون] ملاحظات.
 
-بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate, input),
+بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate, manualOverride),
         dabajaTextEn: "Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:",
         preambleAr: applyAutoPlaceholders(`[البند الأول]،
 
@@ -253,7 +272,7 @@ export class BoardMarkService {
 
 اعتمد الحاضرون محتوى هذا المحضر ووقَّعوا عليه توقيعًا إلكترونيًا موثَّقًا عبر بوابة مجلس الإدارة بتاريخ [التاريخ]، الساعة [الوقت]،
 
-وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate, input),
+وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate, manualOverride),
         preambleEn: "The matter was discussed and the Board resolved as follows:",
         signatories,
         barcodeData: id,
