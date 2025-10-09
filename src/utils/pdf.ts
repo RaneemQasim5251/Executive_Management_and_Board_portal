@@ -166,9 +166,10 @@ export async function generateResolutionPDF(resolution: BoardResolution, locale:
     } else {
       console.error('Canvas is empty, using fallback');
       // Fallback to English text
-      doc.setFontSize(16);
-      doc.setTextColor(12, 8, 92);
-      doc.text('Board Resolution Record', pageWidth / 2, 64, { align: 'center' });
+    doc.setFontSize(16);
+    doc.setTextColor(12, 8, 92);
+    // Header for English stays generic; Arabic header already shows session number inside text
+    doc.text('Board Resolution Record', pageWidth / 2, 64, { align: 'center' });
       
       doc.setFontSize(12);
       doc.setTextColor(0, 0, 0);
