@@ -49,6 +49,13 @@ export interface CreateResolutionInput {
   gregOverride?: string;          // [التاريخ الميلادي]
   hijriOverride?: string;         // [التاريخ الهجري]
   timeOverride?: string;          // [الوقت]
+  // Previous session context
+  previousSessionNumber?: string; // [رقم الجلسة السابقة]
+  previousSessionDate?: string;   // [تاريخه]
+  // Agenda and responsibilities
+  agendaItems?: string;           // secretary-written agenda items (optional)
+  committee?: string;             // [الإدارة/اللجنة]
+  tasksResponsibilities?: string; // replaces long placeholder text for tasks
 }
 
 export interface SignRequest {

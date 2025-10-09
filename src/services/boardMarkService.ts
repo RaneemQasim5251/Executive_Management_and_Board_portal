@@ -63,6 +63,15 @@ export class BoardMarkService {
       if (manual?.presidentName) out = out.replaceAll('[اسم الرئيس]', manual.presidentName);
       if (manual?.attendees) out = out.replaceAll('[الأسماء]', manual.attendees);
       if (manual?.absentees) out = out.replaceAll('[الأسماء إن وُجدت]', manual.absentees);
+      if (manual?.previousSessionNumber) out = out.replaceAll('[رقم الجلسة السابقة]', manual.previousSessionNumber);
+      if (manual?.previousSessionDate) out = out.replaceAll('[تاريخه]', manual.previousSessionDate);
+      if (manual?.agendaItems) out = out.replaceAll('بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:', manual.agendaItems);
+      if (manual?.committee || manual?.tasksResponsibilities) {
+        out = out.replace(
+          /وكُلِّفت \[الإدارة\/اللجنة\] بما يأتي: \[المهام والمسؤوليات، مع تحديد الجهة والمسؤول والمدة الزمنية ومؤشرات الأداء\]/g,
+          `وكُلِّفت ${manual?.committee || '[الإدارة/اللجنة]'} بما يأتي: ${manual?.tasksResponsibilities || '[المهام والمسؤوليات، مع تحديد الجهة والمسؤول والمدة الزمنية ومؤشرات الأداء]'}`
+        );
+      }
       return out;
     };
 

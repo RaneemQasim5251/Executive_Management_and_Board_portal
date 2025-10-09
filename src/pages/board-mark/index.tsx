@@ -141,6 +141,8 @@ export const BoardMarkPage: FC = () => {
         deadlineDays: values.deadlineDays,
         meetingLocation: values.meetingLocation,
         presidentName: values.presidentName,
+        previousSessionNumber: values.previousSessionNumber,
+        previousSessionDate: values.previousSessionDate,
         attendees: values.attendees,
         absentees: values.absentees,
         sessionNumberOverride: values.sessionNumberOverride,
@@ -148,6 +150,8 @@ export const BoardMarkPage: FC = () => {
         gregOverride: values.gregOverride,
         hijriOverride: values.hijriOverride,
         timeOverride: values.timeOverride,
+        committee: values.committee,
+        tasksResponsibilities: values.tasksResponsibilities,
       };
       setLoading(true);
       await boardMarkService.createResolution(payload);
@@ -237,11 +241,33 @@ export const BoardMarkPage: FC = () => {
               <Form.Item name="presidentName" label={isAr ? 'اسم رئيس الجلسة' : 'Session President Name'}>
                 <Input placeholder={isAr ? 'اسم الرئيس' : 'President name'} />
               </Form.Item>
+              <Form.Item name="previousSessionNumber" label={isAr ? 'رقم الجلسة السابقة' : 'Previous Session Number'}>
+                <Input placeholder={isAr ? 'مثال: 12' : 'e.g., 12'} />
+              </Form.Item>
+              <Form.Item name="previousSessionDate" label={isAr ? 'تاريخ الجلسة السابقة' : 'Previous Session Date'}>
+                <Input placeholder={isAr ? 'مثال: 10 رمضان 1446هـ / 20 مارس 2025م' : 'e.g., 20 Mar 2025'} />
+              </Form.Item>
               <Form.Item name="attendees" label={isAr ? 'أسماء الحضور' : 'Attendees Names'}>
                 <TextArea rows={3} placeholder={isAr ? 'اكتب أسماء الحضور مفصولة بفواصل' : 'Comma-separated attendees'} />
               </Form.Item>
               <Form.Item name="absentees" label={isAr ? 'الاعتذار/الغياب' : 'Absent / Excused'}>
                 <TextArea rows={2} placeholder={isAr ? 'إن وجد' : 'If any'} />
+              </Form.Item>
+              <Form.Item name="committee" label={isAr ? 'الإدارة/اللجنة' : 'Department/Committee'}>
+                <Select
+                  placeholder={isAr ? 'اختر الجهة المكلفة' : 'Select responsible body'}
+                  options={[
+                    { value: 'الإدارة التنفيذية', label: isAr ? 'الإدارة التنفيذية' : 'Executive Management' },
+                    { value: 'لجنة المراجعة', label: isAr ? 'لجنة المراجعة' : 'Audit Committee' },
+                    { value: 'لجنة المخاطر', label: isAr ? 'لجنة المخاطر' : 'Risk Committee' },
+                    { value: 'لجنة الترشيحات والمكافآت', label: isAr ? 'لجنة الترشيحات والمكافآت' : 'Nomination & Remuneration' },
+                    { value: 'لجنة الاستثمار', label: isAr ? 'لجنة الاستثمار' : 'Investment Committee' },
+                  ]}
+                  allowClear
+                />
+              </Form.Item>
+              <Form.Item name="tasksResponsibilities" label={isAr ? 'المهام والمسؤوليات' : 'Tasks & Responsibilities'}>
+                <TextArea rows={3} placeholder={isAr ? 'حدد المهام والمسؤوليات والمدة الزمنية ومؤشرات الأداء' : 'Define tasks, owner, timeline, KPIs'} />
               </Form.Item>
               {/* Optional overrides for auto fields */}
               <Form.Item name="sessionNumberOverride" label={isAr ? 'رقم الجلسة (اختياري)' : 'Session Number (optional)'}>
