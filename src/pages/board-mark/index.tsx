@@ -145,6 +145,7 @@ export const BoardMarkPage: FC = () => {
         previousSessionDate: values.previousSessionDate,
         attendees: values.attendees,
         absentees: values.absentees,
+        agendaItemsList: values.agendaItemsList,
         sessionNumberOverride: values.sessionNumberOverride,
         fiscalYearOverride: values.fiscalYearOverride,
         gregOverride: values.gregOverride,
@@ -269,6 +270,30 @@ export const BoardMarkPage: FC = () => {
               <Form.Item name="tasksResponsibilities" label={isAr ? 'المهام والمسؤوليات' : 'Tasks & Responsibilities'}>
                 <TextArea rows={3} placeholder={isAr ? 'حدد المهام والمسؤوليات والمدة الزمنية ومؤشرات الأداء' : 'Define tasks, owner, timeline, KPIs'} />
               </Form.Item>
+              {/* Dynamic agenda items */}
+              <Form.List name="agendaItemsList">
+                {(fields, { add, remove }) => (
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                      <Text strong>{isAr ? 'بنود جدول الأعمال' : 'Agenda Items'}</Text>
+                      <Button onClick={() => add()}>{isAr ? 'إضافة بند +' : 'Add Item +'}</Button>
+                    </div>
+                    {fields.map((field, index) => (
+                      <Space key={field.key} align="baseline" style={{ display: 'flex', marginBottom: 8 }}>
+                        <Form.Item
+                          {...field}
+                          name={[field.name]}
+                          fieldKey={field.fieldKey}
+                          rules={[{ required: true, message: isAr ? 'أدخل نص البند' : 'Enter item text' }]}
+                        >
+                          <Input placeholder={isAr ? `البند ${index + 1}` : `Item ${index + 1}`} style={{ width: 300 }} />
+                        </Form.Item>
+                        <Button danger onClick={() => remove(field.name)}>{isAr ? 'حذف' : 'Remove'}</Button>
+                      </Space>
+                    ))}
+                  </div>
+                )}
+              </Form.List>
               {/* Optional overrides for auto fields */}
               <Form.Item name="sessionNumberOverride" label={isAr ? 'رقم الجلسة (اختياري)' : 'Session Number (optional)'}>
                 <Input placeholder={isAr ? 'اتركه فارغًا للتوليد التلقائي' : 'Leave empty for auto'} />

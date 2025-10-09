@@ -66,6 +66,17 @@ export class BoardMarkService {
       if (manual?.previousSessionNumber) out = out.replaceAll('[رقم الجلسة السابقة]', manual.previousSessionNumber);
       if (manual?.previousSessionDate) out = out.replaceAll('[تاريخه]', manual.previousSessionDate);
       if (manual?.agendaItems) out = out.replaceAll('بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:', manual.agendaItems);
+      if (Array.isArray(manual?.agendaItemsList) && manual!.agendaItemsList!.length > 0) {
+        const items = manual!.agendaItemsList!.map((it, idx) => `• ${it}`).join('\n');
+        // Replace numbered placeholders if present
+        out = out
+          .replaceAll('[البند الأول]', manual!.agendaItemsList![0] || '[البند الأول]')
+          .replaceAll('[البند الثاني]', manual!.agendaItemsList![1] || '[البند الثاني]');
+        // Append remaining items after the agenda line if more than two
+        if (manual!.agendaItemsList!.length > 2) {
+          out = out.replace('بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:', `بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:\n${items}`);
+        }
+      }
       if (manual?.committee || manual?.tasksResponsibilities) {
         out = out.replace(
           /وكُلِّفت \[الإدارة\/اللجنة\] بما يأتي: \[المهام والمسؤوليات، مع تحديد الجهة والمسؤول والمدة الزمنية ومؤشرات الأداء\]/g,

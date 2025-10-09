@@ -56,6 +56,8 @@ export interface CreateResolutionInput {
   agendaItems?: string;           // secretary-written agenda items (optional)
   committee?: string;             // [الإدارة/اللجنة]
   tasksResponsibilities?: string; // replaces long placeholder text for tasks
+  // Dynamic agenda items list
+  agendaItemsList?: string[];
 }
 
 export interface SignRequest {
