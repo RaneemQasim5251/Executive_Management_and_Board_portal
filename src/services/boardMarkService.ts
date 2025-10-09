@@ -38,19 +38,19 @@ export class BoardMarkService {
         return `${Math.floor(Date.now() / 1000)}`; // fallback
       }
     };
-    const buildAutoContext = (meetingDateIso: string) => {
+    const buildAutoContext = (meetingDateIso: string, overrides?: Partial<CreateResolutionInput>) => {
       const d = new Date(meetingDateIso);
-      const fiscalYear = d.getFullYear().toString();
+      const fiscalYear = overrides?.fiscalYearOverride || d.getFullYear().toString();
       const dayName = new Intl.DateTimeFormat('ar-SA', { weekday: 'long' }).format(d);
-      const gregDate = new Intl.DateTimeFormat('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
-      const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
-      const time = `${formatTwo(d.getHours())}:${formatTwo(d.getMinutes())}`;
-      const sessionNumber = getNextSessionNumber();
+      const gregDate = overrides?.gregOverride || new Intl.DateTimeFormat('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+      const hijriDate = overrides?.hijriOverride || new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+      const time = overrides?.timeOverride || `${formatTwo(d.getHours())}:${formatTwo(d.getMinutes())}`;
+      const sessionNumber = overrides?.sessionNumberOverride || getNextSessionNumber();
       return { fiscalYear, dayName, gregDate, hijriDate, time, sessionNumber };
     };
-    const applyAutoPlaceholders = (template: string, meetingDateIso: string): string => {
-      const ctx = buildAutoContext(meetingDateIso);
-      return template
+    const applyAutoPlaceholders = (template: string, meetingDateIso: string, manual?: Partial<CreateResolutionInput>): string => {
+      const ctx = buildAutoContext(meetingDateIso, manual);
+      let out = template
         .replaceAll('[رقم الجلسة]', ctx.sessionNumber)
         .replaceAll('[السنة المالية]', ctx.fiscalYear)
         .replaceAll('[اليوم]', ctx.dayName)
@@ -58,7 +58,12 @@ export class BoardMarkService {
         .replaceAll('[التاريخ الهجري]', ctx.hijriDate)
         .replaceAll('[الوقت]', ctx.time)
         .replaceAll('[التاريخ]', ctx.gregDate);
-      // Intentionally leave placeholders like [المكان/المدينة], [اسم الرئيس], [الأسماء] for secretary input
+      // Secretary-provided placeholders
+      if (manual?.meetingLocation) out = out.replaceAll('[المكان/المدينة]', manual.meetingLocation);
+      if (manual?.presidentName) out = out.replaceAll('[اسم الرئيس]', manual.presidentName);
+      if (manual?.attendees) out = out.replaceAll('[الأسماء]', manual.attendees);
+      if (manual?.absentees) out = out.replaceAll('[الأسماء إن وُجدت]', manual.absentees);
+      return out;
     };
 
     // Default demo signatories (meeting attendees)
@@ -90,7 +95,7 @@ export class BoardMarkService {
 
 ثم تلي محضرُ الجلسة السابقة رقم [رقم الجلسة السابقة] المؤرخ في [تاريخه]، وبعد المداولة أُقِرَّ [بالإجماع/بالأغلبية] [مع/دون] ملاحظات، على أن تُدرج الملاحظة التالية في السجل: [إن وُجدت].
 
-بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate),
+بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate, input),
         dabaja_text_en: "Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:",
         preamble_ar: applyAutoPlaceholders(`[البند الأول]،
 
@@ -106,7 +111,7 @@ export class BoardMarkService {
 
 اعتمد الحاضرون محتوى هذا المحضر ووقَّعوا عليه توقيعًا إلكترونيًا موثَّقًا عبر بوابة مجلس الإدارة بتاريخ [التاريخ]، الساعة [الوقت]،
 
-وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate),
+وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate, input),
         preamble_en: "The matter was discussed and the Board resolved as follows:",
         barcode_data: id,
       } as any;
@@ -187,7 +192,7 @@ export class BoardMarkService {
 
 ثم تلي محضرُ الجلسة السابقة رقم [رقم الجلسة السابقة] المؤرخ في [تاريخه]، وبعد المداولة أُقِرَّ [بالإجماع/بالأغلبية] [مع/دون] ملاحظات، على أن تُدرج الملاحظة التالية في السجل: [إن وُجدت].
 
-بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate),
+بعد ذلك استعرض المجلس جدول الأعمال على النحو الآتي:`, input.meetingDate, input),
         dabajaTextEn: "Board Minutes: Under the authority vested in the Board and in accordance with applicable laws and regulations, the following resolution was adopted:",
         preambleAr: applyAutoPlaceholders(`[البند الأول]،
 
@@ -203,7 +208,7 @@ export class BoardMarkService {
 
 اعتمد الحاضرون محتوى هذا المحضر ووقَّعوا عليه توقيعًا إلكترونيًا موثَّقًا عبر بوابة مجلس الإدارة بتاريخ [التاريخ]، الساعة [الوقت]،
 
-وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate),
+وتُعد هذه النسخة الإلكترونية الموقَّعة النسخة الأصلية الملزمة نظامًا، وأي نسخة مطبوعة عنها تُعد صورة لا تُغني عن الأصل.`, input.meetingDate, input),
         preambleEn: "The matter was discussed and the Board resolved as follows:",
         signatories,
         barcodeData: id,

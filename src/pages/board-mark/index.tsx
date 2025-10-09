@@ -139,6 +139,15 @@ export const BoardMarkPage: FC = () => {
         meetingDate: meetingDateIso,
         agreementDetails: values.agreementDetails,
         deadlineDays: values.deadlineDays,
+        meetingLocation: values.meetingLocation,
+        presidentName: values.presidentName,
+        attendees: values.attendees,
+        absentees: values.absentees,
+        sessionNumberOverride: values.sessionNumberOverride,
+        fiscalYearOverride: values.fiscalYearOverride,
+        gregOverride: values.gregOverride,
+        hijriOverride: values.hijriOverride,
+        timeOverride: values.timeOverride,
       };
       setLoading(true);
       await boardMarkService.createResolution(payload);
@@ -220,6 +229,35 @@ export const BoardMarkPage: FC = () => {
                   locale={arPickerLocale}
                   popupClassName={isAr ? 'ar-datepicker-fix' : undefined}
                 />
+              </Form.Item>
+              {/* Secretary-fillable placeholders */}
+              <Form.Item name="meetingLocation" label={isAr ? 'المكان/المدينة' : 'Location/City'}>
+                <Input placeholder={isAr ? 'مثال: الرياض - المقر الرئيسي' : 'e.g., Riyadh - HQ'} />
+              </Form.Item>
+              <Form.Item name="presidentName" label={isAr ? 'اسم رئيس الجلسة' : 'Session President Name'}>
+                <Input placeholder={isAr ? 'اسم الرئيس' : 'President name'} />
+              </Form.Item>
+              <Form.Item name="attendees" label={isAr ? 'أسماء الحضور' : 'Attendees Names'}>
+                <TextArea rows={3} placeholder={isAr ? 'اكتب أسماء الحضور مفصولة بفواصل' : 'Comma-separated attendees'} />
+              </Form.Item>
+              <Form.Item name="absentees" label={isAr ? 'الاعتذار/الغياب' : 'Absent / Excused'}>
+                <TextArea rows={2} placeholder={isAr ? 'إن وجد' : 'If any'} />
+              </Form.Item>
+              {/* Optional overrides for auto fields */}
+              <Form.Item name="sessionNumberOverride" label={isAr ? 'رقم الجلسة (اختياري)' : 'Session Number (optional)'}>
+                <Input placeholder={isAr ? 'اتركه فارغًا للتوليد التلقائي' : 'Leave empty for auto'} />
+              </Form.Item>
+              <Form.Item name="fiscalYearOverride" label={isAr ? 'السنة المالية (اختياري)' : 'Fiscal Year (optional)'}>
+                <Input placeholder={isAr ? 'اتركه فارغًا للتوليد التلقائي' : 'Leave empty for auto'} />
+              </Form.Item>
+              <Form.Item name="gregOverride" label={isAr ? 'التاريخ الميلادي (اختياري)' : 'Gregorian Date (optional)'}>
+                <Input placeholder={isAr ? 'اتركه فارغًا للتوليد التلقائي' : 'Leave empty for auto'} />
+              </Form.Item>
+              <Form.Item name="hijriOverride" label={isAr ? 'التاريخ الهجري (اختياري)' : 'Hijri Date (optional)'}>
+                <Input placeholder={isAr ? 'اتركه فارغًا للتوليد التلقائي' : 'Leave empty for auto'} />
+              </Form.Item>
+              <Form.Item name="timeOverride" label={isAr ? 'الوقت (اختياري)' : 'Time (optional)'}>
+                <Input placeholder={isAr ? 'اتركه فارغًا للتوليد التلقائي' : 'Leave empty for auto'} />
               </Form.Item>
               <Form.Item name="agreementDetails" label={isAr ? 'التفاصيل المتفق عليها' : 'Agreement Details'} rules={[{ required: true, min: 5 }]}> 
                 <TextArea rows={6} placeholder={isAr ? 'اكتب تفاصيل القرار هنا' : 'Write resolution details here'} />
