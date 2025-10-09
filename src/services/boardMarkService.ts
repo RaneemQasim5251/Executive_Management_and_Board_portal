@@ -64,8 +64,8 @@ export class BoardMarkService {
     // Default demo signatories (meeting attendees)
     const demoSignatories: Signatory[] = [
       { id: `SIG-${Date.now()}-1`, name: "Nader Al-Nasser", email: "gceo@aljeri.com", jobTitle: "GCEO" },
-      { id: `SIG-${Date.now()}-2", name: "Khalid Hezam Al-Qahtani", email: "vicechair@aljeri.com", jobTitle: "Vice Chairman" },
-      { id: `SIG-${Date.now()}-3", name: "Hezam Z. Al-Qahtani", email: "chairman@aljeri.com", jobTitle: "Chairman" },
+      { id: `SIG-${Date.now()}-2`, name: "Khalid Hezam Al-Qahtani", email: "vicechair@aljeri.com", jobTitle: "Vice Chairman" },
+      { id: `SIG-${Date.now()}-3`, name: "Hezam Z. Al-Qahtani", email: "chairman@aljeri.com", jobTitle: "Chairman" },
     ];
     if (USE_SUPABASE) {
       try {
