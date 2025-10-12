@@ -6,6 +6,7 @@ import "./utils/cleanWarnings";
 import "./i18n";
 import "./styles/bi-tokens.css";
 import "./styles/bookcase.css";
+import "./styles/mobile.css";
 
 // Initialize app - let i18next handle language detection completely
 console.log("🌍 Initializing Executive Portal...");

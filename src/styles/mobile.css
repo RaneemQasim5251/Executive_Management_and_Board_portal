@@ -1,0 +1,62 @@
+/* Mobile-first tweaks for iOS / small screens */
+:root{
+  --app-bg: #fff;
+  --app-foreground: #0f172a;
+  --safe-area-inset-top: env(safe-area-inset-top);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding-top: calc(var(--safe-area-inset-top, 0px));
+  background: var(--app-bg);
+  color: var(--app-foreground);
+  font-size: 16px;
+}
+
+/* Make main content full-bleed on small screens */
+#main-content {
+  padding: 12px !important;
+}
+
+/* Make Ant Design layout responsive for mobile */
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-layout-sider {
+  display: none !important; /* hide sider on mobile by default */
+}
+
+/* Mobile header adjustments */
+.ant-layout-header {
+  padding: 8px 12px !important;
+}
+
+/* Floating voice control button smaller on mobile */
+.voice-control-button {
+  right: 12px !important;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+/* Mobile friendly table and lists */
+.ant-table, .ant-list {
+  font-size: 14px;
+}
+
+/* Ensure modals and popovers fit mobile */
+.ant-modal {
+  margin: 12px !important;
+}
+
+/* Improve tap targets */
+.button, button, .ant-btn {
+  min-height: 40px;
+  padding: 8px 12px;
+}
