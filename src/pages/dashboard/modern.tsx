@@ -47,7 +47,6 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { QuickAccessPanel } from '../../components/QuickAccessPanel';
-import HeroVideo from "../../components/HeroVideo";
 
 const { Title, Text } = Typography;
 
@@ -213,84 +212,29 @@ export const ModernExecutiveDashboard: FC = () => {
           styles={{ body: { padding: "80px 60px" } }}
           className="hero-card"
         >
-          {/* Full-bleed background video */}
-          <HeroVideo fillParent />
 
           {/* Content Container */}
-          <div style={{ 
+          <div className="hero-content" style={{ 
             position: "relative", 
-            zIndex: 1, 
+            zIndex: 2, 
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
             textAlign: "center",
             direction: i18n.language === 'ar' ? "rtl" : "ltr" 
-          }}>            {/* SPECTACULAR Animated Logo */}
-            <motion.div
-              initial={{ scale: 0, rotate: -360, opacity: 0 }}
-              animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              transition={{ 
-                duration: 2.5, 
-                ease: [0.175, 0.885, 0.32, 1.275],
-                type: "spring",
-                stiffness: 80,
-                damping: 15
-              }}
-              whileHover={{ 
-                scale: 1.12,
-                rotate: [0, -3, 3, 0],
-                transition: { rotate: { duration: 0.6, repeat: Infinity } }
-              }}
-              className="logo-floating"
-              style={{ 
-                marginBottom: "32px",
-                position: "relative"
-              }}
-            >
-              
-              <img 
-                src="/aljeri-logo.png" 
-                alt="Al Jeri Logo" 
-                style={{ 
-                  height: "160px", 
-                  width: "auto",
-                  filter: "drop-shadow(0 15px 40px rgba(12, 8, 92, 0.4)) drop-shadow(0 0 20px rgba(0, 149, 206, 0.3))",
-                  transition: "all 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
-                  position: "relative",
-                  zIndex: 2
-                }} 
-                className={animateLogoOnce ? "logo-circle-once" : undefined}
-              />
-              
-              {/* Sparkle Effects */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 2 }}
-                style={{
-                  position: "absolute",
-                  top: "10%",
-                  right: "10%",
-                  width: "8px",
-                  height: "8px",
-                  background: "radial-gradient(circle, rgba(0, 149, 206, 1) 0%, transparent 70%)",
-                  borderRadius: "50%",
-                  boxShadow: "0 0 10px rgba(0, 149, 206, 0.8)"
-                }}
-              />
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 2.5 }}
-                style={{
-                  position: "absolute",
-                  bottom: "15%",
-                  left: "15%",
-                  width: "6px",
-                  height: "6px",
-                  background: "radial-gradient(circle, rgba(12, 8, 92, 1) 0%, transparent 70%)",
-                  borderRadius: "50%",
-                  boxShadow: "0 0 8px rgba(12, 8, 92, 0.8)"
-                }}
-              />
-            </motion.div>
+          }}>
+            {/* Overlay: logo, big title, subtitle - separated for easier styling */}
+            <div className="hero-overlay" style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8}}>
+              <div className="hero-logo-wrapper" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <img src="/aljeri-logo.png" alt="Al Jeri Logo" className="hero-logo" style={{height: 96}} />
+              </div>
+              <div className="hero-title-wrapper" style={{textAlign: 'center'}}>
+                <h1 className="hero-title" style={{margin: 0, color: '#fff', fontWeight: 900}}>{t('AL JERI')}</h1>
+                <div className="hero-subtitle" style={{color: 'rgba(255,255,255,0.95)'}}>{t('Executive Board Platform')}</div>
+              </div>
+            </div>
+            {/* decorative floating logo removed to avoid duplication; overlay logo remains */}
 
             {/* Brand Identity */}
             <motion.div
@@ -298,21 +242,7 @@ export const ModernExecutiveDashboard: FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
-              <Title 
-                level={1} 
-                style={{ 
-                  margin: "0 0 8px 0", 
-                  color: "#ffffff",
-                  fontSize: "32px",
-                  fontWeight: "900",
-                  letterSpacing: i18n.language === 'ar' ? "1px" : "0.5px",
-                  textAlign: "center",
-                  direction: i18n.language === 'ar' ? "rtl" : "ltr"
-                }}
-              >
-                {t('AL JERI')}
-              </Title>
-              
+              {/* main title moved into hero-overlay to avoid duplication */}
               <motion.div
                 initial={{ width: 0, opacity: 0 }}
                 animate={{ width: "220px", opacity: 1 }}
