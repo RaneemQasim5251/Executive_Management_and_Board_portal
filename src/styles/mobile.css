@@ -30,8 +30,9 @@ body {
   min-height: 100vh;
 }
 
+/* Sidebar should be visible on all screen sizes */
 .ant-layout-sider {
-  display: none !important; /* hide sider on mobile by default */
+  /* display: none !important; */ /* Removed - sidebar should be visible */
 }
 
 /* Mobile header adjustments */
