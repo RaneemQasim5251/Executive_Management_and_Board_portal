@@ -275,7 +275,7 @@ export const ModernExecutiveDashboard: FC = () => {
               
               <Text style={{ 
                 fontSize: "18px", 
-                color: "#e5e7eb", 
+                color: "#000000", 
                 fontWeight: "500",
                 lineHeight: "1.6",
                 textAlign: "center",
@@ -298,7 +298,7 @@ export const ModernExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Annual Revenue")}</span>}
+                title={<span style={{ color: "#000000" }}>{t("Annual Revenue")}</span>}
                 value={68.2}
                 precision={1}
                 valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
@@ -308,7 +308,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+12.5% vs last year')}</Text>
+                   <Text style={{ color: "#000000" }}>{T('+12.5% vs last year')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -332,7 +332,7 @@ export const ModernExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Active Projects")}</span>}
+                title={<span style={{ color: "#000000" }}>{t("Active Projects")}</span>}
                 value={24}
                 valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<ProjectOutlined />}
@@ -340,7 +340,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+3 new this quarter')}</Text>
+                   <Text style={{ color: "#000000" }}>{T('+3 new this quarter')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -364,7 +364,7 @@ export const ModernExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("dashboard.boardMembers")}</span>}
+                title={<span style={{ color: "#000000" }}>{t("dashboard.boardMembers")}</span>}
                 value={1247}
                 valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<TeamOutlined />}
@@ -372,7 +372,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+8.2% growth rate')}</Text>
+                   <Text style={{ color: "#000000" }}>{T('+8.2% growth rate')}</Text>
                 </div>
                 <Button 
                   type="link" 
@@ -396,7 +396,7 @@ export const ModernExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Success Rate")}</span>}
+                title={<span style={{ color: "#000000" }}>{t("Success Rate")}</span>}
                 value={94.2}
                 precision={1}
                 valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
@@ -406,7 +406,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+2.1% improvement')}</Text>
+                   <Text style={{ color: "#000000" }}>{T('+2.1% improvement')}</Text>
                 </div>
                 <Button 
                   type="link" 
