@@ -11,8 +11,6 @@ import {
   Avatar, 
   Tag, 
   Badge,
-  Dropdown,
-  MenuProps,
   Divider
 } from "antd";
 import {
@@ -20,18 +18,11 @@ import {
   DollarOutlined,
   ProjectOutlined,
   TrophyOutlined,
-  MoreOutlined,
-  EyeOutlined,
-  ShareAltOutlined,
-  DownloadOutlined,
   BellOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
-  FireOutlined,
   ThunderboltOutlined,
-  StarOutlined,
   ArrowUpOutlined,
-  RiseOutlined,
 } from "@ant-design/icons";
 import {
   Line,
@@ -88,7 +79,6 @@ export const ModernExecutiveDashboard: FC = () => {
   };
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [animateLogoOnce, setAnimateLogoOnce] = useState(true);
   
   // Force cache refresh with language check
   console.log("🌍 Current language:", i18n.language);
@@ -117,7 +107,7 @@ export const ModernExecutiveDashboard: FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200);
-    const logoTimer = setTimeout(() => setAnimateLogoOnce(false), 1000);
+    const logoTimer = setTimeout(() => {}, 1000);
     return () => { clearTimeout(timer); clearTimeout(logoTimer); };
   }, []);
 
@@ -151,11 +141,6 @@ export const ModernExecutiveDashboard: FC = () => {
     transition: "all 0.3s ease",
   };
 
-  const headerMenuItems: MenuProps['items'] = [
-    { key: 'export', icon: <DownloadOutlined />, label: t('Export Report') },
-    { key: 'share', icon: <ShareAltOutlined />, label: t('Share Dashboard') },
-    { key: 'view', icon: <EyeOutlined />, label: t('Full Screen') },
-  ];
 
   if (loading) {
     return (
@@ -230,8 +215,8 @@ export const ModernExecutiveDashboard: FC = () => {
                 <img src="/aljeri-logo.png" alt="Al Jeri Logo" className="hero-logo" style={{height: 96}} />
               </div>
               <div className="hero-title-wrapper" style={{textAlign: 'center'}}>
-                <h1 className="hero-title" style={{margin: 0, color: '#fff', fontWeight: 900}}>{t('AL JERI')}</h1>
-                <div className="hero-subtitle" style={{color: 'rgba(255,255,255,0.95)'}}>{t('Executive Board Platform')}</div>
+                <h1 className="hero-title" style={{margin: 0, color: '#000000', fontWeight: 900}}>{t('AL JERI')}</h1>
+                <div className="hero-subtitle" style={{color: '#333333'}}>{t('Executive Board Platform')}</div>
               </div>
             </div>
             {/* decorative floating logo removed to avoid duplication; overlay logo remains */}
@@ -278,7 +263,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 level={2} 
                 style={{ 
                   margin: "16px 0 8px 0", 
-                  color: "#ffffff",
+                  color: "#000000",
                   fontSize: "24px",
                   fontWeight: "700",
                   textAlign: "center",
@@ -316,7 +301,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Annual Revenue")}</span>}
                 value={68.2}
                 precision={1}
-                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
+                valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<DollarOutlined />}
                 suffix="M"
               />
@@ -330,7 +315,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   size="small"
                   onClick={() => navigate('/reports')}
                   style={{ 
-                    color: "white", 
+                    color: "#000000", 
                     fontWeight: 600,
                     padding: "4px 8px",
                     fontSize: "12px"
@@ -349,7 +334,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <Statistic
                 title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Active Projects")}</span>}
                 value={24}
-                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
+                valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<ProjectOutlined />}
               />
               <div className="trend-info">
@@ -362,7 +347,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   size="small"
                   onClick={() => navigate('/strategic-planning')}
                   style={{ 
-                    color: "white", 
+                    color: "#000000", 
                     fontWeight: 600,
                     padding: "4px 8px",
                     fontSize: "12px"
@@ -381,7 +366,7 @@ export const ModernExecutiveDashboard: FC = () => {
               <Statistic
                 title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("dashboard.boardMembers")}</span>}
                 value={1247}
-                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
+                valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<TeamOutlined />}
               />
               <div className="trend-info">
@@ -394,7 +379,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   size="small"
                   onClick={() => navigate('/my-meetings')}
                   style={{ 
-                    color: "white", 
+                    color: "#000000", 
                     fontWeight: 600,
                     padding: "4px 8px",
                     fontSize: "12px"
@@ -414,7 +399,7 @@ export const ModernExecutiveDashboard: FC = () => {
                 title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Success Rate")}</span>}
                 value={94.2}
                 precision={1}
-                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
+                valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<TrophyOutlined />}
                 suffix="%"
               />
@@ -428,7 +413,7 @@ export const ModernExecutiveDashboard: FC = () => {
                   size="small"
                   onClick={() => navigate('/enterprise-systems/kpis-erp')}
                   style={{ 
-                    color: "white", 
+                    color: "#000000", 
                     fontWeight: 600,
                     padding: "4px 8px",
                     fontSize: "12px"

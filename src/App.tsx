@@ -396,7 +396,7 @@ function App() {
                   element={
                     <ThemedLayoutV2
                       Header={() => <Header sticky />}
-                      Sider={(props) => <ThemedSiderV2 {...props} fixed width={600} collapsedWidth={80} />}
+                      Sider={(props) => <ThemedSiderV2 {...props} fixed />}
                     >
                       <main id="main-content" role="main" tabIndex={-1}>
                         <Outlet />
