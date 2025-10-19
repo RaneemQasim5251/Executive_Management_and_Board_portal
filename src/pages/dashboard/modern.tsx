@@ -298,24 +298,24 @@ export const ModernExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "#000000" }}>{t("Annual Revenue")}</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Annual Revenue")}</span>}
                 value={68.2}
                 precision={1}
-                valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
+                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<DollarOutlined />}
                 suffix="M"
               />
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "#000000" }}>{T('+12.5% vs last year')}</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+12.5% vs last year')}</Text>
                 </div>
                 <Button 
                   type="link" 
                   size="small"
                   onClick={() => navigate('/reports')}
                   style={{ 
-                    color: "#000000", 
+                    color: "white", 
                     fontWeight: 600,
                     padding: "4px 8px",
                     fontSize: "12px"
@@ -332,22 +332,22 @@ export const ModernExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "#000000" }}>{t("Active Projects")}</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Active Projects")}</span>}
                 value={24}
-                valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
+                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<ProjectOutlined />}
               />
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "#000000" }}>{T('+3 new this quarter')}</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+3 new this quarter')}</Text>
                 </div>
                 <Button 
                   type="link" 
                   size="small"
                   onClick={() => navigate('/strategic-planning')}
                   style={{ 
-                    color: "#000000", 
+                    color: "white", 
                     fontWeight: 600,
                     padding: "4px 8px",
                     fontSize: "12px"
@@ -364,22 +364,22 @@ export const ModernExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "#000000" }}>{t("dashboard.boardMembers")}</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("dashboard.boardMembers")}</span>}
                 value={1247}
-                valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
+                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<TeamOutlined />}
               />
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "#000000" }}>{T('+8.2% growth rate')}</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+8.2% growth rate')}</Text>
                 </div>
                 <Button 
                   type="link" 
                   size="small"
                   onClick={() => navigate('/my-meetings')}
                   style={{ 
-                    color: "#000000", 
+                    color: "white", 
                     fontWeight: 600,
                     padding: "4px 8px",
                     fontSize: "12px"
@@ -396,24 +396,24 @@ export const ModernExecutiveDashboard: FC = () => {
           <motion.div variants={itemVariants}>
             <Card className="kpi-card">
               <Statistic
-                title={<span style={{ color: "#000000" }}>{t("Success Rate")}</span>}
+                title={<span style={{ color: "rgba(255, 255, 255, 0.9)" }}>{t("Success Rate")}</span>}
                 value={94.2}
                 precision={1}
-                valueStyle={{ color: "#000000", fontSize: "2.5rem", fontWeight: 700 }}
+                valueStyle={{ color: "white", fontSize: "2.5rem", fontWeight: 700 }}
                 prefix={<TrophyOutlined />}
                 suffix="%"
               />
               <div className="trend-info">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <ArrowUpOutlined style={{ color: "#10b981", marginRight: "4px" }} />
-                   <Text style={{ color: "#000000" }}>{T('+2.1% improvement')}</Text>
+                   <Text style={{ color: "rgba(255, 255, 255, 0.8)" }}>{T('+2.1% improvement')}</Text>
                 </div>
                 <Button 
                   type="link" 
                   size="small"
                   onClick={() => navigate('/enterprise-systems/kpis-erp')}
                   style={{ 
-                    color: "#000000", 
+                    color: "white", 
                     fontWeight: 600,
                     padding: "4px 8px",
                     fontSize: "12px"
